@@ -1,0 +1,9 @@
+{
+  "passed": true,
+  "reference": "Sprite-Game-Forge-v25(1).zip / unchanged archived importSpriteZip",
+  "actions": 33,
+  "frames": 378,
+  "anchorAccepted": true,
+  "anchorFingerprint": "1ur826",
+  "boundary": "Actual JSZip and archived importer executed in Node with FileReader adaptation. Not a test of the current deployed importer."
+}

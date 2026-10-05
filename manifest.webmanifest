@@ -1,0 +1,17 @@
+{
+  "name": "The Critic: City Run / Brawler Edition",
+  "short_name": "City Brawler",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "landscape",
+  "theme_color": "#101b32",
+  "background_color": "#080e1d",
+  "icons": [
+    {
+      "src": "assets/icon.png",
+      "sizes": "256x256",
+      "type": "image/png"
+    }
+  ]
+}

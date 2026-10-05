@@ -1,0 +1,1496 @@
+{
+  "build": "The Critic: City Run v5.0.0",
+  "completedAtUTC": "2026-10-05T20:44:33.735736+00:00",
+  "passed": 269,
+  "failed": 0,
+  "suites": {
+    "engine-results.json": {
+      "tests": [
+        {
+          "name": "Movement accelerates continuously from partial to full analog deflection",
+          "passed": true,
+          "details": {
+            "partial": 55.1809395066914,
+            "full": 246.61181591026957
+          }
+        },
+        {
+          "name": "Depth movement stays within the pavement lane",
+          "passed": true
+        },
+        {
+          "name": "Releasing the pad decelerates without drift",
+          "passed": true
+        },
+        {
+          "name": "Jab > cross > kick > palm is an ordered, four-step held combo",
+          "passed": true,
+          "details": {
+            "moves": [
+              "jab",
+              "cross",
+              "kick",
+              "palm"
+            ],
+            "hits": 4,
+            "damage": 76
+          }
+        },
+        {
+          "name": "Repeated button edges advance the combo rather than restarting jab",
+          "passed": true
+        },
+        {
+          "name": "An attack damages a target only once per strike",
+          "passed": true
+        },
+        {
+          "name": "Enemies in another depth lane cannot be hit by a normal punch",
+          "passed": true
+        },
+        {
+          "name": "A normal strike does not hit behind the facing direction",
+          "passed": true
+        },
+        {
+          "name": "A combo tap is retained during hitstop",
+          "passed": true
+        },
+        {
+          "name": "Jump applies one physics arc and lands on its lane",
+          "passed": true,
+          "details": {
+            "apex": 98.32916666666665
+          }
+        },
+        {
+          "name": "Airborne attack selects the supplied kick and hits a nearby target",
+          "passed": true
+        },
+        {
+          "name": "Standing far outside the target lane cannot jump-kick it",
+          "passed": true
+        },
+        {
+          "name": "Guard blocks a frontal attack without health damage",
+          "passed": true
+        },
+        {
+          "name": "Guard does not block an attack from behind",
+          "passed": true
+        },
+        {
+          "name": "Precisely timed guard parries and arms the two-palm counter",
+          "passed": true
+        },
+        {
+          "name": "Move plus guard slips and can cancel into a rising elbow",
+          "passed": true
+        },
+        {
+          "name": "Full-deflection sprint attack uses charge entry then standing rush punch",
+          "passed": true
+        },
+        {
+          "name": "Special cannot fire without a full meter",
+          "passed": true
+        },
+        {
+          "name": "Full review executes backfist, low chamber and rising-palm finisher",
+          "passed": true,
+          "details": {
+            "moves": [
+              "spin",
+              "specialWind",
+              "specialPalm"
+            ]
+          }
+        },
+        {
+          "name": "Cosmetic gestures cancel immediately on movement",
+          "passed": true
+        },
+        {
+          "name": "Cosmetic gestures cannot delay an attack",
+          "passed": true
+        },
+        {
+          "name": "Enemy telegraphs precede active hits",
+          "passed": true
+        },
+        {
+          "name": "Damage grants a grace window against immediate stun-lock",
+          "passed": true
+        },
+        {
+          "name": "Pause freezes physics and resume retains the scene",
+          "passed": true
+        },
+        {
+          "name": "Breakable prop drops a health pickup",
+          "passed": true
+        },
+        {
+          "name": "A nearby pickup restores health and disappears once",
+          "passed": true
+        },
+        {
+          "name": "Checkpoint snapshots restore stage and cleared encounter only",
+          "passed": true
+        },
+        {
+          "name": "Zero health causes life loss then checkpoint recovery, not a stuck corpse",
+          "passed": true
+        },
+        {
+          "name": "Last life reaches game-over and retry restores three lives",
+          "passed": true
+        },
+        {
+          "name": "A normal-input driver clears all 12 fights plus Franklin and reaches the finale",
+          "passed": true,
+          "details": {
+            "seconds": 129.6416666667131,
+            "ticks": 16473,
+            "retries": 0,
+            "stages": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "kos": 40,
+            "bestCombo": 23,
+            "animations": [
+              "idle",
+              "run",
+              "walk",
+              "jab",
+              "jab-impact",
+              "cross",
+              "cross-impact",
+              "front-kick",
+              "palm-strike",
+              "spinning-backfist",
+              "low-finisher-windup",
+              "rising-palm-impact",
+              "guard-enter",
+              "guard",
+              "exerted-guard"
+            ]
+          }
+        },
+        {
+          "name": "Jump-kick active contact retimes to the extended-foot source pose",
+          "passed": true,
+          "details": {
+            "sourceFraction": 0.58
+          }
+        }
+      ],
+      "passed": 31,
+      "failed": 0
+    },
+    "franklin-results.json": {
+      "tests": [
+        {
+          "name": "Shermometers dominate every stage and at least two thirds of the regular roster",
+          "passed": true,
+          "details": {
+            "shermometers": 29,
+            "regularEnemies": 39,
+            "share": 0.7435897435897436
+          }
+        },
+        {
+          "name": "All three Shermometer types and both new guest enemies occur in the campaign",
+          "passed": true
+        },
+        {
+          "name": "Franklin and legacy Elder never appear as ordinary wave enemies",
+          "passed": true
+        },
+        {
+          "name": "Hero combo damage, reach, timing, and chain are byte-identical to v2 definitions",
+          "passed": true
+        },
+        {
+          "name": "Franklin cannot be selected before being unlocked",
+          "passed": true
+        },
+        {
+          "name": "Franklin becomes playable without replacing the original player",
+          "passed": true
+        },
+        {
+          "name": "The final regular wave must be cleared before Franklin appears",
+          "passed": true
+        },
+        {
+          "name": "Living regular enemies prevent an early boss entrance",
+          "passed": true
+        },
+        {
+          "name": "The boss entrance happens only once, not every empty-frame update",
+          "passed": true
+        },
+        {
+          "name": "Stage 4 cannot complete or unlock Franklin by walking past an undefeated boss",
+          "passed": true
+        },
+        {
+          "name": "Boss defeat alone does not award the playable character before the exit",
+          "passed": true
+        },
+        {
+          "name": "Death-free Stage 4 plus boss defeat and exit awards Franklin exactly once",
+          "passed": true
+        },
+        {
+          "name": "Deaths in Stages 1-3 do not disqualify a death-free fourth stage",
+          "passed": true
+        },
+        {
+          "name": "One Stage 4 death disqualifies the run even when Franklin is defeated",
+          "passed": true
+        },
+        {
+          "name": "Death is counted once across the entire death animation",
+          "passed": true
+        },
+        {
+          "name": "Death disqualification is written immediately to the last checkpoint",
+          "passed": true
+        },
+        {
+          "name": "Checkpoint retry with replenished lives does not erase Stage 4 deaths",
+          "passed": true
+        },
+        {
+          "name": "Reloading a serialized failed checkpoint does not erase disqualification",
+          "passed": true
+        },
+        {
+          "name": "Restart Stage 4 offers a fresh legitimate unlock attempt from its beginning",
+          "passed": true
+        },
+        {
+          "name": "Already-unlocked Franklin survives failed replays and New Game",
+          "passed": true
+        },
+        {
+          "name": "Old v2 Stage 4 clear checkpoints cannot skip the newly added boss",
+          "passed": true
+        },
+        {
+          "name": "Old v2 checkpoints before Stage 4 retain progress and qualify after entering Stage 4",
+          "passed": true
+        },
+        {
+          "name": "Franklin uses the unchanged four-link attack and air-kick input paths",
+          "passed": true
+        },
+        {
+          "name": "Every Franklin mapping resolves to an actual new animation without falling back to the old Elder",
+          "passed": true
+        },
+        {
+          "name": "Boss attacks telegraph before damage and expose recovery",
+          "passed": true
+        },
+        {
+          "name": "Boss has five distinct source-derived physical attacks",
+          "passed": true
+        }
+      ],
+      "passed": 26,
+      "failed": 0
+    },
+    "v4-engine-results.json": {
+      "tests": [
+        {
+          "name": "Lethal airborne states continue gravity to the pavement",
+          "passed": true
+        },
+        {
+          "name": "A fatal fall does not teleport straight to ground on the first tick",
+          "passed": true
+        },
+        {
+          "name": "The clear screen freezes combat and preserves outgoing stage",
+          "passed": true
+        },
+        {
+          "name": "Continue completes the district transition exactly once",
+          "passed": true
+        },
+        {
+          "name": "Wave spawn composition remains 39 regular enemies, 29 Shermometers",
+          "passed": true
+        },
+        {
+          "name": "Ordinary arrivals start outside the actual viewport for narrow and wide views",
+          "passed": true
+        },
+        {
+          "name": "Hidden arrivals cannot be hit or clear their encounter prematurely",
+          "passed": true
+        },
+        {
+          "name": "Sewer emergence is shared by all variants without new damage mechanics",
+          "passed": true
+        },
+        {
+          "name": "Every ordinary entrant finishes its entry in a bounded interval",
+          "passed": true
+        },
+        {
+          "name": "Franklin boss arrives physically before the taunt and combat",
+          "passed": true
+        },
+        {
+          "name": "Franklin player receives the existing Slam Shermometer instead of himself",
+          "passed": true
+        },
+        {
+          "name": "Alternate boss defeat completes the run without a second unlock award",
+          "passed": true
+        },
+        {
+          "name": "Selected-player route survives serialized Continue and checkpoint retry",
+          "passed": true
+        },
+        {
+          "name": "Jump/air art changes do not change HITS constants or analog input class",
+          "passed": true
+        },
+        {
+          "name": "Franklin route remains completable using normal combat inputs",
+          "passed": true,
+          "details": {
+            "seconds": 129.65833333337974,
+            "retries": 0,
+            "kos": 40
+          }
+        }
+      ],
+      "passed": 15,
+      "failed": 0
+    },
+    "gamepad-results.json": {
+      "tests": [
+        {
+          "name": "Optional support defaults OFF and leaves input neutral",
+          "passed": true
+        },
+        {
+          "name": "Sparse array and nonzero device index are supported",
+          "passed": true
+        },
+        {
+          "name": "Radial dead zone suppresses drift",
+          "passed": true
+        },
+        {
+          "name": "Partial stick deflection is slower than full deflection",
+          "passed": true
+        },
+        {
+          "name": "Diagonal stick magnitude is limited to one",
+          "passed": true
+        },
+        {
+          "name": "Standard D-pad drives both street axes",
+          "passed": true
+        },
+        {
+          "name": "Standard face button defaults and optional LB guard",
+          "passed": true
+        },
+        {
+          "name": "Pressed edges survive polling until consumed once",
+          "passed": true
+        },
+        {
+          "name": "Button release never generates another attack edge",
+          "passed": true
+        },
+        {
+          "name": "New press generates a new edge",
+          "passed": true
+        },
+        {
+          "name": "Pause/menu transitions suppress held controls until neutral",
+          "passed": true
+        },
+        {
+          "name": "Connecting with held buttons does not immediately fire",
+          "passed": true
+        },
+        {
+          "name": "Disconnect releases all inputs and notifies once",
+          "passed": true
+        },
+        {
+          "name": "Controller selection reads only the selected controller",
+          "passed": true
+        },
+        {
+          "name": "Device replacement at same index does not reuse wrong mapping",
+          "passed": true
+        },
+        {
+          "name": "Nonstandard controllers require explicit mapping",
+          "passed": true
+        },
+        {
+          "name": "SecurityError falls back to neutral rather than crashing",
+          "passed": true
+        },
+        {
+          "name": "Missing Gamepad API leaves touch/keyboard path available",
+          "passed": true
+        },
+        {
+          "name": "Malformed storage and denied storage do not crash",
+          "passed": true
+        },
+        {
+          "name": "Persisted configuration is bounded and validated",
+          "passed": true
+        },
+        {
+          "name": "Mapping cancel does not overwrite saved mapping",
+          "passed": true
+        },
+        {
+          "name": "Nonstandard mapping wizard captures and persists the complete layout",
+          "passed": true
+        },
+        {
+          "name": "Hat-value directional mapping can be evaluated",
+          "passed": true
+        },
+        {
+          "name": "Reset nonstandard profile requests mapping, not guessed buttons",
+          "passed": true
+        },
+        {
+          "name": "NaN axes and short button arrays produce finite input",
+          "passed": true
+        },
+        {
+          "name": "Profiles include identity, reported layout and device shape",
+          "passed": true
+        },
+        {
+          "name": "Unsafe mapping indices and malformed bindings are rejected",
+          "passed": true
+        }
+      ],
+      "passed": 27,
+      "failed": 0,
+      "boundary": "Deterministic API fixtures, not a physical Logitech hardware test."
+    },
+    "gamepad-chromium-results.json": {
+      "engine": "chromium",
+      "browserVersion": "144.0.7559.96",
+      "tests": [
+        {
+          "name": "Controller module and all existing atlases load",
+          "passed": true,
+          "details": null
+        },
+        {
+          "name": "Controller defaults off without hiding touch controls",
+          "passed": true,
+          "details": null
+        },
+        {
+          "name": "Browser-reported standard layout is recognized",
+          "passed": true,
+          "details": null
+        },
+        {
+          "name": "Controller status identifies the connected device",
+          "passed": true,
+          "details": null
+        },
+        {
+          "name": "Controller Start begins the game from title",
+          "passed": true,
+          "details": null
+        },
+        {
+          "name": "Start does not also jump or attack",
+          "passed": true,
+          "details": null
+        },
+        {
+          "name": "Stick has graduated walk/run response",
+          "passed": true,
+          "details": {
+            "partial": 0.37029663446507094
+          }
+        },
+        {
+          "name": "Stick release returns to zero",
+          "passed": true,
+          "details": null
+        },
+        {
+          "name": "Centered stick noise is rejected",
+          "passed": true,
+          "details": null
+        },
+        {
+          "name": "D-pad moves along street depth",
+          "passed": true,
+          "details": null
+        },
+        {
+          "name": "West face button enters jab",
+          "passed": true,
+          "details": null
+        },
+        {
+          "name": "Held attack advances combo without repeated edges",
+          "passed": true,
+          "details": null
+        },
+        {
+          "name": "Jump plus attack selects the dedicated airborne kick",
+          "passed": true,
+          "details": {
+            "z": 59.05833333333334,
+            "action": "air"
+          }
+        },
+        {
+          "name": "East face button holds guard",
+          "passed": true,
+          "details": null
+        },
+        {
+          "name": "North face button triggers existing Review",
+          "passed": true,
+          "details": null
+        },
+        {
+          "name": "Start pauses rather than repeatedly toggling",
+          "passed": true,
+          "details": null
+        },
+        {
+          "name": "Held Start resumes only once",
+          "passed": true,
+          "details": null
+        },
+        {
+          "name": "Disconnect pauses and releases pad input",
+          "passed": true,
+          "details": null
+        },
+        {
+          "name": "Keyboard remains playable after controller disconnect",
+          "passed": true,
+          "details": null
+        },
+        {
+          "name": "Releasing physical HIT does not release touch HIT",
+          "passed": true,
+          "details": null
+        },
+        {
+          "name": "Independent touch release clears the last HIT owner",
+          "passed": true,
+          "details": null
+        },
+        {
+          "name": "Focus loss pauses and suppresses held movement",
+          "passed": true,
+          "details": null
+        },
+        {
+          "name": "Held stick does not immediately run after resume",
+          "passed": true,
+          "details": null
+        },
+        {
+          "name": "Neutral-then-move restores control",
+          "passed": true,
+          "details": null
+        },
+        {
+          "name": "Nonstandard pad does not guess the Logitech layout",
+          "passed": true,
+          "details": null
+        },
+        {
+          "name": "Complete UI mapping wizard saves a custom profile",
+          "passed": true,
+          "details": null
+        },
+        {
+          "name": "Custom profile is persisted in separate settings key",
+          "passed": true,
+          "details": null
+        },
+        {
+          "name": "Custom physical HIT drives the real game",
+          "passed": true,
+          "details": null
+        },
+        {
+          "name": "Stick navigates focus through the current menu",
+          "passed": true,
+          "details": null
+        },
+        {
+          "name": "Custom Menu Back resumes paused gameplay",
+          "passed": true,
+          "details": null
+        },
+        {
+          "name": "Controller panel fits portrait width",
+          "passed": true,
+          "details": null
+        },
+        {
+          "name": "Keyboard can adjust native settings without game movement",
+          "passed": true,
+          "details": null
+        },
+        {
+          "name": "No uncaught JavaScript errors during controller integration",
+          "passed": true,
+          "details": []
+        }
+      ],
+      "passed": 33,
+      "failed": 0,
+      "boundary": "Real browser rendering and event loop; injected standard and nonstandard Gamepad API fixtures. No physical Logitech device. Exact standalone loaded through bounded parser writes; storage explicitly emulated."
+    },
+    "mobile-results.json": {
+      "tests": [
+        {
+          "name": "Exact standalone HTML loads all atlas pages",
+          "passed": true,
+          "details": null
+        },
+        {
+          "name": "All 50 original hero tracks are retained",
+          "passed": true,
+          "details": null
+        },
+        {
+          "name": "All 943 source hero frame entries are retained",
+          "passed": true,
+          "details": null
+        },
+        {
+          "name": "All nine character banks, including five new enemies and Franklin, load",
+          "passed": true,
+          "details": null
+        },
+        {
+          "name": "Press Start begins gameplay",
+          "passed": true,
+          "details": null
+        },
+        {
+          "name": "All 13 extracted audio clips decode",
+          "passed": true,
+          "details": null
+        },
+        {
+          "name": "Stage soundtrack plays after a genuine tap",
+          "passed": true,
+          "details": null
+        },
+        {
+          "name": "Radial pad provides proportional analog movement",
+          "passed": true,
+          "details": {
+            "partial": 0.3004755577911543,
+            "full": 1
+          }
+        },
+        {
+          "name": "Outer pad range enables run automatically",
+          "passed": true,
+          "details": null
+        },
+        {
+          "name": "Pad release resets both axes",
+          "passed": true,
+          "details": null
+        },
+        {
+          "name": "Analog pad moves between street depth lanes",
+          "passed": true,
+          "details": null
+        },
+        {
+          "name": "Movement + jump + attack accept three simultaneous touches",
+          "passed": true,
+          "details": {
+            "pointers": 3,
+            "z": 81.68333333333332,
+            "action": "air",
+            "input": {
+              "mx": 1,
+              "my": 0,
+              "attackPressed": false,
+              "jumpPressed": false,
+              "guardPressed": false,
+              "specialPressed": false,
+              "attackHeld": true,
+              "guardHeld": false
+            }
+          }
+        },
+        {
+          "name": "Releasing jump preserves movement and attack fingers",
+          "passed": true,
+          "details": null
+        },
+        {
+          "name": "Releasing attack preserves the stick finger",
+          "passed": true,
+          "details": null
+        },
+        {
+          "name": "Touch cancellation clears movement without stuck controls",
+          "passed": true,
+          "details": null
+        },
+        {
+          "name": "Holding Guard enters the defense state",
+          "passed": true,
+          "details": null
+        },
+        {
+          "name": "Pause freezes the simulation",
+          "passed": true,
+          "details": null
+        },
+        {
+          "name": "Music pauses with the game",
+          "passed": true,
+          "details": null
+        },
+        {
+          "name": "Resume restores gameplay and music",
+          "passed": true,
+          "details": null
+        },
+        {
+          "name": "Focus loss pauses and releases every input",
+          "passed": true,
+          "details": null
+        },
+        {
+          "name": "Every runtime animation draws at both facing directions",
+          "passed": true,
+          "details": {
+            "animationStates": 153
+          }
+        },
+        {
+          "name": "Animation room lists all original and derived hero clips",
+          "passed": true,
+          "details": null
+        },
+        {
+          "name": "Animation viewer selects full source tracks",
+          "passed": true,
+          "details": null
+        },
+        {
+          "name": "Checkpoint save serializes the current brawler format",
+          "passed": true,
+          "details": null
+        },
+        {
+          "name": "Continue appears when a checkpoint exists",
+          "passed": true,
+          "details": null
+        },
+        {
+          "name": "Continue resumes after the cleared block",
+          "passed": true,
+          "details": null
+        },
+        {
+          "name": "Sample engine supports overlapping combat effects",
+          "passed": true,
+          "details": null
+        },
+        {
+          "name": "Four city scenes render without code errors",
+          "passed": true,
+          "details": null
+        },
+        {
+          "name": "Final exit shows an actual completion screen",
+          "passed": true,
+          "details": null
+        },
+        {
+          "name": "Portrait keeps every touch control on screen",
+          "passed": true,
+          "details": null
+        },
+        {
+          "name": "No horizontal document overflow",
+          "passed": true,
+          "details": null
+        },
+        {
+          "name": "Small landscape keeps all four action buttons on screen",
+          "passed": true,
+          "details": null
+        },
+        {
+          "name": "No uncaught JavaScript errors",
+          "passed": true,
+          "details": []
+        }
+      ],
+      "passed": 33,
+      "failed": 0,
+      "errors": [],
+      "boundary": "Mobile-sized Chromium using exact single-file HTML via bounded document.write chunks. Real CDP touches. Storage round-trip emulated separately. Not a physical Android device; browser URL navigation is blocked by environment policy."
+    },
+    "v4-presentation-results.json": {
+      "tests": [
+        {
+          "name": "Title retains supplied art, Press Start and original-theme assignment",
+          "passed": true,
+          "details": null
+        },
+        {
+          "name": "First district starts the Broadway recording",
+          "passed": true,
+          "details": null
+        },
+        {
+          "name": "Changing districts starts an overlapping, bounded crossfade",
+          "passed": true,
+          "details": {
+            "track": "subway",
+            "fade": 0.20377777777777736,
+            "both": true,
+            "newVolume": 0.11012932119664816,
+            "oldVolume": 0.33222211337110824
+          }
+        },
+        {
+          "name": "Crossfade retires the old audio element after 0.9 seconds",
+          "passed": true,
+          "details": null
+        },
+        {
+          "name": "All four district recordings decode, loop and play in their assigned levels",
+          "passed": true,
+          "details": {
+            "broadway": {
+              "key": "broadway",
+              "seconds": 46.4,
+              "playing": true,
+              "loop": true
+            },
+            "subway": {
+              "key": "subway",
+              "seconds": 91.88,
+              "playing": true,
+              "loop": true
+            },
+            "rooftop": {
+              "key": "rooftop",
+              "seconds": 44.36,
+              "playing": true,
+              "loop": true
+            },
+            "theater": {
+              "key": "theater",
+              "seconds": 45.84,
+              "playing": true,
+              "loop": true
+            }
+          }
+        },
+        {
+          "name": "Same-level music requests preserve playback position",
+          "passed": true,
+          "details": {
+            "before": 1.025255,
+            "after": 1.25267
+          }
+        },
+        {
+          "name": "Pause stops music and clears held controls",
+          "passed": true,
+          "details": null
+        },
+        {
+          "name": "Resume keeps the assigned track and resumes its position",
+          "passed": true,
+          "details": null
+        },
+        {
+          "name": "Mute pauses the music without altering its assignment",
+          "passed": true,
+          "details": null
+        },
+        {
+          "name": "Unmute restores current-level music",
+          "passed": true,
+          "details": null
+        },
+        {
+          "name": "District exit presents a separate visible character celebration",
+          "passed": true,
+          "details": null
+        },
+        {
+          "name": "Clear-screen Continue advances once and flushes stale attack/movement",
+          "passed": true,
+          "details": null
+        },
+        {
+          "name": "Stage celebration automatically continues without a mandatory tap",
+          "passed": true,
+          "details": null
+        },
+        {
+          "name": "Franklin replay finale uses the existing Slam Shermometer, not Franklin",
+          "passed": true,
+          "details": null
+        },
+        {
+          "name": "Franklin completion has visible winner art and no second unlock claim",
+          "passed": true,
+          "details": "FRANKLIN TAKES THE CITY"
+        },
+        {
+          "name": "The original recording returns on the ending screen",
+          "passed": true,
+          "details": null
+        },
+        {
+          "name": "Ending panel remains within portrait viewport",
+          "passed": true,
+          "details": null
+        },
+        {
+          "name": "No uncaught JavaScript or media decoding errors",
+          "passed": true,
+          "details": {
+            "page": [],
+            "audio": []
+          }
+        }
+      ],
+      "passed": 18,
+      "failed": 0,
+      "boundary": "Exact standalone HTML streamed to Chromium in bounded CDP chunks. Real decoded MP3 playback and DOM interactions. Stage/completion fixtures explicit; storage emulated. Not a physical Android test."
+    },
+    "v4-storage-results.json": {
+      "tests": [
+        {
+          "name": "Exact final build loads when browser storage is denied",
+          "passed": true
+        },
+        {
+          "name": "Denied-storage fallback remains playable with district music",
+          "passed": true
+        },
+        {
+          "name": "Failed checkpoint persistence is nonfatal and surfaced to the player",
+          "passed": true
+        }
+      ],
+      "passed": 3,
+      "failed": 0,
+      "boundary": "Browser storage denied by explicit fixture. Final standalone bytes loaded with bounded document.write. No physical Android test."
+    },
+    "resilience-results.json": {
+      "tests": [
+        {
+          "name": "Game loads when Gamepad API and Web Audio are unavailable",
+          "passed": true,
+          "details": null
+        },
+        {
+          "name": "Unavailable gamepad status is explicit and nonfatal",
+          "passed": true,
+          "details": null
+        },
+        {
+          "name": "Normal gameplay still begins without optional APIs",
+          "passed": true,
+          "details": null
+        },
+        {
+          "name": "Music can play without the optional sampled-SFX audio context",
+          "passed": true,
+          "details": null
+        },
+        {
+          "name": "Keyboard movement survives missing gamepad and audio contexts",
+          "passed": true,
+          "details": null
+        },
+        {
+          "name": "Unsupported fullscreen produces a message, not a crash",
+          "passed": true,
+          "details": null
+        },
+        {
+          "name": "Pause and resume survive missing optional browser APIs",
+          "passed": true,
+          "details": null
+        },
+        {
+          "name": "No unhandled JS errors in degraded browser feature mode",
+          "passed": true,
+          "details": []
+        }
+      ],
+      "passed": 8,
+      "failed": 0,
+      "boundary": "Chromium feature-removal fixtures. This does not emulate every old browser or every Safari restriction."
+    },
+    "launcher-results.json": {
+      "tests": [
+        {
+          "name": "Launcher starts its dedicated local server",
+          "passed": true,
+          "details": {
+            "app": "cattown-critic-brawler-v5",
+            "version": "5.0",
+            "sha256": "cac69f9fdc459204bd71869ad47b0d57165615ba3a187ab14ac72c8d03cfb100"
+          }
+        },
+        {
+          "name": "Served HTML is byte-identical to standalone",
+          "passed": true,
+          "details": {
+            "bytes": 82769387,
+            "sha256": "cac69f9fdc459204bd71869ad47b0d57165615ba3a187ab14ac72c8d03cfb100"
+          }
+        },
+        {
+          "name": "HTML response has the correct MIME type",
+          "passed": true,
+          "details": null
+        },
+        {
+          "name": "Local index uses no-cache to avoid stale updates",
+          "passed": true,
+          "details": null
+        },
+        {
+          "name": "Only the new brawler directory receives the extracted game",
+          "passed": true,
+          "details": null
+        },
+        {
+          "name": "A second launch reuses the same server without killing it",
+          "passed": true,
+          "details": null
+        },
+        {
+          "name": "Local server exposes only the intended endpoints",
+          "passed": true,
+          "details": null
+        }
+      ],
+      "passed": 7,
+      "failed": 0,
+      "boundary": "Actual Python loopback server and downloaded-launcher payload tested in Linux. No physical Termux/Android installation claimed."
+    },
+    "upgrade-launcher-results.json": {
+      "tests": [
+        {
+          "name": "v5 reuses the already-running v4 server on the same browser origin",
+          "passed": true,
+          "details": null
+        },
+        {
+          "name": "The existing v4 server immediately serves the exact new v5 game",
+          "passed": true,
+          "details": null
+        },
+        {
+          "name": "The old installed HTML is backed up without being rewritten",
+          "passed": true,
+          "details": null
+        },
+        {
+          "name": "Repeated update does not replace the original backup",
+          "passed": true,
+          "details": null
+        },
+        {
+          "name": "No separate origin directory or delete operation is introduced",
+          "passed": true,
+          "details": null
+        }
+      ],
+      "passed": 5,
+      "failed": 0,
+      "boundary": "Actual v4 and v5 self-contained launchers on temporary Linux HOME and loopback port 8788. Same-origin upgrade tested. Browser save migration is tested separately; no physical Android."
+    },
+    "publish-results.json": {
+      "tests": [
+        {
+          "name": "Only reviewed paths are published; extra user files are excluded",
+          "passed": true
+        },
+        {
+          "name": "Changed content stops publication",
+          "passed": true
+        },
+        {
+          "name": "Path traversal is rejected",
+          "passed": true
+        },
+        {
+          "name": "Existing private repositories never become public",
+          "passed": true
+        },
+        {
+          "name": "Unsafe names cannot become CLI flags or paths",
+          "passed": true
+        },
+        {
+          "name": "Network errors are not mistaken for a missing repository",
+          "passed": true
+        },
+        {
+          "name": "A verified HTTP 404 is the optional missing-resource path",
+          "passed": true
+        },
+        {
+          "name": "Wrong authenticated account stops before any remote mutation",
+          "passed": true
+        },
+        {
+          "name": "Unrelated existing main is not overwritten",
+          "passed": true
+        },
+        {
+          "name": "Private repository rejected during complete preflight",
+          "passed": true
+        },
+        {
+          "name": "Declining PUBLISH leaves local and remote repositories unchanged",
+          "passed": true
+        },
+        {
+          "name": "New public repo is committed, pushed, and Pages configured through mocked API",
+          "passed": true
+        },
+        {
+          "name": "Existing empty public repo accepts initial publication without ref-error guesswork",
+          "passed": true
+        }
+      ],
+      "passed": 13,
+      "failed": 0,
+      "boundary": "Real local git repositories; mocked GitHub CLI/API network mutations. No public repository was created by these tests."
+    },
+    "site-results.json": {
+      "tests": [
+        {
+          "name": "All HTML, atlas, soundtrack and cue references are relative local files",
+          "passed": true,
+          "details": {
+            "references": 41
+          }
+        },
+        {
+          "name": "Root index loads under a repository-style URL subpath",
+          "passed": true,
+          "details": null
+        },
+        {
+          "name": "Every runtime reference serves exact bytes beneath that subpath",
+          "passed": true,
+          "details": []
+        },
+        {
+          "name": "Web manifest stays inside the repository URL scope",
+          "passed": true,
+          "details": null
+        },
+        {
+          "name": "JavaScript gamepad modules are loaded before the browser shell",
+          "passed": true,
+          "details": null
+        },
+        {
+          "name": "Source does not require an external runtime CDN",
+          "passed": true,
+          "details": null
+        },
+        {
+          "name": "Engine still exposes four districts",
+          "passed": true,
+          "details": null
+        },
+        {
+          "name": "Complete v4 animation library remains present",
+          "passed": true,
+          "details": {
+            "states": 153,
+            "frames": 2306,
+            "pages": 13
+          }
+        },
+        {
+          "name": "Music and SFX libraries remain complete",
+          "passed": true,
+          "details": null
+        },
+        {
+          "name": "No file in the runtime asset set approaches the GitHub per-file limit",
+          "passed": true,
+          "details": null
+        }
+      ],
+      "passed": 10,
+      "failed": 0,
+      "boundary": "Actual Python loopback HTTP reads under a repository-style subpath. No live GitHub Pages deployment or browser URL navigation is claimed."
+    },
+    "v5-preservation-results.json": {
+      "tests": [
+        {
+          "name": "Preserved engine.js",
+          "passed": true
+        },
+        {
+          "name": "Preserved render.js",
+          "passed": true
+        },
+        {
+          "name": "Preserved assets/atlas-00.webp",
+          "passed": true
+        },
+        {
+          "name": "Preserved assets/atlas-01.webp",
+          "passed": true
+        },
+        {
+          "name": "Preserved assets/atlas-02.webp",
+          "passed": true
+        },
+        {
+          "name": "Preserved assets/atlas-03.webp",
+          "passed": true
+        },
+        {
+          "name": "Preserved assets/atlas-04.webp",
+          "passed": true
+        },
+        {
+          "name": "Preserved assets/atlas-05.webp",
+          "passed": true
+        },
+        {
+          "name": "Preserved assets/atlas-06.webp",
+          "passed": true
+        },
+        {
+          "name": "Preserved assets/atlas-07.webp",
+          "passed": true
+        },
+        {
+          "name": "Preserved assets/atlas-08.webp",
+          "passed": true
+        },
+        {
+          "name": "Preserved assets/atlas-09.webp",
+          "passed": true
+        },
+        {
+          "name": "Preserved assets/atlas-10.webp",
+          "passed": true
+        },
+        {
+          "name": "Preserved assets/atlas-11.webp",
+          "passed": true
+        },
+        {
+          "name": "Preserved assets/atlas-12.webp",
+          "passed": true
+        },
+        {
+          "name": "Preserved assets/audio-map.json",
+          "passed": true
+        },
+        {
+          "name": "Preserved assets/backhand.wav",
+          "passed": true
+        },
+        {
+          "name": "Preserved assets/bear-call.wav",
+          "passed": true
+        },
+        {
+          "name": "Preserved assets/bear-hit.wav",
+          "passed": true
+        },
+        {
+          "name": "Preserved assets/elder-hit.wav",
+          "passed": true
+        },
+        {
+          "name": "Preserved assets/elder-strike.wav",
+          "passed": true
+        },
+        {
+          "name": "Preserved assets/fall.wav",
+          "passed": true
+        },
+        {
+          "name": "Preserved assets/franklin-icon.png",
+          "passed": true
+        },
+        {
+          "name": "Preserved assets/heavy.wav",
+          "passed": true
+        },
+        {
+          "name": "Preserved assets/hippo-hit.wav",
+          "passed": true
+        },
+        {
+          "name": "Preserved assets/hit.wav",
+          "passed": true
+        },
+        {
+          "name": "Preserved assets/icon.png",
+          "passed": true
+        },
+        {
+          "name": "Preserved assets/music-broadway.mp3",
+          "passed": true
+        },
+        {
+          "name": "Preserved assets/music-map.json",
+          "passed": true
+        },
+        {
+          "name": "Preserved assets/music-rooftops.mp3",
+          "passed": true
+        },
+        {
+          "name": "Preserved assets/music-theater.mp3",
+          "passed": true
+        },
+        {
+          "name": "Preserved assets/music-uptown.mp3",
+          "passed": true
+        },
+        {
+          "name": "Preserved assets/slam.wav",
+          "passed": true
+        },
+        {
+          "name": "Preserved assets/source-map.json",
+          "passed": true
+        },
+        {
+          "name": "Preserved assets/sprites.json",
+          "passed": true
+        },
+        {
+          "name": "Preserved assets/step1.wav",
+          "passed": true
+        },
+        {
+          "name": "Preserved assets/step2.wav",
+          "passed": true
+        },
+        {
+          "name": "Preserved assets/swish.wav",
+          "passed": true
+        },
+        {
+          "name": "Preserved assets/theme.mp3",
+          "passed": true
+        },
+        {
+          "name": "Preserved assets/title.png",
+          "passed": true
+        }
+      ],
+      "passed": 40,
+      "failed": 0,
+      "sha256": {
+        "engine.js": "d0494b4bcbecb3d0536db588875d59fa670c09ff1b5322c18217cccc9798333f",
+        "render.js": "9019d6bc38ae24d58500dffa7a4bef3605015eb469dfa2d0d5d2daebbdf05bcc",
+        "assets/atlas-00.webp": "b57f36e2de45ff3614299e3d7c7c64a0cbe1284910fc78caae0e12bdef241bf0",
+        "assets/atlas-01.webp": "ebad460f0a6f85c984f6c9052bd8944302ccc2760f9fba8b5adc5131a08ce160",
+        "assets/atlas-02.webp": "a67778181d34a7e4474a5f80420c8cae77e7b36a58d4c804bb39ec1ad3b39be5",
+        "assets/atlas-03.webp": "61bf401b175a3917e55e948924c5ae064ceddc610716cc098e8b0d899817bd8b",
+        "assets/atlas-04.webp": "829a587c80fb469a357fc698ec7d49298ffe2124f00e9f06afbaf26356428ca8",
+        "assets/atlas-05.webp": "7c3177a6b0f5a3adb0f16466858e3632cfa9bcf94bdd85e421d866a1e50d14bc",
+        "assets/atlas-06.webp": "f2e833450876f0c19e97cf231a6a26aed06d1df00123d0104e948e4b02515323",
+        "assets/atlas-07.webp": "67d607b5c0f4e0ca0cf53a04ef60e5d541065dcc4236f71067fc18b469da093e",
+        "assets/atlas-08.webp": "9bb20a55c915b067bd8f5f2b71080a71a56acd99b94db19b280f05b74bca70eb",
+        "assets/atlas-09.webp": "a5dad5c49f493633c1e2e2f18281fd0436eb5761078fcea41f985f42d169eec7",
+        "assets/atlas-10.webp": "adf2a02b95d9adde62c679a051bf23f4bb744b0f9e1d0c44580dec6b3c49dacf",
+        "assets/atlas-11.webp": "e930d655db66f2ca60d7a5d4570ce944b629d103a37f694a055e149394648205",
+        "assets/atlas-12.webp": "f25f8e037f8ed3334be50b2f26bf2ae2c18dac13a3b971d7eb9954e1cbb6294c",
+        "assets/audio-map.json": "1a6f514b5c39c873fae44b5e05c2f5f6eaccdf34bbc80738dd590cbd1963f509",
+        "assets/backhand.wav": "8dd119c6ab5494be5568eee3f0b70367c26d686cd5f4111eed34933d0e79332c",
+        "assets/bear-call.wav": "008d79a6a77180f0b3f305b6460300fbb71805953921dded13304f3091f7da44",
+        "assets/bear-hit.wav": "bd3770b8c6f548a8e3aefa2e60a8bdabe0068eacb97c98610839840e7c77b5c6",
+        "assets/elder-hit.wav": "4e58929cbcc6ffb0054cf8ca1f78555474abf3feb706414f99ccd69cbf3ff470",
+        "assets/elder-strike.wav": "b1a165a964fb658b66e25bfa1ecda235070f6321a19ab01223f9f4741d2bca4c",
+        "assets/fall.wav": "9adaa55f552288f20b28c44e87a9445a0bdba1e4496c42be3bbee7763c07a395",
+        "assets/franklin-icon.png": "14064e535cdabd5fcb25a902edeca69cb9d243968a70ec55fda5ee6cac7c0453",
+        "assets/heavy.wav": "4a4c7b1bccea8a812f98cb44ce54bd88f6b948afc5567dc868a489cf769dc727",
+        "assets/hippo-hit.wav": "df85a075f79f6929fad653ca38f7cfdb555746362b18dfe02b2da26dfebb140c",
+        "assets/hit.wav": "aed1a684344147f29cc235cafe80869f1746510abbd82d55c58d8ed9c9cf48cc",
+        "assets/icon.png": "74d8bde769b40fc1d21f75cd134355dabe1217b060c1aeb8a7741a276d44fef0",
+        "assets/music-broadway.mp3": "4dda43d600682aa54300763616c66c0718de54ba056710953f845cb3c916f87b",
+        "assets/music-map.json": "65347045e666c08957cabad899950407830f27e77f8976cec89c8d085751eb11",
+        "assets/music-rooftops.mp3": "57b8143cc2abf768f904e8863cde638ccdfa954d979e6a828344a70ddd3b95fa",
+        "assets/music-theater.mp3": "ce214885a4fe4fb3fa3a2f610f3c1d95891dcead64aa3fe7f355ddec4ac2564f",
+        "assets/music-uptown.mp3": "d12de8c8197a97babb63b35f77f4fa13319a03a380fc43193afccf03c6f49763",
+        "assets/slam.wav": "08f556d2317ad67175e01ebed67f2b6b3e3ec877f1fc1d00f37969602deaf25b",
+        "assets/source-map.json": "fbc8cf7838789d13941e7135c7e5c4b7f0d84c2fa6eb1e0440d38e90d440817d",
+        "assets/sprites.json": "4df23daa92d00fb1597799a75beb6534e119b999ba7c226d6ed9f5e8f87ba7e9",
+        "assets/step1.wav": "26f4916629f89ddf92aa57a9ff422b8ef9f8711eeaa342f6bcfd23307496afd0",
+        "assets/step2.wav": "e2ada3bd38884238307568d09df3db84ca12684646d585898f60bbde21711e01",
+        "assets/swish.wav": "142faa5dcb322b6a6ca1aec00919f439decda25816f7c043c0bb5cfc9310b442",
+        "assets/theme.mp3": "25926eaa5dd8518653dc87d997c3e02e34f10c1c81995163342992a170738342",
+        "assets/title.png": "b601a5fe8cd81d2d297374bfaa6f96a061d2125eb2facbc211efb01d6c0ffa3a"
+      },
+      "boundary": "Byte comparison against supplied v4 source archive. No frames, images, music or SFX reencoded for v5; original combat/renderer unchanged."
+    }
+  },
+  "notRun": {
+    "physicalLogitech": "No physical controller or confirmed exact Logitech model in this environment. Standard and nonstandard API fixtures tested.",
+    "firefox": "Browser executable unavailable; installer download failed with DNS EAI_AGAIN. CI matrix supplied, not executed here.",
+    "webkit": "Browser executable unavailable; installer download failed with DNS EAI_AGAIN. CI matrix supplied, not executed here.",
+    "liveGitHubPublication": "Available GitHub connector exposes no repository creation or Pages administration action. Publication script tested with mocked GitHub calls, not live mutations.",
+    "browserHostedNavigation": "Managed Chromium blocked localhost URL navigation. Exact standalone parsed in bounded chunks; actual HTTP files verified separately.",
+    "physicalAndroid": "No physical Android, Samsung Internet, desktop Edge or Safari-device run is claimed."
+  },
+  "preservation": "Every assets/ file, engine.js and render.js are byte-for-byte equal to v4 source. Save/profile/music assignments unchanged.",
+  "publication": {
+    "owner": "cattownfilms",
+    "plannedRepository": "the-critic-city-run",
+    "visibility": "public",
+    "status": "prepared-not-published",
+    "includes": "Complete runtime game, art, music, source, docs and tests",
+    "excludes": "Private logs, credentials, personal email, raw videos, original Sprite Forge ZIPs, generated large delivery duplicates"
+  }
+}

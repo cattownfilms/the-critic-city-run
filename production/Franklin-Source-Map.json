@@ -1,0 +1,5688 @@
+{
+  "sourceVideos": {
+    "1000085687": "44962498d5542d316c755576e9ae5079153212a0af2fb78ab806bd9ea0ee37dd",
+    "1000085688": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+    "1000085689": "10517bae6687fb92d4afdbf9260b6c69a3efa09c953c44d1cfce4a411a1b3c57"
+  },
+  "rootConvention": {
+    "canvas": [
+      768,
+      768
+    ],
+    "pivot": 384,
+    "ground": 704,
+    "sourceScale": 1
+  },
+  "frames": [
+    {
+      "action": "idle",
+      "output": "franklin/idle/idle_000.png",
+      "sourceVideo": "1000085687.mp4",
+      "sourceFrame": 0,
+      "sourceTime": 0.0,
+      "sourceSHA256": "44962498d5542d316c755576e9ae5079153212a0af2fb78ab806bd9ea0ee37dd",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "idle",
+      "output": "franklin/idle/idle_001.png",
+      "sourceVideo": "1000085687.mp4",
+      "sourceFrame": 4,
+      "sourceTime": 0.16666666666666666,
+      "sourceSHA256": "44962498d5542d316c755576e9ae5079153212a0af2fb78ab806bd9ea0ee37dd",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "idle",
+      "output": "franklin/idle/idle_002.png",
+      "sourceVideo": "1000085687.mp4",
+      "sourceFrame": 8,
+      "sourceTime": 0.3333333333333333,
+      "sourceSHA256": "44962498d5542d316c755576e9ae5079153212a0af2fb78ab806bd9ea0ee37dd",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "idle",
+      "output": "franklin/idle/idle_003.png",
+      "sourceVideo": "1000085687.mp4",
+      "sourceFrame": 12,
+      "sourceTime": 0.5,
+      "sourceSHA256": "44962498d5542d316c755576e9ae5079153212a0af2fb78ab806bd9ea0ee37dd",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "idle",
+      "output": "franklin/idle/idle_004.png",
+      "sourceVideo": "1000085687.mp4",
+      "sourceFrame": 16,
+      "sourceTime": 0.6666666666666666,
+      "sourceSHA256": "44962498d5542d316c755576e9ae5079153212a0af2fb78ab806bd9ea0ee37dd",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "idle",
+      "output": "franklin/idle/idle_005.png",
+      "sourceVideo": "1000085687.mp4",
+      "sourceFrame": 20,
+      "sourceTime": 0.8333333333333334,
+      "sourceSHA256": "44962498d5542d316c755576e9ae5079153212a0af2fb78ab806bd9ea0ee37dd",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "walk",
+      "output": "franklin/walk/walk_000.png",
+      "sourceVideo": "1000085687.mp4",
+      "sourceFrame": 30,
+      "sourceTime": 1.25,
+      "sourceSHA256": "44962498d5542d316c755576e9ae5079153212a0af2fb78ab806bd9ea0ee37dd",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "walk",
+      "output": "franklin/walk/walk_001.png",
+      "sourceVideo": "1000085687.mp4",
+      "sourceFrame": 32,
+      "sourceTime": 1.3333333333333333,
+      "sourceSHA256": "44962498d5542d316c755576e9ae5079153212a0af2fb78ab806bd9ea0ee37dd",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "walk",
+      "output": "franklin/walk/walk_002.png",
+      "sourceVideo": "1000085687.mp4",
+      "sourceFrame": 34,
+      "sourceTime": 1.4166666666666667,
+      "sourceSHA256": "44962498d5542d316c755576e9ae5079153212a0af2fb78ab806bd9ea0ee37dd",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "walk",
+      "output": "franklin/walk/walk_003.png",
+      "sourceVideo": "1000085687.mp4",
+      "sourceFrame": 36,
+      "sourceTime": 1.5,
+      "sourceSHA256": "44962498d5542d316c755576e9ae5079153212a0af2fb78ab806bd9ea0ee37dd",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "walk",
+      "output": "franklin/walk/walk_004.png",
+      "sourceVideo": "1000085687.mp4",
+      "sourceFrame": 38,
+      "sourceTime": 1.5833333333333333,
+      "sourceSHA256": "44962498d5542d316c755576e9ae5079153212a0af2fb78ab806bd9ea0ee37dd",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "walk",
+      "output": "franklin/walk/walk_005.png",
+      "sourceVideo": "1000085687.mp4",
+      "sourceFrame": 40,
+      "sourceTime": 1.6666666666666667,
+      "sourceSHA256": "44962498d5542d316c755576e9ae5079153212a0af2fb78ab806bd9ea0ee37dd",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "walk",
+      "output": "franklin/walk/walk_006.png",
+      "sourceVideo": "1000085687.mp4",
+      "sourceFrame": 42,
+      "sourceTime": 1.75,
+      "sourceSHA256": "44962498d5542d316c755576e9ae5079153212a0af2fb78ab806bd9ea0ee37dd",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "walk",
+      "output": "franklin/walk/walk_007.png",
+      "sourceVideo": "1000085687.mp4",
+      "sourceFrame": 44,
+      "sourceTime": 1.8333333333333333,
+      "sourceSHA256": "44962498d5542d316c755576e9ae5079153212a0af2fb78ab806bd9ea0ee37dd",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "walk",
+      "output": "franklin/walk/walk_008.png",
+      "sourceVideo": "1000085687.mp4",
+      "sourceFrame": 46,
+      "sourceTime": 1.9166666666666667,
+      "sourceSHA256": "44962498d5542d316c755576e9ae5079153212a0af2fb78ab806bd9ea0ee37dd",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "walk",
+      "output": "franklin/walk/walk_009.png",
+      "sourceVideo": "1000085687.mp4",
+      "sourceFrame": 48,
+      "sourceTime": 2.0,
+      "sourceSHA256": "44962498d5542d316c755576e9ae5079153212a0af2fb78ab806bd9ea0ee37dd",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "walk",
+      "output": "franklin/walk/walk_010.png",
+      "sourceVideo": "1000085687.mp4",
+      "sourceFrame": 50,
+      "sourceTime": 2.0833333333333335,
+      "sourceSHA256": "44962498d5542d316c755576e9ae5079153212a0af2fb78ab806bd9ea0ee37dd",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "walk",
+      "output": "franklin/walk/walk_011.png",
+      "sourceVideo": "1000085687.mp4",
+      "sourceFrame": 52,
+      "sourceTime": 2.1666666666666665,
+      "sourceSHA256": "44962498d5542d316c755576e9ae5079153212a0af2fb78ab806bd9ea0ee37dd",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "walk",
+      "output": "franklin/walk/walk_012.png",
+      "sourceVideo": "1000085687.mp4",
+      "sourceFrame": 54,
+      "sourceTime": 2.25,
+      "sourceSHA256": "44962498d5542d316c755576e9ae5079153212a0af2fb78ab806bd9ea0ee37dd",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "run",
+      "output": "franklin/run/run_000.png",
+      "sourceVideo": "1000085687.mp4",
+      "sourceFrame": 66,
+      "sourceTime": 2.75,
+      "sourceSHA256": "44962498d5542d316c755576e9ae5079153212a0af2fb78ab806bd9ea0ee37dd",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "run",
+      "output": "franklin/run/run_001.png",
+      "sourceVideo": "1000085687.mp4",
+      "sourceFrame": 68,
+      "sourceTime": 2.8333333333333335,
+      "sourceSHA256": "44962498d5542d316c755576e9ae5079153212a0af2fb78ab806bd9ea0ee37dd",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "run",
+      "output": "franklin/run/run_002.png",
+      "sourceVideo": "1000085687.mp4",
+      "sourceFrame": 70,
+      "sourceTime": 2.9166666666666665,
+      "sourceSHA256": "44962498d5542d316c755576e9ae5079153212a0af2fb78ab806bd9ea0ee37dd",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "run",
+      "output": "franklin/run/run_003.png",
+      "sourceVideo": "1000085687.mp4",
+      "sourceFrame": 72,
+      "sourceTime": 3.0,
+      "sourceSHA256": "44962498d5542d316c755576e9ae5079153212a0af2fb78ab806bd9ea0ee37dd",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "run",
+      "output": "franklin/run/run_004.png",
+      "sourceVideo": "1000085687.mp4",
+      "sourceFrame": 74,
+      "sourceTime": 3.0833333333333335,
+      "sourceSHA256": "44962498d5542d316c755576e9ae5079153212a0af2fb78ab806bd9ea0ee37dd",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "run",
+      "output": "franklin/run/run_005.png",
+      "sourceVideo": "1000085687.mp4",
+      "sourceFrame": 76,
+      "sourceTime": 3.1666666666666665,
+      "sourceSHA256": "44962498d5542d316c755576e9ae5079153212a0af2fb78ab806bd9ea0ee37dd",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "run",
+      "output": "franklin/run/run_006.png",
+      "sourceVideo": "1000085687.mp4",
+      "sourceFrame": 78,
+      "sourceTime": 3.25,
+      "sourceSHA256": "44962498d5542d316c755576e9ae5079153212a0af2fb78ab806bd9ea0ee37dd",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "run",
+      "output": "franklin/run/run_007.png",
+      "sourceVideo": "1000085687.mp4",
+      "sourceFrame": 80,
+      "sourceTime": 3.3333333333333335,
+      "sourceSHA256": "44962498d5542d316c755576e9ae5079153212a0af2fb78ab806bd9ea0ee37dd",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "run",
+      "output": "franklin/run/run_008.png",
+      "sourceVideo": "1000085687.mp4",
+      "sourceFrame": 82,
+      "sourceTime": 3.4166666666666665,
+      "sourceSHA256": "44962498d5542d316c755576e9ae5079153212a0af2fb78ab806bd9ea0ee37dd",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "jump",
+      "output": "franklin/jump/jump_000.png",
+      "sourceVideo": "1000085687.mp4",
+      "sourceFrame": 94,
+      "sourceTime": 3.9166666666666665,
+      "sourceSHA256": "44962498d5542d316c755576e9ae5079153212a0af2fb78ab806bd9ea0ee37dd",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "jump",
+      "output": "franklin/jump/jump_001.png",
+      "sourceVideo": "1000085687.mp4",
+      "sourceFrame": 96,
+      "sourceTime": 4.0,
+      "sourceSHA256": "44962498d5542d316c755576e9ae5079153212a0af2fb78ab806bd9ea0ee37dd",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "jump",
+      "output": "franklin/jump/jump_002.png",
+      "sourceVideo": "1000085687.mp4",
+      "sourceFrame": 98,
+      "sourceTime": 4.083333333333333,
+      "sourceSHA256": "44962498d5542d316c755576e9ae5079153212a0af2fb78ab806bd9ea0ee37dd",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "jump",
+      "output": "franklin/jump/jump_003.png",
+      "sourceVideo": "1000085687.mp4",
+      "sourceFrame": 100,
+      "sourceTime": 4.166666666666667,
+      "sourceSHA256": "44962498d5542d316c755576e9ae5079153212a0af2fb78ab806bd9ea0ee37dd",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "jump",
+      "output": "franklin/jump/jump_004.png",
+      "sourceVideo": "1000085687.mp4",
+      "sourceFrame": 102,
+      "sourceTime": 4.25,
+      "sourceSHA256": "44962498d5542d316c755576e9ae5079153212a0af2fb78ab806bd9ea0ee37dd",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "jump",
+      "output": "franklin/jump/jump_005.png",
+      "sourceVideo": "1000085687.mp4",
+      "sourceFrame": 104,
+      "sourceTime": 4.333333333333333,
+      "sourceSHA256": "44962498d5542d316c755576e9ae5079153212a0af2fb78ab806bd9ea0ee37dd",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "jump",
+      "output": "franklin/jump/jump_006.png",
+      "sourceVideo": "1000085687.mp4",
+      "sourceFrame": 106,
+      "sourceTime": 4.416666666666667,
+      "sourceSHA256": "44962498d5542d316c755576e9ae5079153212a0af2fb78ab806bd9ea0ee37dd",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "jump",
+      "output": "franklin/jump/jump_007.png",
+      "sourceVideo": "1000085687.mp4",
+      "sourceFrame": 108,
+      "sourceTime": 4.5,
+      "sourceSHA256": "44962498d5542d316c755576e9ae5079153212a0af2fb78ab806bd9ea0ee37dd",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "jump",
+      "output": "franklin/jump/jump_008.png",
+      "sourceVideo": "1000085687.mp4",
+      "sourceFrame": 110,
+      "sourceTime": 4.583333333333333,
+      "sourceSHA256": "44962498d5542d316c755576e9ae5079153212a0af2fb78ab806bd9ea0ee37dd",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "jump",
+      "output": "franklin/jump/jump_009.png",
+      "sourceVideo": "1000085687.mp4",
+      "sourceFrame": 112,
+      "sourceTime": 4.666666666666667,
+      "sourceSHA256": "44962498d5542d316c755576e9ae5079153212a0af2fb78ab806bd9ea0ee37dd",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "jump",
+      "output": "franklin/jump/jump_010.png",
+      "sourceVideo": "1000085687.mp4",
+      "sourceFrame": 114,
+      "sourceTime": 4.75,
+      "sourceSHA256": "44962498d5542d316c755576e9ae5079153212a0af2fb78ab806bd9ea0ee37dd",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "jump",
+      "output": "franklin/jump/jump_011.png",
+      "sourceVideo": "1000085687.mp4",
+      "sourceFrame": 116,
+      "sourceTime": 4.833333333333333,
+      "sourceSHA256": "44962498d5542d316c755576e9ae5079153212a0af2fb78ab806bd9ea0ee37dd",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "jump",
+      "output": "franklin/jump/jump_012.png",
+      "sourceVideo": "1000085687.mp4",
+      "sourceFrame": 118,
+      "sourceTime": 4.916666666666667,
+      "sourceSHA256": "44962498d5542d316c755576e9ae5079153212a0af2fb78ab806bd9ea0ee37dd",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "jump",
+      "output": "franklin/jump/jump_013.png",
+      "sourceVideo": "1000085687.mp4",
+      "sourceFrame": 120,
+      "sourceTime": 5.0,
+      "sourceSHA256": "44962498d5542d316c755576e9ae5079153212a0af2fb78ab806bd9ea0ee37dd",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "jump",
+      "output": "franklin/jump/jump_014.png",
+      "sourceVideo": "1000085687.mp4",
+      "sourceFrame": 122,
+      "sourceTime": 5.083333333333333,
+      "sourceSHA256": "44962498d5542d316c755576e9ae5079153212a0af2fb78ab806bd9ea0ee37dd",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "land",
+      "output": "franklin/land/land_000.png",
+      "sourceVideo": "1000085687.mp4",
+      "sourceFrame": 114,
+      "sourceTime": 4.75,
+      "sourceSHA256": "44962498d5542d316c755576e9ae5079153212a0af2fb78ab806bd9ea0ee37dd",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": "jump"
+    },
+    {
+      "action": "land",
+      "output": "franklin/land/land_001.png",
+      "sourceVideo": "1000085687.mp4",
+      "sourceFrame": 116,
+      "sourceTime": 4.833333333333333,
+      "sourceSHA256": "44962498d5542d316c755576e9ae5079153212a0af2fb78ab806bd9ea0ee37dd",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": "jump"
+    },
+    {
+      "action": "land",
+      "output": "franklin/land/land_002.png",
+      "sourceVideo": "1000085687.mp4",
+      "sourceFrame": 118,
+      "sourceTime": 4.916666666666667,
+      "sourceSHA256": "44962498d5542d316c755576e9ae5079153212a0af2fb78ab806bd9ea0ee37dd",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": "jump"
+    },
+    {
+      "action": "land",
+      "output": "franklin/land/land_003.png",
+      "sourceVideo": "1000085687.mp4",
+      "sourceFrame": 120,
+      "sourceTime": 5.0,
+      "sourceSHA256": "44962498d5542d316c755576e9ae5079153212a0af2fb78ab806bd9ea0ee37dd",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": "jump"
+    },
+    {
+      "action": "land",
+      "output": "franklin/land/land_004.png",
+      "sourceVideo": "1000085687.mp4",
+      "sourceFrame": 122,
+      "sourceTime": 5.083333333333333,
+      "sourceSHA256": "44962498d5542d316c755576e9ae5079153212a0af2fb78ab806bd9ea0ee37dd",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": "jump"
+    },
+    {
+      "action": "land",
+      "output": "franklin/land/land_005.png",
+      "sourceVideo": "1000085687.mp4",
+      "sourceFrame": 124,
+      "sourceTime": 5.166666666666667,
+      "sourceSHA256": "44962498d5542d316c755576e9ae5079153212a0af2fb78ab806bd9ea0ee37dd",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": "jump"
+    },
+    {
+      "action": "attack",
+      "output": "franklin/attack/attack_000.png",
+      "sourceVideo": "1000085687.mp4",
+      "sourceFrame": 124,
+      "sourceTime": 5.166666666666667,
+      "sourceSHA256": "44962498d5542d316c755576e9ae5079153212a0af2fb78ab806bd9ea0ee37dd",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "attack",
+      "output": "franklin/attack/attack_001.png",
+      "sourceVideo": "1000085687.mp4",
+      "sourceFrame": 126,
+      "sourceTime": 5.25,
+      "sourceSHA256": "44962498d5542d316c755576e9ae5079153212a0af2fb78ab806bd9ea0ee37dd",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "attack",
+      "output": "franklin/attack/attack_002.png",
+      "sourceVideo": "1000085687.mp4",
+      "sourceFrame": 128,
+      "sourceTime": 5.333333333333333,
+      "sourceSHA256": "44962498d5542d316c755576e9ae5079153212a0af2fb78ab806bd9ea0ee37dd",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "attack",
+      "output": "franklin/attack/attack_003.png",
+      "sourceVideo": "1000085687.mp4",
+      "sourceFrame": 130,
+      "sourceTime": 5.416666666666667,
+      "sourceSHA256": "44962498d5542d316c755576e9ae5079153212a0af2fb78ab806bd9ea0ee37dd",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "attack",
+      "output": "franklin/attack/attack_004.png",
+      "sourceVideo": "1000085687.mp4",
+      "sourceFrame": 132,
+      "sourceTime": 5.5,
+      "sourceSHA256": "44962498d5542d316c755576e9ae5079153212a0af2fb78ab806bd9ea0ee37dd",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "attack",
+      "output": "franklin/attack/attack_005.png",
+      "sourceVideo": "1000085687.mp4",
+      "sourceFrame": 134,
+      "sourceTime": 5.583333333333333,
+      "sourceSHA256": "44962498d5542d316c755576e9ae5079153212a0af2fb78ab806bd9ea0ee37dd",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "attack",
+      "output": "franklin/attack/attack_006.png",
+      "sourceVideo": "1000085687.mp4",
+      "sourceFrame": 136,
+      "sourceTime": 5.666666666666667,
+      "sourceSHA256": "44962498d5542d316c755576e9ae5079153212a0af2fb78ab806bd9ea0ee37dd",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "attack",
+      "output": "franklin/attack/attack_007.png",
+      "sourceVideo": "1000085687.mp4",
+      "sourceFrame": 138,
+      "sourceTime": 5.75,
+      "sourceSHA256": "44962498d5542d316c755576e9ae5079153212a0af2fb78ab806bd9ea0ee37dd",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "attack",
+      "output": "franklin/attack/attack_008.png",
+      "sourceVideo": "1000085687.mp4",
+      "sourceFrame": 140,
+      "sourceTime": 5.833333333333333,
+      "sourceSHA256": "44962498d5542d316c755576e9ae5079153212a0af2fb78ab806bd9ea0ee37dd",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "attack",
+      "output": "franklin/attack/attack_009.png",
+      "sourceVideo": "1000085687.mp4",
+      "sourceFrame": 142,
+      "sourceTime": 5.916666666666667,
+      "sourceSHA256": "44962498d5542d316c755576e9ae5079153212a0af2fb78ab806bd9ea0ee37dd",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "attack",
+      "output": "franklin/attack/attack_010.png",
+      "sourceVideo": "1000085687.mp4",
+      "sourceFrame": 144,
+      "sourceTime": 6.0,
+      "sourceSHA256": "44962498d5542d316c755576e9ae5079153212a0af2fb78ab806bd9ea0ee37dd",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "attack",
+      "output": "franklin/attack/attack_011.png",
+      "sourceVideo": "1000085687.mp4",
+      "sourceFrame": 146,
+      "sourceTime": 6.083333333333333,
+      "sourceSHA256": "44962498d5542d316c755576e9ae5079153212a0af2fb78ab806bd9ea0ee37dd",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "attack",
+      "output": "franklin/attack/attack_012.png",
+      "sourceVideo": "1000085687.mp4",
+      "sourceFrame": 148,
+      "sourceTime": 6.166666666666667,
+      "sourceSHA256": "44962498d5542d316c755576e9ae5079153212a0af2fb78ab806bd9ea0ee37dd",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "attack",
+      "output": "franklin/attack/attack_013.png",
+      "sourceVideo": "1000085687.mp4",
+      "sourceFrame": 150,
+      "sourceTime": 6.25,
+      "sourceSHA256": "44962498d5542d316c755576e9ae5079153212a0af2fb78ab806bd9ea0ee37dd",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "attack",
+      "output": "franklin/attack/attack_014.png",
+      "sourceVideo": "1000085687.mp4",
+      "sourceFrame": 152,
+      "sourceTime": 6.333333333333333,
+      "sourceSHA256": "44962498d5542d316c755576e9ae5079153212a0af2fb78ab806bd9ea0ee37dd",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "attack",
+      "output": "franklin/attack/attack_015.png",
+      "sourceVideo": "1000085687.mp4",
+      "sourceFrame": 154,
+      "sourceTime": 6.416666666666667,
+      "sourceSHA256": "44962498d5542d316c755576e9ae5079153212a0af2fb78ab806bd9ea0ee37dd",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "jab",
+      "output": "franklin/jab/jab_000.png",
+      "sourceVideo": "1000085687.mp4",
+      "sourceFrame": 126,
+      "sourceTime": 5.25,
+      "sourceSHA256": "44962498d5542d316c755576e9ae5079153212a0af2fb78ab806bd9ea0ee37dd",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": "attack"
+    },
+    {
+      "action": "jab",
+      "output": "franklin/jab/jab_001.png",
+      "sourceVideo": "1000085687.mp4",
+      "sourceFrame": 127,
+      "sourceTime": 5.291666666666667,
+      "sourceSHA256": "44962498d5542d316c755576e9ae5079153212a0af2fb78ab806bd9ea0ee37dd",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": "attack"
+    },
+    {
+      "action": "jab",
+      "output": "franklin/jab/jab_002.png",
+      "sourceVideo": "1000085687.mp4",
+      "sourceFrame": 128,
+      "sourceTime": 5.333333333333333,
+      "sourceSHA256": "44962498d5542d316c755576e9ae5079153212a0af2fb78ab806bd9ea0ee37dd",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": "attack"
+    },
+    {
+      "action": "jab",
+      "output": "franklin/jab/jab_003.png",
+      "sourceVideo": "1000085687.mp4",
+      "sourceFrame": 129,
+      "sourceTime": 5.375,
+      "sourceSHA256": "44962498d5542d316c755576e9ae5079153212a0af2fb78ab806bd9ea0ee37dd",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": "attack"
+    },
+    {
+      "action": "jab",
+      "output": "franklin/jab/jab_004.png",
+      "sourceVideo": "1000085687.mp4",
+      "sourceFrame": 130,
+      "sourceTime": 5.416666666666667,
+      "sourceSHA256": "44962498d5542d316c755576e9ae5079153212a0af2fb78ab806bd9ea0ee37dd",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": "attack"
+    },
+    {
+      "action": "jab",
+      "output": "franklin/jab/jab_005.png",
+      "sourceVideo": "1000085687.mp4",
+      "sourceFrame": 131,
+      "sourceTime": 5.458333333333333,
+      "sourceSHA256": "44962498d5542d316c755576e9ae5079153212a0af2fb78ab806bd9ea0ee37dd",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": "attack"
+    },
+    {
+      "action": "jab",
+      "output": "franklin/jab/jab_006.png",
+      "sourceVideo": "1000085687.mp4",
+      "sourceFrame": 132,
+      "sourceTime": 5.5,
+      "sourceSHA256": "44962498d5542d316c755576e9ae5079153212a0af2fb78ab806bd9ea0ee37dd",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": "attack"
+    },
+    {
+      "action": "jab",
+      "output": "franklin/jab/jab_007.png",
+      "sourceVideo": "1000085687.mp4",
+      "sourceFrame": 133,
+      "sourceTime": 5.541666666666667,
+      "sourceSHA256": "44962498d5542d316c755576e9ae5079153212a0af2fb78ab806bd9ea0ee37dd",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": "attack"
+    },
+    {
+      "action": "jab",
+      "output": "franklin/jab/jab_008.png",
+      "sourceVideo": "1000085687.mp4",
+      "sourceFrame": 134,
+      "sourceTime": 5.583333333333333,
+      "sourceSHA256": "44962498d5542d316c755576e9ae5079153212a0af2fb78ab806bd9ea0ee37dd",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": "attack"
+    },
+    {
+      "action": "jab",
+      "output": "franklin/jab/jab_009.png",
+      "sourceVideo": "1000085687.mp4",
+      "sourceFrame": 135,
+      "sourceTime": 5.625,
+      "sourceSHA256": "44962498d5542d316c755576e9ae5079153212a0af2fb78ab806bd9ea0ee37dd",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": "attack"
+    },
+    {
+      "action": "jab",
+      "output": "franklin/jab/jab_010.png",
+      "sourceVideo": "1000085687.mp4",
+      "sourceFrame": 136,
+      "sourceTime": 5.666666666666667,
+      "sourceSHA256": "44962498d5542d316c755576e9ae5079153212a0af2fb78ab806bd9ea0ee37dd",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": "attack"
+    },
+    {
+      "action": "jab",
+      "output": "franklin/jab/jab_011.png",
+      "sourceVideo": "1000085687.mp4",
+      "sourceFrame": 137,
+      "sourceTime": 5.708333333333333,
+      "sourceSHA256": "44962498d5542d316c755576e9ae5079153212a0af2fb78ab806bd9ea0ee37dd",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": "attack"
+    },
+    {
+      "action": "jab",
+      "output": "franklin/jab/jab_012.png",
+      "sourceVideo": "1000085687.mp4",
+      "sourceFrame": 138,
+      "sourceTime": 5.75,
+      "sourceSHA256": "44962498d5542d316c755576e9ae5079153212a0af2fb78ab806bd9ea0ee37dd",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": "attack"
+    },
+    {
+      "action": "jab",
+      "output": "franklin/jab/jab_013.png",
+      "sourceVideo": "1000085687.mp4",
+      "sourceFrame": 139,
+      "sourceTime": 5.791666666666667,
+      "sourceSHA256": "44962498d5542d316c755576e9ae5079153212a0af2fb78ab806bd9ea0ee37dd",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": "attack"
+    },
+    {
+      "action": "jab",
+      "output": "franklin/jab/jab_014.png",
+      "sourceVideo": "1000085687.mp4",
+      "sourceFrame": 140,
+      "sourceTime": 5.833333333333333,
+      "sourceSHA256": "44962498d5542d316c755576e9ae5079153212a0af2fb78ab806bd9ea0ee37dd",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": "attack"
+    },
+    {
+      "action": "cross",
+      "output": "franklin/cross/cross_000.png",
+      "sourceVideo": "1000085687.mp4",
+      "sourceFrame": 140,
+      "sourceTime": 5.833333333333333,
+      "sourceSHA256": "44962498d5542d316c755576e9ae5079153212a0af2fb78ab806bd9ea0ee37dd",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": "attack"
+    },
+    {
+      "action": "cross",
+      "output": "franklin/cross/cross_001.png",
+      "sourceVideo": "1000085687.mp4",
+      "sourceFrame": 141,
+      "sourceTime": 5.875,
+      "sourceSHA256": "44962498d5542d316c755576e9ae5079153212a0af2fb78ab806bd9ea0ee37dd",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": "attack"
+    },
+    {
+      "action": "cross",
+      "output": "franklin/cross/cross_002.png",
+      "sourceVideo": "1000085687.mp4",
+      "sourceFrame": 142,
+      "sourceTime": 5.916666666666667,
+      "sourceSHA256": "44962498d5542d316c755576e9ae5079153212a0af2fb78ab806bd9ea0ee37dd",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": "attack"
+    },
+    {
+      "action": "cross",
+      "output": "franklin/cross/cross_003.png",
+      "sourceVideo": "1000085687.mp4",
+      "sourceFrame": 143,
+      "sourceTime": 5.958333333333333,
+      "sourceSHA256": "44962498d5542d316c755576e9ae5079153212a0af2fb78ab806bd9ea0ee37dd",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": "attack"
+    },
+    {
+      "action": "cross",
+      "output": "franklin/cross/cross_004.png",
+      "sourceVideo": "1000085687.mp4",
+      "sourceFrame": 144,
+      "sourceTime": 6.0,
+      "sourceSHA256": "44962498d5542d316c755576e9ae5079153212a0af2fb78ab806bd9ea0ee37dd",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": "attack"
+    },
+    {
+      "action": "cross",
+      "output": "franklin/cross/cross_005.png",
+      "sourceVideo": "1000085687.mp4",
+      "sourceFrame": 145,
+      "sourceTime": 6.041666666666667,
+      "sourceSHA256": "44962498d5542d316c755576e9ae5079153212a0af2fb78ab806bd9ea0ee37dd",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": "attack"
+    },
+    {
+      "action": "cross",
+      "output": "franklin/cross/cross_006.png",
+      "sourceVideo": "1000085687.mp4",
+      "sourceFrame": 146,
+      "sourceTime": 6.083333333333333,
+      "sourceSHA256": "44962498d5542d316c755576e9ae5079153212a0af2fb78ab806bd9ea0ee37dd",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": "attack"
+    },
+    {
+      "action": "cross",
+      "output": "franklin/cross/cross_007.png",
+      "sourceVideo": "1000085687.mp4",
+      "sourceFrame": 147,
+      "sourceTime": 6.125,
+      "sourceSHA256": "44962498d5542d316c755576e9ae5079153212a0af2fb78ab806bd9ea0ee37dd",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": "attack"
+    },
+    {
+      "action": "cross",
+      "output": "franklin/cross/cross_008.png",
+      "sourceVideo": "1000085687.mp4",
+      "sourceFrame": 148,
+      "sourceTime": 6.166666666666667,
+      "sourceSHA256": "44962498d5542d316c755576e9ae5079153212a0af2fb78ab806bd9ea0ee37dd",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": "attack"
+    },
+    {
+      "action": "cross",
+      "output": "franklin/cross/cross_009.png",
+      "sourceVideo": "1000085687.mp4",
+      "sourceFrame": 149,
+      "sourceTime": 6.208333333333333,
+      "sourceSHA256": "44962498d5542d316c755576e9ae5079153212a0af2fb78ab806bd9ea0ee37dd",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": "attack"
+    },
+    {
+      "action": "cross",
+      "output": "franklin/cross/cross_010.png",
+      "sourceVideo": "1000085687.mp4",
+      "sourceFrame": 150,
+      "sourceTime": 6.25,
+      "sourceSHA256": "44962498d5542d316c755576e9ae5079153212a0af2fb78ab806bd9ea0ee37dd",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": "attack"
+    },
+    {
+      "action": "cross",
+      "output": "franklin/cross/cross_011.png",
+      "sourceVideo": "1000085687.mp4",
+      "sourceFrame": 151,
+      "sourceTime": 6.291666666666667,
+      "sourceSHA256": "44962498d5542d316c755576e9ae5079153212a0af2fb78ab806bd9ea0ee37dd",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": "attack"
+    },
+    {
+      "action": "cross",
+      "output": "franklin/cross/cross_012.png",
+      "sourceVideo": "1000085687.mp4",
+      "sourceFrame": 152,
+      "sourceTime": 6.333333333333333,
+      "sourceSHA256": "44962498d5542d316c755576e9ae5079153212a0af2fb78ab806bd9ea0ee37dd",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": "attack"
+    },
+    {
+      "action": "cross",
+      "output": "franklin/cross/cross_013.png",
+      "sourceVideo": "1000085687.mp4",
+      "sourceFrame": 153,
+      "sourceTime": 6.375,
+      "sourceSHA256": "44962498d5542d316c755576e9ae5079153212a0af2fb78ab806bd9ea0ee37dd",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": "attack"
+    },
+    {
+      "action": "cross",
+      "output": "franklin/cross/cross_014.png",
+      "sourceVideo": "1000085687.mp4",
+      "sourceFrame": 154,
+      "sourceTime": 6.416666666666667,
+      "sourceSHA256": "44962498d5542d316c755576e9ae5079153212a0af2fb78ab806bd9ea0ee37dd",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": "attack"
+    },
+    {
+      "action": "jab-impact",
+      "output": "franklin/jab-impact/jab-impact_000.png",
+      "sourceVideo": "1000085687.mp4",
+      "sourceFrame": 154,
+      "sourceTime": 6.416666666666667,
+      "sourceSHA256": "44962498d5542d316c755576e9ae5079153212a0af2fb78ab806bd9ea0ee37dd",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "jab-impact",
+      "output": "franklin/jab-impact/jab-impact_001.png",
+      "sourceVideo": "1000085687.mp4",
+      "sourceFrame": 155,
+      "sourceTime": 6.458333333333333,
+      "sourceSHA256": "44962498d5542d316c755576e9ae5079153212a0af2fb78ab806bd9ea0ee37dd",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "jab-impact",
+      "output": "franklin/jab-impact/jab-impact_002.png",
+      "sourceVideo": "1000085687.mp4",
+      "sourceFrame": 156,
+      "sourceTime": 6.5,
+      "sourceSHA256": "44962498d5542d316c755576e9ae5079153212a0af2fb78ab806bd9ea0ee37dd",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "jab-impact",
+      "output": "franklin/jab-impact/jab-impact_003.png",
+      "sourceVideo": "1000085687.mp4",
+      "sourceFrame": 157,
+      "sourceTime": 6.541666666666667,
+      "sourceSHA256": "44962498d5542d316c755576e9ae5079153212a0af2fb78ab806bd9ea0ee37dd",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "jab-impact",
+      "output": "franklin/jab-impact/jab-impact_004.png",
+      "sourceVideo": "1000085687.mp4",
+      "sourceFrame": 158,
+      "sourceTime": 6.583333333333333,
+      "sourceSHA256": "44962498d5542d316c755576e9ae5079153212a0af2fb78ab806bd9ea0ee37dd",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "jab-impact",
+      "output": "franklin/jab-impact/jab-impact_005.png",
+      "sourceVideo": "1000085687.mp4",
+      "sourceFrame": 159,
+      "sourceTime": 6.625,
+      "sourceSHA256": "44962498d5542d316c755576e9ae5079153212a0af2fb78ab806bd9ea0ee37dd",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "jab-impact",
+      "output": "franklin/jab-impact/jab-impact_006.png",
+      "sourceVideo": "1000085687.mp4",
+      "sourceFrame": 160,
+      "sourceTime": 6.666666666666667,
+      "sourceSHA256": "44962498d5542d316c755576e9ae5079153212a0af2fb78ab806bd9ea0ee37dd",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "jab-impact",
+      "output": "franklin/jab-impact/jab-impact_007.png",
+      "sourceVideo": "1000085687.mp4",
+      "sourceFrame": 161,
+      "sourceTime": 6.708333333333333,
+      "sourceSHA256": "44962498d5542d316c755576e9ae5079153212a0af2fb78ab806bd9ea0ee37dd",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "jab-impact",
+      "output": "franklin/jab-impact/jab-impact_008.png",
+      "sourceVideo": "1000085687.mp4",
+      "sourceFrame": 162,
+      "sourceTime": 6.75,
+      "sourceSHA256": "44962498d5542d316c755576e9ae5079153212a0af2fb78ab806bd9ea0ee37dd",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "jab-impact",
+      "output": "franklin/jab-impact/jab-impact_009.png",
+      "sourceVideo": "1000085687.mp4",
+      "sourceFrame": 163,
+      "sourceTime": 6.791666666666667,
+      "sourceSHA256": "44962498d5542d316c755576e9ae5079153212a0af2fb78ab806bd9ea0ee37dd",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "jab-impact",
+      "output": "franklin/jab-impact/jab-impact_010.png",
+      "sourceVideo": "1000085687.mp4",
+      "sourceFrame": 164,
+      "sourceTime": 6.833333333333333,
+      "sourceSHA256": "44962498d5542d316c755576e9ae5079153212a0af2fb78ab806bd9ea0ee37dd",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "hurt",
+      "output": "franklin/hurt/hurt_000.png",
+      "sourceVideo": "1000085687.mp4",
+      "sourceFrame": 164,
+      "sourceTime": 6.833333333333333,
+      "sourceSHA256": "44962498d5542d316c755576e9ae5079153212a0af2fb78ab806bd9ea0ee37dd",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "hurt",
+      "output": "franklin/hurt/hurt_001.png",
+      "sourceVideo": "1000085687.mp4",
+      "sourceFrame": 166,
+      "sourceTime": 6.916666666666667,
+      "sourceSHA256": "44962498d5542d316c755576e9ae5079153212a0af2fb78ab806bd9ea0ee37dd",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "hurt",
+      "output": "franklin/hurt/hurt_002.png",
+      "sourceVideo": "1000085687.mp4",
+      "sourceFrame": 168,
+      "sourceTime": 7.0,
+      "sourceSHA256": "44962498d5542d316c755576e9ae5079153212a0af2fb78ab806bd9ea0ee37dd",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "hurt",
+      "output": "franklin/hurt/hurt_003.png",
+      "sourceVideo": "1000085687.mp4",
+      "sourceFrame": 170,
+      "sourceTime": 7.083333333333333,
+      "sourceSHA256": "44962498d5542d316c755576e9ae5079153212a0af2fb78ab806bd9ea0ee37dd",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "hurt",
+      "output": "franklin/hurt/hurt_004.png",
+      "sourceVideo": "1000085687.mp4",
+      "sourceFrame": 172,
+      "sourceTime": 7.166666666666667,
+      "sourceSHA256": "44962498d5542d316c755576e9ae5079153212a0af2fb78ab806bd9ea0ee37dd",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "hurt",
+      "output": "franklin/hurt/hurt_005.png",
+      "sourceVideo": "1000085687.mp4",
+      "sourceFrame": 174,
+      "sourceTime": 7.25,
+      "sourceSHA256": "44962498d5542d316c755576e9ae5079153212a0af2fb78ab806bd9ea0ee37dd",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "hurt",
+      "output": "franklin/hurt/hurt_006.png",
+      "sourceVideo": "1000085687.mp4",
+      "sourceFrame": 176,
+      "sourceTime": 7.333333333333333,
+      "sourceSHA256": "44962498d5542d316c755576e9ae5079153212a0af2fb78ab806bd9ea0ee37dd",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "hurt",
+      "output": "franklin/hurt/hurt_007.png",
+      "sourceVideo": "1000085687.mp4",
+      "sourceFrame": 178,
+      "sourceTime": 7.416666666666667,
+      "sourceSHA256": "44962498d5542d316c755576e9ae5079153212a0af2fb78ab806bd9ea0ee37dd",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "hurt",
+      "output": "franklin/hurt/hurt_008.png",
+      "sourceVideo": "1000085687.mp4",
+      "sourceFrame": 180,
+      "sourceTime": 7.5,
+      "sourceSHA256": "44962498d5542d316c755576e9ae5079153212a0af2fb78ab806bd9ea0ee37dd",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "hurt",
+      "output": "franklin/hurt/hurt_009.png",
+      "sourceVideo": "1000085687.mp4",
+      "sourceFrame": 182,
+      "sourceTime": 7.583333333333333,
+      "sourceSHA256": "44962498d5542d316c755576e9ae5079153212a0af2fb78ab806bd9ea0ee37dd",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "hurt",
+      "output": "franklin/hurt/hurt_010.png",
+      "sourceVideo": "1000085687.mp4",
+      "sourceFrame": 184,
+      "sourceTime": 7.666666666666667,
+      "sourceSHA256": "44962498d5542d316c755576e9ae5079153212a0af2fb78ab806bd9ea0ee37dd",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "death",
+      "output": "franklin/death/death_000.png",
+      "sourceVideo": "1000085687.mp4",
+      "sourceFrame": 188,
+      "sourceTime": 7.833333333333333,
+      "sourceSHA256": "44962498d5542d316c755576e9ae5079153212a0af2fb78ab806bd9ea0ee37dd",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "death",
+      "output": "franklin/death/death_001.png",
+      "sourceVideo": "1000085687.mp4",
+      "sourceFrame": 190,
+      "sourceTime": 7.916666666666667,
+      "sourceSHA256": "44962498d5542d316c755576e9ae5079153212a0af2fb78ab806bd9ea0ee37dd",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "death",
+      "output": "franklin/death/death_002.png",
+      "sourceVideo": "1000085687.mp4",
+      "sourceFrame": 192,
+      "sourceTime": 8.0,
+      "sourceSHA256": "44962498d5542d316c755576e9ae5079153212a0af2fb78ab806bd9ea0ee37dd",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "death",
+      "output": "franklin/death/death_003.png",
+      "sourceVideo": "1000085687.mp4",
+      "sourceFrame": 194,
+      "sourceTime": 8.083333333333334,
+      "sourceSHA256": "44962498d5542d316c755576e9ae5079153212a0af2fb78ab806bd9ea0ee37dd",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "death",
+      "output": "franklin/death/death_004.png",
+      "sourceVideo": "1000085687.mp4",
+      "sourceFrame": 196,
+      "sourceTime": 8.166666666666666,
+      "sourceSHA256": "44962498d5542d316c755576e9ae5079153212a0af2fb78ab806bd9ea0ee37dd",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "death",
+      "output": "franklin/death/death_005.png",
+      "sourceVideo": "1000085687.mp4",
+      "sourceFrame": 198,
+      "sourceTime": 8.25,
+      "sourceSHA256": "44962498d5542d316c755576e9ae5079153212a0af2fb78ab806bd9ea0ee37dd",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "death",
+      "output": "franklin/death/death_006.png",
+      "sourceVideo": "1000085687.mp4",
+      "sourceFrame": 200,
+      "sourceTime": 8.333333333333334,
+      "sourceSHA256": "44962498d5542d316c755576e9ae5079153212a0af2fb78ab806bd9ea0ee37dd",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "death",
+      "output": "franklin/death/death_007.png",
+      "sourceVideo": "1000085687.mp4",
+      "sourceFrame": 202,
+      "sourceTime": 8.416666666666666,
+      "sourceSHA256": "44962498d5542d316c755576e9ae5079153212a0af2fb78ab806bd9ea0ee37dd",
+      "translation": [
+        -256,
+        36
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "death",
+      "output": "franklin/death/death_008.png",
+      "sourceVideo": "1000085687.mp4",
+      "sourceFrame": 204,
+      "sourceTime": 8.5,
+      "sourceSHA256": "44962498d5542d316c755576e9ae5079153212a0af2fb78ab806bd9ea0ee37dd",
+      "translation": [
+        -256,
+        24
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "death",
+      "output": "franklin/death/death_009.png",
+      "sourceVideo": "1000085687.mp4",
+      "sourceFrame": 206,
+      "sourceTime": 8.583333333333334,
+      "sourceSHA256": "44962498d5542d316c755576e9ae5079153212a0af2fb78ab806bd9ea0ee37dd",
+      "translation": [
+        -256,
+        28
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "death",
+      "output": "franklin/death/death_010.png",
+      "sourceVideo": "1000085687.mp4",
+      "sourceFrame": 208,
+      "sourceTime": 8.666666666666666,
+      "sourceSHA256": "44962498d5542d316c755576e9ae5079153212a0af2fb78ab806bd9ea0ee37dd",
+      "translation": [
+        -256,
+        32
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "death",
+      "output": "franklin/death/death_011.png",
+      "sourceVideo": "1000085687.mp4",
+      "sourceFrame": 210,
+      "sourceTime": 8.75,
+      "sourceSHA256": "44962498d5542d316c755576e9ae5079153212a0af2fb78ab806bd9ea0ee37dd",
+      "translation": [
+        -256,
+        40
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "death",
+      "output": "franklin/death/death_012.png",
+      "sourceVideo": "1000085687.mp4",
+      "sourceFrame": 212,
+      "sourceTime": 8.833333333333334,
+      "sourceSHA256": "44962498d5542d316c755576e9ae5079153212a0af2fb78ab806bd9ea0ee37dd",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "death",
+      "output": "franklin/death/death_013.png",
+      "sourceVideo": "1000085687.mp4",
+      "sourceFrame": 214,
+      "sourceTime": 8.916666666666666,
+      "sourceSHA256": "44962498d5542d316c755576e9ae5079153212a0af2fb78ab806bd9ea0ee37dd",
+      "translation": [
+        -256,
+        40
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "death",
+      "output": "franklin/death/death_014.png",
+      "sourceVideo": "1000085687.mp4",
+      "sourceFrame": 216,
+      "sourceTime": 9.0,
+      "sourceSHA256": "44962498d5542d316c755576e9ae5079153212a0af2fb78ab806bd9ea0ee37dd",
+      "translation": [
+        -256,
+        36
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "death",
+      "output": "franklin/death/death_015.png",
+      "sourceVideo": "1000085687.mp4",
+      "sourceFrame": 218,
+      "sourceTime": 9.083333333333334,
+      "sourceSHA256": "44962498d5542d316c755576e9ae5079153212a0af2fb78ab806bd9ea0ee37dd",
+      "translation": [
+        -256,
+        36
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "death",
+      "output": "franklin/death/death_016.png",
+      "sourceVideo": "1000085687.mp4",
+      "sourceFrame": 220,
+      "sourceTime": 9.166666666666666,
+      "sourceSHA256": "44962498d5542d316c755576e9ae5079153212a0af2fb78ab806bd9ea0ee37dd",
+      "translation": [
+        -256,
+        36
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "death",
+      "output": "franklin/death/death_017.png",
+      "sourceVideo": "1000085687.mp4",
+      "sourceFrame": 222,
+      "sourceTime": 9.25,
+      "sourceSHA256": "44962498d5542d316c755576e9ae5079153212a0af2fb78ab806bd9ea0ee37dd",
+      "translation": [
+        -256,
+        36
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "death",
+      "output": "franklin/death/death_018.png",
+      "sourceVideo": "1000085687.mp4",
+      "sourceFrame": 224,
+      "sourceTime": 9.333333333333334,
+      "sourceSHA256": "44962498d5542d316c755576e9ae5079153212a0af2fb78ab806bd9ea0ee37dd",
+      "translation": [
+        -256,
+        36
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "guard-enter",
+      "output": "franklin/guard-enter/guard-enter_000.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 0,
+      "sourceTime": 0.0,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "guard-enter",
+      "output": "franklin/guard-enter/guard-enter_001.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 2,
+      "sourceTime": 0.08333333333333333,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "guard-enter",
+      "output": "franklin/guard-enter/guard-enter_002.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 4,
+      "sourceTime": 0.16666666666666666,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "guard-enter",
+      "output": "franklin/guard-enter/guard-enter_003.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 6,
+      "sourceTime": 0.25,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "guard-enter",
+      "output": "franklin/guard-enter/guard-enter_004.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 8,
+      "sourceTime": 0.3333333333333333,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "guard-enter",
+      "output": "franklin/guard-enter/guard-enter_005.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 10,
+      "sourceTime": 0.4166666666666667,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "guard",
+      "output": "franklin/guard/guard_000.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 10,
+      "sourceTime": 0.4166666666666667,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": "guard-enter"
+    },
+    {
+      "action": "guard",
+      "output": "franklin/guard/guard_001.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 12,
+      "sourceTime": 0.5,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": "guard-enter"
+    },
+    {
+      "action": "guard",
+      "output": "franklin/guard/guard_002.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 14,
+      "sourceTime": 0.5833333333333334,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": "guard-enter"
+    },
+    {
+      "action": "guard",
+      "output": "franklin/guard/guard_003.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 16,
+      "sourceTime": 0.6666666666666666,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": "guard-enter"
+    },
+    {
+      "action": "guard",
+      "output": "franklin/guard/guard_004.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 18,
+      "sourceTime": 0.75,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": "guard-enter"
+    },
+    {
+      "action": "lead-punch",
+      "output": "franklin/lead-punch/lead-punch_000.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 18,
+      "sourceTime": 0.75,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "lead-punch",
+      "output": "franklin/lead-punch/lead-punch_001.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 19,
+      "sourceTime": 0.7916666666666666,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "lead-punch",
+      "output": "franklin/lead-punch/lead-punch_002.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 20,
+      "sourceTime": 0.8333333333333334,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "lead-punch",
+      "output": "franklin/lead-punch/lead-punch_003.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 21,
+      "sourceTime": 0.875,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "lead-punch",
+      "output": "franklin/lead-punch/lead-punch_004.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 22,
+      "sourceTime": 0.9166666666666666,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "lead-punch",
+      "output": "franklin/lead-punch/lead-punch_005.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 23,
+      "sourceTime": 0.9583333333333334,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "lead-punch",
+      "output": "franklin/lead-punch/lead-punch_006.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 24,
+      "sourceTime": 1.0,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "lead-punch",
+      "output": "franklin/lead-punch/lead-punch_007.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 25,
+      "sourceTime": 1.0416666666666667,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "lead-punch",
+      "output": "franklin/lead-punch/lead-punch_008.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 26,
+      "sourceTime": 1.0833333333333333,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "lead-punch",
+      "output": "franklin/lead-punch/lead-punch_009.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 27,
+      "sourceTime": 1.125,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "lead-punch",
+      "output": "franklin/lead-punch/lead-punch_010.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 28,
+      "sourceTime": 1.1666666666666667,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "lead-punch",
+      "output": "franklin/lead-punch/lead-punch_011.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 29,
+      "sourceTime": 1.2083333333333333,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "lead-punch",
+      "output": "franklin/lead-punch/lead-punch_012.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 30,
+      "sourceTime": 1.25,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "lead-punch",
+      "output": "franklin/lead-punch/lead-punch_013.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 31,
+      "sourceTime": 1.2916666666666667,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "lead-punch",
+      "output": "franklin/lead-punch/lead-punch_014.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 32,
+      "sourceTime": 1.3333333333333333,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "rear-punch",
+      "output": "franklin/rear-punch/rear-punch_000.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 32,
+      "sourceTime": 1.3333333333333333,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "rear-punch",
+      "output": "franklin/rear-punch/rear-punch_001.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 33,
+      "sourceTime": 1.375,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "rear-punch",
+      "output": "franklin/rear-punch/rear-punch_002.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 34,
+      "sourceTime": 1.4166666666666667,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "rear-punch",
+      "output": "franklin/rear-punch/rear-punch_003.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 35,
+      "sourceTime": 1.4583333333333333,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "rear-punch",
+      "output": "franklin/rear-punch/rear-punch_004.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 36,
+      "sourceTime": 1.5,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "rear-punch",
+      "output": "franklin/rear-punch/rear-punch_005.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 37,
+      "sourceTime": 1.5416666666666667,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "rear-punch",
+      "output": "franklin/rear-punch/rear-punch_006.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 38,
+      "sourceTime": 1.5833333333333333,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "rear-punch",
+      "output": "franklin/rear-punch/rear-punch_007.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 39,
+      "sourceTime": 1.625,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "rear-punch",
+      "output": "franklin/rear-punch/rear-punch_008.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 40,
+      "sourceTime": 1.6666666666666667,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "rear-punch",
+      "output": "franklin/rear-punch/rear-punch_009.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 41,
+      "sourceTime": 1.7083333333333333,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "rear-punch",
+      "output": "franklin/rear-punch/rear-punch_010.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 42,
+      "sourceTime": 1.75,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "rear-punch",
+      "output": "franklin/rear-punch/rear-punch_011.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 43,
+      "sourceTime": 1.7916666666666667,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "rear-punch",
+      "output": "franklin/rear-punch/rear-punch_012.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 44,
+      "sourceTime": 1.8333333333333333,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "rear-punch",
+      "output": "franklin/rear-punch/rear-punch_013.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 45,
+      "sourceTime": 1.875,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "rear-punch",
+      "output": "franklin/rear-punch/rear-punch_014.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 46,
+      "sourceTime": 1.9166666666666667,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "front-kick",
+      "output": "franklin/front-kick/front-kick_000.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 46,
+      "sourceTime": 1.9166666666666667,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "front-kick",
+      "output": "franklin/front-kick/front-kick_001.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 47,
+      "sourceTime": 1.9583333333333333,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "front-kick",
+      "output": "franklin/front-kick/front-kick_002.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 48,
+      "sourceTime": 2.0,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "front-kick",
+      "output": "franklin/front-kick/front-kick_003.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 49,
+      "sourceTime": 2.0416666666666665,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "front-kick",
+      "output": "franklin/front-kick/front-kick_004.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 50,
+      "sourceTime": 2.0833333333333335,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "front-kick",
+      "output": "franklin/front-kick/front-kick_005.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 51,
+      "sourceTime": 2.125,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "front-kick",
+      "output": "franklin/front-kick/front-kick_006.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 52,
+      "sourceTime": 2.1666666666666665,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "front-kick",
+      "output": "franklin/front-kick/front-kick_007.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 53,
+      "sourceTime": 2.2083333333333335,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "front-kick",
+      "output": "franklin/front-kick/front-kick_008.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 54,
+      "sourceTime": 2.25,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "front-kick",
+      "output": "franklin/front-kick/front-kick_009.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 55,
+      "sourceTime": 2.2916666666666665,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "front-kick",
+      "output": "franklin/front-kick/front-kick_010.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 56,
+      "sourceTime": 2.3333333333333335,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "front-kick",
+      "output": "franklin/front-kick/front-kick_011.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 57,
+      "sourceTime": 2.375,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "front-kick",
+      "output": "franklin/front-kick/front-kick_012.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 58,
+      "sourceTime": 2.4166666666666665,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "front-kick",
+      "output": "franklin/front-kick/front-kick_013.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 59,
+      "sourceTime": 2.4583333333333335,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "front-kick",
+      "output": "franklin/front-kick/front-kick_014.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 60,
+      "sourceTime": 2.5,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "front-kick",
+      "output": "franklin/front-kick/front-kick_015.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 61,
+      "sourceTime": 2.5416666666666665,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "front-kick",
+      "output": "franklin/front-kick/front-kick_016.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 62,
+      "sourceTime": 2.5833333333333335,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "front-kick",
+      "output": "franklin/front-kick/front-kick_017.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 63,
+      "sourceTime": 2.625,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "front-kick",
+      "output": "franklin/front-kick/front-kick_018.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 64,
+      "sourceTime": 2.6666666666666665,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "front-kick",
+      "output": "franklin/front-kick/front-kick_019.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 65,
+      "sourceTime": 2.7083333333333335,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "front-kick",
+      "output": "franklin/front-kick/front-kick_020.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 66,
+      "sourceTime": 2.75,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "front-kick",
+      "output": "franklin/front-kick/front-kick_021.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 67,
+      "sourceTime": 2.7916666666666665,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "front-kick",
+      "output": "franklin/front-kick/front-kick_022.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 68,
+      "sourceTime": 2.8333333333333335,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "held-front-kick",
+      "output": "franklin/held-front-kick/held-front-kick_000.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 48,
+      "sourceTime": 2.0,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": "front-kick"
+    },
+    {
+      "action": "held-front-kick",
+      "output": "franklin/held-front-kick/held-front-kick_001.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 50,
+      "sourceTime": 2.0833333333333335,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": "front-kick"
+    },
+    {
+      "action": "held-front-kick",
+      "output": "franklin/held-front-kick/held-front-kick_002.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 52,
+      "sourceTime": 2.1666666666666665,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": "front-kick"
+    },
+    {
+      "action": "held-front-kick",
+      "output": "franklin/held-front-kick/held-front-kick_003.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 54,
+      "sourceTime": 2.25,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": "front-kick"
+    },
+    {
+      "action": "held-front-kick",
+      "output": "franklin/held-front-kick/held-front-kick_004.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 56,
+      "sourceTime": 2.3333333333333335,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": "front-kick"
+    },
+    {
+      "action": "held-front-kick",
+      "output": "franklin/held-front-kick/held-front-kick_005.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 58,
+      "sourceTime": 2.4166666666666665,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": "front-kick"
+    },
+    {
+      "action": "held-front-kick",
+      "output": "franklin/held-front-kick/held-front-kick_006.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 60,
+      "sourceTime": 2.5,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": "front-kick"
+    },
+    {
+      "action": "held-front-kick",
+      "output": "franklin/held-front-kick/held-front-kick_007.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 62,
+      "sourceTime": 2.5833333333333335,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": "front-kick"
+    },
+    {
+      "action": "held-front-kick",
+      "output": "franklin/held-front-kick/held-front-kick_008.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 64,
+      "sourceTime": 2.6666666666666665,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": "front-kick"
+    },
+    {
+      "action": "spin-kick",
+      "output": "franklin/spin-kick/spin-kick_000.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 70,
+      "sourceTime": 2.9166666666666665,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "spin-kick",
+      "output": "franklin/spin-kick/spin-kick_001.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 72,
+      "sourceTime": 3.0,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "spin-kick",
+      "output": "franklin/spin-kick/spin-kick_002.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 74,
+      "sourceTime": 3.0833333333333335,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "spin-kick",
+      "output": "franklin/spin-kick/spin-kick_003.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 76,
+      "sourceTime": 3.1666666666666665,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "spin-kick",
+      "output": "franklin/spin-kick/spin-kick_004.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 78,
+      "sourceTime": 3.25,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "spin-kick",
+      "output": "franklin/spin-kick/spin-kick_005.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 80,
+      "sourceTime": 3.3333333333333335,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "spin-kick",
+      "output": "franklin/spin-kick/spin-kick_006.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 82,
+      "sourceTime": 3.4166666666666665,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "spin-kick",
+      "output": "franklin/spin-kick/spin-kick_007.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 84,
+      "sourceTime": 3.5,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "spin-kick",
+      "output": "franklin/spin-kick/spin-kick_008.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 86,
+      "sourceTime": 3.5833333333333335,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "spin-kick",
+      "output": "franklin/spin-kick/spin-kick_009.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 88,
+      "sourceTime": 3.6666666666666665,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "spin-kick",
+      "output": "franklin/spin-kick/spin-kick_010.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 90,
+      "sourceTime": 3.75,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "spin-kick",
+      "output": "franklin/spin-kick/spin-kick_011.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 92,
+      "sourceTime": 3.8333333333333335,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "spin-kick",
+      "output": "franklin/spin-kick/spin-kick_012.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 94,
+      "sourceTime": 3.9166666666666665,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "spin-kick",
+      "output": "franklin/spin-kick/spin-kick_013.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 96,
+      "sourceTime": 4.0,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "spin-kick",
+      "output": "franklin/spin-kick/spin-kick_014.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 98,
+      "sourceTime": 4.083333333333333,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "spin-kick",
+      "output": "franklin/spin-kick/spin-kick_015.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 100,
+      "sourceTime": 4.166666666666667,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "spin-kick",
+      "output": "franklin/spin-kick/spin-kick_016.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 102,
+      "sourceTime": 4.25,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "spin-kick",
+      "output": "franklin/spin-kick/spin-kick_017.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 104,
+      "sourceTime": 4.333333333333333,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "leap-slam",
+      "output": "franklin/leap-slam/leap-slam_000.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 106,
+      "sourceTime": 4.416666666666667,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "leap-slam",
+      "output": "franklin/leap-slam/leap-slam_001.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 109,
+      "sourceTime": 4.541666666666667,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "leap-slam",
+      "output": "franklin/leap-slam/leap-slam_002.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 112,
+      "sourceTime": 4.666666666666667,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "leap-slam",
+      "output": "franklin/leap-slam/leap-slam_003.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 115,
+      "sourceTime": 4.791666666666667,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "leap-slam",
+      "output": "franklin/leap-slam/leap-slam_004.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 118,
+      "sourceTime": 4.916666666666667,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "leap-slam",
+      "output": "franklin/leap-slam/leap-slam_005.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 121,
+      "sourceTime": 5.041666666666667,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "leap-slam",
+      "output": "franklin/leap-slam/leap-slam_006.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 124,
+      "sourceTime": 5.166666666666667,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "leap-slam",
+      "output": "franklin/leap-slam/leap-slam_007.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 127,
+      "sourceTime": 5.291666666666667,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "leap-slam",
+      "output": "franklin/leap-slam/leap-slam_008.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 130,
+      "sourceTime": 5.416666666666667,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "leap-slam",
+      "output": "franklin/leap-slam/leap-slam_009.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 133,
+      "sourceTime": 5.541666666666667,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "leap-slam",
+      "output": "franklin/leap-slam/leap-slam_010.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 136,
+      "sourceTime": 5.666666666666667,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "leap-slam",
+      "output": "franklin/leap-slam/leap-slam_011.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 139,
+      "sourceTime": 5.791666666666667,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "leap-slam",
+      "output": "franklin/leap-slam/leap-slam_012.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 142,
+      "sourceTime": 5.916666666666667,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "leap-slam",
+      "output": "franklin/leap-slam/leap-slam_013.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 145,
+      "sourceTime": 6.041666666666667,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "leap-slam",
+      "output": "franklin/leap-slam/leap-slam_014.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 148,
+      "sourceTime": 6.166666666666667,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "leap-slam",
+      "output": "franklin/leap-slam/leap-slam_015.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 151,
+      "sourceTime": 6.291666666666667,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "leap-slam",
+      "output": "franklin/leap-slam/leap-slam_016.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 154,
+      "sourceTime": 6.416666666666667,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "leap-slam",
+      "output": "franklin/leap-slam/leap-slam_017.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 157,
+      "sourceTime": 6.541666666666667,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "leap-slam",
+      "output": "franklin/leap-slam/leap-slam_018.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 160,
+      "sourceTime": 6.666666666666667,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "leap-slam",
+      "output": "franklin/leap-slam/leap-slam_019.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 163,
+      "sourceTime": 6.791666666666667,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "leap-slam",
+      "output": "franklin/leap-slam/leap-slam_020.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 166,
+      "sourceTime": 6.916666666666667,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "leap-slam",
+      "output": "franklin/leap-slam/leap-slam_021.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 169,
+      "sourceTime": 7.041666666666667,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "slam-windup",
+      "output": "franklin/slam-windup/slam-windup_000.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 106,
+      "sourceTime": 4.416666666666667,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": "leap-slam"
+    },
+    {
+      "action": "slam-windup",
+      "output": "franklin/slam-windup/slam-windup_001.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 108,
+      "sourceTime": 4.5,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": "leap-slam"
+    },
+    {
+      "action": "slam-windup",
+      "output": "franklin/slam-windup/slam-windup_002.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 110,
+      "sourceTime": 4.583333333333333,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": "leap-slam"
+    },
+    {
+      "action": "slam-windup",
+      "output": "franklin/slam-windup/slam-windup_003.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 112,
+      "sourceTime": 4.666666666666667,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": "leap-slam"
+    },
+    {
+      "action": "slam-windup",
+      "output": "franklin/slam-windup/slam-windup_004.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 114,
+      "sourceTime": 4.75,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": "leap-slam"
+    },
+    {
+      "action": "slam-air",
+      "output": "franklin/slam-air/slam-air_000.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 118,
+      "sourceTime": 4.916666666666667,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": "leap-slam"
+    },
+    {
+      "action": "slam-air",
+      "output": "franklin/slam-air/slam-air_001.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 120,
+      "sourceTime": 5.0,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": "leap-slam"
+    },
+    {
+      "action": "slam-air",
+      "output": "franklin/slam-air/slam-air_002.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 122,
+      "sourceTime": 5.083333333333333,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": "leap-slam"
+    },
+    {
+      "action": "slam-air",
+      "output": "franklin/slam-air/slam-air_003.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 124,
+      "sourceTime": 5.166666666666667,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": "leap-slam"
+    },
+    {
+      "action": "slam-air",
+      "output": "franklin/slam-air/slam-air_004.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 126,
+      "sourceTime": 5.25,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": "leap-slam"
+    },
+    {
+      "action": "slam-air",
+      "output": "franklin/slam-air/slam-air_005.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 128,
+      "sourceTime": 5.333333333333333,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": "leap-slam"
+    },
+    {
+      "action": "slam-air",
+      "output": "franklin/slam-air/slam-air_006.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 130,
+      "sourceTime": 5.416666666666667,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": "leap-slam"
+    },
+    {
+      "action": "slam-air",
+      "output": "franklin/slam-air/slam-air_007.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 132,
+      "sourceTime": 5.5,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": "leap-slam"
+    },
+    {
+      "action": "slam-air",
+      "output": "franklin/slam-air/slam-air_008.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 134,
+      "sourceTime": 5.583333333333333,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": "leap-slam"
+    },
+    {
+      "action": "slam-air",
+      "output": "franklin/slam-air/slam-air_009.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 136,
+      "sourceTime": 5.666666666666667,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": "leap-slam"
+    },
+    {
+      "action": "ground-slam",
+      "output": "franklin/ground-slam/ground-slam_000.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 140,
+      "sourceTime": 5.833333333333333,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        54
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": "leap-slam"
+    },
+    {
+      "action": "ground-slam",
+      "output": "franklin/ground-slam/ground-slam_001.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 142,
+      "sourceTime": 5.916666666666667,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        30
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": "leap-slam"
+    },
+    {
+      "action": "ground-slam",
+      "output": "franklin/ground-slam/ground-slam_002.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 144,
+      "sourceTime": 6.0,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        26
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": "leap-slam"
+    },
+    {
+      "action": "ground-slam",
+      "output": "franklin/ground-slam/ground-slam_003.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 146,
+      "sourceTime": 6.083333333333333,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        20
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": "leap-slam"
+    },
+    {
+      "action": "ground-slam",
+      "output": "franklin/ground-slam/ground-slam_004.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 148,
+      "sourceTime": 6.166666666666667,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        16
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": "leap-slam"
+    },
+    {
+      "action": "ground-slam",
+      "output": "franklin/ground-slam/ground-slam_005.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 150,
+      "sourceTime": 6.25,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        12
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": "leap-slam"
+    },
+    {
+      "action": "ground-slam",
+      "output": "franklin/ground-slam/ground-slam_006.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 152,
+      "sourceTime": 6.333333333333333,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        18
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": "leap-slam"
+    },
+    {
+      "action": "ground-slam",
+      "output": "franklin/ground-slam/ground-slam_007.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 154,
+      "sourceTime": 6.416666666666667,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        38
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": "leap-slam"
+    },
+    {
+      "action": "ground-slam",
+      "output": "franklin/ground-slam/ground-slam_008.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 156,
+      "sourceTime": 6.5,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        38
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": "leap-slam"
+    },
+    {
+      "action": "ground-slam",
+      "output": "franklin/ground-slam/ground-slam_009.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 158,
+      "sourceTime": 6.583333333333333,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        38
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": "leap-slam"
+    },
+    {
+      "action": "slam-hold",
+      "output": "franklin/slam-hold/slam-hold_000.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 158,
+      "sourceTime": 6.583333333333333,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        38
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": "leap-slam"
+    },
+    {
+      "action": "slam-hold",
+      "output": "franklin/slam-hold/slam-hold_001.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 160,
+      "sourceTime": 6.666666666666667,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        38
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": "leap-slam"
+    },
+    {
+      "action": "slam-hold",
+      "output": "franklin/slam-hold/slam-hold_002.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 162,
+      "sourceTime": 6.75,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        38
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": "leap-slam"
+    },
+    {
+      "action": "slam-hold",
+      "output": "franklin/slam-hold/slam-hold_003.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 164,
+      "sourceTime": 6.833333333333333,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        38
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": "leap-slam"
+    },
+    {
+      "action": "slam-hold",
+      "output": "franklin/slam-hold/slam-hold_004.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 166,
+      "sourceTime": 6.916666666666667,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        38
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": "leap-slam"
+    },
+    {
+      "action": "slam-hold",
+      "output": "franklin/slam-hold/slam-hold_005.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 168,
+      "sourceTime": 7.0,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        38
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": "leap-slam"
+    },
+    {
+      "action": "impact-combo",
+      "output": "franklin/impact-combo/impact-combo_000.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 172,
+      "sourceTime": 7.166666666666667,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "impact-combo",
+      "output": "franklin/impact-combo/impact-combo_001.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 174,
+      "sourceTime": 7.25,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "impact-combo",
+      "output": "franklin/impact-combo/impact-combo_002.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 176,
+      "sourceTime": 7.333333333333333,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "impact-combo",
+      "output": "franklin/impact-combo/impact-combo_003.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 178,
+      "sourceTime": 7.416666666666667,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "impact-combo",
+      "output": "franklin/impact-combo/impact-combo_004.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 180,
+      "sourceTime": 7.5,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "impact-combo",
+      "output": "franklin/impact-combo/impact-combo_005.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 182,
+      "sourceTime": 7.583333333333333,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "impact-combo",
+      "output": "franklin/impact-combo/impact-combo_006.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 184,
+      "sourceTime": 7.666666666666667,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "impact-combo",
+      "output": "franklin/impact-combo/impact-combo_007.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 186,
+      "sourceTime": 7.75,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "impact-combo",
+      "output": "franklin/impact-combo/impact-combo_008.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 188,
+      "sourceTime": 7.833333333333333,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "impact-combo",
+      "output": "franklin/impact-combo/impact-combo_009.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 190,
+      "sourceTime": 7.916666666666667,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "impact-combo",
+      "output": "franklin/impact-combo/impact-combo_010.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 192,
+      "sourceTime": 8.0,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "impact-combo",
+      "output": "franklin/impact-combo/impact-combo_011.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 194,
+      "sourceTime": 8.083333333333334,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "impact-combo",
+      "output": "franklin/impact-combo/impact-combo_012.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 196,
+      "sourceTime": 8.166666666666666,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "impact-combo",
+      "output": "franklin/impact-combo/impact-combo_013.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 198,
+      "sourceTime": 8.25,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "impact-combo",
+      "output": "franklin/impact-combo/impact-combo_014.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 200,
+      "sourceTime": 8.333333333333334,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "power-punch",
+      "output": "franklin/power-punch/power-punch_000.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 200,
+      "sourceTime": 8.333333333333334,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": true,
+      "derivedFrom": null
+    },
+    {
+      "action": "power-punch",
+      "output": "franklin/power-punch/power-punch_001.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 202,
+      "sourceTime": 8.416666666666666,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": true,
+      "derivedFrom": null
+    },
+    {
+      "action": "power-punch",
+      "output": "franklin/power-punch/power-punch_002.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 204,
+      "sourceTime": 8.5,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": true,
+      "derivedFrom": null
+    },
+    {
+      "action": "power-punch",
+      "output": "franklin/power-punch/power-punch_003.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 206,
+      "sourceTime": 8.583333333333334,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": true,
+      "derivedFrom": null
+    },
+    {
+      "action": "power-punch",
+      "output": "franklin/power-punch/power-punch_004.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 208,
+      "sourceTime": 8.666666666666666,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": true,
+      "derivedFrom": null
+    },
+    {
+      "action": "power-punch",
+      "output": "franklin/power-punch/power-punch_005.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 210,
+      "sourceTime": 8.75,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": true,
+      "derivedFrom": null
+    },
+    {
+      "action": "power-punch",
+      "output": "franklin/power-punch/power-punch_006.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 212,
+      "sourceTime": 8.833333333333334,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": true,
+      "derivedFrom": null
+    },
+    {
+      "action": "power-punch",
+      "output": "franklin/power-punch/power-punch_007.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 214,
+      "sourceTime": 8.916666666666666,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": true,
+      "derivedFrom": null
+    },
+    {
+      "action": "power-punch",
+      "output": "franklin/power-punch/power-punch_008.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 216,
+      "sourceTime": 9.0,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": true,
+      "derivedFrom": null
+    },
+    {
+      "action": "power-punch",
+      "output": "franklin/power-punch/power-punch_009.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 218,
+      "sourceTime": 9.083333333333334,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": true,
+      "derivedFrom": null
+    },
+    {
+      "action": "power-punch",
+      "output": "franklin/power-punch/power-punch_010.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 220,
+      "sourceTime": 9.166666666666666,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": true,
+      "derivedFrom": null
+    },
+    {
+      "action": "power-punch",
+      "output": "franklin/power-punch/power-punch_011.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 222,
+      "sourceTime": 9.25,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": true,
+      "derivedFrom": null
+    },
+    {
+      "action": "power-punch",
+      "output": "franklin/power-punch/power-punch_012.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 224,
+      "sourceTime": 9.333333333333334,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": true,
+      "derivedFrom": null
+    },
+    {
+      "action": "recover",
+      "output": "franklin/recover/recover_000.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 224,
+      "sourceTime": 9.333333333333334,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "recover",
+      "output": "franklin/recover/recover_001.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 226,
+      "sourceTime": 9.416666666666666,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "recover",
+      "output": "franklin/recover/recover_002.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 228,
+      "sourceTime": 9.5,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "recover",
+      "output": "franklin/recover/recover_003.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 230,
+      "sourceTime": 9.583333333333334,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "recover",
+      "output": "franklin/recover/recover_004.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 232,
+      "sourceTime": 9.666666666666666,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "recover",
+      "output": "franklin/recover/recover_005.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 234,
+      "sourceTime": 9.75,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "recover",
+      "output": "franklin/recover/recover_006.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 236,
+      "sourceTime": 9.833333333333334,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "recover",
+      "output": "franklin/recover/recover_007.png",
+      "sourceVideo": "1000085688.mp4",
+      "sourceFrame": 238,
+      "sourceTime": 9.916666666666666,
+      "sourceSHA256": "4891339381e47d279d844d7d329ccc8bdbb82d87a3156f5ac26510d49f1d078e",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "taunt",
+      "output": "franklin/taunt/taunt_000.png",
+      "sourceVideo": "1000085689.mp4",
+      "sourceFrame": 2,
+      "sourceTime": 0.08333333333333333,
+      "sourceSHA256": "10517bae6687fb92d4afdbf9260b6c69a3efa09c953c44d1cfce4a411a1b3c57",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "taunt",
+      "output": "franklin/taunt/taunt_001.png",
+      "sourceVideo": "1000085689.mp4",
+      "sourceFrame": 4,
+      "sourceTime": 0.16666666666666666,
+      "sourceSHA256": "10517bae6687fb92d4afdbf9260b6c69a3efa09c953c44d1cfce4a411a1b3c57",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "taunt",
+      "output": "franklin/taunt/taunt_002.png",
+      "sourceVideo": "1000085689.mp4",
+      "sourceFrame": 6,
+      "sourceTime": 0.25,
+      "sourceSHA256": "10517bae6687fb92d4afdbf9260b6c69a3efa09c953c44d1cfce4a411a1b3c57",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "taunt",
+      "output": "franklin/taunt/taunt_003.png",
+      "sourceVideo": "1000085689.mp4",
+      "sourceFrame": 8,
+      "sourceTime": 0.3333333333333333,
+      "sourceSHA256": "10517bae6687fb92d4afdbf9260b6c69a3efa09c953c44d1cfce4a411a1b3c57",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "taunt",
+      "output": "franklin/taunt/taunt_004.png",
+      "sourceVideo": "1000085689.mp4",
+      "sourceFrame": 10,
+      "sourceTime": 0.4166666666666667,
+      "sourceSHA256": "10517bae6687fb92d4afdbf9260b6c69a3efa09c953c44d1cfce4a411a1b3c57",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "taunt",
+      "output": "franklin/taunt/taunt_005.png",
+      "sourceVideo": "1000085689.mp4",
+      "sourceFrame": 12,
+      "sourceTime": 0.5,
+      "sourceSHA256": "10517bae6687fb92d4afdbf9260b6c69a3efa09c953c44d1cfce4a411a1b3c57",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "taunt",
+      "output": "franklin/taunt/taunt_006.png",
+      "sourceVideo": "1000085689.mp4",
+      "sourceFrame": 14,
+      "sourceTime": 0.5833333333333334,
+      "sourceSHA256": "10517bae6687fb92d4afdbf9260b6c69a3efa09c953c44d1cfce4a411a1b3c57",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "taunt",
+      "output": "franklin/taunt/taunt_007.png",
+      "sourceVideo": "1000085689.mp4",
+      "sourceFrame": 16,
+      "sourceTime": 0.6666666666666666,
+      "sourceSHA256": "10517bae6687fb92d4afdbf9260b6c69a3efa09c953c44d1cfce4a411a1b3c57",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "taunt",
+      "output": "franklin/taunt/taunt_008.png",
+      "sourceVideo": "1000085689.mp4",
+      "sourceFrame": 18,
+      "sourceTime": 0.75,
+      "sourceSHA256": "10517bae6687fb92d4afdbf9260b6c69a3efa09c953c44d1cfce4a411a1b3c57",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "taunt",
+      "output": "franklin/taunt/taunt_009.png",
+      "sourceVideo": "1000085689.mp4",
+      "sourceFrame": 20,
+      "sourceTime": 0.8333333333333334,
+      "sourceSHA256": "10517bae6687fb92d4afdbf9260b6c69a3efa09c953c44d1cfce4a411a1b3c57",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "taunt",
+      "output": "franklin/taunt/taunt_010.png",
+      "sourceVideo": "1000085689.mp4",
+      "sourceFrame": 22,
+      "sourceTime": 0.9166666666666666,
+      "sourceSHA256": "10517bae6687fb92d4afdbf9260b6c69a3efa09c953c44d1cfce4a411a1b3c57",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "taunt",
+      "output": "franklin/taunt/taunt_011.png",
+      "sourceVideo": "1000085689.mp4",
+      "sourceFrame": 24,
+      "sourceTime": 1.0,
+      "sourceSHA256": "10517bae6687fb92d4afdbf9260b6c69a3efa09c953c44d1cfce4a411a1b3c57",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "taunt",
+      "output": "franklin/taunt/taunt_012.png",
+      "sourceVideo": "1000085689.mp4",
+      "sourceFrame": 26,
+      "sourceTime": 1.0833333333333333,
+      "sourceSHA256": "10517bae6687fb92d4afdbf9260b6c69a3efa09c953c44d1cfce4a411a1b3c57",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "taunt",
+      "output": "franklin/taunt/taunt_013.png",
+      "sourceVideo": "1000085689.mp4",
+      "sourceFrame": 28,
+      "sourceTime": 1.1666666666666667,
+      "sourceSHA256": "10517bae6687fb92d4afdbf9260b6c69a3efa09c953c44d1cfce4a411a1b3c57",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "taunt",
+      "output": "franklin/taunt/taunt_014.png",
+      "sourceVideo": "1000085689.mp4",
+      "sourceFrame": 30,
+      "sourceTime": 1.25,
+      "sourceSHA256": "10517bae6687fb92d4afdbf9260b6c69a3efa09c953c44d1cfce4a411a1b3c57",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "victory",
+      "output": "franklin/victory/victory_000.png",
+      "sourceVideo": "1000085689.mp4",
+      "sourceFrame": 30,
+      "sourceTime": 1.25,
+      "sourceSHA256": "10517bae6687fb92d4afdbf9260b6c69a3efa09c953c44d1cfce4a411a1b3c57",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "victory",
+      "output": "franklin/victory/victory_001.png",
+      "sourceVideo": "1000085689.mp4",
+      "sourceFrame": 32,
+      "sourceTime": 1.3333333333333333,
+      "sourceSHA256": "10517bae6687fb92d4afdbf9260b6c69a3efa09c953c44d1cfce4a411a1b3c57",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "victory",
+      "output": "franklin/victory/victory_002.png",
+      "sourceVideo": "1000085689.mp4",
+      "sourceFrame": 34,
+      "sourceTime": 1.4166666666666667,
+      "sourceSHA256": "10517bae6687fb92d4afdbf9260b6c69a3efa09c953c44d1cfce4a411a1b3c57",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "victory",
+      "output": "franklin/victory/victory_003.png",
+      "sourceVideo": "1000085689.mp4",
+      "sourceFrame": 36,
+      "sourceTime": 1.5,
+      "sourceSHA256": "10517bae6687fb92d4afdbf9260b6c69a3efa09c953c44d1cfce4a411a1b3c57",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "victory",
+      "output": "franklin/victory/victory_004.png",
+      "sourceVideo": "1000085689.mp4",
+      "sourceFrame": 38,
+      "sourceTime": 1.5833333333333333,
+      "sourceSHA256": "10517bae6687fb92d4afdbf9260b6c69a3efa09c953c44d1cfce4a411a1b3c57",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "victory",
+      "output": "franklin/victory/victory_005.png",
+      "sourceVideo": "1000085689.mp4",
+      "sourceFrame": 40,
+      "sourceTime": 1.6666666666666667,
+      "sourceSHA256": "10517bae6687fb92d4afdbf9260b6c69a3efa09c953c44d1cfce4a411a1b3c57",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "victory",
+      "output": "franklin/victory/victory_006.png",
+      "sourceVideo": "1000085689.mp4",
+      "sourceFrame": 42,
+      "sourceTime": 1.75,
+      "sourceSHA256": "10517bae6687fb92d4afdbf9260b6c69a3efa09c953c44d1cfce4a411a1b3c57",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "victory",
+      "output": "franklin/victory/victory_007.png",
+      "sourceVideo": "1000085689.mp4",
+      "sourceFrame": 44,
+      "sourceTime": 1.8333333333333333,
+      "sourceSHA256": "10517bae6687fb92d4afdbf9260b6c69a3efa09c953c44d1cfce4a411a1b3c57",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "victory",
+      "output": "franklin/victory/victory_008.png",
+      "sourceVideo": "1000085689.mp4",
+      "sourceFrame": 46,
+      "sourceTime": 1.9166666666666667,
+      "sourceSHA256": "10517bae6687fb92d4afdbf9260b6c69a3efa09c953c44d1cfce4a411a1b3c57",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "victory",
+      "output": "franklin/victory/victory_009.png",
+      "sourceVideo": "1000085689.mp4",
+      "sourceFrame": 48,
+      "sourceTime": 2.0,
+      "sourceSHA256": "10517bae6687fb92d4afdbf9260b6c69a3efa09c953c44d1cfce4a411a1b3c57",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "dance",
+      "output": "franklin/dance/dance_000.png",
+      "sourceVideo": "1000085689.mp4",
+      "sourceFrame": 48,
+      "sourceTime": 2.0,
+      "sourceSHA256": "10517bae6687fb92d4afdbf9260b6c69a3efa09c953c44d1cfce4a411a1b3c57",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "dance",
+      "output": "franklin/dance/dance_001.png",
+      "sourceVideo": "1000085689.mp4",
+      "sourceFrame": 50,
+      "sourceTime": 2.0833333333333335,
+      "sourceSHA256": "10517bae6687fb92d4afdbf9260b6c69a3efa09c953c44d1cfce4a411a1b3c57",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "dance",
+      "output": "franklin/dance/dance_002.png",
+      "sourceVideo": "1000085689.mp4",
+      "sourceFrame": 52,
+      "sourceTime": 2.1666666666666665,
+      "sourceSHA256": "10517bae6687fb92d4afdbf9260b6c69a3efa09c953c44d1cfce4a411a1b3c57",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "dance",
+      "output": "franklin/dance/dance_003.png",
+      "sourceVideo": "1000085689.mp4",
+      "sourceFrame": 54,
+      "sourceTime": 2.25,
+      "sourceSHA256": "10517bae6687fb92d4afdbf9260b6c69a3efa09c953c44d1cfce4a411a1b3c57",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "dance",
+      "output": "franklin/dance/dance_004.png",
+      "sourceVideo": "1000085689.mp4",
+      "sourceFrame": 56,
+      "sourceTime": 2.3333333333333335,
+      "sourceSHA256": "10517bae6687fb92d4afdbf9260b6c69a3efa09c953c44d1cfce4a411a1b3c57",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "dance",
+      "output": "franklin/dance/dance_005.png",
+      "sourceVideo": "1000085689.mp4",
+      "sourceFrame": 58,
+      "sourceTime": 2.4166666666666665,
+      "sourceSHA256": "10517bae6687fb92d4afdbf9260b6c69a3efa09c953c44d1cfce4a411a1b3c57",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "dance",
+      "output": "franklin/dance/dance_006.png",
+      "sourceVideo": "1000085689.mp4",
+      "sourceFrame": 60,
+      "sourceTime": 2.5,
+      "sourceSHA256": "10517bae6687fb92d4afdbf9260b6c69a3efa09c953c44d1cfce4a411a1b3c57",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "dance",
+      "output": "franklin/dance/dance_007.png",
+      "sourceVideo": "1000085689.mp4",
+      "sourceFrame": 62,
+      "sourceTime": 2.5833333333333335,
+      "sourceSHA256": "10517bae6687fb92d4afdbf9260b6c69a3efa09c953c44d1cfce4a411a1b3c57",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "dance",
+      "output": "franklin/dance/dance_008.png",
+      "sourceVideo": "1000085689.mp4",
+      "sourceFrame": 64,
+      "sourceTime": 2.6666666666666665,
+      "sourceSHA256": "10517bae6687fb92d4afdbf9260b6c69a3efa09c953c44d1cfce4a411a1b3c57",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "dance",
+      "output": "franklin/dance/dance_009.png",
+      "sourceVideo": "1000085689.mp4",
+      "sourceFrame": 66,
+      "sourceTime": 2.75,
+      "sourceSHA256": "10517bae6687fb92d4afdbf9260b6c69a3efa09c953c44d1cfce4a411a1b3c57",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "dance",
+      "output": "franklin/dance/dance_010.png",
+      "sourceVideo": "1000085689.mp4",
+      "sourceFrame": 68,
+      "sourceTime": 2.8333333333333335,
+      "sourceSHA256": "10517bae6687fb92d4afdbf9260b6c69a3efa09c953c44d1cfce4a411a1b3c57",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "dance",
+      "output": "franklin/dance/dance_011.png",
+      "sourceVideo": "1000085689.mp4",
+      "sourceFrame": 70,
+      "sourceTime": 2.9166666666666665,
+      "sourceSHA256": "10517bae6687fb92d4afdbf9260b6c69a3efa09c953c44d1cfce4a411a1b3c57",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "dance",
+      "output": "franklin/dance/dance_012.png",
+      "sourceVideo": "1000085689.mp4",
+      "sourceFrame": 72,
+      "sourceTime": 3.0,
+      "sourceSHA256": "10517bae6687fb92d4afdbf9260b6c69a3efa09c953c44d1cfce4a411a1b3c57",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "dance",
+      "output": "franklin/dance/dance_013.png",
+      "sourceVideo": "1000085689.mp4",
+      "sourceFrame": 74,
+      "sourceTime": 3.0833333333333335,
+      "sourceSHA256": "10517bae6687fb92d4afdbf9260b6c69a3efa09c953c44d1cfce4a411a1b3c57",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "dance",
+      "output": "franklin/dance/dance_014.png",
+      "sourceVideo": "1000085689.mp4",
+      "sourceFrame": 76,
+      "sourceTime": 3.1666666666666665,
+      "sourceSHA256": "10517bae6687fb92d4afdbf9260b6c69a3efa09c953c44d1cfce4a411a1b3c57",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "dance",
+      "output": "franklin/dance/dance_015.png",
+      "sourceVideo": "1000085689.mp4",
+      "sourceFrame": 78,
+      "sourceTime": 3.25,
+      "sourceSHA256": "10517bae6687fb92d4afdbf9260b6c69a3efa09c953c44d1cfce4a411a1b3c57",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "dance",
+      "output": "franklin/dance/dance_016.png",
+      "sourceVideo": "1000085689.mp4",
+      "sourceFrame": 80,
+      "sourceTime": 3.3333333333333335,
+      "sourceSHA256": "10517bae6687fb92d4afdbf9260b6c69a3efa09c953c44d1cfce4a411a1b3c57",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "dance",
+      "output": "franklin/dance/dance_017.png",
+      "sourceVideo": "1000085689.mp4",
+      "sourceFrame": 82,
+      "sourceTime": 3.4166666666666665,
+      "sourceSHA256": "10517bae6687fb92d4afdbf9260b6c69a3efa09c953c44d1cfce4a411a1b3c57",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "dance",
+      "output": "franklin/dance/dance_018.png",
+      "sourceVideo": "1000085689.mp4",
+      "sourceFrame": 84,
+      "sourceTime": 3.5,
+      "sourceSHA256": "10517bae6687fb92d4afdbf9260b6c69a3efa09c953c44d1cfce4a411a1b3c57",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "dance",
+      "output": "franklin/dance/dance_019.png",
+      "sourceVideo": "1000085689.mp4",
+      "sourceFrame": 86,
+      "sourceTime": 3.5833333333333335,
+      "sourceSHA256": "10517bae6687fb92d4afdbf9260b6c69a3efa09c953c44d1cfce4a411a1b3c57",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "dance",
+      "output": "franklin/dance/dance_020.png",
+      "sourceVideo": "1000085689.mp4",
+      "sourceFrame": 88,
+      "sourceTime": 3.6666666666666665,
+      "sourceSHA256": "10517bae6687fb92d4afdbf9260b6c69a3efa09c953c44d1cfce4a411a1b3c57",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "dance",
+      "output": "franklin/dance/dance_021.png",
+      "sourceVideo": "1000085689.mp4",
+      "sourceFrame": 90,
+      "sourceTime": 3.75,
+      "sourceSHA256": "10517bae6687fb92d4afdbf9260b6c69a3efa09c953c44d1cfce4a411a1b3c57",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "dance",
+      "output": "franklin/dance/dance_022.png",
+      "sourceVideo": "1000085689.mp4",
+      "sourceFrame": 92,
+      "sourceTime": 3.8333333333333335,
+      "sourceSHA256": "10517bae6687fb92d4afdbf9260b6c69a3efa09c953c44d1cfce4a411a1b3c57",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": null
+    },
+    {
+      "action": "rise",
+      "output": "franklin/rise/rise_000.png",
+      "sourceVideo": "1000085687.mp4",
+      "sourceFrame": 98,
+      "sourceTime": 4.083333333333333,
+      "sourceSHA256": "44962498d5542d316c755576e9ae5079153212a0af2fb78ab806bd9ea0ee37dd",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": "jump"
+    },
+    {
+      "action": "rise",
+      "output": "franklin/rise/rise_001.png",
+      "sourceVideo": "1000085687.mp4",
+      "sourceFrame": 100,
+      "sourceTime": 4.166666666666667,
+      "sourceSHA256": "44962498d5542d316c755576e9ae5079153212a0af2fb78ab806bd9ea0ee37dd",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": "jump"
+    },
+    {
+      "action": "rise",
+      "output": "franklin/rise/rise_002.png",
+      "sourceVideo": "1000085687.mp4",
+      "sourceFrame": 102,
+      "sourceTime": 4.25,
+      "sourceSHA256": "44962498d5542d316c755576e9ae5079153212a0af2fb78ab806bd9ea0ee37dd",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": "jump"
+    },
+    {
+      "action": "rise",
+      "output": "franklin/rise/rise_003.png",
+      "sourceVideo": "1000085687.mp4",
+      "sourceFrame": 104,
+      "sourceTime": 4.333333333333333,
+      "sourceSHA256": "44962498d5542d316c755576e9ae5079153212a0af2fb78ab806bd9ea0ee37dd",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": "jump"
+    },
+    {
+      "action": "apex",
+      "output": "franklin/apex/apex_000.png",
+      "sourceVideo": "1000085687.mp4",
+      "sourceFrame": 104,
+      "sourceTime": 4.333333333333333,
+      "sourceSHA256": "44962498d5542d316c755576e9ae5079153212a0af2fb78ab806bd9ea0ee37dd",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": "jump"
+    },
+    {
+      "action": "apex",
+      "output": "franklin/apex/apex_001.png",
+      "sourceVideo": "1000085687.mp4",
+      "sourceFrame": 106,
+      "sourceTime": 4.416666666666667,
+      "sourceSHA256": "44962498d5542d316c755576e9ae5079153212a0af2fb78ab806bd9ea0ee37dd",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": "jump"
+    },
+    {
+      "action": "apex",
+      "output": "franklin/apex/apex_002.png",
+      "sourceVideo": "1000085687.mp4",
+      "sourceFrame": 108,
+      "sourceTime": 4.5,
+      "sourceSHA256": "44962498d5542d316c755576e9ae5079153212a0af2fb78ab806bd9ea0ee37dd",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": "jump"
+    },
+    {
+      "action": "fall",
+      "output": "franklin/fall/fall_000.png",
+      "sourceVideo": "1000085687.mp4",
+      "sourceFrame": 108,
+      "sourceTime": 4.5,
+      "sourceSHA256": "44962498d5542d316c755576e9ae5079153212a0af2fb78ab806bd9ea0ee37dd",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": "jump"
+    },
+    {
+      "action": "fall",
+      "output": "franklin/fall/fall_001.png",
+      "sourceVideo": "1000085687.mp4",
+      "sourceFrame": 110,
+      "sourceTime": 4.583333333333333,
+      "sourceSHA256": "44962498d5542d316c755576e9ae5079153212a0af2fb78ab806bd9ea0ee37dd",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": "jump"
+    },
+    {
+      "action": "fall",
+      "output": "franklin/fall/fall_002.png",
+      "sourceVideo": "1000085687.mp4",
+      "sourceFrame": 112,
+      "sourceTime": 4.666666666666667,
+      "sourceSHA256": "44962498d5542d316c755576e9ae5079153212a0af2fb78ab806bd9ea0ee37dd",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": "jump"
+    },
+    {
+      "action": "fall",
+      "output": "franklin/fall/fall_003.png",
+      "sourceVideo": "1000085687.mp4",
+      "sourceFrame": 114,
+      "sourceTime": 4.75,
+      "sourceSHA256": "44962498d5542d316c755576e9ae5079153212a0af2fb78ab806bd9ea0ee37dd",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": "jump"
+    },
+    {
+      "action": "duck",
+      "output": "franklin/duck/duck_000.png",
+      "sourceVideo": "1000085687.mp4",
+      "sourceFrame": 94,
+      "sourceTime": 3.9166666666666665,
+      "sourceSHA256": "44962498d5542d316c755576e9ae5079153212a0af2fb78ab806bd9ea0ee37dd",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": "jump"
+    },
+    {
+      "action": "duck",
+      "output": "franklin/duck/duck_001.png",
+      "sourceVideo": "1000085687.mp4",
+      "sourceFrame": 96,
+      "sourceTime": 4.0,
+      "sourceSHA256": "44962498d5542d316c755576e9ae5079153212a0af2fb78ab806bd9ea0ee37dd",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": "jump"
+    },
+    {
+      "action": "duck",
+      "output": "franklin/duck/duck_002.png",
+      "sourceVideo": "1000085687.mp4",
+      "sourceFrame": 98,
+      "sourceTime": 4.083333333333333,
+      "sourceSHA256": "44962498d5542d316c755576e9ae5079153212a0af2fb78ab806bd9ea0ee37dd",
+      "translation": [
+        -256,
+        42
+      ],
+      "scale": 1,
+      "mirrored": false,
+      "derivedFrom": "jump"
+    }
+  ]
+}

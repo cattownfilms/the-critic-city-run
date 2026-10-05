@@ -1,0 +1,658 @@
+{
+  "newTakes": [
+    {
+      "character": "hero",
+      "action": "jump-start-v4",
+      "frames": 8,
+      "source": "3b1c223f-fd02-4420-9088-b637decbadcf.mp4",
+      "sourceFrames": [
+        38,
+        40,
+        42,
+        44,
+        46,
+        48,
+        50,
+        52
+      ],
+      "fixedScale": 0.4039301310043668,
+      "registration": "ground"
+    },
+    {
+      "character": "hero",
+      "action": "rise-v4",
+      "frames": 11,
+      "source": "3b1c223f-fd02-4420-9088-b637decbadcf.mp4",
+      "sourceFrames": [
+        54,
+        56,
+        58,
+        60,
+        62,
+        64,
+        66,
+        68,
+        70,
+        72,
+        74
+      ],
+      "fixedScale": 0.4039301310043668,
+      "registration": "air"
+    },
+    {
+      "character": "hero",
+      "action": "apex-v4",
+      "frames": 12,
+      "source": "3b1c223f-fd02-4420-9088-b637decbadcf.mp4",
+      "sourceFrames": [
+        76,
+        78,
+        80,
+        82,
+        84,
+        86,
+        88,
+        90,
+        92,
+        94,
+        96,
+        98
+      ],
+      "fixedScale": 0.4039301310043668,
+      "registration": "air"
+    },
+    {
+      "character": "hero",
+      "action": "fall-v4",
+      "frames": 11,
+      "source": "3b1c223f-fd02-4420-9088-b637decbadcf.mp4",
+      "sourceFrames": [
+        104,
+        106,
+        108,
+        110,
+        112,
+        114,
+        116,
+        118,
+        120,
+        122,
+        124
+      ],
+      "fixedScale": 0.4039301310043668,
+      "registration": "air"
+    },
+    {
+      "character": "hero",
+      "action": "land-v4",
+      "frames": 13,
+      "source": "3b1c223f-fd02-4420-9088-b637decbadcf.mp4",
+      "sourceFrames": [
+        126,
+        128,
+        130,
+        132,
+        134,
+        136,
+        138,
+        140,
+        142,
+        144,
+        146,
+        148,
+        150
+      ],
+      "fixedScale": 0.4039301310043668,
+      "registration": "landing"
+    },
+    {
+      "character": "hero",
+      "action": "air-kick-v4",
+      "frames": 17,
+      "source": "2d140dee-e69a-4cdc-8e97-45335b64207f (1).mp4",
+      "sourceFrames": [
+        103,
+        104,
+        105,
+        106,
+        107,
+        108,
+        109,
+        110,
+        111,
+        112,
+        113,
+        114,
+        115,
+        116,
+        117,
+        118,
+        119
+      ],
+      "fixedScale": 0.4048140043763676,
+      "registration": "air"
+    },
+    {
+      "character": "sherm-punch",
+      "action": "arrival-v4",
+      "frames": 14,
+      "source": "4c6d7f8b-4368-4b41-8ed4-7232da76b7d4.mp4",
+      "sourceFrames": [
+        54,
+        56,
+        58,
+        60,
+        62,
+        64,
+        66,
+        68,
+        70,
+        72,
+        74,
+        76,
+        78,
+        80
+      ],
+      "fixedScale": 0.3397212543554007,
+      "registration": "landing"
+    },
+    {
+      "character": "raptor",
+      "action": "arrival-v4",
+      "frames": 16,
+      "source": "13c4f1d7-1f80-4f6d-9380-ddba01a03770.mp4",
+      "sourceFrames": [
+        38,
+        40,
+        42,
+        44,
+        46,
+        48,
+        50,
+        52,
+        54,
+        56,
+        58,
+        60,
+        62,
+        64,
+        66,
+        68
+      ],
+      "fixedScale": 0.32342657342657344,
+      "registration": "landing"
+    },
+    {
+      "character": "hippo",
+      "action": "arrival-v4",
+      "frames": 13,
+      "source": "21f910f5-9180-4636-81a7-db74ff2541ee.mp4",
+      "sourceFrames": [
+        61,
+        63,
+        65,
+        67,
+        69,
+        71,
+        73,
+        75,
+        77,
+        79,
+        81,
+        83,
+        85
+      ],
+      "fixedScale": 0.32062391681109187,
+      "registration": "landing"
+    },
+    {
+      "character": "bear",
+      "action": "arrival-v4",
+      "frames": 14,
+      "source": "6a8f55d3-9c92-4b35-ad10-87b6873edb0d.mp4",
+      "sourceFrames": [
+        42,
+        44,
+        46,
+        48,
+        50,
+        52,
+        54,
+        56,
+        58,
+        60,
+        62,
+        64,
+        66,
+        68
+      ],
+      "fixedScale": 0.32229965156794427,
+      "registration": "landing"
+    },
+    {
+      "character": "striped",
+      "action": "arrival-v4",
+      "frames": 10,
+      "source": "Character_spawn_pixel_art_animation_20261005143856.mp4",
+      "sourceFrames": [
+        42,
+        44,
+        46,
+        48,
+        50,
+        52,
+        54,
+        56,
+        58,
+        60
+      ],
+      "fixedScale": 0.3356643356643357,
+      "registration": "ground"
+    }
+  ],
+  "franklinCleanup": [
+    {
+      "rect": [
+        7,
+        1733,
+        621,
+        70,
+        197
+      ],
+      "pixels": 76
+    },
+    {
+      "rect": [
+        7,
+        1806,
+        621,
+        70,
+        197
+      ],
+      "pixels": 91
+    },
+    {
+      "rect": [
+        7,
+        1879,
+        621,
+        70,
+        197
+      ],
+      "pixels": 80
+    },
+    {
+      "rect": [
+        7,
+        1952,
+        621,
+        70,
+        197
+      ],
+      "pixels": 85
+    },
+    {
+      "rect": [
+        7,
+        3,
+        821,
+        70,
+        197
+      ],
+      "pixels": 87
+    },
+    {
+      "rect": [
+        7,
+        76,
+        821,
+        69,
+        197
+      ],
+      "pixels": 87
+    },
+    {
+      "rect": [
+        7,
+        148,
+        821,
+        70,
+        197
+      ],
+      "pixels": 93
+    },
+    {
+      "rect": [
+        7,
+        221,
+        821,
+        70,
+        197
+      ],
+      "pixels": 93
+    },
+    {
+      "rect": [
+        9,
+        642,
+        382,
+        148,
+        186
+      ],
+      "pixels": 1
+    },
+    {
+      "rect": [
+        9,
+        3,
+        1689,
+        106,
+        181
+      ],
+      "pixels": 1
+    },
+    {
+      "rect": [
+        9,
+        112,
+        1689,
+        106,
+        181
+      ],
+      "pixels": 1
+    },
+    {
+      "rect": [
+        8,
+        812,
+        1170,
+        83,
+        190
+      ],
+      "pixels": 35
+    },
+    {
+      "rect": [
+        7,
+        732,
+        1814,
+        78,
+        194
+      ],
+      "pixels": 95
+    },
+    {
+      "rect": [
+        7,
+        76,
+        1220,
+        70,
+        196
+      ],
+      "pixels": 91
+    },
+    {
+      "rect": [
+        7,
+        294,
+        821,
+        69,
+        197
+      ],
+      "pixels": 92
+    },
+    {
+      "rect": [
+        7,
+        366,
+        821,
+        69,
+        197
+      ],
+      "pixels": 66
+    },
+    {
+      "rect": [
+        7,
+        438,
+        821,
+        68,
+        197
+      ],
+      "pixels": 63
+    },
+    {
+      "rect": [
+        7,
+        1319,
+        420,
+        66,
+        198
+      ],
+      "pixels": 54
+    },
+    {
+      "rect": [
+        7,
+        509,
+        821,
+        70,
+        197
+      ],
+      "pixels": 96
+    },
+    {
+      "rect": [
+        7,
+        149,
+        1220,
+        89,
+        196
+      ],
+      "pixels": 214
+    },
+    {
+      "rect": [
+        9,
+        1275,
+        3,
+        124,
+        187
+      ],
+      "pixels": 66
+    },
+    {
+      "rect": [
+        9,
+        221,
+        1689,
+        106,
+        181
+      ],
+      "pixels": 61
+    },
+    {
+      "rect": [
+        10,
+        920,
+        3,
+        105,
+        180
+      ],
+      "pixels": 30
+    },
+    {
+      "rect": [
+        10,
+        1171,
+        550,
+        104,
+        178
+      ],
+      "pixels": 10
+    },
+    {
+      "rect": [
+        10,
+        1474,
+        731,
+        106,
+        177
+      ],
+      "pixels": 9
+    },
+    {
+      "rect": [
+        10,
+        1583,
+        731,
+        107,
+        177
+      ],
+      "pixels": 13
+    },
+    {
+      "rect": [
+        10,
+        1028,
+        3,
+        107,
+        180
+      ],
+      "pixels": 15
+    },
+    {
+      "rect": [
+        10,
+        1138,
+        3,
+        108,
+        180
+      ],
+      "pixels": 12
+    },
+    {
+      "rect": [
+        10,
+        101,
+        368,
+        108,
+        179
+      ],
+      "pixels": 13
+    },
+    {
+      "rect": [
+        10,
+        212,
+        368,
+        108,
+        179
+      ],
+      "pixels": 15
+    },
+    {
+      "rect": [
+        10,
+        1769,
+        911,
+        109,
+        175
+      ],
+      "pixels": 13
+    },
+    {
+      "rect": [
+        10,
+        1693,
+        731,
+        105,
+        177
+      ],
+      "pixels": 13
+    },
+    {
+      "rect": [
+        10,
+        323,
+        368,
+        107,
+        179
+      ],
+      "pixels": 41
+    },
+    {
+      "rect": [
+        10,
+        1801,
+        731,
+        100,
+        177
+      ],
+      "pixels": 51
+    }
+  ],
+  "groundContact": [
+    {
+      "character": "hero",
+      "action": "death",
+      "finalSupportOffset": -10.0
+    },
+    {
+      "character": "bear",
+      "action": "death",
+      "finalSupportOffset": -3.08
+    },
+    {
+      "character": "hippo",
+      "action": "death",
+      "finalSupportOffset": -2.8
+    },
+    {
+      "character": "sherm-punch",
+      "action": "death",
+      "finalSupportOffset": -3.53
+    },
+    {
+      "character": "sherm-punch",
+      "action": "fall-alt",
+      "finalSupportOffset": 3.47
+    },
+    {
+      "character": "sherm-shove",
+      "action": "death",
+      "finalSupportOffset": 1.47
+    },
+    {
+      "character": "sherm-slam",
+      "action": "death",
+      "finalSupportOffset": 3.47
+    },
+    {
+      "character": "sherm-slam",
+      "action": "spill-collapse-alt",
+      "finalSupportOffset": 1.47
+    },
+    {
+      "character": "striped",
+      "action": "death",
+      "finalSupportOffset": 8.505
+    },
+    {
+      "character": "raptor",
+      "action": "death",
+      "finalSupportOffset": -2.33
+    },
+    {
+      "character": "raptor",
+      "action": "death-alt",
+      "finalSupportOffset": 9.67
+    },
+    {
+      "character": "franklin",
+      "action": "death",
+      "finalSupportOffset": -1.308
+    }
+  ],
+  "originalTracksRetained": true
+}

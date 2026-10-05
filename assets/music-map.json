@@ -1,0 +1,55 @@
+{
+  "tracks": [
+    {
+      "key": "title",
+      "file": "theme.mp3",
+      "source": "The Critic TV theme arranged for piano (3).mp3",
+      "label": "Original theme",
+      "sha256": "25926eaa5dd8518653dc87d997c3e02e34f10c1c81995163342992a170738342",
+      "duration": 39.144,
+      "bytes": 902589,
+      "unchangedBytes": true
+    },
+    {
+      "key": "broadway",
+      "file": "music-broadway.mp3",
+      "source": "The Critic TV theme arranged for piano (1).mp3",
+      "label": "Broadway Mix",
+      "sha256": "4dda43d600682aa54300763616c66c0718de54ba056710953f845cb3c916f87b",
+      "duration": 46.44,
+      "bytes": 1095115,
+      "unchangedBytes": true
+    },
+    {
+      "key": "subway",
+      "file": "music-uptown.mp3",
+      "source": "The Critic TV theme arranged for piano (5).mp3",
+      "label": "Uptown Mix",
+      "sha256": "d12de8c8197a97babb63b35f77f4fa13319a03a380fc43193afccf03c6f49763",
+      "duration": 91.92,
+      "bytes": 2067245,
+      "unchangedBytes": true
+    },
+    {
+      "key": "rooftop",
+      "file": "music-rooftops.mp3",
+      "source": "The Critic TV theme arranged for piano (2).mp3",
+      "label": "Rooftop Mix",
+      "sha256": "57b8143cc2abf768f904e8863cde638ccdfa954d979e6a828344a70ddd3b95fa",
+      "duration": 44.4,
+      "bytes": 1076109,
+      "unchangedBytes": true
+    },
+    {
+      "key": "theater",
+      "file": "music-theater.mp3",
+      "source": "The Critic TV theme arranged for piano (4).mp3",
+      "label": "Premiere Mix",
+      "sha256": "ce214885a4fe4fb3fa3a2f610f3c1d95891dcead64aa3fe7f355ddec4ac2564f",
+      "duration": 45.864,
+      "bytes": 1087849,
+      "unchangedBytes": true
+    }
+  ],
+  "policy": "One supplied recording per district, original theme for title/results. 0.9-second equal-power track transition. No pitch or speed changes; separate music/effects sliders."
+}

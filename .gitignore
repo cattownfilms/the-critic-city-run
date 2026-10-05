@@ -1,0 +1,31 @@
+# Private inputs and secrets
+.env
+.env.*
+*.pem
+*.key
+*.keystore
+source-inputs/
+raw-inputs/
+*.mp4
+*.canvas
+*Prompt-Log*
+.publish-state.json
+# Rebuildable delivery duplicates
+The-Critic-City-Brawler-v*.html
+The-Critic-*-Play.sh
+The-Critic-Publish-*.sh
+*.zip
+# Tool outputs
+__pycache__/
+*.pyc
+.venv/
+node_modules/
+.cache/
+*.log
+tests/*-results.json
+tests/*.png
+tests/screenshots*/
+# OS metadata
+.DS_Store
+Thumbs.db
+.publisher-payload.sha256

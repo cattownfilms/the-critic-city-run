@@ -1,0 +1,143 @@
+{
+  "HITS": {
+    "jab": {
+      "anim": "jab",
+      "dur": 0.25,
+      "hit": 0.095,
+      "end": 0.2,
+      "damage": 10,
+      "range": 84,
+      "kb": 18,
+      "sound": "hit",
+      "label": "JAB"
+    },
+    "cross": {
+      "anim": "cross",
+      "dur": 0.34,
+      "hit": 0.14,
+      "end": 0.27,
+      "damage": 15,
+      "range": 89,
+      "kb": 24,
+      "sound": "hit",
+      "label": "CROSS"
+    },
+    "kick": {
+      "anim": "front-kick",
+      "dur": 0.48,
+      "hit": 0.21,
+      "end": 0.38,
+      "damage": 22,
+      "range": 113,
+      "kb": 42,
+      "sound": "heavy",
+      "label": "KICK"
+    },
+    "palm": {
+      "anim": "palm-strike",
+      "dur": 0.49,
+      "hit": 0.21,
+      "end": 0.49,
+      "damage": 29,
+      "range": 103,
+      "kb": 150,
+      "sound": "heavy",
+      "label": "PALM FINISH"
+    },
+    "elbow": {
+      "anim": "rising-elbow",
+      "dur": 0.44,
+      "hit": 0.17,
+      "end": 0.44,
+      "damage": 25,
+      "range": 90,
+      "kb": 95,
+      "sound": "heavy",
+      "label": "RISING ELBOW"
+    },
+    "counter1": {
+      "anim": "lead-palm-impact",
+      "dur": 0.26,
+      "hit": 0.115,
+      "end": 0.23,
+      "damage": 25,
+      "range": 108,
+      "kb": 10,
+      "sound": "hit",
+      "label": "COUNTER"
+    },
+    "counter2": {
+      "anim": "rear-palm-impact",
+      "dur": 0.38,
+      "hit": 0.14,
+      "end": 0.38,
+      "damage": 35,
+      "range": 111,
+      "kb": 175,
+      "sound": "heavy",
+      "label": "COUNTER FINISH"
+    },
+    "dash": {
+      "anim": "attack",
+      "dur": 0.43,
+      "hit": 0.18,
+      "end": 0.43,
+      "damage": 24,
+      "range": 102,
+      "kb": 120,
+      "sound": "heavy",
+      "label": "RUSH PUNCH"
+    },
+    "air": {
+      "anim": "held-front-kick",
+      "dur": 0.48,
+      "hit": 0.115,
+      "end": 0.48,
+      "damage": 26,
+      "range": 114,
+      "kb": 130,
+      "sound": "heavy",
+      "label": "JUMP KICK"
+    },
+    "spin": {
+      "anim": "spinning-backfist",
+      "dur": 0.52,
+      "hit": 0.19,
+      "end": 0.52,
+      "damage": 32,
+      "range": 140,
+      "kb": 55,
+      "sound": "heavy",
+      "label": "FULL REVIEW",
+      "all": true
+    },
+    "specialWind": {
+      "anim": "low-finisher-windup",
+      "dur": 0.18,
+      "hit": 9,
+      "end": 0.18,
+      "damage": 0,
+      "range": 0,
+      "kb": 0,
+      "label": "WINDUP"
+    },
+    "specialPalm": {
+      "anim": "rising-palm-impact",
+      "dur": 0.33,
+      "hit": 0.12,
+      "end": 0.33,
+      "damage": 42,
+      "range": 145,
+      "kb": 230,
+      "sound": "heavy",
+      "label": "FINAL VERDICT",
+      "all": true
+    }
+  },
+  "CHAIN": [
+    "jab",
+    "cross",
+    "kick",
+    "palm"
+  ]
+}
