@@ -11,7 +11,7 @@ This checklist maps the eight follow-up requests to their source changes and rel
 | 5. Correct facing | `production/v8-direction-audit.md` documents all original actions. Verified native-left actions/frames use facing metadata while explicit aliases retain originals. Renderers resolve frame/action direction and scene motion/look targets. | Full source preservation, mirror/offset/shadow alignment, both movement directions, speaker gaze and Marty's leftward ending run on both routes. |
 | 6. Downloadable full script | `tools/export_script.py` exports the actual scene definitions, resolved Jay/Franklin lines, staging and story UI to `docs/FULL-SCRIPT.md` and an editable Word release file. | Exact approved opening, both routes, matching current source, stable scene/beat references and visual review of every Word page. |
 | 7. Fixed whole-wall booths; eyes; bouncing reels | `data/campaign.js`, `engine.js` and `render.js` author thirteen world-fixed masked booths, three circuit groups, onscreen-only appearances, four-phase shadow eyes, three reflected reel hops and one unblocked-hit knockdown. | Wall/window alignment during scrolling and gates, mask bounds, only onscreen active booths, choreographed eyes, circuit shutdown, three bounces, one contact, fair guard/parry and knockdown recovery. |
-| 8. Cinema cream-scarf boss; Little Italy Spike | Palace Cinema foreshadows and releases the cream-scarf Cinema Headliner from the screen. Its exit requires both him and all circuits. Little Italy uses Spike's supplied African American bank, portrait, door entrance and visible trash-can throws. | Clear screen emergence/door arrival, bank identity and fixed scale, grounded deaths, throw-hand/projectile continuity, boss HUDs, stage exit requirements and both campaign routes. |
+| 8. Cinema cream-scarf boss; Little Italy Spike | Palace Cinema foreshadows and releases the cream-scarf Violent Austrian Rabbi from the screen. Its exit requires both him and all circuits. Little Italy uses Spike's supplied African American bank, portrait, door entrance and visible trash-can throws. | Clear screen emergence/door arrival, bank identity and fixed scale, grounded deaths, throw-hand/projectile continuity, boss HUDs, stage exit requirements and both campaign routes. |
 
 ## Current-build release signoff
 
@@ -22,7 +22,7 @@ This checklist maps the eight follow-up requests to their source changes and rel
 - [x] Body and story facing verified, including Marty.
 - [x] Full Markdown/Word script matches source and every Word page is reviewed.
 - [x] Cinema booths, eyes, circuits, bouncing reels and knockdown verified.
-- [x] Cinema Headliner and Spike arrivals, fights and exits verified.
+- [x] Violent Austrian Rabbi and Spike arrivals, fights and exits verified.
 - [x] Existing save migration, unlocks, controller/settings and launcher upgrade verified.
 - [ ] Offline release rebuilt and inspected; reviewed repository and actual public HTTPS game verified.
 

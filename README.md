@@ -28,15 +28,17 @@ Controllers remain optional and off by default. Enable one in Controls/Pause; no
 
 Scenes: touch CONTINUE/SKIP, Enter/Space/J to advance, Esc/Backspace to skip, P to pause. Controller Confirm/HIT advances, Back skips, Start pauses. Release controls between scene and play. Skipping awards exactly the same progression as watching.
 
+The v8 script includes the user’s revised dialogue on both playable routes. The opening retains all seven screen-born enemies through the studio disruption and transfers the launch directly to the live Broadway gameplay landing.
+
 ## Campaign
 
 | Stage | Location | Main authored encounter |
 |---|---|---|
-| 1 | Broadway Blocks | The first Coming Attractions enter New York |
+| 1 | Broadway | The first Coming Attractions enter New York |
 | 2 | Last Train Uptown | Follow Duke’s trail beneath the city |
 | 3 | Above the Avenue | Trace the transmission across the rooftops |
 | 4 | Theater District | Franklin; Shermometer v3 on Franklin’s route |
-| 5 | Palace Cinema | Projection booths and three circuits; the cream-scarf Cinema Headliner emerges from the screen |
+| 5 | Palace Cinema | Projection booths and three circuits; the cream-scarf Violent Austrian Rabbi emerges from the screen |
 | 6 | Little Italy | Spike, an African American boss who throws trash cans outside the pizzeria |
 | 7 | Broadcast Tower | Disable the transmitter amid repeated enemy waves, defeat a faster Duke personally, then rescue Marty |
 
@@ -44,7 +46,7 @@ Shermometers v1/v2/v3 remain the ordinary roster’s backbone. Accordion Bear, G
 
 Franklin remains brown-haired and unlocks when Jay defeats him and exits Stage 4 without dying during that attempt. The campaign continues after that unlock. Franklin never fights himself; later results never announce him as newly unlocked again.
 
-Palace Cinema's booths span the rear wall and move with that wall. The projectionist appears only in an onscreen powered booth. Each of three circuit colors controls a group of booths; breaking a circuit darkens its group and cancels its reels. Reels bounce three times and knock down the player after an unblocked hit. Both all circuits and the Cinema Headliner must be defeated before the exit opens.
+Palace Cinema's booths span the rear wall and move with that wall. The projectionist appears only in an onscreen powered booth. Each of three circuit colors controls a group of booths; breaking a circuit darkens its group and cancels its reels. Reels bounce three times and knock down the player after an unblocked hit. Both all circuits and the Violent Austrian Rabbi must be defeated before the exit opens.
 
 ## Saves and content
 

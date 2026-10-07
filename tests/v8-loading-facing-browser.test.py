@@ -33,6 +33,17 @@ def wait(page, expression):
     page.wait_for_function(expression, timeout=120000, polling=50)
 
 
+def scene_trace(page, scene_id, operation):
+    state = page.evaluate('''({active:__brawler.scenes().active,
+      scene:__brawler.scenes().scene?.id, loading:__brawler.scenes().loading,
+      track:__brawler.audio.trackKey, fade:__brawler.audio.fade,
+      outgoing:!!__brawler.audio.outgoing, paused:__brawler.audio.music.paused,
+      context:__brawler.audio.ctx?.state, resuming:!!__brawler.audio.resuming})''')
+    trace = {'scene': scene_id, 'operation': operation, 'state': state}
+    print('CACHE SCENE TRACE ' + json.dumps(trace), flush=True)
+    return trace
+
+
 audio_probe = """window.__decodeCount=0;window.__audioSuspendCount=0;window.__cueStopCount=0;
   window.__audioResumeCount=0;window.__audioResumePending=0;window.__audioResumeMaxPending=0;
   const AudioCtor=window.AudioContext||window.webkitAudioContext;
@@ -156,10 +167,21 @@ with source_site(args.url) as url, sync_playwright() as pw:
         wait(page, '__brawler.game.mode==="play"')
         check('Continue resumes the new checkpoint without replaying the opening',
               page.evaluate('__brawler.game.playerKind==="hero"&&!__brawler.scenes().active&&__brawler.game.storyFlags.opening===true'))
+        report['cachedSceneTraversal'] = []
         for scene_id in page.evaluate('Object.keys(CriticCutscenes.scenes)'):
+            report['cachedSceneTraversal'].append(scene_trace(page, scene_id, 'play begin'))
             page.evaluate('(id)=>__brawler.scenes().play(CriticCutscenes.scenes[id])', scene_id)
-            wait(page, '__brawler.scenes().active&&!__brawler.scenes().loading')
-            page.evaluate('__brawler.scenes().skip()')
+            page.wait_for_function('__brawler.scenes().active&&!__brawler.scenes().loading', timeout=10000, polling=50)
+            report['cachedSceneTraversal'].append(scene_trace(page, scene_id, 'decoded'))
+            # This is a dependency-cache traversal, not a zero-time media stress
+            # test. Let the real .9-second crossfade and scene animation run as
+            # they do between player inputs. Audio remains native and enabled.
+            page.wait_for_timeout(1100)
+            report['cachedSceneTraversal'].append(scene_trace(page, scene_id, 'skip begin'))
+            page.locator('#sceneSkip').tap()
+            page.wait_for_function('!__brawler.scenes().active', timeout=10000, polling=50)
+            page.wait_for_timeout(1100)
+            report['cachedSceneTraversal'].append(scene_trace(page, scene_id, 'skip settled'))
         # A blocked AudioContext resume may remain pending in headless Firefox.
         # The production UI deliberately does not await this optional audio call.
         page.evaluate('()=>{__brawler.audio.playMusic("subway")}')

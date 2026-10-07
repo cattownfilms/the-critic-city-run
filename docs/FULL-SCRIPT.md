@@ -8,15 +8,15 @@ The opening follows Jay’s confrontation with Duke on both routes. Franklin is 
 
 ## Campaign order
 
-1. Broadway Blocks. Follow Duke’s escaping broadcast convoy through recognisable New York.
+1. Broadway. Follow Duke’s escaping broadcast convoy through recognisable New York.
 
 2. Last Train Uptown. Take the subway past the first trailers spilling into the city.
 
 3. Above the Avenue. Trace Duke’s signal across rooftop transmitters toward the premiere.
 
-4. Theater District. Get past Franklin and discover that Marty has already been moved to the broadcast tower. Franklin’s route faces Shermometer v3 here.
+4. Theater District. Follow Duke through the premiere and confront Franklin’s Baby New Year 1937 performance on Jay’s route. Franklin’s route faces Shermometer v3 here.
 
-5. Palace Cinema. Silence the projection booths, then defeat the cream-scarf headliner escaping the cinema screen.
+5. Palace Cinema. Silence the projection booths and defeat the Violent Austrian Rabbi as he emerges from the cinema screen.
 
 6. Little Italy. Get past Spike’s trash-can ambush outside the pizzeria on Duke’s service route.
 
@@ -120,7 +120,7 @@ Portrait: duke | Expression: smug
 
 opening/screen-emergence | Automatic advance after 4.1s; earliest advance 3.8s.
 
-*Jay: hurt; Duke: idle; Marty: scared idle; Marty is confined in the cage; broadcast monitors are powered; screens release Shermometer v1, Shermometer v2, Shermometer v3, Fred K, JP Raptor Esq, Accordion Bear, Green Hippo in succession; alarms pulse; a white flash punctuates the beat; sound cue: slam.*
+*Jay: hurt; Duke: idle; Marty: scared idle; Marty is confined in the cage; broadcast monitors are powered; screens release Shermometer v1, Shermometer v2, Shermometer v3, Fred K, JP Raptor Esq, Accordion Bear, Green Hippo in succession; they remain visible and creep toward Jay, clear of Marty’s cage; alarms pulse; a white flash punctuates the beat; sound cue: slam.*
 
 *Franklin route: Franklin: idle.*
 
@@ -130,7 +130,7 @@ No spoken dialogue.
 
 opening/hatchi-matchi | Player advances; earliest advance 0.22s.
 
-*Jay: jump; Duke: idle; Marty: scared idle; Shermometer v1: run; Marty is confined in the cage; broadcast monitors are powered.*
+*Jay: jump; Duke: idle; Marty: scared idle; Marty is confined in the cage; broadcast monitors are powered; the same screen-born enemies remain visible and advance toward Jay.*
 
 *Franklin route: Franklin: idle.*
 
@@ -144,7 +144,7 @@ Portrait: jay | Expression: shocked
 
 opening/window-launch | Automatic advance after 1.9s; earliest advance 1.8s.
 
-*Shermometer v1: attack; Jay: hurt, moving left and up over 1s; Duke: walk, moving right over 1.8s; Marty: scared idle, moving right over 1.8s; Marty is confined in the cage; broadcast monitors are powered; the studio window breaks; glass scatters; the scene shakes; sound cue: heavy.*
+*Jay: hurt, moving left and up over 1s; Duke: walk, moving right over 1.8s; Marty: scared idle, moving right over 1.8s; Marty is confined in the cage; broadcast monitors are powered; the same screen-born enemies remain visible and advance toward Jay; Shermometer v1 attacks Jay as the other enemies approach; the studio window breaks; glass scatters; the scene shakes; sound cue: heavy.*
 
 *Franklin route: Franklin: jump, moving left and up over 0.85s.*
 
@@ -152,15 +152,13 @@ No spoken dialogue.
 
 ### Beat 10 street recovery
 
-opening/street-recovery | Automatic advance after 1.6s; earliest advance 1.4s.
+opening/street-recovery | Immediate transition to Stage 1 gameplay; no cutscene hold.
 
-*Jay: land v4, moving in place and down over 0.4s, then idle after 1s; glass scatters; sound cue: fall.*
-
-*Franklin route: Franklin: land, moving in place and down over 0.5s, then idle after 1.15s.*
+*The scene ends and the selected player drops onto the actual Broadway gameplay canvas, landing through the ordinary jump and recovery physics.*
 
 No spoken dialogue.
 
-Caption: BROADWAY BLOCKS
+Caption: BROADWAY
 
 ## LAST TRAIN UPTOWN
 
@@ -188,13 +186,13 @@ stage-02-intro/beat-02 | Player advances; earliest advance 0.22s.
 
 **JAY / Jay route**
 
-You kidnapped a child and still took public transit.
+You're filthy stinking rich and you're still taking public transit?!
 
-Portrait: jay | Expression: neutral
+Portrait: jay | Expression: smug
 
 **FRANKLIN / Franklin route**
 
-Leave room on that train, Phillips.
+I'm baby New Year!!!
 
 Portrait: franklin | Expression: neutral
 
@@ -226,13 +224,13 @@ stage-03-intro/beat-02 | Player advances; earliest advance 0.22s.
 
 **JAY / Jay route**
 
-Elevators. They’re a perfectly good invention.
+Stairs! My one weakness!
 
-Portrait: jay | Expression: neutral
+Portrait: jay | Expression: worried
 
 **FRANKLIN / Franklin route**
 
-He’s using the roof access.
+The peanut is neither a pea or a nut! Oh wait… It is a nut.
 
 Portrait: franklin | Expression: neutral
 
@@ -264,13 +262,13 @@ stage-04-intro/beat-02 | Player advances; earliest advance 0.22s.
 
 **JAY / Jay route**
 
-Of course. Why ruin just one evening?
+Ah, isn't this where we saw Cats? Not the musical, I think they were literally eating out of the garbage…
 
 Portrait: jay | Expression: neutral
 
 **FRANKLIN / Franklin route**
 
-He bought the district. I’ll take the shortcut.
+I can say my name backward. Nilknarf!
 
 Portrait: franklin | Expression: neutral
 
@@ -292,7 +290,7 @@ stage4-clear/beat-01 | Player advances; earliest advance 0.22s. | Jay route only
 
 **FRANKLIN**
 
-He went through the cinema. He’s got the boy.
+Nilknarf!
 
 Portrait: franklin | Expression: neutral
 
@@ -304,13 +302,13 @@ stage4-clear/beat-02 | Player advances; earliest advance 0.22s.
 
 **JAY / Jay route**
 
-We’ll talk about this later.
+Ah the theater, where nothing is sharper than my rapier wit!
 
 Portrait: jay | Expression: neutral
 
 **FRANKLIN / Franklin route**
 
-Phillips! I’m not finished with you.
+I'm not wearing pants.
 
 Portrait: franklin | Expression: neutral
 
@@ -326,7 +324,7 @@ Setting: Palace Cinema | Music: current stage
 
 stage-05-intro/transport | Automatic advance after 2s; earliest advance 1.8s.
 
-*Duke: walk, moving right over 2s; Marty: scared idle, moving right over 2s; Selected player: run, moving right over 1s; Duke transports Marty’s closed cage; the cream-scarf headliner is foreshadowed inside the cinema screen.*
+*Duke: walk, moving right over 2s; Marty: scared idle, moving right over 2s; Selected player: run, moving right over 1s; Duke transports Marty’s closed cage; the Violent Austrian Rabbi is foreshadowed inside the cinema screen.*
 
 No spoken dialogue.
 
@@ -336,7 +334,7 @@ Destination: SERVICE EXIT / LITTLE ITALY
 
 stage-05-intro/booth-eyes | Automatic advance after 1.5s; earliest advance 1.25s.
 
-*Selected player: idle; eyes move in the dark projection booth; the cream-scarf headliner is foreshadowed inside the cinema screen.*
+*Selected player: idle; eyes move in the dark projection booth; the Violent Austrian Rabbi is foreshadowed inside the cinema screen.*
 
 No spoken dialogue.
 
@@ -344,7 +342,7 @@ No spoken dialogue.
 
 stage-05-intro/booth-light | Automatic advance after 1s; earliest advance 0.9s.
 
-*Selected player: idle; the booth light reveals the projectionist; the cream-scarf headliner is foreshadowed inside the cinema screen; sound cue: swish.*
+*Selected player: idle; the booth light reveals the projectionist; the Violent Austrian Rabbi is foreshadowed inside the cinema screen; sound cue: swish.*
 
 PROJECTIONIST portrait; silent reveal.
 
@@ -356,17 +354,17 @@ No spoken dialogue.
 
 stage-05-intro/beat-04 | Player advances; earliest advance 0.22s.
 
-*Selected player: idle; the booth light reveals the projectionist; the cream-scarf headliner is foreshadowed inside the cinema screen.*
+*Selected player: idle; the booth light reveals the projectionist; the Violent Austrian Rabbi is foreshadowed inside the cinema screen.*
 
 **JAY / Jay route**
 
-Three circuits. One very hostile projectionist.
+That's one very hostile projectionist.
 
 Portrait: jay | Expression: neutral
 
 **FRANKLIN / Franklin route**
 
-Kill the booth power. Then follow Phillips.
+This looks like a job for the robot puncher!
 
 Portrait: franklin | Expression: neutral
 
@@ -376,7 +374,7 @@ Objective: DISABLE THE 3 PROJECTION CIRCUITS
 
 Scene boss-cinema-intro | Onscreen title: THE MAIN ATTRACTION
 
-Before the Cinema Headliner fight in Stage 5, Palace Cinema.
+Before the Violent Austrian Rabbi fight in Stage 5, Palace Cinema.
 
 Setting: Palace Cinema | Music: current stage
 
@@ -384,7 +382,7 @@ Setting: Palace Cinema | Music: current stage
 
 boss-cinema-intro/screen-shadow | Automatic advance after 1.3s; earliest advance 1.1s.
 
-*Selected player: idle; the cream-scarf headliner is foreshadowed inside the cinema screen; sound cue: swish.*
+*Selected player: idle; the Violent Austrian Rabbi is foreshadowed inside the cinema screen; sound cue: swish.*
 
 No spoken dialogue.
 
@@ -392,7 +390,7 @@ No spoken dialogue.
 
 boss-cinema-intro/screen-emergence | Automatic advance after 1.6s; earliest advance 1.4s.
 
-*Selected player: idle; Cinema Headliner emerges from the cinema screen and moves right and down onto the combat plane, then guard reset after 1.4s; the cream-scarf headliner is foreshadowed inside the cinema screen; a white flash punctuates the beat; sound cue: slam.*
+*Selected player: idle; Violent Austrian Rabbi emerges from the cinema screen and moves right and down onto the combat plane, then guard reset after 1.4s; the Violent Austrian Rabbi is foreshadowed inside the cinema screen; a white flash punctuates the beat; sound cue: slam.*
 
 No spoken dialogue.
 
@@ -400,11 +398,11 @@ No spoken dialogue.
 
 boss-cinema-intro/beat-03 | Player advances; earliest advance 0.22s.
 
-*Selected player: idle; Cinema Headliner: guard reset.*
+*Selected player: idle; Violent Austrian Rabbi: guard reset.*
 
-**CINEMA HEADLINER**
+**VIOLENT AUSTRIAN RABBI**
 
-You came to see me. Now stay put.
+Welcome to your Bar Mitsfa. It's time to become a man. A dead man.
 
 Portrait: pizzeria | Expression: neutral
 
@@ -412,7 +410,7 @@ Portrait: pizzeria | Expression: neutral
 
 boss-cinema-intro/beat-04 | Player advances; earliest advance 0.22s.
 
-*Selected player: idle; Cinema Headliner: idle.*
+*Selected player: idle; Violent Austrian Rabbi: idle.*
 
 **JAY / Jay route**
 
@@ -452,13 +450,13 @@ boss-projection-defeat/beat-02 | Player advances; earliest advance 0.22s.
 
 **JAY / Jay route**
 
-There. A mercifully short feature.
+I usually don't sit through the credits…
 
 Portrait: jay | Expression: neutral
 
 **FRANKLIN / Franklin route**
 
-The booth’s dark.
+This isn't my house.
 
 Portrait: franklin | Expression: neutral
 
@@ -468,7 +466,7 @@ Destination: BOOTH POWER / OFF
 
 Scene boss-cinema-defeat | Onscreen title: THE CREDITS
 
-After the Cinema Headliner is defeated. The circuits must also be disabled to leave.
+After the Violent Austrian Rabbi is defeated. The circuits must also be disabled to leave.
 
 Setting: Palace Cinema | Music: current stage
 
@@ -476,17 +474,17 @@ Setting: Palace Cinema | Music: current stage
 
 boss-cinema-defeat/beat-01 | Player advances; earliest advance 0.22s.
 
-*Selected player: idle; Cinema Headliner: death.*
+*Selected player: idle; Violent Austrian Rabbi: death.*
 
 **JAY / Jay route**
 
-You were better on the screen.
+Finally! A believable performance.
 
 Portrait: jay | Expression: neutral
 
 **FRANKLIN / Franklin route**
 
-That’s your curtain.
+23 Skidoo!!!
 
 Portrait: franklin | Expression: neutral
 
@@ -516,13 +514,13 @@ stage-06-intro/beat-02 | Player advances; earliest advance 0.22s.
 
 **JAY / Jay route**
 
-A hostage, a private premiere, and now a detour.
+I'm going to fight my boss. Do I dare live out the American dream?
 
 Portrait: jay | Expression: neutral
 
 **FRANKLIN / Franklin route**
 
-The tower’s behind this block.
+Everbody seen the leprechaun say, “Yeah!”
 
 Portrait: franklin | Expression: neutral
 
@@ -564,13 +562,13 @@ boss-spike-intro/beat-03 | Player advances; earliest advance 0.22s.
 
 **JAY / Jay route**
 
-And I thought the garbage was out of control.
+Stick to social commentary, jerk.
 
 Portrait: jay | Expression: neutral
 
 **FRANKLIN / Franklin route**
 
-Put the can down, Spike.
+Put the can down, Spike. Do the right thing.
 
 Portrait: franklin | Expression: neutral
 
@@ -590,13 +588,13 @@ boss-spike-defeat/beat-01 | Player advances; earliest advance 0.22s.
 
 **JAY / Jay route**
 
-That’s quite enough trash for one evening.
+Stay down, Spike. Like your diminishing box-office returns.
 
 Portrait: jay | Expression: neutral
 
 **FRANKLIN / Franklin route**
 
-Stay down, Spike.
+I'll take a pepperoni and 2 plains.
 
 Portrait: franklin | Expression: neutral
 
@@ -628,7 +626,7 @@ stage-07-intro/beat-02 | Player advances; earliest advance 0.22s.
 
 **DUKE**
 
-You should have taken the deal.
+You should have taken the deal, Sherman.
 
 Portrait: duke | Expression: neutral
 
@@ -640,13 +638,13 @@ stage-07-intro/beat-03 | Player advances; earliest advance 0.22s.
 
 **JAY / Jay route**
 
-You should have left Marty alone.
+You should know I have too much integrity, Duke!
 
 Portrait: jay | Expression: neutral
 
 **FRANKLIN / Franklin route**
 
-Marty goes home. You stay here.
+Which way is the bus station?
 
 Portrait: franklin | Expression: neutral
 
@@ -692,7 +690,7 @@ Portrait: jay | Expression: neutral
 
 **FRANKLIN / Franklin route**
 
-Hands off that switch.
+Hands off my grandson.
 
 Portrait: franklin | Expression: neutral
 
@@ -816,7 +814,7 @@ Portrait: jay | Expression: neutral
 
 **FRANKLIN / Franklin route**
 
-The door. Now.
+Nilknarf!
 
 Portrait: franklin | Expression: neutral
 
@@ -904,7 +902,7 @@ Portrait: jay | Expression: neutral
 
 **FRANKLIN / Franklin route**
 
-Go on. I’ll see that he stays off the air.
+Has anyone seen the remote control?
 
 Portrait: franklin | Expression: neutral
 
@@ -1044,4 +1042,4 @@ Story lines and staging are authored in data/cutscenes.js. Stage and boss trigge
 
 Use the scene and beat identifiers when returning revisions. Replace the spoken line under the appropriate route; shared lines affect both characters. The seven approved opening lines are preserved exactly.
 
-Source fingerprint: 96f84d40f611bfad
+Source fingerprint: 35a3e1521acbd638

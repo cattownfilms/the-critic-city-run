@@ -2,6 +2,10 @@
 
 ## 8.0.0
 
+- Applied the user-edited full script verbatim on both character routes, including expression cues, Broadway naming and Franklin’s Baby New Year1937 stage context.
+- Kept all seven screen-born enemies present through the opening disruption, approaching Jay in front of the cage, then handed the launch directly to the real gameplay landing.
+- Named the cinema boss Violent Austrian Rabbi and updated its speaker, portrait and content labels while preserving compatible asset IDs.
+
 - Moved all runtime loading to a single recoverable startup preparation. Title/options remain responsive; Start, Continue and the Animation Room wait for complete readiness, and later scenes use cached assets.
 - Integrated the preferred supplied Franklin cartwheel at a fixed body scale and ground pivot, retimed to the existing running-attack window. Retained the previous six generated poses as a source alias.
 - Made Duke's transmitter send repeated, visibly screen-born Shermometer waves while active, capped at four live summoned enemies. Machine defeat stops spawning, cancels its shots and dismisses remaining summons without bonus kills or rewards.
@@ -10,7 +14,7 @@
 - Audited all original body actions and corrected verified native-facing metadata without resampling source pixels. Story movement and look targets resolve actor facing, including Marty's leftward ending run.
 - Added the complete script export in editable Markdown and Word forms, with route-specific dialogue, staging and stable scene/beat references.
 - Fixed cinema booths to the whole rear wall, restricted the projectionist to onscreen powered booths, restored choreographed eyes in shadow, and added three bouncing reel hops with unblocked-hit knockdown.
-- Moved the cream-scarf Cinema Headliner into Palace Cinema with screen foreshadowing and a screen emergence. Added Spike, the supplied African American trash-can boss, to Little Italy with a new source-derived bank and portrait.
+- Moved the cream-scarf Violent Austrian Rabbi into Palace Cinema with screen foreshadowing and a screen emergence. Added Spike, the supplied African American trash-can boss, to Little Italy with a new source-derived bank and portrait.
 - Kept save schema 5, existing keys/settings/unlocks, the first four encounter arrays and the accepted ordinary combat baseline.
 - Fixed an intermittent native WebKit audio lifecycle stall by keeping the paused context silent but running and sharing concurrent resume requests; music and active cues still stop during pause.
 

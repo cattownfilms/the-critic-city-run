@@ -79,6 +79,7 @@ jobs:
           python tests/v8-gameplay-browser.test.py --engine ${{ matrix.browser }}
           python tests/v8-archive-facing-browser.test.py --engine ${{ matrix.browser }}
           python tests/v7-scenes-browser.test.py --engine ${{ matrix.browser }}
+          python tests/v8-opening-entry-browser.test.py --engine ${{ matrix.browser }}
       - uses: actions/upload-artifact@v7
         if: always()
         with:

@@ -1,6 +1,6 @@
 # THE CRITIC: COMING ATTRACTIONS / asset usage
 
-Current runtime: 15 banks, 219 body animation states, 3,379 frame references, 2,979 unique packed rectangles and 85 dependency atlas pages, as recorded in `assets/sprites.json`. The 193 v7 source actions remain available, including explicit legacy aliases for repaired facing metadata and the replaced generated cartwheel. The 75 v7 dependency atlas pages remain unchanged. Forty-seven portrait WebPs support seven speakers separately from body-animation counts. The cream-scarf Cinema Headliner retains the internal `pizzeria-boss` bank; Spike has a new supplied-performance bank. The transmitter uses authored geometry and the final Duke fight uses his retained bank.
+Current runtime: 15 banks, 219 body animation states, 3,379 frame references, 2,979 unique packed rectangles and 85 dependency atlas pages, as recorded in `assets/sprites.json`. The 193 v7 source actions remain available, including explicit legacy aliases for repaired facing metadata and the replaced generated cartwheel. The 75 v7 dependency atlas pages remain unchanged. Forty-seven portrait WebPs support seven speakers separately from body-animation counts. The cream-scarf Violent Austrian Rabbi retains the internal `pizzeria-boss` bank; Spike has a new supplied-performance bank. The transmitter uses authored geometry and the final Duke fight uses his retained bank.
 
 The campaign has seven districts, 21 ordinary encounters, 66 ordinary spawns and five boss encounters. Shermometers provide 53 ordinary spawns. The first four districts retain the established 39 spawns. See [docs/CONTENT.md](docs/CONTENT.md) and [docs/STORY-CANON.md](docs/STORY-CANON.md).
 
@@ -43,7 +43,7 @@ Original non-Franklin crop pixels, track durations, source frame order and origi
 | Fred K / `striped` | 9 | 121 | Occasional guest opponent |
 | JP Raptor Esq / `raptor` | 9 | 143 | Occasional reach-pressure opponent |
 | Franklin / `franklin` | 42 | 511 | Brown-haired stage-4 boss, unlockable player, supplied cartwheel and original metadata/performance aliases |
-| Cinema Headliner / `pizzeria-boss` | 12 | 171 | Supplied cream-scarf cinema boss; temporary proper name, new screen poses and retained grounded bank |
+| Violent Austrian Rabbi / `pizzeria-boss` | 12 | 171 | Supplied cream-scarf cinema boss; user-approved proper name, new screen poses and retained grounded bank |
 | Marty Sherman / `marty` | 14 | 219 | Story/rescue context; all supplied Red Pullover performances retained, including scared/trapped actions |
 | Duke Phillips / `duke` | 10 | 156 | Antagonist, moving cage scenes and final physical boss; supplied Blue Polo performances retained |
 | Turkey Dinner / `turkey-dinner` | 3 | 17 | Immediate large health pickup; additional source states retained |
@@ -54,7 +54,7 @@ Total: 219 states, 3,379 frame references, 2,979 packed rectangles and 85 depend
 
 ## Added supplied performances and identity checks
 
-`production/new-assets.json` records the earlier supplied source archives. `production/v8-assets.json` and `assets/source-map.json` record the new supplied clips, hashes, fixed scale, sampled frame indices, registration, source aliases and limitations. The Cinema Headliner uses Cream Scarf material and matching supplied male videos. Its grounded `attack`, `opposite-strike` and `guard-reset` poses supply the authored one-two, rush, counter and telegraphs. New `screen-guard`, `screen-taunt` and `screen-punch` poses retain useful upper-body performances from the foot-clipped capture. No independent hurt performance was supplied; its short reaction falls back to idle.
+`production/new-assets.json` records the earlier supplied source archives. `production/v8-assets.json` and `assets/source-map.json` record the new supplied clips, hashes, fixed scale, sampled frame indices, registration, source aliases and limitations. The Violent Austrian Rabbi uses Cream Scarf material and matching supplied male videos. Its grounded `attack`, `opposite-strike` and `guard-reset` poses supply the authored one-two, rush, counter and telegraphs. New `screen-guard`, `screen-taunt` and `screen-punch` poses retain useful upper-body performances from the foot-clipped capture. No independent hurt performance was supplied; its short reaction falls back to idle.
 
 Franklin's new `cartwheel-run` samples 26 chronological frames from the preferred supplied clip at a fixed 196-pixel reference body height. Its strongest lateral pose is source fraction 11/26, retimed to the established running-attack contact instead of delaying game physics for the clip. The generated six-pose action remains as `legacy-source-cartwheel-run`; the fuller supplied performance is also available as `cartwheel-source-v8`. Spike's locomotion, punch, reaction, defeat and trash-can lift/release actions use one bank-wide scale and ground registration. His first detached can occurs at source frame 55; sampled throw contact is fraction 7/19. Five fully detached can poses are retained in `trash-can/thrown`. The measured release center is +121.8397 horizontal / −126.3763 vertical in bank pixels. The projectile applies Spike's fixed 1.08 render scale, giving a world-space source offset of +131.5869 / −136.4864 and matching the separately rendered can.
 
@@ -69,7 +69,7 @@ Turkey Dinner and Trash Can are imported from the supplied Sprite Forge archives
 | Context | Supplied arrangement | Runtime recording |
 |---|---|---|
 | Title / final results | (3) | `theme.mp3` |
-| Broadway Blocks / Little Italy | (1) | `music-broadway.mp3` |
+| Broadway / Little Italy | (1) | `music-broadway.mp3` |
 | Last Train Uptown | (5) | `music-uptown.mp3` |
 | Above the Avenue / Broadcast Tower | (2) | `music-rooftops.mp3` |
 | Theater District / Palace Cinema | (4) | `music-theater.mp3` |

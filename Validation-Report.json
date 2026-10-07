@@ -3,7 +3,7 @@
   "title": "THE CRITIC: COMING ATTRACTIONS",
   "version": "8.0.0",
   "baselineCommit": "29e97395ee88a63724a32c83a6c019996d09a39c",
-  "status": "recorded 845-case local scope passed; final native-audio and refreshed build follow-up passed; public release pending",
+  "status": "earlier 845-case local scope preserved; edited-script source, semantic assets, exact export and refreshed launcher checks passed; final native browser and public release checks pending",
   "testedAtUTC": "2026-10-07T15:19:17.820617+00:00",
   "checks": [
     {
@@ -613,8 +613,8 @@
   },
   "currentRuntimeInputs": {
     "app.js": {
-      "bytes": 41791,
-      "sha256": "28a6c88fbb5cb735146dd9410bd0dbb16b06627e74348f425d90e71469acd505"
+      "bytes": 42854,
+      "sha256": "58ae13c1d44eac1cf7a8e87529d7753b65adf681ed73e6ddf012a2e1bc22b0a8"
     },
     "engine.js": {
       "bytes": 53081,
@@ -625,34 +625,34 @@
       "sha256": "4c010f9e87d50404306bd421a70fc0076a56e9d822a15ee113c9eec93bef21b8"
     },
     "cutscenes.js": {
-      "bytes": 22906,
-      "sha256": "673294a52931cee1bf0d006d24f317f3ce22aeaa7dc5c6d22de673d67910831c"
+      "bytes": 24590,
+      "sha256": "41d7942fddfe26380f5be82eb7e37f97adcef4a49987e506609b10dedba560fd"
     },
     "data/cutscenes.js": {
-      "bytes": 18317,
-      "sha256": "2548de7c2c929f5ac8d311e059c7798a9d2b51526185fe5281441dc460b89a92"
+      "bytes": 19574,
+      "sha256": "827a2e02a9eaf18be4dba8e23126eb9b59c761b2372682d33de7785fa1e3d11b"
     },
     "data/campaign.js": {
-      "bytes": 7987,
-      "sha256": "39c82169ac81b43c8009a0aab185dfea419ea80f7eea3a013d859efcf04694a1"
+      "bytes": 8014,
+      "sha256": "035ff4dc0787a09e69bcea6a57988ea2ddd048ea19d07ea37b0952c455f2d8ad"
     },
     "assets/sprites.json": {
-      "bytes": 460488,
-      "sha256": "20cab18bed3161010c5d9e2057c39ca6958f8652d4ebb31b00238dc22af610d4"
+      "bytes": 460494,
+      "sha256": "1e8a2c9ed53123b386ed353184fc7979a88ce6a7000afe0ec08b325060b35ab9"
     },
     "assets/portraits.json": {
-      "bytes": 7652,
-      "sha256": "3872cff14dd775b7e7c6bceddd77aa36ae06378b4906fb7c2ddadc3116c93584"
+      "bytes": 7658,
+      "sha256": "d3674a445b328a63981e6de01cded1ea63bbb185b0a71bf4fdaed3858d0b1fe7"
     }
   },
   "finalBuilds": {
     "The-Critic-Coming-Attractions-v8.html": {
-      "bytes": 109607442,
-      "sha256": "87e915c38ff84ca775aa4eff2a38ee5976673be5e9587de5591608001e38423b"
+      "bytes": 109611479,
+      "sha256": "adce30e266383d488b88084f8fac942243ecc3e09e63af5883dc73abcf7545fd"
     },
     "The-Critic-Coming-Attractions-v8-Play.sh": {
-      "bytes": 111457902,
-      "sha256": "2e565128d42302dc2f7b71e0065cc8d360923a7a56d5a03962c8759c8ff274fd"
+      "bytes": 111459900,
+      "sha256": "e4dacf752a4bf3237837413164f0a79cea5c37f04b82a3b2e7adfb368b233b2a"
     }
   },
   "fullScript": {
@@ -669,9 +669,9 @@
     "optionalSceneAppendix": [
       "boss-projection-intro"
     ],
-    "markdownSha256": "812553011c309c83d4a2af6cf9a32c8cb8abe41475280e8849de014e80e6857d",
-    "docxSha256": "29ce6c0b3e0c8337c7f8a16d5445203f934e2738dfb987d2c98acbd73a43f63f",
-    "docxBytes": 44434
+    "markdownSha256": "eda80326cbc062d76c5e7eb2b4e30d5669c16af3c8e07a6f18d88f753b8825c1",
+    "docxSha256": "668bca66a379d39730260d280129fefc47a00d9e8ce3405e99cdf3a1924f983c",
+    "docxBytes": 44661
   },
   "scriptVisualReview": {
     "pageCount": 17,
@@ -697,7 +697,7 @@
     "status": "passed",
     "detail": "original",
     "sourceMatchingCheck": "passed",
-    "postFreezeValidation": "Final gallery native-bounds delegation changes app.js only; resolved script, Markdown and Word remain unchanged. Previously rendered 17-page document was not regenerated."
+    "postFreezeValidation": "Regenerated from the final edited dialogue and staging; all17 Letter pages rendered and visually reviewed. All55 supplied PDF spoken entries match applicable routes verbatim."
   },
   "additionalContractSuite": {
     "file": "tests/cutscenes-v7.test.js",
@@ -893,5 +893,22 @@
     "countBoundary": "The earlier 845 unique passing cases retain their recorded scope. These focused checks overlap earlier scenarios and are reported separately without adding their totals to 845; final loading adds two native-audio scenarios per engine.",
     "publicStatus": "pending"
   },
-  "finalBuildsStatus": "Refreshed after native WebKit pause and shared-resume repairs; 3 strict embedding, 7 real-HTTP launcher and 10 upgrade cases passed."
+  "finalBuildsStatus": "Rebuilt after the revised full script and staging notes. Real HTTP launcher and v7 upgrade17 cases pass; strict embedding parity is recorded separately.",
+  "editedScriptRevision": {
+    "applied": true,
+    "authoredSpokenLineEdits": 28,
+    "resolvedRouteLineEdits": 30,
+    "expressionEdits": 2,
+    "matchedPdfSpokenEntries": 55,
+    "sourceDigest": "35a3e1521acbd638faeb507f84d21b29c9d80769a8b74abf554a58a8f9b2829e",
+    "stagingNotes": [
+      "Persistent seven screen-born enemies approach Jay clear of the cage",
+      "Launch hands directly to actual gameplay landing",
+      "Broadway display label",
+      "Franklin Baby New Year1937 purpose",
+      "Violent Austrian Rabbi approved name"
+    ],
+    "baselineSourceCommit": "9970a08a64dc6118aacdfa3cd11b48e1cbe2e708",
+    "validationStatus": "final cross-browser checks pending"
+  }
 }

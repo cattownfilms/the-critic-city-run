@@ -53,6 +53,7 @@ def watch_opening(page, route, touch=False):
         shot_ready(page)
         before = state(page)
         index = before['index']
+        automatic = page.evaluate('!!__brawler.scenes().shot.auto')
         # Read moving staging after a visible fraction of its beat, then wait for
         # its author-required minimum. Automatic beats retain their normal clock.
         page.wait_for_timeout(80)
@@ -84,7 +85,7 @@ def watch_opening(page, route, touch=False):
         if args.screenshots and now['shotId'] in ['duke-approach', 'marty-reveal', 'screen-emergence', 'window-launch', 'street-recovery']:
             args.screenshots.mkdir(parents=True, exist_ok=True)
             page.screenshot(path=str(args.screenshots / f'{args.engine}-{route}-{now["shotId"]}.png'))
-        if page.evaluate('!!__brawler.scenes().shot.auto'):
+        if automatic:
             wait(page, 'i=>!__brawler.scenes().active||__brawler.scenes().index!==i', index)
         elif touch:
             page.locator('#sceneAdvance').tap()
@@ -109,10 +110,30 @@ def watch_opening(page, route, touch=False):
           emitted and {a['character'] for a in emitted['emergingCast']} == canonical
           and all(a['source'].startswith('screen-') for a in emitted['emergingCast']))
     launch = next((s for s in records if s['shotId'] == 'window-launch'), None)
+    hatchi = next((s for s in records if s['shotId'] == 'hatchi-matchi'), None)
+    persistent = [s for s in [hatchi, launch] if s]
+    emitted_ids = {a['id'] for a in (emitted or {}).get('emergingCast', [])}
+    check(f'{route}: the seven screen creatures persist toward Jay through reaction and launch without crossing Marty’s cage',
+          len(persistent) == 2 and len(emitted_ids) == 7 and
+          all({a['id'] for a in s['emergingCast']} == emitted_ids and
+              all(a['resolvedFace'] == -1 and a['bounds'] and
+                  a['bounds']['right'] < next(actor['x'] for actor in s['actors'] if actor['id'] == 'marty') - 58
+                  for a in s['emergingCast']) and
+              sum(a['character'] == 'sherm-punch' for a in s['actors']) == 1
+              for s in persistent) and
+          any(a['id'] == 'attraction-0' and a['animation'] == 'attack' for a in (launch or {}).get('emergingCast', [])),
+          [{'shot': s['shotId'], 'cast': s['emergingCast']} for s in persistent])
     launched = next((a for a in (launch or {}).get('actors', []) if a['id'] == 'jay'), None)
-    check(f'{route}: Jay’s launch physically leaves the studio before street recovery',
-          launched and launched['x'] < 100 and launched['y'] < 250
-          and any(s['shotId'] == 'street-recovery' for s in records), launched)
+    wait(page, '__brawler.openingArrival()?.landed===true')
+    arrival = page.evaluate('__brawler.openingArrival()')
+    check(f'{route}: Jay’s studio launch hands off to the selected player landing on the actual gameplay canvas',
+          launched and launched['x'] < 100 and launched['y'] < 250 and
+          arrival and arrival['started'] and arrival['landed'] and arrival['character'] == route and
+          arrival['canvas'] == 'game' and arrival['stage'] == 0 and
+          page.locator('#game').is_visible() and page.locator('#hud').is_visible() and
+          page.evaluate('__brawler.game.p.z===0&&__brawler.game.p.hp===100') and
+          page.evaluate('__brawler.scenes().state().completion.reason==="gameplayEntry"'),
+          {'launch': launched, 'arrival': arrival})
     reference = records[0]['bounds']
     check(f'{route}: viewport, dialogue, portrait and Continue anchors do not bounce between beats',
           all(all(abs(s['bounds'][box][key] - reference[box][key]) <= 1

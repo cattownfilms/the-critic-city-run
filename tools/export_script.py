@@ -21,13 +21,13 @@ SOURCE_FILES = ("data/cutscenes.js", "data/campaign.js", "engine.js", "app.js", 
 ROUTES = {"hero": "Jay route", "franklin": "Franklin route"}
 ACTOR_NAMES = {
     "hero": "Jay", "selected": "selected player", "franklin": "Franklin",
-    "duke": "Duke", "marty": "Marty", "pizzeria-boss": "Cinema Headliner",
+    "duke": "Duke", "marty": "Marty", "pizzeria-boss": "Violent Austrian Rabbi",
     "spike": "Spike", "sherm-punch": "Shermometer v1", "sherm-shove": "Shermometer v2",
     "sherm-slam": "Shermometer v3", "striped": "Fred K", "raptor": "JP Raptor Esq",
     "bear": "Accordion Bear", "hippo": "Green Hippo",
     "broadcast-rig": "Duke’s Broadcast System",
 }
-ENVIRONMENTS = {"studio": "Coming Attractions studio", "broadway": "Broadway Blocks",
+ENVIRONMENTS = {"studio": "Coming Attractions studio", "broadway": "Broadway",
                 "subway": "Last Train Uptown", "rooftop": "Above the Avenue",
                 "theater": "Theater District", "cinema": "Palace Cinema",
                 "pizzeria": "Little Italy pizzeria", "broadcast": "Broadcast Tower"}
@@ -102,7 +102,7 @@ def trigger(scene_id: str, model: dict) -> str:
             if boss.get("intro") == scene_id:
                 return f"Before the {ACTOR_NAMES.get(boss['kind'], boss['kind'])} fight in Stage {number}, {stage['name']}."
     return {
-        "boss-cinema-defeat": "After the Cinema Headliner is defeated. The circuits must also be disabled to leave.",
+        "boss-cinema-defeat": "After the Violent Austrian Rabbi is defeated. The circuits must also be disabled to leave.",
         "boss-spike-defeat": "After Spike is defeated, before the exit toward the Broadcast Tower.",
         "boss-broadcast-defeat": "After the machine is destroyed. Enemy transmissions stop; Marty remains confined and Duke’s fight follows.",
         "boss-duke-defeat": "After Duke is defeated. His defeat permits the cage to open and the rescue to proceed.",
@@ -111,6 +111,8 @@ def trigger(scene_id: str, model: dict) -> str:
 
 
 def human_action(shot: dict, route: str) -> str:
+    if shot.get("gameplayEntry"):
+        return "The scene ends and the selected player drops onto the actual Broadway gameplay canvas, landing through the ordinary jump and recovery physics."
     notes = []
     actors = [a for a in shot.get("actors", []) if not a.get("routes") or route in a["routes"]]
     for a in actors:
@@ -143,12 +145,21 @@ def human_action(shot: dict, route: str) -> str:
         notes.append("broadcast monitors are powered" if shot["powered"] else "the broadcast monitors lose power")
     if shot.get("emissions"):
         cast = ", ".join(ACTOR_NAMES.get(e["character"], e["character"]) for e in shot["emissions"])
-        notes.append(f"screens release {cast} in succession")
+        if shot.get("emissionGroup") and any(e.get("approach") for e in shot["emissions"]):
+            if shot.get("id") == "screen-emergence":
+                notes.append(f"screens release {cast} in succession; they remain visible and creep toward Jay, clear of Marty’s cage")
+            else:
+                notes.append("the same screen-born enemies remain visible and advance toward Jay")
+            actions = shot.get("emissionActions", {})
+            if actions.get("attraction-0", {}).get("afterAnimation") == "attack":
+                notes.append("Shermometer v1 attacks Jay as the other enemies approach")
+        else:
+            notes.append(f"screens release {cast} in succession")
     booth = shot.get("booth")
     if booth:
         notes.append({"shadow": "eyes move in the dark projection booth", "lit": "the booth light reveals the projectionist", "off": "the projection booths go dark"}.get(booth["phase"], "projection booth active"))
     if shot.get("screenForeshadow"):
-        notes.append("the cream-scarf headliner is foreshadowed inside the cinema screen")
+        notes.append("the Violent Austrian Rabbi is foreshadowed inside the cinema screen")
     if shot.get("door"):
         notes.append("the pizzeria door opens" if shot["door"].get("opening") else "the pizzeria door is open")
     for key, desc in (("brokenWindow", "the studio window breaks"), ("glass", "glass scatters"),
@@ -162,6 +173,8 @@ def human_action(shot: dict, route: str) -> str:
 
 
 def timing(shot: dict) -> str:
+    if shot.get("gameplayEntry"):
+        return "Immediate transition to Stage 1 gameplay; no cutscene hold."
     result = f"Automatic advance after {shot['auto']:g}s" if shot.get("auto") else "Player advances"
     if shot.get("minTime"):
         result += f"; earliest advance {shot['minTime']:g}s"

@@ -2,7 +2,11 @@
 
 The v8 refinement baseline is reviewed commit `29e97395ee88a63724a32c83a6c019996d09a39c`. The results below are freshly executed v8 checks. Earlier v7 totals, browser versions and public deployment receipts are historical and are not evidence for this release.
 
-## Current local results
+## Edited full-script revision
+
+The supplied PDF’s 55 spoken entries match the applicable resolved routes verbatim: 28 authored line edits, 30 resolved route changes and two expression cues. The seven approved opening lines remain intact. The updated editable script was regenerated from frozen source, and all 17 Letter pages were rendered and visually reviewed. The opening retains its seven screen-born enemies across the launch and transfers recovery to the real gameplay canvas. Final native-browser and public-release checks for this revision are pending.
+
+## Earlier local results
 
 The recorded local validation has **845 passing structured cases and zero failures**: 651 curated browser/launcher/asset/parity cases, 171 Node cases and 23 Python cases. The separate grouped cutscene-contract suite also passes and is excluded from that total. Archive checks and exact rebuilt-artifact checks are included in that earlier snapshot. A later intermittent native WebKit audio stall prompted the targeted fix below. Its final 93 loading/facing/native-audio cases, clean WebKit campaign recheck (31), source Chromium audio recheck (19) and refreshed build/payload rechecks (20) all pass. Those overlapping rechecks are reported separately and do not inflate the earlier 845-case scope. Public v8 release verification remains pending.
 
@@ -34,7 +38,7 @@ Both normal-input routes complete all seven stages in Chromium, Firefox, WebKit 
 
 The route driver accelerates fixed engine updates through actual application events and cutscene callbacks. It does not modify health, positions, enemies, score or story flags during a route. Collision, rendering, legacy-save and unlocked-profile scenarios are explicit fixtures separate from those playthroughs.
 
-Fresh feature checks cover both players' RUN + HIT into Bear/Hippo, one stun and combo reset without enemy damage, ordinary Shermometer launches, thirteen world-fixed booths, onscreen powered appearances, four-phase shadow eyes, three reel hops, one contact and incoming-side guard after reflection. They cover the screen-origin Cinema Headliner, Spike's door entrance/throw bank, repeated capped transmitter waves, shutdown without extra rewards and the required Duke rescue sequence. Node checks retain accepted HITS/CHAIN definitions, ordinary enemy data and original source performances; asset checks compare decoded pixels, registration and timing with explicit preserved aliases.
+Fresh feature checks cover both players' RUN + HIT into Bear/Hippo, one stun and combo reset without enemy damage, ordinary Shermometer launches, thirteen world-fixed booths, onscreen powered appearances, four-phase shadow eyes, three reel hops, one contact and incoming-side guard after reflection. They cover the screen-origin Violent Austrian Rabbi, Spike's door entrance/throw bank, repeated capped transmitter waves, shutdown without extra rewards and the required Duke rescue sequence. Node checks retain accepted HITS/CHAIN definitions, ordinary enemy data and original source performances; asset checks compare decoded pixels, registration and timing with explicit preserved aliases.
 
 Startup checks stall required files, keep title/options usable, gate every gameplay/gallery path, verify all 85 pages and all audio bytes are prepared, then exercise every scene and bank with zero later HTTP asset requests. Corrupt-atlas retry retains successful downloads and a pending Continue save. A new-game checkpoint now enables Continue immediately after returning to Title. Bulk startup intentionally shifts the full download earlier; no physical-device or network-speed improvement is inferred from localhost results.
 
