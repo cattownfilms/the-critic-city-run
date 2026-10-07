@@ -77,6 +77,12 @@ async function check(name, fn) {
     const {audio,nodes,keys}=fixture();await audio.playMusic('title');audio.music.pause();audio.gesture();await Promise.resolve();
     assert.equal(audio.music.paused,false);assert.equal(nodes.length,keys.length);assert(nodes.filter(n=>n!==audio.music).every(n=>n.volume===0));
   });
+  await check('A failed inactive-track prime cannot turn mute into a retry',async()=>{
+    const {audio}=fixture();await audio.playMusic('title');audio.gesture();await new Promise(setImmediate);
+    const other=audio.musicNodes.get('cinema');audio.primed.delete(other);other.play=()=>Promise.reject(new Error('prime rejected'));
+    audio.gesture();await new Promise(setImmediate);assert.equal(audio.lastBlocked,null);assert.match(audio.lastPrimeError,/prime rejected/);
+    audio.lastBlocked='stale earlier failure';audio.toggle();assert.equal(audio.muted,true);assert.equal(audio.music.paused,true);
+  });
   const report = { tests: results, passed: results.filter(x => x.passed).length, failed: results.filter(x => !x.passed).length, boundary: 'Actual AudioSystem class; synthetic native media/promise fixtures. Native browser validation remains required.' };
   fs.writeFileSync(path.join(__dirname, 'audio-lifecycle-results.json'), JSON.stringify(report, null, 2) + '\n');
   process.exitCode = report.failed ? 1 : 0;

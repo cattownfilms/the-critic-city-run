@@ -69,7 +69,7 @@ class AudioSystem{
    if(node===this.music)continue;
    if(this.primed?.has(node))continue;
    node.volume=0;
-   try{const pending=node.play();Promise.resolve(pending).then(()=>{(this.primed||(this.primed=new Set())).add(node);if(node!==this.music&&node!==this.outgoing)node.pause();},e=>{this.lastBlocked=String(e);});}catch(e){this.lastBlocked=String(e);}
+   try{const pending=node.play();Promise.resolve(pending).then(()=>{(this.primed||(this.primed=new Set())).add(node);if(node!==this.music&&node!==this.outgoing)node.pause();},e=>{this.lastPrimeError=String(e);});}catch(e){this.lastPrimeError=String(e);}
   }
   if(this.wantMusic&&this.music.paused)this.playMusic(this.trackKey);
  }
@@ -96,7 +96,7 @@ class AudioSystem{
   if(this.outgoing){this.outgoing.volume=level*Math.cos(this.fade*Math.PI/2);if(this.fade>=1){this.outgoing.pause();this.outgoing=null;}}
   if(this.bus)this.bus.gain.value=this.muted?0:settings.sfx;
  }
- toggle(){if(this.lastBlocked&&!this.muted){this.gesture();this.playMusic(this.trackKey);toast('Retrying audio');return;}this.muted=!this.muted;if(this.muted){this.music.pause();if(this.outgoing)this.outgoing.pause();}else if(['play','stageclear','complete','title','cutscene'].includes(game.mode))this.playMusic(game.mode==='cutscene'?scenes?.scene?.music||stageMusic():['title','complete'].includes(game.mode)?'title':undefined);toast(this.muted?'Audio muted':'Audio on');}
+ toggle(){if(this.lastBlocked&&this.music.paused&&!this.muted){this.gesture();this.playMusic(this.trackKey);toast('Retrying audio');return;}this.muted=!this.muted;if(this.muted){this.music.pause();if(this.outgoing)this.outgoing.pause();}else if(['play','stageclear','complete','title','cutscene'].includes(game.mode))this.playMusic(game.mode==='cutscene'?scenes?.scene?.music||stageMusic():['title','complete'].includes(game.mode)?'title':undefined);toast(this.muted?'Audio muted':'Audio on');}
 
 }
 const game=new Brawler.Game(),audio=new AudioSystem(),input=new Input();game.franklinUnlocked=profile.franklinUnlocked;let renderer,meta,ready=false,last=performance.now(),acc=0,fromGallery='title',galleryTime=0,galleryPlaying=true,completeTime=0,tipTime=0,clearTime=0,presentationPaused=false,openingArrival=null;
