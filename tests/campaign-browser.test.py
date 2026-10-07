@@ -6,9 +6,9 @@ score, or campaign flags during either route. Explicit scenario fixtures are kep
 separate and identified. Gamepads are fixtures; no physical hardware is claimed.
 """
 from pathlib import Path
-import argparse, json, os, time
+import argparse, json, time
 from playwright.sync_api import sync_playwright
-from browser_support import source_site, launch_options, standalone_path
+from browser_support import source_site, launch_options, standalone_path, trace_native_audio
 from load_helper import load_html
 
 ROOT=Path(__file__).resolve().parents[1]
@@ -124,25 +124,7 @@ with source_site(args.url) as url, sync_playwright() as pw:
         raise SystemExit(2)
     context=browser.new_context(viewport={'width':1000,'height':560},has_touch=True)
     page=context.new_page()
-    if os.environ.get('CRITIC_TRACE_AUDIO')=='1':
-        # Delegate unchanged native calls. A synchronous WebKit stall otherwise
-        # leaves only the enclosing scene callback visible in the runner log.
-        page.on('console',lambda message: print(message.text,flush=True)
-                if message.text.startswith('NATIVE AUDIO TRACE ') else None)
-        page.add_init_script('''(()=>{
-          let serial=0;
-          const wrap=(proto,names,label)=>{if(!proto)return;for(const name of names){
-            const original=proto[name];if(typeof original!=='function')continue;
-            proto[name]=function(...args){const id=++serial;
-              console.log('NATIVE AUDIO TRACE '+JSON.stringify({id,call:label+'.'+name,phase:'begin'}));
-              const result=original.apply(this,args);
-              console.log('NATIVE AUDIO TRACE '+JSON.stringify({id,call:label+'.'+name,phase:'returned'}));
-              return result;
-            };
-          }};
-          wrap(HTMLMediaElement.prototype,['play','pause','load'],'media');
-          wrap((window.AudioContext||window.webkitAudioContext)?.prototype,['resume','suspend','close','decodeAudioData'],'context');
-        })()''')
+    trace_native_audio(page)
     load(page,url)
     check('Current canonical title and expanded campaign load',page.title().upper()=='THE CRITIC: COMING ATTRACTIONS' and page.evaluate('Brawler.STAGES.length===7&&BRAWLER_CONFIG.version==="8.0.0"'))
     ui_step('New Game click',lambda: page.locator('#startButton').click());opening_ready(page)

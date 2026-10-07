@@ -63,3 +63,25 @@ def skip_story(page):
             return
         page.wait_for_timeout(50)
     raise AssertionError('Story queue did not settle after safe skipping')
+
+
+def trace_native_audio(page):
+    if os.environ.get('CRITIC_TRACE_AUDIO')=='1':
+        # Delegate unchanged native calls. A synchronous WebKit stall otherwise
+        # leaves only the enclosing scene callback visible in the runner log.
+        page.on('console',lambda message: print(message.text,flush=True)
+                if message.text.startswith('NATIVE AUDIO TRACE ') else None)
+        page.add_init_script('''(()=>{
+          let serial=0;
+          const wrap=(proto,names,label)=>{if(!proto)return;for(const name of names){
+            const original=proto[name];if(typeof original!=='function')continue;
+            proto[name]=function(...args){const id=++serial;
+              console.log('NATIVE AUDIO TRACE '+JSON.stringify({id,call:label+'.'+name,phase:'begin'}));
+              const result=original.apply(this,args);
+              console.log('NATIVE AUDIO TRACE '+JSON.stringify({id,call:label+'.'+name,phase:'returned'}));
+              return result;
+            };
+          }};
+          wrap(HTMLMediaElement.prototype,['play','pause','load'],'media');
+          wrap((window.AudioContext||window.webkitAudioContext)?.prototype,['resume','suspend','close','decodeAudioData'],'context');
+        })()''')

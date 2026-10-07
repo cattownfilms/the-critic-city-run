@@ -14,7 +14,7 @@ import time
 from urllib.parse import urlparse
 
 from playwright.sync_api import sync_playwright
-from browser_support import source_site, launch_options
+from browser_support import source_site, launch_options, trace_native_audio
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--engine', choices=['chromium', 'firefox', 'webkit'], default='chromium')
@@ -68,6 +68,7 @@ with source_site(args.url) as url, sync_playwright() as pw:
         context = browser.new_context(viewport={'width': 412, 'height': 915}, has_touch=True)
         context.add_init_script(audio_probe)
         page = context.new_page()
+        trace_native_audio(page)
         page.on('pageerror', lambda error: errors.append(error.stack or str(error)))
         requests, held = [], []
         stall = {'on': True}
@@ -248,6 +249,7 @@ with source_site(args.url) as url, sync_playwright() as pw:
         retry_context = browser.new_context(viewport={'width': 1000, 'height': 560})
         retry_context.add_init_script("localStorage.setItem('cattown.critic.brawler.v3.save',JSON.stringify({version:5,stage:6,nextGate:2,lives:3,meter:35,score:3456,playerKind:'hero',franklinUnlocked:true,machineDefeated:true,dukeDefeated:false,storyFlags:{}}))")
         retry_page = retry_context.new_page()
+        trace_native_audio(retry_page)
         retry_page.on('pageerror', lambda error: errors.append(error.stack or str(error)))
         target_file = page.evaluate('__brawler.meta().pages[__brawler.meta().pages.length-1].file')
         attempt = {'fail': True}
@@ -284,13 +286,19 @@ with source_site(args.url) as url, sync_playwright() as pw:
         check('Old save and Continue survive the failed startup and recovery',
               retry_page.locator('#continueButton').is_enabled() and retry_page.evaluate('__brawler.getSave().score===3456&&__brawler.getSave().franklinUnlocked===true'))
         check('No JavaScript page errors occur in bulk loading, cached scenes, or retry', not errors, errors)
+        print("CLEANUP TRACE retry context begin",flush=True)
         retry_context.close()
+        print("CLEANUP TRACE retry context end",flush=True)
+        print("CLEANUP TRACE primary context begin",flush=True)
         context.close()
+        print("CLEANUP TRACE primary context end",flush=True)
     except Exception as error:
         check('Browser suite completed', False, str(error))
     finally:
         if browser:
+            print("CLEANUP TRACE browser begin",flush=True)
             browser.close()
+            print("CLEANUP TRACE browser end",flush=True)
     report['passed'] = sum(test['passed'] for test in results)
     report['failed'] = sum(not test['passed'] for test in results)
     report['pageErrors'] = errors

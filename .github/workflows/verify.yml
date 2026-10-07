@@ -63,6 +63,12 @@ jobs:
           python-version: '3.13'
       - name: Install browser test tools
         run: |
+          # The runner's Azure HTTP mirror stalled until the release job timeout.
+          # Use the same Ubuntu packages through the official HTTPS mirror.
+          if [ -f /etc/apt/sources.list.d/ubuntu.sources ]; then
+            sudo sed -i 's|http://azure.archive.ubuntu.com/ubuntu|https://archive.ubuntu.com/ubuntu|g' /etc/apt/sources.list.d/ubuntu.sources
+          fi
+          echo 'Acquire::http::Timeout "30"; Acquire::https::Timeout "30"; Acquire::Retries "1";' | sudo tee /etc/apt/apt.conf.d/99critic-timeouts > /dev/null
           python -m pip install -r requirements-test.txt
           python -m playwright install --with-deps ${{ matrix.browser }}
       - name: Build standalone parity edition
@@ -79,7 +85,7 @@ jobs:
           else
             python tests/campaign-browser.test.py --engine ${{ matrix.browser }}
           fi
-          python tests/v8-loading-facing-browser.test.py --engine ${{ matrix.browser }}
+          CRITIC_TRACE_AUDIO=1 timeout 5m python tests/v8-loading-facing-browser.test.py --engine ${{ matrix.browser }} --output tests/v8-loading-facing-${{ matrix.browser }}-results.json
           python tests/v8-gameplay-browser.test.py --engine ${{ matrix.browser }}
           python tests/v8-archive-facing-browser.test.py --engine ${{ matrix.browser }}
           python tests/v7-scenes-browser.test.py --engine ${{ matrix.browser }}
