@@ -258,7 +258,7 @@ function drawWorldScene(s){
    else{body.anim=a.animation==='death'?'death':a.animation||'idle';if(a.face)body.face=a.face;}
    body.animT=body.anim==='death'?1.7:s.time;body.animDuration=body.anim==='death'?1.7:0;
   }
-  s.actorStates.push({id:a.id,character:who,x:body.x,y:body.y,animation:body.anim,visible:true,resolvedFace:body.face,faceReason:'world-continuity'});
+  s.actorStates.push({id:a.id,character:who,x:body.x,y:body.y,animation:body.anim,visible:true,resolvedFace:body.face,faceReason:a.motion?'motion':a.face?'explicit':'world-continuity'});
  }
  game.storyActors=game.storyActors.filter(a=>active.has(a.id));const boy=game.storyActors.find(a=>a.kind==='marty');game.storyCage=s.shot.cage&&boy?{x:boy.x,y:boy.y,open:!!s.shot.cage.open}:null;
 }
