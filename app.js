@@ -43,20 +43,25 @@ class Input{
   const o={mx,my,attackPressed:this.edges.attack||!!gp?.pressed.attack,jumpPressed:this.edges.jump||!!gp?.pressed.jump,guardPressed:this.edges.guard||!!gp?.pressed.guard,specialPressed:this.edges.special||!!gp?.pressed.special,attackHeld:this.down.attack||!!gp?.held.attack||k.has('KeyJ')||k.has('KeyX'),guardHeld:this.down.guard||!!gp?.held.guard||k.has('KeyK')||k.has('KeyC')};if(consume)Object.keys(this.edges).forEach(k=>this.edges[k]=false);return o;}
 }
 class AudioSystem{
- constructor(){this.music=new Audio();this.music.loop=true;this.music.preload='none';this.music.volume=settings.music;this.trackKey='title';this.outgoing=null;this.fade=1;this.wantMusic=false;this.musicSerial=0;this.ctx=null;this.buffers={};this.bytes=new Map();this.active=new Set();this.loaded=false;this.ready=null;this.muted=false;this.lastVoice=-9;this.duck=0;this.played={};this.errors=[];this.cueNames=['swish','backhand','bear-call','bear-hit','hit','heavy','hippo-hit','slam','step1','step2','elder-strike','elder-hit','fall'];}
+ constructor(){this.music=new Audio();this.music.loop=true;this.music.preload='none';this.music.volume=settings.music;this.trackKey='title';this.musicNodes=new Map([['title',this.music]]);this.outgoing=null;this.fade=1;this.wantMusic=false;this.musicSerial=0;this.ctx=null;this.buffers={};this.bytes=new Map();this.active=new Set();this.loaded=false;this.ready=null;this.muted=false;this.lastVoice=-9;this.duck=0;this.played={};this.errors=[];this.cueNames=['swish','backhand','bear-call','bear-hit','hit','heavy','hippo-hit','slam','step1','step2','elder-strike','elder-hit','fall'];}
  async unlock(){if(!window.AudioContext&&!window.webkitAudioContext)return;try{if(!this.ctx){this.ctx=new (window.AudioContext||window.webkitAudioContext)();this.bus=this.ctx.createGain();this.bus.gain.value=settings.sfx;const comp=this.ctx.createDynamicsCompressor();comp.threshold.value=-14;comp.knee.value=20;comp.ratio.value=4;this.bus.connect(comp);comp.connect(this.ctx.destination);this.ready=this.decode();}if(this.ctx.state==='suspended'||this.ctx.state==='interrupted'){if(!this.resuming)this.resuming=this.ctx.resume();const pending=this.resuming;try{await pending;}finally{if(this.resuming===pending)this.resuming=null;}}}catch(e){this.errors.push(String(e));}}
  async decode(){const load=async name=>{const data=this.bytes.get(name+'.wav');if(!data||this.buffers[name])return;try{this.buffers[name]=await this.ctx.decodeAudioData(data.slice(0));}catch(e){this.errors.push(name+': '+e);}};await Promise.all(this.cueNames.map(load));this.loaded=Object.keys(this.buffers).length===this.cueNames.length;}
  chooseTrack(key){
-  const item=conf.music[key]||conf.music.title;if(key===this.trackKey){if(!this.music.getAttribute('src')&&cachedURLs.has(item.file))this.music.src=src(item.file);return;}
+  key=conf.music[key]?key:'title';const item=conf.music[key];if(key===this.trackKey){if(!this.music.getAttribute('src')&&cachedURLs.has(item.file))this.music.src=src(item.file);return;}
   if(!cachedURLs.has(item.file))return;
-  if(this.outgoing){this.outgoing.pause();this.outgoing.removeAttribute('src');this.outgoing.load();}
-  this.outgoing=this.music;this.music=new Audio(src(item.file));this.music.loop=true;this.music.preload='none';this.music.volume=0;this.fade=0;this.trackKey=key;
+  // Keep one prepared player per supplied track. Resetting/destroying native
+  // media with load() during rapid scene transitions can deadlock WebKit.
+  if(this.outgoing)this.outgoing.pause();
+  this.outgoing=this.music;let next=this.musicNodes.get(key);
+  if(!next){next=new Audio(src(item.file));next.loop=true;next.preload='none';this.musicNodes.set(key,next);}
+  else next.currentTime=0;
+  this.music=next;this.music.volume=0;this.fade=0;this.trackKey=key;
  }
  async playMusic(key){
   key=key||stageMusic();this.chooseTrack(key);this.wantMusic=true;const serial=++this.musicSerial,node=this.music;await this.unlock();
   if(!this.wantMusic||serial!==this.musicSerial||this.muted||settings.music<=0)return;
   if(!node.getAttribute('src'))return;
-  try{await node.play();if(!this.wantMusic||serial!==this.musicSerial||this.muted)node.pause();}
+  try{await node.play();if(!this.wantMusic||node!==this.music||this.muted)node.pause();}
   catch(e){if(this.wantMusic&&serial===this.musicSerial){this.errors.push('music: '+e);toast('Tap the sound button to enable audio.');}}
  }
  sample(name,vol=.65,rate=1){if(this.muted||!this.ctx||this.ctx.state!=='running'||!this.buffers[name]||this.active.size>=10)return;const b=this.ctx.createBufferSource(),g=this.ctx.createGain();b.buffer=this.buffers[name];b.playbackRate.value=rate;g.gain.value=vol;b.connect(g);g.connect(this.bus);this.bus.gain.value=settings.sfx;b.start();this.active.add(b);this.played[name]=(this.played[name]||0)+1;b.onended=()=>{this.active.delete(b);b.disconnect();g.disconnect();};}
@@ -72,7 +77,7 @@ class AudioSystem{
  update(dt){
   this.duck=Math.max(0,this.duck-dt);if(this.wantMusic&&!this.music.paused)this.fade=Math.min(1,this.fade+dt/.9);
   const level=this.muted?0:settings.music*(this.duck>0?.62:1);this.music.volume=level*Math.sin(this.fade*Math.PI/2);
-  if(this.outgoing){this.outgoing.volume=level*Math.cos(this.fade*Math.PI/2);if(this.fade>=1){this.outgoing.pause();this.outgoing.removeAttribute('src');this.outgoing.load();this.outgoing=null;}}
+  if(this.outgoing){this.outgoing.volume=level*Math.cos(this.fade*Math.PI/2);if(this.fade>=1){this.outgoing.pause();this.outgoing=null;}}
   if(this.bus)this.bus.gain.value=this.muted?0:settings.sfx;
  }
  toggle(){this.muted=!this.muted;if(this.muted){this.music.pause();if(this.outgoing)this.outgoing.pause();}else if(['play','stageclear','complete','title','cutscene'].includes(game.mode))this.playMusic(game.mode==='cutscene'?scenes?.scene?.music||stageMusic():['title','complete'].includes(game.mode)?'title':undefined);toast(this.muted?'Audio muted':'Audio on');}
