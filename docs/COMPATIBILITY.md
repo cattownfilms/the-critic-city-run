@@ -1,47 +1,48 @@
 # Browser and controller compatibility
 
-## Delivered verification boundary
+## Current v8 verification
 
-The v7 correction was exercised locally with Playwright 1.57.0 in Chromium **143.0.7499.4**, Firefox **144.0.2**, and WebKit **26.0**. Actual multi-file authoring source was served by an HTTP server inside each test process and opened in the browser. This includes genuine origin-local storage and reloads. The baseline reviewed v6 tree was tested independently before correction and passed its original source and offline suites. Chromium uses an explicitly selected matching Chrome for Testing headless-shell binary in this workspace; Firefox and WebKit use Playwright’s installed engines.
+The actual multi-file v8 source was served over local HTTP and exercised in **Chromium 141.0.7390.37**, **Firefox 146.0.1** and **WebKit 26.0**. Each engine passed 152 source cases, including four final same-frame archive display checks. The rebuilt offline edition also has separate Chromium campaign, controller, gameplay, touch/rendering, soundtrack, storage and fallback coverage. Four final offline archive cases, three strict source-embedding checks and seventeen rerun exact launcher/payload cases cover the last display-only change. The final native-audio follow-up and refreshed fingerprints are described below and in [VALIDATION.md](VALIDATION.md).
 
-| Browser / source edition | Controller | Campaign / saves | Loading gates | Staging / portraits / layout |
-|---|---:|---:|---:|---:|
-| Chromium | 39 passed | 31 passed | 16 passed | 26 passed |
-| Firefox | 39 passed | 31 passed | 16 passed | 26 passed |
-| WebKit | 39 passed | 31 passed | 16 passed | 26 passed |
+| Source engine | Controller | Campaign/saves | Bulk loading/facing | Scenes/portraits/layout | V8 gameplay | Final archive facing |
+|---|---:|---:|---:|---:|---:|---:|
+| Chromium | 39 | 31 | 29 | 26 | 23 | 4 |
+| Firefox | 39 | 31 | 29 | 26 | 23 | 4 |
+| WebKit | 39 | 31 | 29 | 26 | 23 | 4 |
 
-Each engine completed both Jay and unlocked Franklin routes using normal combat inputs: all seven stages, 71 knockouts, no retries, and the machine followed by Duke. Separate scene tests watch the entire rebuilt opening in normal browser time with keyboard and touch, verify all approved lines, delayed Marty reveal, real cast screen origins, Jay’s launch, six portrait identities, Franklin’s ally dialogue, and fixed landscape/portrait bounds. Deliberately stalled HTTP image requests verify that every gallery entrance stays blocked until dependencies decode while options remain usable. Repeated failed Continue downloads remain retryable and preserve the final-phase checkpoint. The completed-v4 save scenario resumes the newly required physical Duke fight; schema 5 Continue preserves the pending final phase without duplicating him or rescuing Marty early.
+All listed cases passed. Both Jay and unlocked Franklin complete seven-stage normal-input routes in each source engine with 75 knockouts, three machine waves and zero retries. The offline routes also complete with zero retries; dynamic summons give Jay 75 knockouts and Franklin 76. Machine defeat precedes Duke, Duke precedes rescue, and scene transitions record no loading waits. Explicit save fixtures separately cover old-schema migration, Continue, stage checkpoints and the Stage 4 unlock rule.
 
-The controller checks use injected standard and nonstandard Gamepad API objects and the real browser event loop. They cover radial movement, D-pad, combat, remapping, menus, scene advance/pause/skip, held-input suppression, disconnect/reconnect, and focus handling. They are **not a physical Logitech hardware test**. Polling assertions wait for actual pad readiness and observed state changes. The tap helper observes state with driver-side reads so hiding a focused native field cannot starve the browser-owned assertion timer; the device label is checked through the selected option's text because native select text extraction differs among engines.
+Bulk startup prepares all current runtime pages and portrait expressions plus scene/environment images and audio bytes before destinations become usable. Stalled and failed-file scenarios verify title/options access, all entry gates, accurate progress and recoverable Retry. Cached scenes and gallery banks produce no later HTTP requests. This intentionally trades a larger upfront load for scene continuity; these tests are not an Android/network loading benchmark.
 
-Browser tests use Playwright’s installed engine by default. Set `CRITIC_CHROMIUM` explicitly when testing a custom Chromium executable. There is no automatic system-binary fallback. Browser availability and test-runner startup are reported separately from game assertions.
+The source scene suites use actual keyboard/touch interactions and normal-time opening playback. They verify exact approved lines, delayed Marty reveal, actual cast screen origins, Jay's launch, seven portrait identities, Franklin's ally role and stable portrait/landscape anchors. Feature fixtures cover the projection booths, eyes, reels, heavy collisions and new boss entrances; normal campaign runs independently verify complete progression.
 
-The campaign driver runs both Jay and unlocked Franklin through all seven stages with normal movement and combat inputs, including the projection circuits, final broadcast encounter, and physical Duke confrontation. It accelerates the engine's fixed updates through the actual app event handlers. It does not edit positions, health, enemies, score, or story flags during either route. It invokes the real stage-clear transition without waiting for celebration delays. Explicit legacy-save and unlocked-profile fixtures are identified in the report. Separate real keyboard and touch events verify story input, gameplay input, and mobile layouts.
+The controller suites inject standard/nonstandard Gamepad API objects into the real browser loop. They cover analog radial movement, D-pad, combat, manual mapping, menus, scene input, held-input suppression, disconnect/reconnect and focus handling. They do not constitute physical Logitech testing. Actual CDP multi-touch checks verify simultaneous move/jump/attack and independent release/cancel behavior in Chromium mobile-sized viewports.
 
-The exact rebuilt offline edition passed **31 campaign/save checks**, **34 mobile/rendering/touch checks**, **19 soundtrack/presentation checks**, **8 optional-API fallback checks**, and **3 denied-storage checks** in Chromium. It uses bounded parser writes; that harness explicitly emulates storage and restores serialized fixture values when recreating the page. The tested file is 99,553,793 bytes, SHA256 `241ff96b2f5eef28fdd4b5f88eb5d72d49f0bfce7125ab7ac3f6423fb7b350fe`. Its final results are recorded in [Validation](VALIDATION.md). Multi-touch is delivered through CDP, including independent movement/jump/attack ownership and cancellation. All cutscene art and portrait dependencies decode in each tested source engine. See [Validation](VALIDATION.md) and the generated test reports for exact coverage.
+Source HTTP tests use genuine browser-origin storage. The standalone harness uses bounded parser writes and explicitly emulated storage. Local Linux launcher tests serve exact payload responses on localhost:8788; upgrade tests start with the preserved exact v7 launcher and check backups plus existing installation/save fixtures. Physical Android/Termux remains untested.
 
-These results do not represent physical Android, a physical gamepad, desktop Safari, or iPhone testing. Playwright WebKit is a compatibility engine, not a claim of testing every Safari or Apple hardware configuration. The v7 public GitHub Pages game separately passed 96 Chromium browser checks and 140 HTTPS asset checks. Jay and Franklin each finished all seven stages with 71 knockouts and no retries. Review and merged-main CI passed core, Chromium, Firefox and WebKit jobs; the Pages deployment succeeded. See [release verification](VALIDATION.md#public-release-verification) for exact runs and the cold-network test-driver correction.
+## Native WebKit follow-up
 
-## Intended browser targets and fallbacks
+Repeated Start/Skip/Pause/Title transitions exposed an intermittent native WebKit audio stall after the earlier passing suite. Pause now leaves the silent context running while pausing music and stopping active cues; concurrent unlock requests share one in-flight native resume. The initial pause-only repair's incomplete Franklin opening rerun is retained as diagnosis, with no pass credit.
 
-Current Chrome, Edge and Samsung Internet on supported Android/desktop devices are intended Chromium-family targets. Current Firefox and Safari are additional intended targets, not guaranteed hardware combinations. The game requires JavaScript, Canvas 2D, WebP image decoding, pointer events and ordinary MP3 support. Fullscreen, physical gamepads and touch vibration are optional enhancements.
+The final repair passes **31/31 loading/facing/native-audio cases in each engine (93 total)**, including actual native pause silence and shared resume, with zero page errors. A clean unwrapped WebKit campaign recheck passes **31/31**, completing both seven-stage routes with 75 knockouts, three waves and zero retries. Current-source Chromium audio/presentation passes **19/19** with actual decoding, playback, crossfades, pause/resume and mute. The refreshed offline bytes pass three embedding, seven real-HTTP launcher and ten upgrade checks. These focused confirmations are reported separately from the earlier 845-case scope. Public v8 verification remains pending.
+## Audio verification boundary
 
-- **Gamepad**: feature detection plus guarded `navigator.getGamepads()` polling. Sparse pad arrays, disconnect/reconnect, multiple pads, API exceptions, nonstandard mapping and missing API are handled. Touch and keyboard remain available.
-- **Page context**: open the direct HTTPS site or localhost. A gamepad may not be exposed until its button is pressed with the page focused. Embedded previews can restrict access.
-- **Autoplay**: use a genuine tap/click/key to enable sound. A gamepad can drive the game, but its polled button state is not assumed to satisfy every browser's audio activation policy. Missing Web Audio disables sample playback without blocking gameplay; ordinary music playback still attempts after activation.
-- **Fullscreen**: standard and legacy WebKit entry/exit are guarded. Unsupported or denied fullscreen shows a message rather than stopping the game.
-- **Storage**: malformed, blocked or unavailable storage does not stop play. Saves are local to the browser and origin; controller mappings use a separate key.
-- **Focus**: background/blur and active-pad loss clear held input and pause play. Return controls to neutral before resuming control; no automatic attacking on reconnect.
-- **Menus**: keyboard focus, gamepad navigation, native selects/ranges, scrollable portrait settings, `vh`/`dvh` fallback and safe-area insets are retained/supported. Touch controls do not disappear because a controller connects.
+Chromium exercises real decoded MP3 playback, overlapping crossfades, all thirteen cues, mute and pause. Firefox headless's AudioContext remained suspended; its passing tests verify cached bytes and safe deferred decoding, not actual Firefox audible playback. WebKit decodes cues, and the environment has no audible output device. Gesture activation remains required when enforced by a browser. Gamepad polling alone is not assumed to satisfy autoplay policy.
 
-## Physical test checklist
+## Intended targets and fallbacks
 
-On the actual Logitech pad and target browser: connect it to the operating system; enable Controller; press a button; confirm the detected ID/mapping. Test centered sticks, gradual walk/run, both depth directions, face buttons, jump+attack, guard+dodge, Review, pause/resume, menu back, disconnect and reconnect. For a nonstandard layout, run the mapping wizard and reload to verify that the saved profile returns. Switch hardware input mode only when your exact model provides that switch. Pairing/USB adapters and operating-system driver support are outside the game's browser API.
+Chromium-family desktop/mobile browsers, Firefox and Safari-compatible behavior remain targets. JavaScript, Canvas 2D, WebP decoding, pointer events and MP3 support are required. Fullscreen, physical gamepads and touch vibration are optional.
 
-## Technical references
+- Gamepad: guarded feature detection and polling handle missing APIs, sparse arrays, exceptions, reconnects and nonstandard mappings; touch/keyboard remain available.
+- Fullscreen: standard and legacy WebKit requests are guarded; denied/unsupported entry displays a message.
+- Storage: malformed, denied or unavailable storage does not block play. Saves and controller mappings remain tied to browser/origin; Pages and localhost are distinct.
+- Focus: blur/background and active-pad loss clear controls and pause play. Inputs must return to neutral before resumed control.
+- Menus: native keyboard focus and fields, controller navigation, portrait scrolling, safe-area insets and viewport-height fallback remain available.
 
-- https://developer.mozilla.org/en-US/docs/Web/API/Gamepad_API/Using_the_Gamepad_API
-- https://developer.mozilla.org/en-US/docs/Web/API/Navigator/getGamepads
-- https://developer.mozilla.org/en-US/docs/Web/API/Gamepad/mapping
-- https://developer.mozilla.org/en-US/docs/Web/Media/Guides/Autoplay
-- https://playwright.dev/python/docs/browsers
+Browser tests use installed Playwright engines. `CRITIC_CHROMIUM` explicitly selects a custom Chromium executable; no automatic system-binary fallback is assumed. Runner availability and startup failures are distinguished from game assertions.
+
+## Remaining verification
+
+The v8 public HTTPS build has not yet been verified in this local receipt. Public deployment evidence is added after reviewed release. Neither local automation nor a previous v7 deployment establishes current Pages success.
+
+Physical Android, Termux on Android, Logitech hardware, iPhone and desktop Safari are untested. WebKit coverage does not certify every Safari or Apple device. On actual hardware, verify gradual walk/run, depth movement, simultaneous touch or controller actions, remapping persistence, scene input, audio activation, disconnect/reconnect and focus loss. See [KNOWN-LIMITATIONS.md](KNOWN-LIMITATIONS.md).

@@ -150,7 +150,7 @@ def publish(owner: str, repo: str, *, yes: bool = False, root: Path = ROOT, wait
         latest = api(endpoint + '/builds/latest', optional=True, root=root)
         if latest and latest.get('status') == 'errored': raise PublishError('Repository is uploaded, but Pages build failed: ' + str(latest.get('error')))
         built = bool(latest and latest.get('status') == 'built')
-    state = {'published': True, 'repository': meta['html_url'], 'site': site, 'pagesBuild': 'built' if built else 'pending', 'version': '7.0.0'}
+    state = {'published': True, 'repository': meta['html_url'], 'site': site, 'pagesBuild': 'built' if built else 'pending', 'version': '8.0.0'}
     (root / '.publish-state.json').write_text(json.dumps(state, indent=2), encoding='utf-8')
     print(('Pages reports the build complete. Share: ' if built else 'Pages is still building. Share this address once Settings > Pages reports success: ') + site)
     return state

@@ -3,7 +3,7 @@ from pathlib import Path
 import argparse, json, base64, mimetypes, subprocess, re
 ROOT = Path(__file__).resolve().parents[1]
 parser = argparse.ArgumentParser()
-parser.add_argument('--output', default='The-Critic-Coming-Attractions-v7.html')
+parser.add_argument('--output', default='The-Critic-Coming-Attractions-v8.html')
 args = parser.parse_args()
 A = ROOT / 'assets'
 meta = json.loads((A / 'sprites.json').read_text())
@@ -13,6 +13,11 @@ required = {page['file'] for page in meta['pages']}
 required.update(path.name for path in A.iterdir() if path.suffix.lower() in {'.png', '.mp3', '.wav'})
 scene_images = json.loads(subprocess.check_output(['node', '-e', "const d=require('./data/cutscenes.js');const m=require('./assets/sprites.json');console.log(JSON.stringify([...new Set(Object.keys(d.scenes).flatMap(id=>['hero','franklin'].flatMap(route=>d.dependencies(id,route,m).images)))]));"], cwd=ROOT))
 required.update(scene_images)
+# Bulk preparation includes every retained portrait expression, even unused emotions.
+for speaker in meta.get('portraits', {}).get('speakers', {}).values():
+    for expression in speaker.get('expressions', {}).values():
+        for frame in expression.get('frames', []):
+            required.add(str(frame.get('image') or frame.get('file')).removeprefix('assets/'))
 # Environments and runtime projection art have their own rendering dependencies.
 required.update(path.relative_to(A).as_posix() for path in (A/'environments').glob('*.webp'))
 required.update(path.relative_to(A).as_posix() for path in (A/'story').glob('*-pixel.webp'))

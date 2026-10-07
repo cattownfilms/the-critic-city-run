@@ -12,7 +12,7 @@ with sync_playwright() as pw:
  p=b.new_page(viewport={'width':1000,'height':460},has_touch=True,is_mobile=True)
  p.on('pageerror',lambda e:errors.append(str(e)))
  load_html(p,standalone_path().read_text())
- check('Title retains supplied art, Press Start and original-theme assignment',p.locator('#titleArt').get_attribute('src').startswith('data:') and 'START' in p.locator('#startButton').inner_text().upper() and p.evaluate('__brawler.audio.trackKey')=='title')
+ check('Title retains supplied art, Press Start and original-theme assignment',p.locator('#titleArt').evaluate('im=>im.complete&&im.naturalWidth>0&&im.naturalHeight>0') and 'START' in p.locator('#startButton').inner_text().upper() and p.evaluate('__brawler.audio.trackKey')=='title')
  p.locator('#startButton').tap();wait_scene(p);p.locator('#sceneSkip').tap();p.wait_for_timeout(1200)
  p.evaluate('()=>{const g=__brawler.game;g.enemies=[];g.nextGate=3;g.activeGate=-1;g.p.x=800;g.p.hp=100;}')
  check('First district starts the Broadway recording',p.evaluate('__brawler.audio.trackKey==="broadway"&&!__brawler.audio.music.paused&&isFinite(__brawler.audio.music.duration)'))
