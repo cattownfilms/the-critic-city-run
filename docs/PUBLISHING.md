@@ -90,3 +90,13 @@ After Pages reports a completed deployment, open the actual HTTPS game and verif
 Publish only the intended source and runtime dependencies. Keep credentials, browser saves, prompt logs, raw videos, temporary generation folders, and generated standalone/launcher duplicates out of the hosted tree. Retain `NOTICE.md` and the asset provenance documentation.
 
 Share the HTTPS Pages URL with players. They can use touch, keyboard, or an enabled/remapped controller without Termux or a GitHub account. The hosted multi-file build downloads its assets normally and does not promise offline caching or a service worker.
+
+### Release-completion gate
+
+After the merged main commit reports a completed Pages build, run:
+
+```sh
+gh workflow run verify-pages.yml --repo cattownfilms/the-critic-city-run --ref main
+```
+
+This manual workflow reads the site URL and deployed commit from GitHub, rejects a stale deployment, and runs the existing controller, full-campaign, v8 gameplay and opening/Continue regressions in Chromium against public HTTPS. Reports and opening screenshots are saved as workflow artifacts. It does not replace the three-engine source checks. In native Termux, use Actions for desktop browser engines rather than installing desktop browsers locally. Keep the final deployment receipt outside the tracked source so recording the deployed commit does not recursively change it.

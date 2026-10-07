@@ -3,7 +3,7 @@
   "title": "THE CRITIC: COMING ATTRACTIONS",
   "version": "8.0.0",
   "baselineCommit": "29e97395ee88a63724a32c83a6c019996d09a39c",
-  "status": "earlier 845-case local scope preserved; edited-script source, semantic assets, exact export and refreshed launcher checks passed; final native browser and public release checks pending",
+  "status": "Reviewed v8 source passed local Termux core/assets/publication and launcher checks; GitHub Actions Core, Chromium, Firefox and WebKit passed. Merge and public HTTPS verification remain release gates.",
   "testedAtUTC": "2026-10-07T15:19:17.820617+00:00",
   "checks": [
     {
@@ -909,6 +909,97 @@
       "Violent Austrian Rabbi approved name"
     ],
     "baselineSourceCommit": "9970a08a64dc6118aacdfa3cd11b48e1cbe2e708",
-    "validationStatus": "final cross-browser checks pending"
+    "validationStatus": "Core, Chromium, Firefox and WebKit passed on reviewed source 9e9cf3a43c066a495da13ee2e3616e0b0aa36ff6 in Actions run 37656134125 (WebKit attempt 2)."
+  },
+  "releaseCompletion": {
+    "reviewedSourceCommit": "9e9cf3a43c066a495da13ee2e3616e0b0aa36ff6",
+    "verifiedAtUTC": "2026-10-07T17:48:48.885411+00:00",
+    "githubActions": {
+      "url": "https://github.com/cattownfilms/the-critic-city-run/actions/runs/37656134125",
+      "core": "success",
+      "chromium": "success",
+      "firefox": "success",
+      "webkit": "success",
+      "webkitAttempt": 2
+    },
+    "webkitCancellation": {
+      "original": "Job reached its 15-minute limit after all loading/facing assertions printed PASS; no report was emitted from that suite. The last visible boundary was context/browser teardown.",
+      "recovery": "Only WebKit rerun, unchanged source, all suites passed in under five minutes.",
+      "certainty": "Native cleanup stall suspected; exact native cause unproven. No game change justified by the successful rerun."
+    },
+    "localEnvironment": "Native Termux, Python 3.14 with Pillow 12.3.0; desktop browser engines tested remotely in GitHub Actions.",
+    "localCommands": [
+      {
+        "command": "node tests/engine.test.js",
+        "exitCode": 0
+      },
+      {
+        "command": "node tests/franklin.test.js",
+        "exitCode": 0
+      },
+      {
+        "command": "node tests/v4-engine.test.js",
+        "exitCode": 0
+      },
+      {
+        "command": "node tests/campaign-engine.test.js",
+        "exitCode": 0
+      },
+      {
+        "command": "node tests/gamepad.test.js",
+        "exitCode": 0
+      },
+      {
+        "command": "node tests/v7-engine.test.js",
+        "exitCode": 0
+      },
+      {
+        "command": "node tests/v8-engine.test.js",
+        "exitCode": 0
+      },
+      {
+        "command": "node tests/cutscenes-v7.test.js",
+        "exitCode": 0
+      },
+      {
+        "command": "python tests/site.test.py",
+        "exitCode": 0
+      },
+      {
+        "command": "python tests/production-assets.test.py",
+        "exitCode": 0
+      },
+      {
+        "command": "python tests/publish.test.py",
+        "exitCode": 0
+      },
+      {
+        "command": "python tools/export_script.py --check",
+        "exitCode": 0
+      },
+      {
+        "command": "python tools/publish.py --check-only",
+        "exitCode": 0
+      },
+      {
+        "command": "python tools/build_standalone.py",
+        "exitCode": 0
+      },
+      {
+        "command": "python tools/build_launcher.py The-Critic-Coming-Attractions-v8.html The-Critic-Coming-Attractions-v8-Play.sh",
+        "exitCode": 0
+      },
+      {
+        "command": "python tests/launcher.test.py",
+        "exitCode": 0
+      },
+      {
+        "command": "python tests/upgrade-launcher.test.py",
+        "exitCode": 0
+      }
+    ],
+    "launcherBoundary": "Actual loopback HTTP and v7-to-v8 upgrade in temporary HOME directories on Termux; personal installation and browser saves untouched. No physical browser/controller claim.",
+    "publicVerification": "Run the manual Verify deployed Pages game workflow after main deploys. It requires the Pages build commit to equal the dispatched main commit and reuses existing Chromium controller, campaign, gameplay and opening tests against the API-returned HTTPS URL.",
+    "receipt": "Final deployment commit, HTTPS byte checks, hosted-browser result and artifact hashes are recorded outside the tracked release in the release-completion receipt."
   }
 }

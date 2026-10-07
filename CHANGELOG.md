@@ -2,6 +2,8 @@
 
 ## 8.0.0
 
+- Completed reviewed-source Core/Chromium/Firefox/WebKit validation and native Termux launcher/upgrade checks; added a manual public Pages verification using the existing browser suites. Game, media and revised script bytes are unchanged by release bookkeeping.
+
 - Applied the user-edited full script verbatim on both character routes, including expression cues, Broadway naming and Franklin’s Baby New Year1937 stage context.
 - Kept all seven screen-born enemies present through the opening disruption, approaching Jay in front of the cage, then handed the launch directly to the real gameplay landing.
 - Named the cinema boss Violent Austrian Rabbi and updated its speaker, portrait and content labels while preserving compatible asset IDs.

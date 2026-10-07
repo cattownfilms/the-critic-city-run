@@ -58,6 +58,10 @@ The complete editable script is available as [FULL-SCRIPT.md](docs/FULL-SCRIPT.m
 
 See [Story and canon](docs/STORY-CANON.md), [Content definitions](docs/CONTENT.md), [v8 review checklist](docs/V8-REFINEMENT-CHECKLIST.md), [Validation](docs/VALIDATION.md), [Known limitations](docs/KNOWN-LIMITATIONS.md), [Changelog](CHANGELOG.md), and [NOTICE](NOTICE.md).
 
+## Release verification
+
+The reviewed v8 source passed Core, Chromium, Firefox and WebKit in [Actions run 37656134125](https://github.com/cattownfilms/the-critic-city-run/actions/runs/37656134125). WebKit passed an unchanged-source rerun after the first job timed out. The manual [deployed Pages check](https://github.com/cattownfilms/the-critic-city-run/actions/workflows/verify-pages.yml) verifies the deployed commit and runs the existing browser regressions against the public game. See [publishing](docs/PUBLISHING.md) for the release gates; a source-CI pass alone does not verify deployment.
+
 ## Build and verify
 
 Python 3.10+ and Node 22+; gameplay itself has no package dependencies.

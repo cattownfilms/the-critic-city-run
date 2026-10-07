@@ -1,0 +1,60 @@
+name: Verify deployed Pages game
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+  pages: read
+concurrency:
+  group: verify-public-pages
+  cancel-in-progress: false
+jobs:
+  public-chromium:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.13'
+      - name: Resolve and verify the deployed Pages release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh api "repos/$GITHUB_REPOSITORY/pages" > /tmp/pages.json
+          gh api "repos/$GITHUB_REPOSITORY/pages/builds/latest" > /tmp/pages-build.json
+          python - <<'PY'
+          import json, os
+          from urllib.parse import urlparse
+          pages = json.load(open('/tmp/pages.json'))
+          build = json.load(open('/tmp/pages-build.json'))
+          assert build['status'] == 'built', build
+          assert build['commit'] == os.environ['GITHUB_SHA'], 'Pages has not deployed this main commit'
+          url = pages['html_url']
+          parsed = urlparse(url)
+          assert parsed.scheme == 'https' and parsed.netloc == 'cattownfilms.github.io'
+          assert parsed.path == '/the-critic-city-run/'
+          with open(os.environ['GITHUB_ENV'], 'a') as env:
+              env.write('PAGES_URL=' + url + '\n')
+          print('Testing deployed commit', build['commit'], 'at', url)
+          PY
+      - name: Install existing browser test tools
+        run: |
+          python -m pip install -r requirements-test.txt
+          python -m playwright install --with-deps chromium
+      - name: Run existing regressions against public HTTPS
+        run: |
+          python tests/gamepad-browser.test.py --engine chromium --url "$PAGES_URL"
+          python tests/campaign-browser.test.py --engine chromium --url "$PAGES_URL"
+          python tests/v8-gameplay-browser.test.py --engine chromium --url "$PAGES_URL"
+          python tests/v8-opening-entry-browser.test.py --engine chromium --url "$PAGES_URL" --screenshots tests/screenshots-public
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: public-pages-chromium-results
+          path: |
+            tests/*-results.json
+            tests/controller-*.png
+            tests/screenshots-public/
