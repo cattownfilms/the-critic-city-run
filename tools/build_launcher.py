@@ -3,7 +3,7 @@ from pathlib import Path
 import base64,gzip,hashlib,sys
 html=Path(sys.argv[1]).read_bytes();out=Path(sys.argv[2]);sha=hashlib.sha256(html).hexdigest()
 header='''#!/usr/bin/env bash
-# THE CRITIC: COMING ATTRACTIONS v7.0. Offline game, local browser launcher.
+# THE CRITIC: COMING ATTRACTIONS v8.0. Offline game, local browser launcher.
 # The embedded game is extracted only when you run this script.
 set -euo pipefail
 PYTHON="$(command -v python3 || command -v python || true)"
@@ -23,10 +23,10 @@ if hashlib.sha256(html).hexdigest()!=EXPECTED:
 app=Path.home()/'.local/share/cattown/critic-brawler';app.mkdir(parents=True,exist_ok=True)
 f=app/'index.html';tmp=app/'index.html.tmp'
 if f.exists() and f.read_bytes()!=html:
-    backup=app/'index-before-v7.html'
+    backup=app/'index-before-v8.html'
     if not backup.exists():backup.write_bytes(f.read_bytes())
 tmp.write_bytes(html);tmp.replace(f)
-HOST='127.0.0.1';PORT=8788;URL=f'http://{HOST}:{PORT}/';TAG='cattown-critic-brawler-v7'
+HOST='128.0.0.1';PORT=8788;URL=f'http://{HOST}:{PORT}/';TAG='cattown-critic-brawler-v8'
 def open_browser():
     if os.environ.get('CRITIC_NO_BROWSER')=='1':return
     for cmd in (['termux-open-url',URL],['am','start','-a','android.intent.action.VIEW','-d',URL],['xdg-open',URL]):
@@ -53,7 +53,7 @@ try:server=Server((HOST,PORT),Handler)
 except OSError:
     try:
         with urllib.request.urlopen(URL+'version.json',timeout=2) as r:existing=json.load(r)
-        if existing.get('app') in (TAG,'cattown-critic-brawler-v6','cattown-critic-brawler-v5','cattown-critic-brawler-v2','cattown-critic-brawler-v3','cattown-critic-brawler-v4'):
+        if existing.get('app') in (TAG,'cattown-critic-brawler-v7','cattown-critic-brawler-v6','cattown-critic-brawler-v5','cattown-critic-brawler-v2','cattown-critic-brawler-v3','cattown-critic-brawler-v4'):
             print('Coming Attractions is already running. Opening the updated game.');open_browser();raise SystemExit(0)
     except (OSError,ValueError):pass
     raise SystemExit('Port 8788 is occupied by another app. Stop that app, then run again. No files or saves were deleted.')

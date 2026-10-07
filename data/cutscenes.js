@@ -4,7 +4,7 @@ const actor=(id,character,x,y=318,extra={})=>({id,character,x,y,animation:'idle'
 const hero=(x=255,extra={})=>actor('player','selected',x,318,extra);
 const duke=(x=610,extra={})=>actor('duke','duke',x,318,extra);
 const cage=(x=822,extra={})=>({x,y:318,w:116,h:155,...extra});
-const boy=(x=822,extra={})=>actor('marty','marty',x,311,{scale:.92,animation:'scared-idle',...extra});
+const boy=(x=822,extra={})=>actor('marty','marty',x,311,{scale:.92,animation:'scared-idle',lookAt:'player',...extra});
 const move=(fromX,toX,duration=1.4,start=0,extra={})=>({fromX,toX,duration,start,...extra});
 const dialogue=(speaker,text,extra={})=>({speaker,dialogue:text,manual:true,minTime:.22,...extra});
 const route=(jay,franklin,extra={})=>({routeDialogue:{hero:{speaker:'JAY',dialogue:jay,portrait:'jay',expression:'neutral'},franklin:{speaker:'FRANKLIN',dialogue:franklin,portrait:'franklin',expression:'neutral'}},manual:true,minTime:.22,...extra});
@@ -13,7 +13,7 @@ const cast=['sherm-punch','sherm-shove','sherm-slam','striped','raptor','bear','
 const screens=[{x:451,y:62,w:82,h:63},{x:556,y:62,w:82,h:63},{x:661,y:62,w:82,h:63},{x:451,y:144,w:82,h:63},{x:556,y:144,w:82,h:63},{x:661,y:144,w:82,h:63},{x:768,y:78,w:82,h:63}];
 const emissions=cast.map((character,i)=>({id:'attraction-'+i,character,screen:i,start:i*.37,duration:1.3,toX:[340,415,570,670,720,780,860][i],toY:318,scale:.86}));
 const openingBase=[actor('jay','hero',260,318,{image:'cutscenes/jay-seated.webp',imageHeight:224,imagePivot:{x:128,y:208}}),duke(610),actor('ally','franklin',145,318,{routes:['franklin'],face:1,scale:.96})];
-const revealed=[actor('jay','hero',270,318,{animation:'hurt'}),duke(610),boy(),actor('ally','franklin',145,318,{routes:['franklin'],face:1,scale:.96})];
+const revealed=[actor('jay','hero',270,318,{animation:'hurt'}),duke(610),boy(822,{lookAt:'jay'}),actor('ally','franklin',145,318,{routes:['franklin'],face:1,scale:.96})];
 const chase=(id,title,environment,destination,jay,franklin)=>({id,title,environment,destination,shots:[
  {id:'transport',auto:2.2,minTime:1.8,actors:[duke(250,{animation:'walk',motion:move(250,690,2.2)}),boy(360,{motion:move(360,800,2.2)}),hero(80,{animation:'run',motion:move(-90,185,1,1.2)})],cage:cage(360,{carried:true,motion:move(360,800,2.2)}),destination},
  route(jay,franklin,{actors:[hero(185,{animation:'idle'}),duke(690,{animation:'walk',motion:move(690,1060,1.5)}),boy(800,{motion:move(800,1170,1.5)})],cage:cage(800,{carried:true,motion:move(800,1170,1.5)})})
@@ -38,7 +38,12 @@ const scenes={
   dialogue('FRANKLIN','He went through the cinema. He’s got the boy.',{routes:['hero'],portrait:'franklin',actors:[hero(270),actor('franklin','franklin',565)]}),
   route('We’ll talk about this later.','Phillips! I’m not finished with you.',{actors:[hero(270,{animation:'walk',motion:move(270,470,1.1)})]})
  ]},
- 'stage-05-intro':chase('stage-05-intro','PALACE CINEMA','cinema','SERVICE EXIT / LITTLE ITALY','Naturally. The one audience that can’t walk out.','The service door. That’s his way out.'),
+ 'stage-05-intro':{id:'stage-05-intro',title:'PALACE CINEMA',environment:'cinema',shots:[
+  {id:'transport',auto:2,minTime:1.8,screenForeshadow:true,actors:[duke(250,{animation:'walk',motion:move(250,690,2)}),boy(360,{motion:move(360,800,2)}),hero(80,{animation:'run',motion:move(-90,185,1,.8)})],cage:cage(360,{carried:true,motion:move(360,800,2)}),destination:'SERVICE EXIT / LITTLE ITALY'},
+  {id:'booth-eyes',auto:1.5,minTime:1.25,actors:[hero(260)],booth:{phase:'shadow',active:1},circuits:3,screenForeshadow:true},
+  {id:'booth-light',portrait:'projectionist',speaker:'PROJECTIONIST',auto:1,minTime:.9,actors:[hero(260)],booth:{phase:'lit',active:1},circuits:3,sound:'swish',screenForeshadow:true},
+  route('Three circuits. One very hostile projectionist.','Kill the booth power. Then follow Phillips.',{actors:[hero(260)],booth:{phase:'lit',active:1},circuits:3,objective:'DISABLE THE 3 PROJECTION CIRCUITS',expression:'focused',screenForeshadow:true})
+ ]},
  'boss-projection-intro':{id:'boss-projection-intro',title:'THE PROJECTION BOOTH',environment:'cinema',shots:[
   {id:'booth-eyes',auto:1,minTime:.9,actors:[hero(260)],booth:{phase:'shadow',active:1},circuits:3},
   {id:'booth-light',portrait:'projectionist',speaker:'PROJECTIONIST',auto:1,minTime:.9,actors:[hero(260)],booth:{phase:'lit',active:1},circuits:3,sound:'swish'},
@@ -49,13 +54,22 @@ const scenes={
   route('There. A mercifully short feature.','The booth’s dark. Door’s open.',{actors:[hero(260,{animation:'walk',motion:move(260,530,1.2)})],booth:{phase:'off'},circuits:0,destination:'SERVICE EXIT / OPEN'})
  ]},
  'stage-06-intro':chase('stage-06-intro','LITTLE ITALY','pizzeria','BROADCAST TOWER','A hostage, a private premiere, and now a detour.','The tower’s behind this block.'),
- 'boss-pizzeria-intro':{id:'boss-pizzeria-intro',title:'PIZZERIA SHOWDOWN',environment:'pizzeria',shots:[
-  {id:'door-opens',auto:1,minTime:.85,door:{opening:true},actors:[hero(235)],sound:'step2'},
-  dialogue('PIZZERIA HEADLINER','You’re not on the guest list.',{portrait:'pizzeria',door:{open:true},actors:[hero(235),actor('headliner','pizzeria-boss',690,318,{animation:'walk',face:-1,scale:1.23,motion:move(785,635,1.1)})],minTime:1.1}),
-  route('I’ve sat through your act. Move.','Open the door, or I will.',{door:{open:true},actors:[hero(235),actor('headliner','pizzeria-boss',635,318,{face:-1,scale:1.23})]})
+ 'boss-cinema-intro':{id:'boss-cinema-intro',title:'THE MAIN ATTRACTION',environment:'cinema',shots:[
+  {id:'screen-shadow',auto:1.3,minTime:1.1,actors:[hero(235)],screenForeshadow:true,sound:'swish'},
+  {id:'screen-emergence',auto:1.6,minTime:1.4,actors:[hero(235),actor('headliner','pizzeria-boss',635,318,{animation:'walk',afterAnimation:'guard-reset',after:1.4,face:1,scale:1.24,emerging:true,motion:move(242,635,1.6,0,{fromY:180,toY:318})})],screenForeshadow:true,flash:.12,sound:'slam'},
+  dialogue('CINEMA HEADLINER','You came to see me. Now stay put.',{portrait:'pizzeria',actors:[hero(235),actor('headliner','pizzeria-boss',635,318,{animation:'guard-reset',face:-1,scale:1.24})]}),
+  route('I usually leave before the credits.','You’re blocking the exit.',{actors:[hero(235),actor('headliner','pizzeria-boss',635,318,{face:-1,scale:1.24})]})
  ]},
- 'boss-pizzeria-defeat':{id:'boss-pizzeria-defeat',title:'THE SERVICE ROUTE',environment:'pizzeria',shots:[
-  route('You were better in the trailer.','That’s the end of your act.',{actors:[hero(235),actor('headliner','pizzeria-boss',635,318,{animation:'death',scale:1.23,face:-1})],destination:'BROADCAST TOWER'})
+ 'boss-cinema-defeat':{id:'boss-cinema-defeat',title:'THE CREDITS',environment:'cinema',shots:[
+  route('You were better on the screen.','That’s your curtain.',{actors:[hero(235),actor('headliner','pizzeria-boss',635,318,{animation:'death',face:-1,scale:1.24})]})
+ ]},
+ 'boss-spike-intro':{id:'boss-spike-intro',title:'SPIKE',environment:'pizzeria',shots:[
+  {id:'door-opens',auto:1,minTime:.85,door:{opening:true},actors:[hero(235)],sound:'step2'},
+  dialogue('SPIKE','You’re not getting past me.',{portrait:'spike',door:{open:true},actors:[hero(235),actor('spike','spike',670,318,{animation:'walk',face:-1,scale:1.08,motion:move(840,670,1.1)})],minTime:1.1}),
+  route('And I thought the garbage was out of control.','Put the can down, Spike.',{door:{open:true},actors:[hero(235),actor('spike','spike',670,318,{animation:'throw-ready',face:-1,scale:1.08})]})
+ ]},
+ 'boss-spike-defeat':{id:'boss-spike-defeat',title:'THE SERVICE ROUTE',environment:'pizzeria',shots:[
+  route('That’s quite enough trash for one evening.','Stay down, Spike.',{actors:[hero(235),actor('spike','spike',670,318,{animation:'death',face:-1,scale:1.08})],destination:'BROADCAST TOWER'})
  ]},
  'stage-07-intro':{id:'stage-07-intro',title:'LIVE FROM PHILLIPS',environment:'broadcast',screens,shots:[
   {id:'last-transport',auto:2.3,minTime:2,actors:[duke(390,{animation:'walk',motion:move(390,638,2.1)}),boy(502,{motion:move(502,792,2.1)}),hero(100,{animation:'run',motion:move(-60,265,1.5,.6)})],cage:cage(502,{carried:true,motion:move(502,792,2.1)}),destination:'TRANSMISSION CORE',alarm:true},
@@ -88,6 +102,15 @@ const scenes={
   route('Now let’s find something good to watch.','Go on. I’ll see that he stays off the air.',{actors:[...endingParty(),boy(350,{animation:'idle',y:318})],caption:'MARTY IS SAFE. THE BROADCAST IS OFF. NEW YORK GETS ITS REALITY BACK.'})
  ]}
 };
+// Still actors face their scene partner; moving actors derive travel direction.
+for(const scene of Object.values(scenes))for(const shot of scene.shots)for(const a of shot.actors||[]){
+ if(a.face!==undefined||a.lookAt!==undefined||a.motion&&a.motion.fromX!==a.motion.toX)continue;
+ const ids=(shot.actors||[]).map(p=>p.id);
+ if(a.id==='player'||a.id==='jay')a.lookAt=ids.includes('marty')?'marty':ids.includes('duke')?'duke':ids.includes('headliner')?'headliner':ids.includes('spike')?'spike':ids.includes('franklin')?'franklin':undefined;
+ else if(a.id==='duke')a.lookAt=ids.includes('player')?'player':'jay';
+ else if(a.id==='marty')a.lookAt=ids.includes('jay')?'jay':'player';
+ else if(a.id==='headliner'||a.id==='spike')a.lookAt='player';
+}
 // Every playable reaction resolves the chosen route; Jay remains Marty’s father in shared story beats.
 function resolveShot(shot,routeKind='hero'){const chosen=shot.routeDialogue?.[routeKind==='franklin'?'franklin':'hero'];return chosen?{...shot,...chosen}:shot;}
 function resolveScene(scene,routeKind='hero'){return {...scene,shots:scene.shots.filter(s=>!s.routes||s.routes.includes(routeKind)).map(s=>resolveShot(s,routeKind))};}
