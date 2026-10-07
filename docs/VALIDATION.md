@@ -1,6 +1,16 @@
-# v9 verification status
+# V9 validation
 
-V9 adds deterministic encounter/AI/knockdown regressions and real native-browser audio playback checks. Tests and final publication are in progress. Physical Android speaker output, controller hardware and subjective boss difficulty are not inferred from automation. Historical evidence below remains historical.
+Version **9.0.0**, based on released v8 `51f1131163edbccc28390d00d766bb348327da30`.
+
+Source `6bb28cc3b4b3579ddae2897c59fa68bbe7f83819` passed Core, Chromium, Firefox and WebKit in [GitHub Actions](https://github.com/cattownfilms/the-critic-city-run/actions/runs/37693754120). Native browser audio checks measure a running AudioContext, advancing music clock and nonzero SFX bus after a trusted gesture, plus mute/unmute, pause/resume, reload/Continue, first Press Start and rapid track changes. Firefox/WebKit use a real virtual PulseAudio sink in the CI container; this does not establish physical speaker output.
+
+Local commands executed: the ten Node suites listed in `.github/workflows/verify.yml`; `python tests/site.test.py`, `python tests/production-assets.test.py`, `python tests/publish.test.py`, `python tools/export_script.py --check`, and `python tools/publish.py --check-only`. All passed. Standalone parity verifies eleven scripts/styles and 159 embedded runtime files against source. Chromium also exercises the standalone campaign and native audio over local HTTP. `python tests/launcher.test.py` passed 7 checks; `python tests/upgrade-launcher.test.py` passed 10, using isolated temporary installations and preserving the original HTML/save sentinels.
+
+Browser suites cover both routes, controller contracts, campaign/save behavior, v8 gameplay/loading/facing/opening, v7 scenes, and new v9 presentation/audio. WebKit repeats campaign and loading/facing checks three times without failure retries. Actual runtime cinema, broadcast and both-route intro screenshots were inspected. Existing media/provenance and controller bytes are unchanged; save schema remains 5.
+
+The full 21-note ledger is in `docs/V9-PLAYTEST-LEDGER.md`. Physical Android audio, hardware controllers and subjective combat feel remain user-side. Final-source PR checks, merged-source checks, Pages deployment and public HTTPS/browser checks are release gates recorded in the external release receipt; this pre-merge source report does not claim a future deployment.
+
+## Historical v8 evidence (not v9 results)
 
 # THE CRITIC: COMING ATTRACTIONS / validation
 

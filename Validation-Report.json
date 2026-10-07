@@ -3,15 +3,24 @@
   "title": "THE CRITIC: COMING ATTRACTIONS",
   "version": "9.0.0",
   "baselineCommit": "51f1131163edbccc28390d00d766bb348327da30",
-  "status": "local-validated-browser-and-release-pending",
-  "testedAtUTC": "2026-10-07T21:28:39.692518+00:00",
+  "status": "source-validated-public-release-gated",
+  "testedAtUTC": "2026-10-07T22:13:26.385731+00:00",
   "checks": {
     "localJavaScriptSuites": 10,
     "site": "pass",
     "productionAssets": "pass",
     "publishSafety": "pass",
-    "browser": "pending",
-    "publicPages": "pending"
+    "browser": {
+      "core": "success",
+      "browsers (firefox)": "success",
+      "browsers (chromium)": "success",
+      "browsers (webkit)": "success"
+    },
+    "publicPages": "Post-merge deployment and public-browser checks required; exact results in release receipt",
+    "browserRun": "https://github.com/cattownfilms/the-critic-city-run/actions/runs/37693754120",
+    "nativeAudio": "15 assertions per browser; clocks, AudioContext and measured SFX signal",
+    "launcher": 7,
+    "isolatedUpgrade": 10
   },
   "boundaries": [
     "No physical speaker or Logitech hardware validation",
@@ -1082,5 +1091,6 @@
         "mediaAndScript": "Byte-identical to reviewed 9e9cf3a."
       }
     }
-  }
+  },
+  "sourceCommit": "6bb28cc3b4b3579ddae2897c59fa68bbe7f83819"
 }

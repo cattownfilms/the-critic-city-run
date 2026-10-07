@@ -1,12 +1,12 @@
 # V9 annotated playtest ledger
 
-The two recordings were not found in Android Downloads. The supplied annotation ledger is the evidence source. PASS refers to the specified automated/source/visual evidence, not physical audio or subjective approval. Browser release checks are still in progress.
+The two recordings were not found in Android Downloads. The supplied annotation ledger is the evidence source. PASS refers to the specified automated/source/visual evidence, not physical audio or subjective approval. Source browser CI passes; final merged/public checks are recorded in the external release receipt.
 
 ## 1. 1000085799
 
 > Nice fast load. But no audio?!?
 
-**PARTIAL** — Bulk startup unchanged; native Chromium/WebKit music clock, SFX signal and lifecycle pass. Firefox runner validation and physical Android confirmation pending.
+**PARTIAL** — Bulk startup unchanged; native Chromium/Firefox/WebKit music clock, SFX signal and lifecycle pass. Physical Android speaker confirmation remains pending.
 
 ## 2. 1000085799
 

@@ -91,6 +91,12 @@ async function check(name, fn) {
     audio.pause();assert([...audio.musicNodes.values()].every(n=>n.paused));
     finish();await new Promise(setImmediate);assert.equal(node.paused,true);assert.equal(audio.priming.size,0);
   });
+  await check('A fresh explicit gesture replaces only a terminally failed music player',async()=>{
+    const {audio}=fixture();await audio.playMusic('title');const failed=audio.music;
+    failed.error={code:4};failed.pause();audio.lastBlocked='NotSupportedError';audio.gesture();await new Promise(setImmediate);
+    assert.notEqual(audio.music,failed);assert.equal(audio.music.src,'blob:title.mp3');assert.equal(audio.music.paused,false);
+    const recovered=audio.music;audio.music.readyState=0;audio.lastBlocked='still preparing';audio.toggle();assert.equal(audio.muted,false);audio.gesture();await new Promise(setImmediate);assert.equal(audio.music,recovered);
+  });
   const report = { tests: results, passed: results.filter(x => x.passed).length, failed: results.filter(x => !x.passed).length, boundary: 'Actual AudioSystem class; synthetic native media/promise fixtures. Native browser validation remains required.' };
   fs.writeFileSync(path.join(__dirname, 'audio-lifecycle-results.json'), JSON.stringify(report, null, 2) + '\n');
   process.exitCode = report.failed ? 1 : 0;

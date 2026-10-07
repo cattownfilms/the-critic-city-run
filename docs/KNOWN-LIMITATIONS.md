@@ -1,6 +1,13 @@
-# v9 verification status
+# V9 verification boundaries
 
-V9 adds deterministic encounter/AI/knockdown regressions and real native-browser audio playback checks. Tests and final publication are in progress. Physical Android speaker output, controller hardware and subjective boss difficulty are not inferred from automation. Historical evidence below remains historical.
+- Core, Chromium, Firefox and WebKit passed the documented source run. Native playback clocks and the SFX signal are verified, not audible physical Android output. A Firefox/WebKit virtual audio sink is CI infrastructure only.
+- Heavy/boss tuning, cinema remotes, rolling cans and three broadcast rounds have deterministic behavior coverage. Subjective difficulty/readability still needs the user's phone playtest.
+- Public deployment is gated separately; consult the external v9 release receipt for the exact merged commit and hosted checks.
+- Save schema 5, stable storage keys and original audio/artwork are preserved. No physical controller test is claimed.
+
+During v9 development, WebKit exposed a reload timeout and intermittent native media preparation errors. Overlapping prime requests, incomplete pause cleanup and permanent reuse of failed players were repaired. The exact native decoder cause is not established; the documented final-source/merged-source runs and public receipt are the verification boundary. No physical speaker result is inferred.
+
+## Historical v8 limitations and investigation
 
 # THE CRITIC: COMING ATTRACTIONS — known limitations
 

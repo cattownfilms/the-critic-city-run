@@ -64,6 +64,14 @@ class AudioSystem{
   for(const [key,item] of Object.entries(conf.music)){
    if(!cachedURLs.has(item.file))continue;
    let node=this.musicNodes.get(key);
+   // A terminal media decode/source error cannot recover by replaying the same
+   // element. Replace only that failed player on a fresh explicit gesture.
+   if(node?.error&&[3,4].includes(node.error.code)){
+    const failed=node;failed.pause();node=new Audio(src(item.file));node.loop=true;node.preload='none';
+    this.musicNodes.set(key,node);this.primed?.delete(failed);this.priming?.delete(failed);
+    if(failed===this.music){this.music=node;node.volume=settings.music;}
+    if(failed===this.outgoing)this.outgoing=null;
+   }
    if(!node){node=new Audio(src(item.file));node.loop=true;node.preload='auto';this.musicNodes.set(key,node);}
    if(!node.getAttribute('src'))node.src=src(item.file);
    if(node===this.music)continue;
@@ -97,7 +105,7 @@ class AudioSystem{
   if(this.outgoing){this.outgoing.volume=level*Math.cos(this.fade*Math.PI/2);if(this.fade>=1){this.outgoing.pause();this.outgoing=null;}}
   if(this.bus)this.bus.gain.value=this.muted?0:settings.sfx;
  }
- toggle(){if(this.lastBlocked&&this.music.paused&&!this.muted){this.gesture();this.playMusic(this.trackKey);toast('Retrying audio');return;}this.muted=!this.muted;if(this.muted){this.music.pause();if(this.outgoing)this.outgoing.pause();}else if(['play','stageclear','complete','title','cutscene'].includes(game.mode))this.playMusic(game.mode==='cutscene'?scenes?.scene?.music||stageMusic():['title','complete'].includes(game.mode)?'title':undefined);toast(this.muted?'Audio muted':'Audio on');}
+ toggle(){if(this.lastBlocked&&(this.music.paused||this.music.readyState<2)&&!this.muted){this.gesture();this.playMusic(this.trackKey);toast('Retrying audio');return;}this.muted=!this.muted;if(this.muted){this.music.pause();if(this.outgoing)this.outgoing.pause();}else if(['play','stageclear','complete','title','cutscene'].includes(game.mode))this.playMusic(game.mode==='cutscene'?scenes?.scene?.music||stageMusic():['title','complete'].includes(game.mode)?'title':undefined);toast(this.muted?'Audio muted':'Audio on');}
 
 }
 const game=new Brawler.Game(),audio=new AudioSystem(),input=new Input();game.franklinUnlocked=profile.franklinUnlocked;let renderer,meta,ready=false,last=performance.now(),acc=0,fromGallery='title',galleryTime=0,galleryPlaying=true,completeTime=0,tipTime=0,clearTime=0,presentationPaused=false,openingArrival=null;
