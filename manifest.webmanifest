@@ -1,6 +1,6 @@
 {
-  "name": "The Critic: City Run / Brawler Edition",
-  "short_name": "City Brawler",
+  "name": "THE CRITIC: COMING ATTRACTIONS",
+  "short_name": "Coming Attractions",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
@@ -13,5 +13,6 @@
       "sizes": "256x256",
       "type": "image/png"
     }
-  ]
+  ],
+  "description": "A complete seven-stage arcade brawler. Rescue Marty and stop Duke\u2019s broadcast catastrophe."
 }

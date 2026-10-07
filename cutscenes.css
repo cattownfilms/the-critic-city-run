@@ -1,0 +1,24 @@
+/* The scene layer owns its input; the accepted combat UI remains unchanged. */
+#cutscene{z-index:35;padding:0;background:#060a16;touch-action:none;overflow:hidden;flex-direction:column}
+#cutscene.scene-gamebackdrop{background:linear-gradient(180deg,#05081180,#050811c9)}
+.scene-frame{position:absolute;inset:0;overflow:hidden;pointer-events:none}
+.scene-background,.scene-previous{position:absolute;width:100%;height:100%;object-fit:cover;will-change:transform;transform-origin:50% 45%}
+.scene-foreground{position:absolute;inset:0;width:100%;height:100%;object-fit:contain}
+.scene-foreground.scene-portrait{left:auto;top:8%;right:12%;width:42%;height:64%;object-fit:contain;filter:drop-shadow(0 8px 30px #0008);border-radius:8px}
+#sceneSprites{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.scene-shade{position:absolute;inset:0;background:linear-gradient(180deg,#03061218,#03061200 45%,#030612ee);pointer-events:none}
+.scene-flash{position:absolute;inset:0;background:white;opacity:0;pointer-events:none}
+.scene-fade{position:absolute;inset:0;background:#060a16;opacity:0;pointer-events:none}
+.scene-topline{position:absolute;z-index:2;top:max(12px,env(safe-area-inset-top));left:max(18px,env(safe-area-inset-left));right:max(18px,env(safe-area-inset-right));display:flex;align-items:center;justify-content:space-between;gap:12px}
+.scene-chapter{font-size:11px;font-weight:900;letter-spacing:.14em;color:#d7eeeb;text-shadow:0 2px 8px #000;max-width:65%}
+.scene-topline button{background:#101e34de;min-width:68px;padding:6px 12px;min-height:44px}
+.scene-topline .scene-tools{display:flex;gap:8px}
+.scene-copy{position:absolute;z-index:3;left:max(24px,env(safe-area-inset-left));right:max(24px,env(safe-area-inset-right));bottom:max(17px,env(safe-area-inset-bottom));max-width:900px;margin:auto;padding:17px 20px;border:1px solid #badbc558;border-radius:12px;background:linear-gradient(140deg,#121d32f5,#080e20ed);box-shadow:0 8px 24px #0007}
+#sceneSpeaker{color:var(--teal);font-size:12px;font-weight:900;letter-spacing:.14em;min-height:16px}
+#sceneDialogue{font-size:clamp(15px,2.25vw,22px);line-height:1.4;margin:7px 0 13px;color:#fff2e5;min-height:1.4em}
+.scene-bottomline{display:flex;justify-content:space-between;align-items:center;gap:12px}
+#scenePosition{color:#a9bbca;font-size:11px;letter-spacing:.06em}
+#sceneAdvance{min-width:136px;padding:8px 20px}
+.scene-paused{position:absolute;z-index:4;left:50%;top:45%;transform:translate(-50%,-50%);background:#0c172ded;border:1px solid #9dc5b880;border-radius:13px;padding:18px 28px;text-align:center;color:#edf7ee}
+@media(min-aspect-ratio:2/1) and (max-height:500px){.scene-copy{bottom:9px;padding:10px 16px}#sceneDialogue{font-size:16px;margin:4px 0 7px}.scene-topline{top:8px}.scene-foreground.scene-portrait{height:60%;top:4%}}
+@media(max-aspect-ratio:1/1){.scene-background,.scene-previous{object-fit:contain;background:#080e1a}.scene-foreground.scene-portrait{top:17%;right:12%;width:76%;height:48%}.scene-copy{left:12px;right:12px;bottom:max(15px,env(safe-area-inset-bottom));padding:16px}.scene-chapter{font-size:9px}.scene-topline{left:12px;right:12px}.scene-tools{gap:5px!important}.scene-topline button{min-width:58px;padding:5px 8px}#sceneDialogue{font-size:18px}}
