@@ -86,7 +86,7 @@ function screen(which){if(pad)pad.suspend();for(const id of ['title','pause','ga
 function beginGame(cont){if(scenes?.active)return;input.clear();game.franklinUnlocked=profile.franklinUnlocked;const who=cont&&save?.playerKind?save.playerKind:selected;game.start(cont?save:null,who);if(game.franklinUnlocked&&!profile.franklinUnlocked){profile.franklinUnlocked=true;store(conf.profileKey,profile);updateRoster();}updatePortrait();screen(null);audio.playMusic();completeTime=0;tipTime=9;$('tip').textContent='Push farther to run. HIT chains a combo. JUMP + HIT = jump kick.';show('tip',true);ensureStageAssets();if(!cont)playScene('opening');else if(save?.version<4&&save.complete)playScene('stage-05-intro');}
 function pause(){if(game.mode!=='play')return;game.pause();input.clear();audio.pause();screen('pause');$('resumeButton').hidden=false;$('restartStage4').hidden=game.stage!==3;}
 function resume(){if(game.mode!=='pause')return;game.resume();input.clear();screen(null);audio.playMusic();}
-function title(){game.mode='title';input.clear();audio.playMusic('title');screen('title');save=validSave(readStore(conf.saveKey)||readStore(conf.legacySaveKey));updateRoster();$('continueButton').hidden=!save;}
+function title(){game.mode='title';input.clear();audio.playMusic('title');screen('title');save=validSave(readStore(conf.saveKey)||readStore(conf.legacySaveKey));updateRoster();$('continueButton').hidden=!save;updateDestinationButtons();}
 function updatePortrait(){$('portrait').src=src(game.playerKind==='franklin'?'franklin-icon.png':'icon.png');$('playerName').textContent=game.playerKind==='franklin'?'FRANKLIN':'JAY SHERMAN';}
 function updateRoster(){const o=$('playerSelect').querySelector('[value="franklin"]');o.disabled=!profile.franklinUnlocked;o.textContent=profile.franklinUnlocked?'Franklin':'Franklin · LOCKED';$('playerSelect').value=selected;$('rosterNote').textContent=profile.franklinUnlocked?'Franklin unlocked. Choose your character, then Press Start.':'Unlock Franklin: defeat him and finish Stage 4 without dying.';}
 function restartStage4(){if(!game.restartStage4())return;input.clear();screen(null);updatePortrait();audio.playMusic();tipTime=5;$('tip').textContent='Fresh Stage 4 attempt. Fight your way to the exit.';}
@@ -137,7 +137,7 @@ async function load(){if(bulkRunning||ready)return;bulkRunning=true;bulk.error='
 initialRetry.onclick=load;optionsRetry.onclick=load;$('contentLoadRetry').onclick=load;
 
 function handle(e){if(renderer)renderer.emit(e);audio.event(e);if(settings.vibration&&navigator.vibrate&&['hit','parry','playerHit'].includes(e.type))navigator.vibrate(e.type==='hit'?12:22);
- if(e.type==='save'){save=e.save;store(conf.saveKey,e.save);}
+ if(e.type==='save'){save=e.save;store(conf.saveKey,e.save);updateDestinationButtons();}
  if(e.type==='unlock'){profile.franklinUnlocked=true;game.franklinUnlocked=true;store(conf.profileKey,profile);updateRoster();toast('FRANKLIN UNLOCKED');}
  if(e.type==='bossEnter'){tipTime=3;$('tip').textContent=(e.name||'BOSS')+'. Watch the windup, then punish the recovery.';show('tip',!scenes?.active);}
  if(e.type==='stageDeath'&&e.stage===3&&game.playerKind!=='franklin'&&!profile.franklinUnlocked){toast('Stage 4 death recorded. Restart Stage 4 for a fresh unlock attempt.');}
@@ -155,7 +155,7 @@ function hud(){const p=game.p,boss=game.enemies.find(e=>e.boss&&e.hp>0&&!e.hidde
 function drawGallery(dt){
  if(galleryPlaying)galleryTime+=dt;const c=$('galleryCanvas'),w=c.clientWidth,h=c.clientHeight;if(c.width!==w||c.height!==h){c.width=w;c.height=h;}
  const ctx=c.getContext('2d');ctx.clearRect(0,0,w,h);const who=$('characterSelect').value,name=$('animSelect').value,a=meta.characters[who][name];
- const nativeFace=f=>f.canonicalFacing??a.canonicalFacing??1;
+ const nativeFace=f=>renderer.nativeFacing(who,name,f,a);
  const minY=Math.min(...a.frames.map(f=>f.oy)),maxY=Math.max(0,...a.frames.map(f=>f.oy+f.h)),minX=Math.min(...a.frames.map(f=>nativeFace(f)===-1?-f.ox-f.w:f.ox)),maxX=Math.max(...a.frames.map(f=>nativeFace(f)===-1?-f.ox:f.ox+f.w));
  const sc=Math.min(1.08,(h-38)/(maxY-minY),(w-35)/(maxX-minX)),t=galleryTime%(a.ms/1000+.65),x=w/2-(minX+maxX)*sc/2,y=h-22-Math.max(0,maxY)*sc;
  renderer.shadow(ctx,who,name,x,y,1,t,0,sc,0,.38);renderer.sprite(ctx,who,name,x,y,1,t,0,{scale:sc,loop:false});

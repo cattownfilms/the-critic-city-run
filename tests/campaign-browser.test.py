@@ -48,7 +48,7 @@ def reload_game(page,url):
     else:
         page.reload();page.wait_for_function('__brawler.ready()',timeout=60000)
 def route_run(page,kind):
-    page.evaluate('''kind=>{window.__campaignQA={ticks:0,retries:0,stages:[],bosses:[],scenes:[],defeats:[],projectionDisabled:false,earlyRescue:false,dukeBeforeMachine:false,kind};}''',kind)
+    page.evaluate('''kind=>{window.__campaignQA={ticks:0,retries:0,stages:[],bosses:[],scenes:[],defeats:[],projectionDisabled:false,earlyRescue:false,dukeBeforeMachine:false,machineWaves:0,maxLiveSummons:0,summonsAfterMachine:false,kind};}''',kind)
     started=time.monotonic();loading_waits=[]
     for batch in range(220):
         value=page.evaluate('''()=>{
@@ -56,6 +56,7 @@ def route_run(page,kind):
           const events=()=>{for(const e of g.drain()){if(e.type==='bossEnter'&&!qa.bosses.includes(e.kind))qa.bosses.push(e.kind);if(e.type==='bossDefeated')qa.defeats.push(e.kind);if(e.type==='bossEnter'&&e.kind==='duke'&&!g.machineDefeated)qa.dukeBeforeMachine=true;__brawler.handleEvent(e);}};
           for(let n=0;n<1600;n++){
             if(g.storyFlags.martyRescued&&!g.dukeDefeated)qa.earlyRescue=true;
+            qa.machineWaves=Math.max(qa.machineWaves,g.broadcastSummons?.wave||0);const summonCount=g.enemies.filter(e=>e.broadcastSummon&&e.hp>0).length;qa.maxLiveSummons=Math.max(qa.maxLiveSummons,summonCount);if(g.machineDefeated&&summonCount)qa.summonsAfterMachine=true;
             if(__brawler.scenes().active){const id=__brawler.scenes().state().id;if(qa.scenes.at(-1)!==id)qa.scenes.push(id);__brawler.scenes().skip();break;}
             if(g.mode==='loading')break;
             if(g.mode==='complete')break;
@@ -102,7 +103,7 @@ with source_site(args.url) as url, sync_playwright() as pw:
         raise SystemExit(2)
     context=browser.new_context(viewport={'width':1000,'height':560},has_touch=True)
     page=context.new_page();load(page,url)
-    check('Current canonical title and expanded campaign load',page.title().upper()=='THE CRITIC: COMING ATTRACTIONS' and page.evaluate('Brawler.STAGES.length===7&&BRAWLER_CONFIG.version==="7.0.0"'))
+    check('Current canonical title and expanded campaign load',page.title().upper()=='THE CRITIC: COMING ATTRACTIONS' and page.evaluate('Brawler.STAGES.length===7&&BRAWLER_CONFIG.version==="8.0.0"'))
     page.locator('#startButton').click();opening_ready(page)
     check('New Game opens the implemented story',page.evaluate('__brawler.game.mode==="cutscene"&&__brawler.scenes().state().id==="opening"'))
     expected=[('DUKE','Ratings are low. I need you to give this a glowing review, Sherman!'),('JAY','It Stinks!'),('DUKE','I thought you might say that... Allow me to give you a little motivation...'),('MARTY','Dad!'),('JAY','Marty!'),('DUKE',"If television can't bring the audience to us, perhaps we'll just bring the television to the audience!"),('JAY','Hatchi Matchi!!!')]
@@ -150,7 +151,7 @@ with source_site(args.url) as url, sync_playwright() as pw:
     page.keyboard.press('Escape');page.locator('#titleButton').click();page.locator('#startButton').click();skip_scenes(page)
     jay=route_run(page,'hero');routes.append(jay)
     check('Jay completes all seven stages through normal combat inputs',jay['mode']=='complete' and jay['stages']==list(range(7)) and jay['kos']>=71,jay)
-    check('Jay route includes every required boss and projection counterplay',all(kind in jay['bosses'] for kind in ['franklin','booth-enforcer','pizzeria-boss','broadcast-rig','duke']) and jay['projectionDisabled'])
+    check('Jay route includes every required boss and projection counterplay',all(kind in jay['bosses'] for kind in ['franklin','pizzeria-boss','spike','broadcast-rig','duke']) and jay['projectionDisabled'] and jay['machineWaves']>=2 and jay['maxLiveSummons']<=4 and not jay['summonsAfterMachine'])
     check('Both final fights occur in order before Marty is rescued',not jay['earlyRescue'] and not jay['dukeBeforeMachine'] and jay['defeats'][-2:]==['broadcast-rig','duke'] and jay['machineDefeated'] and jay['dukeDefeated'],jay['defeats'])
     check('Ending resolves Marty and broadcasting and shows selected celebration',jay['flags'].get('martyRescued') and jay['flags'].get('broadcastStopped') and jay['flags'].get('ending') and page.locator('#complete').is_visible() and page.locator('#victoryCanvas').is_visible())
     check('Completed save uses migrated schema and retains story completion',page.evaluate('__brawler.getSave().version===5&&__brawler.getSave().complete&&__brawler.getSave().storyFlags.ending'))
@@ -160,7 +161,7 @@ with source_site(args.url) as url, sync_playwright() as pw:
     page.select_option('#playerSelect','franklin');page.locator('#startButton').click();skip_scenes(page)
     franklin=route_run(page,'franklin');routes.append(franklin)
     check('Franklin replay completes all seven stages through normal combat inputs',franklin['mode']=='complete' and franklin['stages']==list(range(7)) and franklin['selected']=='franklin',franklin)
-    check('Franklin defeats the machine and Duke before rescuing Marty',not franklin['earlyRescue'] and not franklin['dukeBeforeMachine'] and franklin['defeats'][-2:]==['broadcast-rig','duke'] and franklin['dukeDefeated'],franklin['defeats'])
+    check('Franklin defeats the machine and Duke before rescuing Marty',not franklin['earlyRescue'] and not franklin['dukeBeforeMachine'] and franklin['defeats'][-2:]==['broadcast-rig','duke'] and franklin['dukeDefeated'] and franklin['machineWaves']>=2 and franklin['maxLiveSummons']<=4 and not franklin['summonsAfterMachine'],franklin['defeats'])
     check('Franklin never fights himself and receives no duplicate unlock message','franklin' not in franklin['bosses'] and 'sherm-slam' in franklin['bosses'] and 'UNLOCKED' not in page.locator('#rewardHeading').inner_text())
     # Real-origin legacy storage scenario, explicit fixture rather than a playthrough claim.
     page.evaluate('''()=>{localStorage.setItem(BRAWLER_CONFIG.saveKey,JSON.stringify({version:3,stage:3,nextGate:3,complete:true,lives:2,score:4321,meter:42,franklinUnlocked:true,playerKind:'hero',deathsByStage:[0,1,0,0],stage4Eligible:true,bossDefeated:true}));localStorage.setItem(BRAWLER_CONFIG.settingsKey,JSON.stringify({music:.19,sfx:.43,reducedMotion:true,vibration:false}));localStorage.setItem(CriticGamepad.KEY,JSON.stringify({version:1,enabled:false,deadzone:.22,profiles:{}}));}''')

@@ -1,5 +1,18 @@
 # THE CRITIC: COMING ATTRACTIONS — Changelog
 
+## 8.0.0
+
+- Moved all runtime loading to a single recoverable startup preparation. Title/options remain responsive; Start, Continue and the Animation Room wait for complete readiness, and later scenes use cached assets.
+- Integrated the preferred supplied Franklin cartwheel at a fixed body scale and ground pivot, retimed to the existing running-attack window. Retained the previous six generated poses as a source alias.
+- Made Duke's transmitter send repeated, visibly screen-born Shermometer waves while active, capped at four live summoned enemies. Machine defeat stops spawning, cancels its shots and dismisses remaining summons without bonus kills or rewards.
+- Increased Duke's pursuit speed and final-fight pressure through shorter telegraphs/recovery and 340 HP, while retaining his grounded physical move set and the required machine → Duke → rescue sequence.
+- Made Accordion Bear and Green Hippo stop running attacks, stun the player and clear the combo. Ordinary attacks, guard, parry, dodge, air kick and Review retain their established rules.
+- Audited all original body actions and corrected verified native-facing metadata without resampling source pixels. Story movement and look targets resolve actor facing, including Marty's leftward ending run.
+- Added the complete script export in editable Markdown and Word forms, with route-specific dialogue, staging and stable scene/beat references.
+- Fixed cinema booths to the whole rear wall, restricted the projectionist to onscreen powered booths, restored choreographed eyes in shadow, and added three bouncing reel hops with unblocked-hit knockdown.
+- Moved the cream-scarf Cinema Headliner into Palace Cinema with screen foreshadowing and a screen emergence. Added Spike, the supplied African American trash-can boss, to Little Italy with a new source-derived bank and portrait.
+- Kept save schema 5, existing keys/settings/unlocks, the first four encounter arrays and the accepted ordinary combat baseline.
+
 ## 7.0.0
 
 - Applied the complete annotated playtest presentation pass while preserving the accepted standing combo, air kick, guard, parry, dodge, Review and ordinary enemy combat.

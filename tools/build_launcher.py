@@ -14,7 +14,7 @@ fi
 "$PYTHON" - "$0" <<'PYGAME'
 from pathlib import Path
 import base64,gzip,hashlib,http.server,json,os,subprocess,sys,urllib.request
-MARKER=b"\\n__CRITIC_EMBEDDED_BRAWLER_V7__\\n"
+MARKER=b"\\n__CRITIC_EMBEDDED_BRAWLER_V8__\\n"
 raw=Path(sys.argv[1]).read_bytes().split(MARKER,1)[1]
 html=gzip.decompress(base64.b64decode(raw))
 EXPECTED="__SHA256__"
@@ -26,7 +26,7 @@ if f.exists() and f.read_bytes()!=html:
     backup=app/'index-before-v8.html'
     if not backup.exists():backup.write_bytes(f.read_bytes())
 tmp.write_bytes(html);tmp.replace(f)
-HOST='128.0.0.1';PORT=8788;URL=f'http://{HOST}:{PORT}/';TAG='cattown-critic-brawler-v8'
+HOST='127.0.0.1';PORT=8788;URL=f'http://{HOST}:{PORT}/';TAG='cattown-critic-brawler-v8'
 def open_browser():
     if os.environ.get('CRITIC_NO_BROWSER')=='1':return
     for cmd in (['termux-open-url',URL],['am','start','-a','android.intent.action.VIEW','-d',URL],['xdg-open',URL]):
@@ -41,7 +41,7 @@ class Handler(http.server.BaseHTTPRequestHandler):
         if path in ('/','/index.html'):
             data=f.read_bytes();mime='text/html; charset=utf-8'
         elif path=='/version.json':
-            data=json.dumps({'app':TAG,'version':'7.0','sha256':hashlib.sha256(f.read_bytes()).hexdigest()}).encode();mime='application/json'
+            data=json.dumps({'app':TAG,'version':'8.0','sha256':hashlib.sha256(f.read_bytes()).hexdigest()}).encode();mime='application/json'
         elif path=='/favicon.ico':
             self.send_response(204);self.end_headers();return
         else:
@@ -68,6 +68,6 @@ except KeyboardInterrupt:print('\\nComing Attractions launcher stopped. Your bro
 finally:server.server_close()
 PYGAME
 exit 0
-__CRITIC_EMBEDDED_BRAWLER_V7__
+__CRITIC_EMBEDDED_BRAWLER_V8__
 '''.replace('__SHA256__',sha)
 encoded=base64.encodebytes(gzip.compress(html,compresslevel=9)).decode();out.write_text(header+encoded);out.chmod(0o755);print(out,out.stat().st_size)

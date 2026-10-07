@@ -167,7 +167,7 @@ with source_site(args.url) as url, sync_playwright() as pw:
         openings.append(watch_opening(page, 'franklin', touch=True))
         # Additional stage/encounter presentations are explicit fixtures, using
         # the actual scene player, portraits and selected-route resolver.
-        fixture_ids = ['stage-02-intro', 'stage-03-intro', 'stage-04-intro', 'stage-05-intro', 'stage-06-intro', 'stage-07-intro', 'boss-pizzeria-intro', 'boss-broadcast-intro', 'boss-broadcast-defeat', 'boss-duke-intro', 'ending']
+        fixture_ids = ['stage-02-intro', 'stage-03-intro', 'stage-04-intro', 'stage-05-intro', 'stage-06-intro', 'stage-07-intro', 'boss-cinema-intro', 'boss-spike-intro', 'boss-broadcast-intro', 'boss-broadcast-defeat', 'boss-duke-intro', 'ending']
         selected_lines = []
         for scene_id in fixture_ids:
             page.evaluate('id=>__brawler.handleEvent({type:"story",id})', scene_id)
@@ -190,8 +190,8 @@ with source_site(args.url) as url, sync_playwright() as pw:
         player_lines = [s for s in selected_lines if s['speaker'] in ['JAY', 'FRANKLIN']]
         check('Franklin stage, boss and ending comments use Franklin’s own speaker and portrait',
               player_lines and all(s['speaker'] == 'FRANKLIN' and s['portrait'] == 'franklin' for s in player_lines), player_lines)
-        check('All six required speaker portraits have browser-decodable presentation',
-              page.evaluate("async()=>{const meta=__brawler.meta();return (await Promise.all(['jay','duke','marty','franklin','projectionist','pizzeria'].map(id=>new Promise(resolve=>{const im=new Image();im.onload=()=>resolve(im.naturalWidth>0);im.onerror=()=>resolve(false);im.src=BRAWLER_CONFIG.assetBase+CriticCutscenes.portraitPath(meta,id)})))).every(Boolean)}"))
+        check('All seven required speaker portraits have browser-decodable presentation',
+              page.evaluate("async()=>{const meta=__brawler.meta();return (await Promise.all(['jay','duke','marty','franklin','projectionist','pizzeria','spike'].map(id=>new Promise(resolve=>{const im=new Image();im.onload=()=>resolve(im.naturalWidth>0);im.onerror=()=>resolve(false);im.src=BRAWLER_CONFIG.assetBase+CriticCutscenes.portraitPath(meta,id)})))).every(Boolean)}"))
         check('Every scene bitmap requested during the review loaded successfully',
               page.evaluate('__brawler.scenes().state().assetErrors.length===0'),
               page.evaluate('__brawler.scenes().state().assetErrors'))

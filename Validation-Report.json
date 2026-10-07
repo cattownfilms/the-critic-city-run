@@ -1,712 +1,833 @@
 {
+  "schemaVersion": 2,
   "title": "THE CRITIC: COMING ATTRACTIONS",
-  "version": "7.0.0",
-  "date": "2026-10-07T05:20:51.079627+00:00",
-  "reviewedBaseline": "20f6a80e468f69e53baffea4268e6df0ee4f92cb",
-  "baselineRegression": {
-    "passed": 418,
-    "failed": 0,
-    "boundary": "Immutable reviewed v6 source and offline verification before corrections."
-  },
-  "publicRepository": "https://github.com/cattownfilms/the-critic-city-run",
-  "publicGame": "https://cattownfilms.github.io/the-critic-city-run/",
-  "releaseVerification": {
-    "status": "released; public HTTPS and browser verification passed",
-    "version": "7.0.0",
-    "runtimeMergeCommit": "1753ea9bba7da28ae3e09da60f36d54774f2a364",
-    "reviewedPullRequest": "https://github.com/cattownfilms/the-critic-city-run/pull/3",
-    "pullRequestCI": {
-      "url": "https://github.com/cattownfilms/the-critic-city-run/actions/runs/37575989698",
-      "conclusion": "success",
-      "jobs": [
-        "core",
-        "Chromium",
-        "Firefox",
-        "WebKit"
-      ]
-    },
-    "mergedMainCI": {
-      "url": "https://github.com/cattownfilms/the-critic-city-run/actions/runs/37576529229",
-      "conclusion": "success",
-      "jobs": [
-        "core",
-        "Chromium",
-        "Firefox",
-        "WebKit"
-      ]
-    },
-    "pagesDeployment": {
-      "url": "https://github.com/cattownfilms/the-critic-city-run/actions/runs/37576528727",
-      "conclusion": "success"
-    },
-    "publicAssets": {
-      "passed": 140,
-      "failed": 0,
-      "report": "hosted-assets-v7.json",
-      "boundary": "Actual HTTPS dependencies matched byte-for-byte; PNG/WebP decoded, supplied music and effects matched unchanged bytes. No substituted responses."
-    },
-    "publicBrowser": {
-      "passed": 96,
-      "failed": 0,
-      "browser": "Chromium 143.0.7499.4",
-      "suites": {
-        "controller": 39,
-        "campaign": 31,
-        "scenes": 26
-      },
-      "report": "HOSTED-V7-VALIDATION.json",
-      "verifiedAt": "2026-10-07T05:34:28.307704+00:00",
-      "routes": {
-        "Jay": {
-          "stages": 7,
-          "knockouts": 71,
-          "retries": 0
-        },
-        "Franklin": {
-          "stages": 7,
-          "knockouts": 71,
-          "retries": 0
-        }
-      },
-      "boundary": "Fresh real HTTPS contexts and origin-local saves through the configured proxy with its certificate SPKI pinned. No response substitution or local asset interception. Automated ordinary-input routes accelerate fixed updates; hardware input remains untested."
-    },
-    "testHarnessCorrection": "The first cold public campaign attempt exhausted its fixed simulation budget while real network loading was pending at Stage 4. Its failed report is preserved in the offline evidence. The driver now waits up to 60 seconds for actual app progression and immediately rejects visible dependency Retry errors. The complete 31-check suite then passed in a fresh public context. No runtime change or asset substitution was used.",
-    "note": "Local 627 checks, live browser 96 checks and live asset 140 checks are separate evidence sets. Final documentation/test follow-up CI is recorded in the packaged release receipt."
-  },
-  "offlineArtifact": {
-    "filename": "The-Critic-Coming-Attractions-v7.html",
-    "bytes": 99553793,
-    "sha256": "241ff96b2f5eef28fdd4b5f88eb5d72d49f0bfce7125ab7ac3f6423fb7b350fe"
-  },
-  "results": [
+  "version": "8.0.0",
+  "baselineCommit": "29e97395ee88a63724a32c83a6c019996d09a39c",
+  "status": "local validation passed; public release verification pending",
+  "testedAtUTC": "2026-10-07T15:19:17.820617+00:00",
+  "checks": [
     {
-      "suite": "engine",
-      "edition": "Node",
+      "name": "source-campaign-chromium.json",
+      "group": "source-browser",
       "passed": 31,
       "failed": 0,
-      "report": "tests/engine-results.json"
+      "sha256": "bcbb6da52bf89041ac27544924272a5bb9dc23a6e18536aca2cbb70dac3d5a2f",
+      "browserVersion": "141.0.7390.37",
+      "edition": "v8-before-archive-display-only-fix",
+      "report": "evidence/source-campaign-chromium.json"
     },
     {
-      "suite": "Franklin",
-      "edition": "Node",
-      "passed": 26,
-      "failed": 0,
-      "report": "tests/franklin-results.json"
-    },
-    {
-      "suite": "v4 regression",
-      "edition": "Node",
-      "passed": 15,
-      "failed": 0,
-      "report": "tests/v4-engine-results.json"
-    },
-    {
-      "suite": "Gamepad unit",
-      "edition": "Node",
-      "passed": 27,
-      "failed": 0,
-      "report": "tests/gamepad-results.json"
-    },
-    {
-      "suite": "campaign engine",
-      "edition": "Node",
-      "passed": 24,
-      "failed": 0,
-      "report": "tests/campaign-engine-results.json"
-    },
-    {
-      "suite": "v7 corrections",
-      "edition": "Node",
-      "passed": 20,
-      "failed": 0,
-      "report": "tests/v7-engine-results.json"
-    },
-    {
-      "suite": "HTTP/source paths",
-      "edition": "Python",
-      "passed": 10,
-      "failed": 0,
-      "report": "tests/site-results.json"
-    },
-    {
-      "suite": "publication safety",
-      "edition": "Python",
-      "passed": 13,
-      "failed": 0,
-      "report": "tests/publish-results.json"
-    },
-    {
-      "suite": "asset/semantic provenance",
-      "edition": "Python",
-      "passed": 13,
-      "failed": 0,
-      "report": "tests/production-assets.test.py"
-    },
-    {
-      "suite": "controller",
-      "edition": "source HTTP",
-      "engine": "chromium",
+      "name": "source-controller-chromium.json",
+      "group": "source-browser",
       "passed": 39,
       "failed": 0,
-      "report": "tests/gamepad-chromium-results.json"
+      "sha256": "48394f8fb7835a2d12d0dbc708a9609c95abff5ed155dd382ec9197937c843b9",
+      "browserVersion": "141.0.7390.37",
+      "edition": "v8-before-archive-display-only-fix",
+      "report": "evidence/source-controller-chromium.json"
     },
     {
-      "suite": "campaign/save",
-      "edition": "source HTTP",
-      "engine": "chromium",
-      "passed": 31,
-      "failed": 0,
-      "report": "tests/campaign-browser-chromium-results.json"
-    },
-    {
-      "suite": "loading/failure recovery",
-      "edition": "source HTTP",
-      "engine": "chromium",
-      "passed": 16,
-      "failed": 0,
-      "report": "tests/v7-loading-chromium-results.json"
-    },
-    {
-      "suite": "staging/layout/portraits",
-      "edition": "source HTTP",
-      "engine": "chromium",
+      "name": "source-scenes-chromium.json",
+      "group": "source-browser",
       "passed": 26,
       "failed": 0,
-      "report": "tests/v7-scenes-chromium-results.json"
+      "sha256": "6337ad32bee880e99ea21dc0d31eb38a12d783c3217a9fd26c4852830df8a1f4",
+      "browserVersion": "141.0.7390.37",
+      "edition": "v8-before-archive-display-only-fix",
+      "report": "evidence/source-scenes-chromium.json"
     },
     {
-      "suite": "controller",
-      "edition": "source HTTP",
-      "engine": "firefox",
+      "name": "source-gameplay-chromium.json",
+      "group": "source-browser",
+      "passed": 23,
+      "failed": 0,
+      "sha256": "2b6a1c1f7e67975361cb5d5d80a5b292b1d914d7f199e9a62c4dd8d97a801019",
+      "browserVersion": "141.0.7390.37",
+      "edition": "v8-before-archive-display-only-fix",
+      "report": "evidence/source-gameplay-chromium.json"
+    },
+    {
+      "name": "source-loading-facing-chromium.json",
+      "group": "source-browser",
+      "passed": 29,
+      "failed": 0,
+      "sha256": "aa3cd19c83061f974faf10fa8fb0cb598aee9a5b49a684bec8d124cda2993e0e",
+      "browserVersion": "141.0.7390.37",
+      "edition": "v8-before-archive-display-only-fix",
+      "report": "evidence/source-loading-facing-chromium.json"
+    },
+    {
+      "name": "source-campaign-firefox.json",
+      "group": "source-browser",
+      "passed": 31,
+      "failed": 0,
+      "sha256": "fcf5f406bbb89e4bbda85f2e8aa70bd01f8c7802bd3a9105144b29ba1a59b831",
+      "browserVersion": "146.0.1",
+      "edition": "v8-before-archive-display-only-fix",
+      "report": "evidence/source-campaign-firefox.json"
+    },
+    {
+      "name": "source-controller-firefox.json",
+      "group": "source-browser",
       "passed": 39,
       "failed": 0,
-      "report": "tests/gamepad-firefox-results.json"
+      "sha256": "7f572253ce71995b0c89d6eb071df587bbedb41f0f47fc8bb980dec57a373553",
+      "browserVersion": "146.0.1",
+      "edition": "v8-before-archive-display-only-fix",
+      "report": "evidence/source-controller-firefox.json"
     },
     {
-      "suite": "campaign/save",
-      "edition": "source HTTP",
-      "engine": "firefox",
-      "passed": 31,
-      "failed": 0,
-      "report": "tests/campaign-browser-firefox-results.json"
-    },
-    {
-      "suite": "loading/failure recovery",
-      "edition": "source HTTP",
-      "engine": "firefox",
-      "passed": 16,
-      "failed": 0,
-      "report": "tests/v7-loading-firefox-results.json"
-    },
-    {
-      "suite": "staging/layout/portraits",
-      "edition": "source HTTP",
-      "engine": "firefox",
+      "name": "source-scenes-firefox.json",
+      "group": "source-browser",
       "passed": 26,
       "failed": 0,
-      "report": "tests/v7-scenes-firefox-results.json"
+      "sha256": "2143dcdfa2828a594ac1cc36f5bfa8a8a13a4bdb97b4f7a1baf1d4e4bd75d5f3",
+      "browserVersion": "146.0.1",
+      "edition": "v8-before-archive-display-only-fix",
+      "report": "evidence/source-scenes-firefox.json"
     },
     {
-      "suite": "controller",
-      "edition": "source HTTP",
-      "engine": "webkit",
+      "name": "source-gameplay-firefox.json",
+      "group": "source-browser",
+      "passed": 23,
+      "failed": 0,
+      "sha256": "eb6ad37fffc491068ba6eafee3c156c47b94873a098ae95193ab360b6556b071",
+      "browserVersion": "146.0.1",
+      "edition": "v8-before-archive-display-only-fix",
+      "report": "evidence/source-gameplay-firefox.json"
+    },
+    {
+      "name": "source-loading-facing-firefox.json",
+      "group": "source-browser",
+      "passed": 29,
+      "failed": 0,
+      "sha256": "82c576c0cc8e11329f8bdcd6df65c17dc31974d5860fd513783c03b1a0074aec",
+      "browserVersion": "146.0.1",
+      "edition": "v8-before-archive-display-only-fix",
+      "report": "evidence/source-loading-facing-firefox.json"
+    },
+    {
+      "name": "source-campaign-webkit.json",
+      "group": "source-browser",
+      "passed": 31,
+      "failed": 0,
+      "sha256": "d6f2fd6a6740a45874b0b480f60499374286b01773ba3821505d22de1943cd6f",
+      "browserVersion": "26.0",
+      "edition": "v8-before-archive-display-only-fix",
+      "report": "evidence/source-campaign-webkit.json"
+    },
+    {
+      "name": "source-controller-webkit.json",
+      "group": "source-browser",
       "passed": 39,
       "failed": 0,
-      "report": "tests/gamepad-webkit-results.json"
+      "sha256": "9b7ac42ebc811f9b76f8428bf7e3b4d8b5103bf42b3bd36c338db2fa8ed96d61",
+      "browserVersion": "26.0",
+      "edition": "v8-before-archive-display-only-fix",
+      "report": "evidence/source-controller-webkit.json"
     },
     {
-      "suite": "campaign/save",
-      "edition": "source HTTP",
-      "engine": "webkit",
-      "passed": 31,
-      "failed": 0,
-      "report": "tests/campaign-browser-webkit-results.json"
-    },
-    {
-      "suite": "loading/failure recovery",
-      "edition": "source HTTP",
-      "engine": "webkit",
-      "passed": 16,
-      "failed": 0,
-      "report": "tests/v7-loading-webkit-results.json"
-    },
-    {
-      "suite": "staging/layout/portraits",
-      "edition": "source HTTP",
-      "engine": "webkit",
+      "name": "source-scenes-webkit.json",
+      "group": "source-browser",
       "passed": 26,
       "failed": 0,
-      "report": "tests/v7-scenes-webkit-results.json"
+      "sha256": "ee96a9ddfe78d9bc574bc5dc4ec1d83287c7d1e7456a742039354f5a43c0cbce",
+      "browserVersion": "26.0",
+      "edition": "v8-before-archive-display-only-fix",
+      "report": "evidence/source-scenes-webkit.json"
     },
     {
-      "suite": "offline campaign/save",
-      "edition": "offline Chromium",
+      "name": "source-gameplay-webkit.json",
+      "group": "source-browser",
+      "passed": 23,
+      "failed": 0,
+      "sha256": "e906c1297e4003baf40ea972233d4d62ce9282bc76bb15151fce32879a392838",
+      "browserVersion": "26.0",
+      "edition": "v8-before-archive-display-only-fix",
+      "report": "evidence/source-gameplay-webkit.json"
+    },
+    {
+      "name": "source-loading-facing-webkit.json",
+      "group": "source-browser",
+      "passed": 29,
+      "failed": 0,
+      "sha256": "747d7de90e7633be2734b9cbe5bf3f3dea092122ff2dcb47afd5a411467a9dc1",
+      "browserVersion": "26.0",
+      "edition": "v8-before-archive-display-only-fix",
+      "report": "evidence/source-loading-facing-webkit.json"
+    },
+    {
+      "name": "offline-campaign-chromium.json",
+      "group": "offline-browser",
       "passed": 31,
       "failed": 0,
-      "report": "tests/campaign-browser-chromium-offline-results.json"
+      "sha256": "5db890e987d8d9884ef4f54f678f4073f33becfa660baf150f724d4c5e9aeaf2",
+      "browserVersion": "141.0.7390.37",
+      "edition": "v8-before-archive-display-only-fix",
+      "report": "evidence/offline-campaign-chromium.json"
     },
     {
-      "suite": "offline touch/render/gallery",
-      "edition": "offline Chromium",
+      "name": "offline-controller-chromium.json",
+      "group": "offline-browser",
+      "passed": 39,
+      "failed": 0,
+      "sha256": "122f9674506c88c5976d8bcbc8e056b595b6a6f647f4d1ff60c1f6beff321c77",
+      "browserVersion": "141.0.7390.37",
+      "edition": "v8-before-archive-display-only-fix",
+      "report": "evidence/offline-controller-chromium.json"
+    },
+    {
+      "name": "offline-gameplay-chromium.json",
+      "group": "offline-browser",
+      "passed": 23,
+      "failed": 0,
+      "sha256": "2b6a1c1f7e67975361cb5d5d80a5b292b1d914d7f199e9a62c4dd8d97a801019",
+      "browserVersion": "141.0.7390.37",
+      "edition": "v8-before-archive-display-only-fix",
+      "report": "evidence/offline-gameplay-chromium.json"
+    },
+    {
+      "name": "offline-mobile-results.json",
+      "group": "offline-browser",
       "passed": 34,
       "failed": 0,
-      "report": "tests/mobile-results.json"
+      "sha256": "f870104b44a3d8d04379dadbf4cfc271c4b7a90ead0b4e0a79009f0694aae1b7",
+      "browserVersion": null,
+      "edition": "v8-before-archive-display-only-fix",
+      "report": "evidence/offline-mobile-results.json"
     },
     {
-      "suite": "offline soundtrack/presentation",
-      "edition": "offline Chromium",
+      "name": "offline-v4-presentation-results.json",
+      "group": "offline-browser",
       "passed": 19,
       "failed": 0,
-      "report": "tests/v4-presentation-results.json"
+      "sha256": "256251e868517d4173bd88558a0d147627b9ab585b03fd12d8d9f1b2cfee8942",
+      "browserVersion": null,
+      "edition": "v8-before-archive-display-only-fix",
+      "report": "evidence/offline-v4-presentation-results.json"
     },
     {
-      "suite": "offline denied storage",
-      "edition": "offline Chromium",
+      "name": "offline-v4-storage-results.json",
+      "group": "offline-browser",
       "passed": 3,
       "failed": 0,
-      "report": "tests/v4-storage-results.json"
+      "sha256": "ad841da04c92c3e81225435208b3519c3b57dc0d1d30aa8985f60f93d466643d",
+      "browserVersion": null,
+      "edition": "v8-before-archive-display-only-fix",
+      "report": "evidence/offline-v4-storage-results.json"
     },
     {
-      "suite": "offline optional APIs",
-      "edition": "offline Chromium",
+      "name": "offline-resilience-results.json",
+      "group": "offline-browser",
       "passed": 8,
       "failed": 0,
-      "report": "tests/resilience-results.json"
+      "sha256": "e8dc701b7df053515f4bab0a12a6487e35bff130d2929e1243c35f7e965148f3",
+      "browserVersion": null,
+      "edition": "v8-before-archive-display-only-fix",
+      "report": "evidence/offline-resilience-results.json"
     },
     {
-      "suite": "launcher",
-      "edition": "Linux launcher",
+      "name": "launcher-results.json",
+      "group": "launcher",
       "passed": 7,
       "failed": 0,
-      "report": "tests/launcher-results.json"
+      "sha256": "9ff7abbfdc36e6677829cb8452536688e8c66387a9cb130cbbbb906b024916f0",
+      "browserVersion": null,
+      "edition": "v8-final-exact-build",
+      "report": "evidence/launcher-results.json"
     },
     {
-      "suite": "v6\u2192v7 launcher upgrade",
-      "edition": "Linux launcher",
+      "name": "upgrade-launcher-results.json",
+      "group": "launcher",
       "passed": 10,
       "failed": 0,
-      "report": "tests/upgrade-launcher-results.json"
+      "sha256": "9d54b69f008bc54aa85e11319f6a705be5280df7ae98b7171312567e5e5c31a2",
+      "browserVersion": null,
+      "report": "evidence/upgrade-launcher-results.json"
+    },
+    {
+      "name": "production-assets.test.py",
+      "group": "asset-semantic",
+      "passed": 14,
+      "failed": 0,
+      "sha256": "b2949ed1f3a92ed437900c14de027a835cd64b6b78b4d26a55a7de40e5fb6bfc",
+      "report": "evidence/production-assets.log"
+    },
+    {
+      "name": "archive-facing-chromium.json",
+      "group": "source-browser",
+      "passed": 4,
+      "failed": 0,
+      "sha256": "f08b3dcbe2f699b44dcb5a8f7b197031d84e4b6876f02f3d94ec8c57c950c5d0",
+      "browserVersion": "141.0.7390.37",
+      "edition": "v8-final-exact-build",
+      "report": "evidence/archive-facing-chromium.json"
+    },
+    {
+      "name": "archive-facing-firefox.json",
+      "group": "source-browser",
+      "passed": 4,
+      "failed": 0,
+      "sha256": "645288faef422ee23ab5cdac47dca5a41cf516293b51bbf7eb3e707c8fe010e8",
+      "browserVersion": "146.0.1",
+      "edition": "v8-final-exact-build",
+      "report": "evidence/archive-facing-firefox.json"
+    },
+    {
+      "name": "archive-facing-webkit.json",
+      "group": "source-browser",
+      "passed": 4,
+      "failed": 0,
+      "sha256": "0f35309a9a2c8d00d1ee4c1229da21f085f552fea453a2efd8a773a030c88c46",
+      "browserVersion": "26.0",
+      "edition": "v8-final-exact-build",
+      "report": "evidence/archive-facing-webkit.json"
+    },
+    {
+      "name": "archive-facing-offline-chromium.json",
+      "group": "offline-browser",
+      "passed": 4,
+      "failed": 0,
+      "sha256": "f08b3dcbe2f699b44dcb5a8f7b197031d84e4b6876f02f3d94ec8c57c950c5d0",
+      "browserVersion": "141.0.7390.37",
+      "edition": "v8-final-exact-build",
+      "report": "evidence/archive-facing-offline-chromium.json"
+    },
+    {
+      "name": "build-parity.json",
+      "group": "build-parity",
+      "passed": 3,
+      "failed": 0,
+      "sha256": "4c2073bf79a06444a8b5273926807511717ef07c9831a7017317f28db50f70bf",
+      "browserVersion": null,
+      "edition": "v8-final-exact-build",
+      "report": "evidence/build-parity.json"
+    },
+    {
+      "name": "campaign-engine-results.json",
+      "group": "node-core",
+      "passed": 24,
+      "failed": 0,
+      "report": "evidence/campaign-engine-results.json",
+      "sha256": "d0072b2f545483da70e510fdbe47dc340ac3e82728760a81fb583169ffca3fc7"
+    },
+    {
+      "name": "engine-results.json",
+      "group": "node-core",
+      "passed": 31,
+      "failed": 0,
+      "report": "evidence/engine-results.json",
+      "sha256": "255a8be74322f6c3f1ab313f1396eb55c8d241d420f0eca8598aecfe6cab054f"
+    },
+    {
+      "name": "franklin-results.json",
+      "group": "node-core",
+      "passed": 26,
+      "failed": 0,
+      "report": "evidence/franklin-results.json",
+      "sha256": "f6ef1259799c2639f777dd783feb16108abf83fb6d2c79d1c96ae5cab1216aa2"
+    },
+    {
+      "name": "gamepad-results.json",
+      "group": "node-core",
+      "passed": 27,
+      "failed": 0,
+      "report": "evidence/gamepad-results.json",
+      "sha256": "a915017ddf07a8d6ce2108a696240afd7aa4a3307ac5c58440524cf790fe0721"
+    },
+    {
+      "name": "publish-results.json",
+      "group": "python-core",
+      "passed": 13,
+      "failed": 0,
+      "report": "evidence/publish-results.json",
+      "sha256": "04c38014bf3d4b3b21aa80ecee7cd416955c72cd41e6c7411470780aa156bcc5"
+    },
+    {
+      "name": "site-results.json",
+      "group": "python-core",
+      "passed": 10,
+      "failed": 0,
+      "report": "evidence/site-results.json",
+      "sha256": "1fa7dd064f743f96981c326edf04c96ceb30cfc1e6df80d3e57a3e2444f23b69"
+    },
+    {
+      "name": "v4-engine-results.json",
+      "group": "node-core",
+      "passed": 15,
+      "failed": 0,
+      "report": "evidence/v4-engine-results.json",
+      "sha256": "ba9ed842ac7339e06f53f1fb55ab2c3d674b25a844067b74ee2b3390a61c6fe6"
+    },
+    {
+      "name": "v7-engine-results.json",
+      "group": "node-core",
+      "passed": 20,
+      "failed": 0,
+      "report": "evidence/v7-engine-results.json",
+      "sha256": "817b3d8ff680812fc5ecea3f4cf807bbbdb7f5b4dedb40494d2db0ecc5906b17"
+    },
+    {
+      "name": "v8-engine-results.json",
+      "group": "node-core",
+      "passed": 28,
+      "failed": 0,
+      "report": "evidence/v8-engine-results.json",
+      "sha256": "7a9e8bbf9d5629faf1035275597f05b18308a9ed2144034792c9e21fcaf4a989"
     }
   ],
-  "totalPassedChecks": 627,
+  "totalPassedChecks": 845,
   "totalFailedChecks": 0,
+  "groupPassed": {
+    "asset-semantic": 14,
+    "offline-browser": 161,
+    "launcher": 17,
+    "source-browser": 456,
+    "build-parity": 3,
+    "node-core": 171,
+    "python-core": 23
+  },
+  "sourceBrowserChecks": 456,
+  "offlineBrowserChecks": 161,
+  "routes": [
+    {
+      "suite": "source-campaign-chromium.json",
+      "kind": "hero",
+      "stages": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "kos": 75,
+      "retries": 0,
+      "machineWaves": 3,
+      "maxLiveSummons": 2,
+      "summonsAfterMachine": false,
+      "earlyRescue": false,
+      "dukeBeforeMachine": false,
+      "loadingWaits": [],
+      "mode": "complete"
+    },
+    {
+      "suite": "source-campaign-chromium.json",
+      "kind": "franklin",
+      "stages": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "kos": 75,
+      "retries": 0,
+      "machineWaves": 3,
+      "maxLiveSummons": 2,
+      "summonsAfterMachine": false,
+      "earlyRescue": false,
+      "dukeBeforeMachine": false,
+      "loadingWaits": [],
+      "mode": "complete"
+    },
+    {
+      "suite": "source-campaign-firefox.json",
+      "kind": "hero",
+      "stages": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "kos": 75,
+      "retries": 0,
+      "machineWaves": 3,
+      "maxLiveSummons": 2,
+      "summonsAfterMachine": false,
+      "earlyRescue": false,
+      "dukeBeforeMachine": false,
+      "loadingWaits": [],
+      "mode": "complete"
+    },
+    {
+      "suite": "source-campaign-firefox.json",
+      "kind": "franklin",
+      "stages": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "kos": 75,
+      "retries": 0,
+      "machineWaves": 3,
+      "maxLiveSummons": 2,
+      "summonsAfterMachine": false,
+      "earlyRescue": false,
+      "dukeBeforeMachine": false,
+      "loadingWaits": [],
+      "mode": "complete"
+    },
+    {
+      "suite": "source-campaign-webkit.json",
+      "kind": "hero",
+      "stages": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "kos": 75,
+      "retries": 0,
+      "machineWaves": 3,
+      "maxLiveSummons": 2,
+      "summonsAfterMachine": false,
+      "earlyRescue": false,
+      "dukeBeforeMachine": false,
+      "loadingWaits": [],
+      "mode": "complete"
+    },
+    {
+      "suite": "source-campaign-webkit.json",
+      "kind": "franklin",
+      "stages": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "kos": 75,
+      "retries": 0,
+      "machineWaves": 3,
+      "maxLiveSummons": 2,
+      "summonsAfterMachine": false,
+      "earlyRescue": false,
+      "dukeBeforeMachine": false,
+      "loadingWaits": [],
+      "mode": "complete"
+    },
+    {
+      "suite": "offline-campaign-chromium.json",
+      "kind": "hero",
+      "stages": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "kos": 75,
+      "retries": 0,
+      "machineWaves": 2,
+      "maxLiveSummons": 2,
+      "summonsAfterMachine": false,
+      "earlyRescue": false,
+      "dukeBeforeMachine": false,
+      "loadingWaits": [],
+      "mode": "complete"
+    },
+    {
+      "suite": "offline-campaign-chromium.json",
+      "kind": "franklin",
+      "stages": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "kos": 76,
+      "retries": 0,
+      "machineWaves": 3,
+      "maxLiveSummons": 2,
+      "summonsAfterMachine": false,
+      "earlyRescue": false,
+      "dukeBeforeMachine": false,
+      "loadingWaits": [],
+      "mode": "complete"
+    }
+  ],
+  "runtimeContent": {
+    "stages": 7,
+    "banks": 15,
+    "animationStates": 219,
+    "frameReferences": 3379,
+    "uniquePackedRectangles": 2979,
+    "atlasPages": 85,
+    "portraitImages": 47,
+    "speakers": 7
+  },
+  "suiteRuntimeInputs": {
+    "app.js": {
+      "bytes": 41725,
+      "sha256": "96b4e2acbcd5045220c8cffe2f0aa70a6a9c273477965cacecdcc4fef035c376"
+    },
+    "engine.js": {
+      "bytes": 53081,
+      "sha256": "0a48a84d7d607cd2f9832df53ce8ee74ef71ff846f80aabb69d74a72d1db427e"
+    },
+    "render.js": {
+      "bytes": 45377,
+      "sha256": "4c010f9e87d50404306bd421a70fc0076a56e9d822a15ee113c9eec93bef21b8"
+    },
+    "cutscenes.js": {
+      "bytes": 22906,
+      "sha256": "673294a52931cee1bf0d006d24f317f3ce22aeaa7dc5c6d22de673d67910831c"
+    },
+    "data/cutscenes.js": {
+      "bytes": 18317,
+      "sha256": "2548de7c2c929f5ac8d311e059c7798a9d2b51526185fe5281441dc460b89a92"
+    },
+    "data/campaign.js": {
+      "bytes": 7987,
+      "sha256": "39c82169ac81b43c8009a0aab185dfea419ea80f7eea3a013d859efcf04694a1"
+    },
+    "assets/sprites.json": {
+      "bytes": 460488,
+      "sha256": "20cab18bed3161010c5d9e2057c39ca6958f8652d4ebb31b00238dc22af610d4"
+    },
+    "assets/portraits.json": {
+      "bytes": 7652,
+      "sha256": "3872cff14dd775b7e7c6bceddd77aa36ae06378b4906fb7c2ddadc3116c93584"
+    }
+  },
+  "currentRuntimeInputs": {
+    "app.js": {
+      "bytes": 41725,
+      "sha256": "96b4e2acbcd5045220c8cffe2f0aa70a6a9c273477965cacecdcc4fef035c376"
+    },
+    "engine.js": {
+      "bytes": 53081,
+      "sha256": "0a48a84d7d607cd2f9832df53ce8ee74ef71ff846f80aabb69d74a72d1db427e"
+    },
+    "render.js": {
+      "bytes": 45377,
+      "sha256": "4c010f9e87d50404306bd421a70fc0076a56e9d822a15ee113c9eec93bef21b8"
+    },
+    "cutscenes.js": {
+      "bytes": 22906,
+      "sha256": "673294a52931cee1bf0d006d24f317f3ce22aeaa7dc5c6d22de673d67910831c"
+    },
+    "data/cutscenes.js": {
+      "bytes": 18317,
+      "sha256": "2548de7c2c929f5ac8d311e059c7798a9d2b51526185fe5281441dc460b89a92"
+    },
+    "data/campaign.js": {
+      "bytes": 7987,
+      "sha256": "39c82169ac81b43c8009a0aab185dfea419ea80f7eea3a013d859efcf04694a1"
+    },
+    "assets/sprites.json": {
+      "bytes": 460488,
+      "sha256": "20cab18bed3161010c5d9e2057c39ca6958f8652d4ebb31b00238dc22af610d4"
+    },
+    "assets/portraits.json": {
+      "bytes": 7652,
+      "sha256": "3872cff14dd775b7e7c6bceddd77aa36ae06378b4906fb7c2ddadc3116c93584"
+    }
+  },
+  "finalBuilds": {
+    "The-Critic-Coming-Attractions-v8.html": {
+      "bytes": 109607376,
+      "sha256": "2d52f4b22af90abfebc8fe272e8d353756373b0d4c6929b89ec3a844a5f7363d"
+    },
+    "The-Critic-Coming-Attractions-v8-Play.sh": {
+      "bytes": 111457874,
+      "sha256": "13cb655d4c14ab080c85a8f82167d48b0ba2cc329b861499c763a231134ec224"
+    }
+  },
+  "fullScript": {
+    "scenes": 19,
+    "beats": 56,
+    "dialogueEntriesByRoute": {
+      "hero": 36,
+      "franklin": 35
+    },
+    "activeCampaignDialogueEntriesByRoute": {
+      "hero": 35,
+      "franklin": 34
+    },
+    "optionalSceneAppendix": [
+      "boss-projection-intro"
+    ],
+    "markdownSha256": "812553011c309c83d4a2af6cf9a32c8cb8abe41475280e8849de014e80e6857d",
+    "docxSha256": "29ce6c0b3e0c8337c7f8a16d5445203f934e2738dfb987d2c98acbd73a43f63f",
+    "docxBytes": 44434
+  },
+  "scriptVisualReview": {
+    "pageCount": 17,
+    "reviewedPages": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17
+    ],
+    "status": "passed",
+    "detail": "original",
+    "sourceMatchingCheck": "passed",
+    "postFreezeValidation": "Final gallery native-bounds delegation changes app.js only; resolved script, Markdown and Word remain unchanged. Previously rendered 17-page document was not regenerated."
+  },
   "additionalContractSuite": {
     "file": "tests/cutscenes-v7.test.js",
     "status": "passed",
-    "note": "Grouped scene-contract assertions are excluded from the structured case total."
+    "note": "Grouped assertions are excluded from the structured case total."
   },
-  "sourceBrowserChecks": 336,
-  "offlineBrowserChecks": 95,
-  "runtimeContent": {
-    "stages": 7,
-    "banks": 14,
-    "animationStates": 193,
-    "frames": 2849,
-    "atlasPages": 75
+  "pendingChecks": [
+    "Reviewed public repository and actual GitHub Pages verification"
+  ],
+  "publicRelease": {
+    "status": "pending",
+    "repository": "cattownfilms/the-critic-city-run",
+    "url": "https://cattownfilms.github.io/the-critic-city-run/",
+    "note": "Prior v7 public success does not verify the new v8 release."
   },
-  "startupComparison": {
-    "measurements": [
-      {
-        "version": "6.0.0",
-        "loadedPages": [
-          0,
-          1,
-          2,
-          3,
-          4,
-          5,
-          6,
-          7,
-          8,
-          9,
-          10,
-          11,
-          12,
-          21
-        ],
-        "totalPages": 22,
-        "atlasBytes": 55478726,
-        "decodedAtlasRGBABytes": 204845056,
-        "resourceEncodedBytes": 56143507,
-        "edition": "baseline-v6",
-        "coldLocalhostSeconds": 0.432,
-        "browserVersion": "143.0.7499.4"
+  "boundaries": [
+    "All results are freshly executed v8 checks, not recovered v7 count receipts.",
+    "Normal-input route drivers accelerate fixed engine time and use the actual application event/cutscene flow; neither route mutates health, position, score, or campaign flags.",
+    "Feature, collision, rendering and legacy-save scenarios are explicit fixtures separate from full routes.",
+    "Chromium141.0.7390.37, Firefox146.0.1, and WebKit26.0 were actually launched and ran the source game.",
+    "Chromium mobile-sized viewports include actual three-finger CDP touches. Physical Android, Termux, Logitech hardware, iPhone and Safari were not tested.",
+    "Chromium verifies actual decoded MP3 playback, crossfades,13 sampled cues, mute and pause. Firefox headless AudioContext remains suspended;13cue bytes cached and decode deferred. WebKit decodes cues, but the environment has no audible output device.",
+    "Launcher tests run actual local HTTP and exactpayload responses on port8788. Upgrade uses the recovered exact v7 launcher unchanged and confirms byte-for-byte backups and companion/browser-save fixtures.",
+    "The final archive-only display fix is verified by 16 targeted real-browser checks and 3 strict exact standalone embedding checks. Full behavior suites were not broadly repeated because no combat, campaign, scene, audio, save or source-frame data changed. Final launcher and v7-to-v8 upgrade tests were rerun against the final exact payload; repeats are counted once.",
+    "Broad behavioral suites used app.js ab13f22 and render.js e1c246 before the final archive-only orientation/bounds correction. Sixteen final source/offline archive checks, three strict embedding checks and seventeen final launcher/payload checks verify the affected boundary. Combat, campaign, scene, audio, save and source-frame data did not change in that final display fix.",
+    "No cold-network or physical Android loading-speed claim is made. Bulk startup intentionally prepares the full runtime library.",
+    "Portable evidence filenames refer to the offline release bundle; local workspace paths and private prompt/media files are excluded from this public report."
+  ],
+  "knownLimitations": [
+    "Physical Android, Termux on Android, Logitech hardware, iPhone and Safari were not tested.",
+    "Firefox headless AudioContext remained suspended; this run confirms cached cue bytes and deferred decode, not Firefox audible playback.",
+    "The environment has no audible output device; browser playback/decoding observations do not establish a listening test."
+  ],
+  "behavioralInputsBeforeArchiveOnlyDisplayFix": {
+    "runtimeInputs": {
+      "app.js": {
+        "bytes": 41729,
+        "sha256": "ab13f22dbb1f6521307a15c557d6aa77c0676e1bf59893d6ca9329f32f520483"
       },
-      {
-        "version": "7.0.0",
-        "loadedPages": [
-          0,
-          1,
-          2,
-          3,
-          4,
-          5,
-          6,
-          7,
-          8,
-          9,
-          10,
-          11,
-          12,
-          13,
-          14,
-          15,
-          24,
-          25,
-          26,
-          27,
-          28,
-          34,
-          35,
-          36,
-          37,
-          38,
-          39,
-          40,
-          45,
-          46,
-          47,
-          72,
-          73
-        ],
-        "totalPages": 75,
-        "atlasBytes": 29973308,
-        "decodedAtlasRGBABytes": 109731128,
-        "resourceEncodedBytes": 30710117,
-        "edition": "the-critic-city-run",
-        "coldLocalhostSeconds": 0.725,
-        "browserVersion": "143.0.7499.4"
+      "engine.js": {
+        "bytes": 53081,
+        "sha256": "0a48a84d7d607cd2f9832df53ce8ee74ef71ff846f80aabb69d74a72d1db427e"
+      },
+      "render.js": {
+        "bytes": 44308,
+        "sha256": "e1c246b37525e7436e772798fc8bf6f242a673454d378f4f1cb19f0a5341d22a"
+      },
+      "cutscenes.js": {
+        "bytes": 22906,
+        "sha256": "673294a52931cee1bf0d006d24f317f3ce22aeaa7dc5c6d22de673d67910831c"
+      },
+      "data/cutscenes.js": {
+        "bytes": 18317,
+        "sha256": "2548de7c2c929f5ac8d311e059c7798a9d2b51526185fe5281441dc460b89a92"
+      },
+      "data/campaign.js": {
+        "bytes": 7987,
+        "sha256": "39c82169ac81b43c8009a0aab185dfea419ea80f7eea3a013d859efcf04694a1"
+      },
+      "assets/sprites.json": {
+        "bytes": 460488,
+        "sha256": "20cab18bed3161010c5d9e2057c39ca6958f8652d4ebb31b00238dc22af610d4"
+      },
+      "assets/portraits.json": {
+        "bytes": 7652,
+        "sha256": "3872cff14dd775b7e7c6bceddd77aa36ae06378b4906fb7c2ddadc3116c93584"
+      },
+      "The-Critic-Coming-Attractions-v8.html": {
+        "bytes": 109606311,
+        "sha256": "eaa9056ba593ecdf1173a343fafc08a319e3d3ccf50562375245afe32650e128"
+      },
+      "The-Critic-Coming-Attractions-v8-Play.sh": {
+        "bytes": 111457205,
+        "sha256": "f6da142915ac3aed51745a550c9f1ebf1cd74d5cc834d6161d059dfac574616e"
       }
-    ],
-    "boundary": "Fresh browser contexts, uncached local HTTP source, desktop headless shell at mobile viewport. Byte budgets are actual requested atlas file sizes and actual decoded RGBA geometry. Localhost startup timing is not a physical Android/network loading benchmark."
+    },
+    "scope": "Full normal-input campaigns, controllers, watched scenes, gameplay, mobile, audio and storage suites were executed against these v8 inputs. Only archive orientation resolution and the matching gallery layout delegation changed afterward; the 16 targeted archive checks and strict final embedding parity verify that final display change. No combat, campaign, scene, audio, save or source-frame data changed in that final fix."
   },
-  "correctionChecklist": [
+  "finalEmbeddedRuntimeFiles": 159,
+  "curatedLocalReceipt": {
+    "report": "evidence/V8-LOCAL-QA.json",
+    "sha256": "c63eb1070f14b80fda37a31b4d7a9a9e8a4bdab500184df6fc4b2b2dc3d635af",
+    "passed": 651,
+    "failed": 0
+  },
+  "refinementChecklist": [
     {
       "id": 1,
-      "correction": "initial loading improved",
-      "status": "verified",
-      "evidence": "Startup atlas request budget is 29,973,308 bytes versus 55,478,726; decoded budget is 109,731,128 versus 204,845,056. Cold localhost time increased .432\u2192.725 s, so no wall-time speedup is claimed.",
-      "reference": "tests/v7-startup-results.json"
+      "status": "verified-locally",
+      "evidence": "Bulk loading/facing suites, 29 cases per source engine; no later HTTP dependencies"
     },
     {
       "id": 2,
-      "correction": "Animation Room inaccessible until ready",
-      "status": "verified",
-      "evidence": "Three browser loading suites: stalled startup/gallery files, every entrance and direct handler guard; repeated failed Continue remains retryable.",
-      "reference": "tests/v7-loading-chromium-results.json"
+      "status": "verified-locally",
+      "evidence": "Preferred cartwheel provenance, engine source-impact tests and actual browser RUN + HIT"
     },
     {
       "id": 3,
-      "correction": "options menu preserved",
-      "status": "verified",
-      "evidence": "Controller/settings suites retain native volume, accessibility and remapping controls; options usable during stalled loading.",
-      "reference": "tests/gamepad-chromium-results.json"
+      "status": "verified-locally",
+      "evidence": "Complete routes plus repeated capped machine-wave fixtures and Duke pressure definitions"
     },
     {
       "id": 4,
-      "correction": "Belly Bash is Jay's RUN + HIT",
-      "status": "verified",
-      "evidence": "Engine run-attack assertions and original Belly Bash source contact registration.",
-      "reference": "tests/v7-engine-results.json"
+      "status": "verified-locally",
+      "evidence": "Actual keyboard RUN + HIT heavy collisions for both players plus preserved ordinary baseline"
     },
     {
       "id": 5,
-      "correction": "Belly Bash gives substantial knockback",
-      "status": "verified",
-      "evidence": "Normal RUN+HIT launches a lane-valid foe 302.68 units, hits once for existing 24 damage; off-lane target is untouched.",
-      "reference": "tests/v7-engine-results.json"
+      "status": "verified-locally",
+      "evidence": "Full source audit, Marty story-facing checks and 16 final source/offline archive cases"
     },
     {
       "id": 6,
-      "correction": "Marty is not prematurely visible in opening",
-      "status": "verified",
-      "evidence": "Both watched opening routes keep Marty absent through duke-approach, refusal and motivation.",
-      "reference": "tests/v7-scenes-chromium-results.json"
+      "status": "verified-locally",
+      "evidence": "Source-matching editable Markdown/Word export and all 17 rendered pages reviewed"
     },
     {
       "id": 7,
-      "correction": "opening begins with Jay seated on Coming Attractions set",
-      "status": "verified",
-      "evidence": "Actual landscape screenshot reviewed: seated Jay/chair on a shared pixel Coming Attractions set.",
-      "reference": "cutscenes.js"
+      "status": "verified-locally",
+      "evidence": "Whole-wall booth alignment/visibility, eyes choreography, circuit/reel/guard/knockdown fixtures"
     },
     {
       "id": 8,
-      "correction": "Duke approaches Jay",
-      "status": "verified",
-      "evidence": "Real browser time shows Duke x advancing toward seated Jay within the shared shot.",
-      "reference": "tests/v7-scenes-chromium-results.json"
+      "status": "verified-locally",
+      "evidence": "Cinema screen-emergence and Spike door/throw fixtures plus complete campaign progression"
     },
     {
       "id": 9,
-      "correction": "Jay and Duke share scene continuity",
-      "status": "verified",
-      "evidence": "Shared set/camera and Jay/Duke bodies retained across the opening exchange; screenshots reviewed.",
-      "reference": "data/cutscenes.js"
-    },
-    {
-      "id": 10,
-      "correction": "Marty reveal happens later",
-      "status": "verified",
-      "evidence": "Both routes reveal Marty only after motivation; the reveal uses his own portrait and one authored cage.",
-      "reference": "tests/v7-scenes-chromium-results.json"
-    },
-    {
-      "id": 11,
-      "correction": "dialogue portraits implemented",
-      "status": "verified",
-      "evidence": "All 6 speaker portraits decode in all 3 engines with pixel rendering and independent geometry.",
-      "reference": "tests/v7-scenes-chromium-results.json"
-    },
-    {
-      "id": 12,
-      "correction": "cutscenes match 32-bit game aesthetic",
-      "status": "verified",
-      "evidence": "Pixel studio, sprite bodies and portrait frames visually inspected; retained animation pixels verified by semantic asset tests.",
-      "reference": "tests/production-assets.test.py"
-    },
-    {
-      "id": 13,
-      "correction": "Duke's activation visibly releases enemies from screens",
-      "status": "verified",
-      "evidence": "Opening activation/emergence scene shows the 7 actual enemy banks originating from named screen positions.",
-      "reference": "tests/v7-scenes-chromium-results.json"
-    },
-    {
-      "id": 14,
-      "correction": "multiple Coming Attractions emerge in droves",
-      "status": "verified",
-      "evidence": "Seven recurring cast banks appear together and move from screens into the studio.",
-      "reference": "tests/v7-scenes-chromium-results.json"
-    },
-    {
-      "id": 15,
-      "correction": "origin of enemies is visually understandable",
-      "status": "verified",
-      "evidence": "Named screen origins and actual screen-to-floor movement are asserted and visually inspected.",
-      "reference": "tests/v7-scenes-chromium-results.json"
-    },
-    {
-      "id": 16,
-      "correction": "Jay is physically blasted/thrown into Stage 1",
-      "status": "verified",
-      "evidence": "Jay moves out of the studio toward the window before the separate street-recovery beat and Stage1.",
-      "reference": "tests/v7-scenes-chromium-results.json"
-    },
-    {
-      "id": 17,
-      "correction": "boxes/trash props larger",
-      "status": "verified",
-      "evidence": "Props use a consistent1.35 presentation scale; break/drop values retained; screenshots reviewed.",
-      "reference": "tests/v7-engine-results.json"
-    },
-    {
-      "id": 18,
-      "correction": "inter-stage Duke/Marty cage scenes added",
-      "status": "verified",
-      "evidence": "Short stage scenes visibly continue Duke\u2019s portable Marty-cage trail; scene contract and route tests.",
-      "reference": "tests/cutscenes-v7.test.js"
-    },
-    {
-      "id": 19,
-      "correction": "first four stages visually distinct",
-      "status": "verified",
-      "evidence": "Rendered first4 reviewed: broadcasting/media block, subway train/platform, rooftop skyline, neon premiere theater.",
-      "reference": "render.js"
-    },
-    {
-      "id": 20,
-      "correction": "short cutscene between meaningful stages",
-      "status": "verified",
-      "evidence": "All stage/boss story beats integrate into both complete routes and are safely skipped through actual callbacks.",
-      "reference": "tests/campaign-browser-chromium-results.json"
-    },
-    {
-      "id": 21,
-      "correction": "parry preserved",
-      "status": "verified",
-      "evidence": "Original guard/parry/counter combat definitions and controller/touch regression remain passing.",
-      "reference": "tests/engine-results.json"
-    },
-    {
-      "id": 22,
-      "correction": "weak transitional dialogue rewritten",
-      "status": "verified",
-      "evidence": "Stage transitions use brief visual cage/trail exchanges; Jay/Franklin dialogue tables and scene player tested.",
-      "reference": "data/cutscenes.js"
-    },
-    {
-      "id": 23,
-      "correction": "combat preserved",
-      "status": "verified",
-      "evidence": "Exact accepted HITS/CHAIN baseline, original decoded action pixels/timing/registration, movement and combat suites pass.",
-      "reference": "tests/v7-engine-results.json"
-    },
-    {
-      "id": 24,
-      "correction": "projectionist is clearly readable",
-      "status": "verified",
-      "evidence": "Projectionist silhouette/reveal and face are readable inside a masked background window in actual cinema capture.",
-      "reference": "render.js"
-    },
-    {
-      "id": 25,
-      "correction": "projectionist art matches 32-bit game",
-      "status": "verified",
-      "evidence": "New pixel projectionist art uses the supplied identity; actual staged screenshots inspected.",
-      "reference": "assets/story/projection-woman-pixel.webp"
-    },
-    {
-      "id": 26,
-      "correction": "projection windows fixed",
-      "status": "verified",
-      "evidence": "Three windows are fixed and masked, with aligned numbered circuit/wire connections.",
-      "reference": "render.js"
-    },
-    {
-      "id": 27,
-      "correction": "circuit objective understandable",
-      "status": "verified",
-      "evidence": "Three matched circuits, explicit objective and0/3 counter are visible; partial checkpoint and full shutdown tested.",
-      "reference": "tests/v7-engine-results.json"
-    },
-    {
-      "id": 28,
-      "correction": "projectiles fair/readable",
-      "status": "verified",
-      "evidence": "Visible reveal precedes locked-floor telegraph and throw; projectile stays at locked target; matching circuit cancels its reels; large reel visually reviewed.",
-      "reference": "tests/v7-engine-results.json"
-    },
-    {
-      "id": 29,
-      "correction": "good death behavior preserved",
-      "status": "verified",
-      "evidence": "Preserved decoded death frames and ground-contact metadata; pizzeria grounded defeat capture reviewed.",
-      "reference": "tests/production-assets.test.py"
-    },
-    {
-      "id": 30,
-      "correction": "muddy theater progression clarified",
-      "status": "verified",
-      "evidence": "Actual cinema progression requires all 3 circuit shutdowns before exit; both routes clear it; HUD objective remains visible during the enforcer fight.",
-      "reference": "tests/campaign-browser-chromium-results.json"
-    },
-    {
-      "id": 31,
-      "correction": "confusing transitions removed/restaged",
-      "status": "verified",
-      "evidence": "Authored cage trails, cinema objective and pizzeria door entrance visibly communicate cause/exit; full routes and scene tests pass.",
-      "reference": "data/campaign.js"
-    },
-    {
-      "id": 32,
-      "correction": "Pizzeria boss consistently larger",
-      "status": "verified",
-      "evidence": "Boss uses one fixed1.24 body scale across states; doorway capture appears about 19% taller than Jay.",
-      "reference": "tests/v7-engine-results.json"
-    },
-    {
-      "id": 33,
-      "correction": "Pizzeria boss intro clearly staged",
-      "status": "verified",
-      "evidence": "Engine asserts explicit pizzeria-door source, door-open then walk phases, one entrance event; capture reviewed.",
-      "reference": "tests/v7-engine-results.json"
-    },
-    {
-      "id": 34,
-      "correction": "dialogue scene vertical bounce eliminated",
-      "status": "verified",
-      "evidence": "All 10 opening beats have identical viewport/dialogue/portrait/Continue bounds in landscape and portrait in all 3 engines; all lines fit.",
-      "reference": "tests/v7-scenes-chromium-results.json"
-    },
-    {
-      "id": 35,
-      "correction": "final broadcast gameplay preserved",
-      "status": "verified",
-      "evidence": "Both routes fight the original broadcast machine before Duke; existing machine attack definition and normal combat remain passing.",
-      "reference": "tests/campaign-browser-chromium-results.json"
-    },
-    {
-      "id": 36,
-      "correction": "final-broadcast cutscene converted to game-consistent art",
-      "status": "verified",
-      "evidence": "Broadcast story uses pixel stage/studio art, retained cast sprite overlays and pixel portraits; scene dependencies decode.",
-      "reference": "data/cutscenes.js"
-    },
-    {
-      "id": 37,
-      "correction": "final-broadcast scene contains movement",
-      "status": "verified",
-      "evidence": "Broadcast scene actor/screen emergence motion is authored and covered by scene contracts; rendered scene player checked.",
-      "reference": "tests/cutscenes-v7.test.js"
-    },
-    {
-      "id": 38,
-      "correction": "stakes visibly established",
-      "status": "verified",
-      "evidence": "Marty remains visibly caged in the final arena; rescue objective and alarm/screen effects tie the machine to the confrontation.",
-      "reference": "render.js"
-    },
-    {
-      "id": 39,
-      "correction": "Duke becomes final combat boss after broadcast",
-      "status": "verified",
-      "evidence": "Every normal-input route defeats broadcast-rig then the actual grounded Duke;3 source-backed attacks have telegraph/recovery tests.",
-      "reference": "tests/campaign-browser-chromium-results.json"
-    },
-    {
-      "id": 40,
-      "correction": "Marty rescue follows Duke defeat",
-      "status": "verified",
-      "evidence": "Every route asserts no premature martyRescued flag; schema5 and old-complete-v4 Continue require Duke first.",
-      "reference": "tests/campaign-browser-chromium-results.json"
-    },
-    {
-      "id": 41,
-      "correction": "existing ending/results strengths preserved",
-      "status": "verified",
-      "evidence": "Exact offline soundtrack/presentation19 checks retain visible winner, celebrations, title music and portrait results without repeated Franklin unlock.",
-      "reference": "tests/v4-presentation-results.json"
-    },
-    {
-      "id": 42,
-      "correction": "Franklin visible in route-appropriate intro",
-      "status": "verified",
-      "evidence": "Franklin body is visible as ally in the opening; Jay stays present as Marty\u2019s father.",
-      "reference": "tests/v7-scenes-chromium-results.json"
-    },
-    {
-      "id": 43,
-      "correction": "Franklin does not inherit Jay-specific dialogue",
-      "status": "verified",
-      "evidence": "Every Franklin player comment in stage/boss/ending scenes uses FRANKLIN speaker and portrait; approved father lines remain Jay\u2019s.",
-      "reference": "tests/v7-scenes-chromium-results.json"
-    },
-    {
-      "id": 44,
-      "correction": "Franklin dialogue is route-aware",
-      "status": "verified",
-      "evidence": "Resolved route-specific dialogue is watched in the real scene player; Franklin reply/ending contracts pass.",
-      "reference": "tests/v7-scenes-chromium-results.json"
-    },
-    {
-      "id": 45,
-      "correction": "Franklin RUN + HIT improved",
-      "status": "verified",
-      "evidence": "Franklin uses independent cartwheel-run source poses; normal RUN+HIT contact and302.68-unit launch tested; never borrows Belly Bash.",
-      "reference": "tests/v7-engine-results.json"
+      "status": "verified-locally",
+      "evidence": "Schema/Continue/unlock/controller suites and final 10-case v7-to-v8 launcher upgrade"
     }
-  ],
-  "boundaries": [
-    "Normal-input automated full routes accelerate fixed updates through actual app event handlers; no HP, positions, enemies, score or flags are modified during the two route runs.",
-    "Source HTTP checks use genuine origin-local storage. Exact offline HTML parser loading explicitly emulates storage.",
-    "Gamepad API objects are fixtures. CDP sends real browser touch events. Physical Android, Termux on Android, Logitech hardware, iPhone and desktop Safari are untested.",
-    "Playwright WebKit is a compatibility engine. Browser versions and binaries are recorded; no all-browser or all-device guarantee is made.",
-    "Stage/render/scenario fixtures and asset semantic assertions supplement, rather than substitute for, normal-input campaign runs.",
-    "No new music was synthesized. Existing supplied recordings, crossfades and optional-API fallbacks were tested."
-  ],
-  "knownLimitations": [
-    "Physical hardware testing remains outstanding.",
-    "Cold localhost startup duration rose .432\u2192.725 seconds in this headless sample despite ~46% lower startup atlas/decode budget; no measured wall-clock speedup is claimed."
   ]
 }

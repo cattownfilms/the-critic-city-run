@@ -27,7 +27,7 @@ with sync_playwright() as p:
  browser=p.chromium.launch(**launch_options())
  context=browser.new_context(viewport={'width':915,'height':412},device_scale_factor=1,has_touch=True,is_mobile=True)
  page=context.new_page();page.on('pageerror',lambda e:ERRORS.append(str(e)));load_html(page,HTML)
- check('Exact standalone decodes required startup actions while deferring the full gallery',page.evaluate("()=>{const m=__brawler.meta(),im=__brawler.renderer().images;return im.filter(i=>i?.naturalWidth>0).length>0&&im.filter(i=>i?.naturalWidth>0).length<m.pages.length&&['idle','walk','run','jab','cross','front-kick','palm','jump','guard'].every(k=>!m.characters.hero[k]||m.characters.hero[k].frames.every(f=>im[f.p]?.naturalWidth>0));}"))
+ check('Exact standalone bulk startup decodes every runtime atlas',page.evaluate("()=>{const m=__brawler.meta(),im=__brawler.renderer().images;return im.filter(i=>i?.naturalWidth>0).length===m.pages.length&&['idle','walk','run','jab','cross','front-kick','palm','jump','guard'].every(k=>!m.characters.hero[k]||m.characters.hero[k].frames.every(f=>im[f.p]?.naturalWidth>0));}"))
  check('All 50 original hero tracks are retained',page.evaluate('Object.values(__brawler.meta().characters.hero).filter(a=>a.original).length')==50)
  check('All 943 source hero frame entries are retained',page.evaluate('Object.values(__brawler.meta().characters.hero).filter(a=>a.original).reduce((n,a)=>n+a.frames.length,0)')==943)
  check('Original nine character banks and added production bank load',page.evaluate('Object.keys(__brawler.meta().characters).length')>=9)
