@@ -104,7 +104,7 @@ jobs:
           trap 'kill "$server" 2>/dev/null || true' EXIT
           python -c "import time,urllib.request; time.sleep(1); urllib.request.urlopen('http://127.0.0.1:8788/').read(100)"
           python tests/v9-presentation-browser.test.py --engine ${{ matrix.browser }} --url local
-          DEBUG=pw:browser python tests/v9-audio-browser.test.py --engine ${{ matrix.browser }} --url local
+          GST_DEBUG=2 DEBUG=pw:browser python tests/v9-audio-browser.test.py --engine ${{ matrix.browser }} --url local
           python tests/gamepad-browser.test.py --engine ${{ matrix.browser }} --url local
           if [ "${{ matrix.browser }}" = webkit ]; then
             # Independent clean runs for the intermittent native media stall.

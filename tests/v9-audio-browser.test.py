@@ -8,7 +8,7 @@ results=[];errors=[]
 def check(name,value,details=None):
  results.append(dict(name=name,passed=bool(value),details=details));print('PASS' if value else 'FAIL',name,details or '',flush=True)
 def wait(page,code):page.wait_for_function(code,timeout=60000)
-def state(page):return page.evaluate('''()=>{const a=__brawler.audio;return {context:a.ctx?.state,musicPaused:a.music.paused,time:a.music.currentTime,volume:a.music.volume,track:a.trackKey,readyState:a.music.readyState,sfx:settings.sfx,loaded:a.loaded,played:a.played,errors:a.errors,blocked:a.lastBlocked}}''')
+def state(page):return page.evaluate('''()=>{const a=__brawler.audio;return {context:a.ctx?.state,musicPaused:a.music.paused,time:a.music.currentTime,volume:a.music.volume,track:a.trackKey,readyState:a.music.readyState,sfx:settings.sfx,loaded:a.loaded,played:a.played,errors:a.errors,blocked:a.lastBlocked,primeError:a.lastPrimeError,nodes:[...a.musicNodes].map(([key,n])=>({key,ready:n.readyState,network:n.networkState,error:n.error?{code:n.error.code,message:n.error.message}:null}))}}''')
 with source_site(args.url) as url,sync_playwright() as pw:
  browser=getattr(pw,args.engine).launch(**launch_options(args.engine))
  context=browser.new_context(viewport={'width':915,'height':412},has_touch=True)
