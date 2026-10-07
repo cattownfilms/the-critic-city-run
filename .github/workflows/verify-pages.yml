@@ -12,6 +12,9 @@ jobs:
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     timeout-minutes: 15
+    container:
+      image: mcr.microsoft.com/playwright/python:v1.58.0-noble@sha256:678457c4c323b981d8b4befc57b95366bb1bb6aa30057b1269f6b171e8d9975a
+      options: --ipc=host
     steps:
       - uses: actions/checkout@v7
         with:
@@ -23,13 +26,18 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          gh api "repos/$GITHUB_REPOSITORY/pages" > /tmp/pages.json
-          gh api "repos/$GITHUB_REPOSITORY/pages/builds/latest" > /tmp/pages-build.json
           python - <<'PY'
           import json, os
+          from urllib.request import Request, urlopen
           from urllib.parse import urlparse
-          pages = json.load(open('/tmp/pages.json'))
-          build = json.load(open('/tmp/pages-build.json'))
+          def api(path):
+              request = Request('https://api.github.com/repos/' + os.environ['GITHUB_REPOSITORY'] + path,
+                  headers={'Authorization': 'Bearer ' + os.environ['GH_TOKEN'],
+                           'Accept': 'application/vnd.github+json'})
+              with urlopen(request, timeout=30) as response:
+                  return json.load(response)
+          pages = api('/pages')
+          build = api('/pages/builds/latest')
           assert build['status'] == 'built', build
           assert build['commit'] == os.environ['GITHUB_SHA'], 'Pages has not deployed this main commit'
           url = pages['html_url']
@@ -42,12 +50,9 @@ jobs:
           PY
       - name: Install existing browser test tools
         run: |
-          if [ -f /etc/apt/sources.list.d/ubuntu.sources ]; then
-            sudo sed -i 's|http://azure.archive.ubuntu.com/ubuntu|https://archive.ubuntu.com/ubuntu|g' /etc/apt/sources.list.d/ubuntu.sources
-          fi
-          echo 'Acquire::http::Timeout "30"; Acquire::https::Timeout "30"; Acquire::Retries "1";' | sudo tee /etc/apt/apt.conf.d/99critic-timeouts > /dev/null
           python -m pip install -r requirements-test.txt
-          python -m playwright install --with-deps chromium
+      - name: Match temporary runner home ownership to the container user
+        run: chown "$(id -u):$(id -g)" "$HOME"
       - name: Run existing regressions against public HTTPS
         run: |
           python tests/gamepad-browser.test.py --engine chromium --url "$PAGES_URL"

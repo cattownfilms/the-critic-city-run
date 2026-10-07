@@ -30,13 +30,22 @@ with source_site(args.url) as url,sync_playwright() as pw:
   check('Archived geometry follows corrected active facing without changing source pivots',not evidence['bounds'],evidence['bounds'])
   check('The distinct six-pose generated cartwheel retains its own right-facing source orientation',evidence['cartwheelFrames']==6 and evidence['cartwheelNative']==[1]*6)
   p.locator('#galleryButton').click();p.locator('#playAnim').click();ui=[]
+  # Observe the actual gallery draw instead of assuming a frame occurred within
+  # 60 ms on a busy runner. Delegate all pixels and geometry to the real renderer.
+  p.evaluate('''()=>{const r=__brawler.renderer(),sprite=r.sprite;
+    r.sprite=function(...args){const result=sprite.apply(this,args);
+      if(args[0].canvas.id==='galleryCanvas')window.__galleryFrame={who:args[1],animation:args[2]};
+      return result;};}''')
+  def gallery_image(who,animation):
+   p.evaluate('window.__galleryFrame=null')
+   p.select_option('#characterSelect',who);p.select_option('#animSelect',animation)
+   p.wait_for_function('([who,animation])=>window.__galleryFrame?.who===who&&window.__galleryFrame?.animation===animation',arg=[who,animation],timeout=10000)
+   return p.locator('#galleryCanvas').evaluate('c=>c.toDataURL()')
   aliases=p.evaluate('Object.entries(__brawler.meta().sourcePreservationAliases).filter(([k])=>k!=="franklin/cartwheel-run")')
   for active,archive in aliases:
    who,name=active.split('/',1);old=archive.split('/',1)[1]
-   p.select_option('#characterSelect',who);p.select_option('#animSelect',name);p.wait_for_timeout(60)
-   first=p.locator('#galleryCanvas').evaluate('c=>c.toDataURL()')
-   p.select_option('#animSelect',old);p.wait_for_timeout(60)
-   second=p.locator('#galleryCanvas').evaluate('c=>c.toDataURL()')
+   first=gallery_image(who,name)
+   second=gallery_image(who,old)
    ui.append({'action':active,'matches':first==second})
   check('Actual Animation Room selection keeps the same corrected body, shadow and centered framing for all audited archives',all(x['matches'] for x in ui) and not errors,{'gallery':ui,'errors':errors})
  except Exception as e:check('Archive facing browser execution completed',False,str(e))

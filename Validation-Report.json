@@ -3,7 +3,7 @@
   "title": "THE CRITIC: COMING ATTRACTIONS",
   "version": "8.0.0",
   "baselineCommit": "29e97395ee88a63724a32c83a6c019996d09a39c",
-  "status": "Reviewed v8 source passed local Termux core/assets/publication and launcher checks; GitHub Actions Core, Chromium, Firefox and WebKit passed. Merge and public HTTPS verification remain release gates.",
+  "status": "Reviewed v8 game/media/script bytes preserved. Local Termux core, asset, publication and launcher validation passed. Source CI and public deployment results are tracked by the verification workflows and final external release receipt.",
   "testedAtUTC": "2026-10-07T15:19:17.820617+00:00",
   "checks": [
     {
@@ -705,13 +705,15 @@
     "note": "Grouped assertions are excluded from the structured case total."
   },
   "pendingChecks": [
-    "Reviewed public repository and actual GitHub Pages verification"
+    "Physical Android-browser, Logitech, iPhone/Safari-device and audible listening tests have not been performed."
   ],
   "publicRelease": {
-    "status": "pending",
+    "status": "Deployment verification is recorded by the Pages workflow and external release receipt after merge",
     "repository": "cattownfilms/the-critic-city-run",
     "url": "https://cattownfilms.github.io/the-critic-city-run/",
-    "note": "Prior v7 public success does not verify the new v8 release."
+    "sourceVerification": "https://github.com/cattownfilms/the-critic-city-run/actions/workflows/verify.yml",
+    "publicVerification": "https://github.com/cattownfilms/the-critic-city-run/actions/workflows/verify-pages.yml",
+    "note": "This source report preserves validation evidence without recursively changing the deployed commit to record its own SHA."
   },
   "boundaries": [
     "All results are freshly executed v8 checks, not recovered v7 count receipts.",
@@ -1000,6 +1002,49 @@
     ],
     "launcherBoundary": "Actual loopback HTTP and v7-to-v8 upgrade in temporary HOME directories on Termux; personal installation and browser saves untouched. No physical browser/controller claim.",
     "publicVerification": "Run the manual Verify deployed Pages game workflow after main deploys. It requires the Pages build commit to equal the dispatched main commit and reuses existing Chromium controller, campaign, gameplay and opening tests against the API-returned HTTPS URL.",
-    "receipt": "Final deployment commit, HTTPS byte checks, hosted-browser result and artifact hashes are recorded outside the tracked release in the release-completion receipt."
+    "receipt": "Final deployment commit, HTTPS byte checks, hosted-browser result and artifact hashes are recorded outside the tracked release in the release-completion receipt.",
+    "followUp": {
+      "observedHostFailures": [
+        "Ubuntu package mirror stalled before tests, exhausting the job timeout",
+        "Unpinned host WebKit intermittently stalled inside scene skip, loading/facing or native cleanup; exact native cause is unproven"
+      ],
+      "runnerCorrection": "Use the official Playwright Python 1.58.0 Noble image pinned to sha256:678457c4c323b981d8b4befc57b95366bb1bb6aa30057b1269f6b171e8d9975a, matching requirements-test.txt. Correct the temporary container HOME ownership for Firefox without changing local Termux configuration.",
+      "pinnedEnvironmentEvidence": {
+        "run": "https://github.com/cattownfilms/the-critic-city-run/actions/runs/37670144999",
+        "webkitCampaign": [
+          {
+            "passed": 31,
+            "failed": 0
+          },
+          {
+            "passed": 31,
+            "failed": 0
+          },
+          {
+            "passed": 31,
+            "failed": 0
+          }
+        ],
+        "webkitLoadingFacing": [
+          {
+            "passed": 31,
+            "failed": 0
+          },
+          {
+            "passed": 31,
+            "failed": 0
+          },
+          {
+            "passed": 31,
+            "failed": 0
+          }
+        ],
+        "nativeCleanup": "All three loading/facing cleanups returned. Native audio remains enabled; calls are traced and delegated unchanged.",
+        "otherFindings": "Firefox refused mismatched HOME ownership. WebKit archive gallery snapshot read before its selected animation draw; exhaustive 162-frame renderer pixel comparisons passed."
+      },
+      "galleryTestCorrection": "Wait for the actual renderer to draw the selected gallery animation, replacing a fixed 60 ms delay. The exact canvas pixel comparison and all frame/orientation assertions remain unchanged.",
+      "repeatPolicy": "Three independent WebKit campaign/loading passes are mandatory and fail immediately on any failure; no retry converts a failure into success.",
+      "runtimeChanges": "None. All game JavaScript, CSS, media, campaign and approved FULL-SCRIPT.md remain byte-identical to 9e9cf3a."
+    }
   }
 }

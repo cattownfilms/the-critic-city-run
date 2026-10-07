@@ -72,6 +72,8 @@ jobs:
       - name: Install browser test tools
         run: |
           python -m pip install -r requirements-test.txt
+      - name: Match temporary runner home ownership to the container user
+        run: chown "$(id -u):$(id -g)" "$HOME"
       - name: Build standalone parity edition
         run: python tools/build_standalone.py
       - name: Test actual multi-file site in browser engine

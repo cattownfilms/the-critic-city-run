@@ -11,3 +11,5 @@
 ## Release-completion verification boundary
 
 The reviewed v8 commit passed GitHub Actions Core, Chromium, Firefox and WebKit. The original WebKit job exhausted its 15-minute limit after passing loading/facing assertions; its unchanged-source rerun passed. A native teardown stall is suspected, but its exact cause is not established. This does not establish physical Safari or audible playback. Native Termux loopback launcher and isolated upgrade checks now pass; interactive Android-browser and physical controller checks remain unperformed.
+
+Later unpinned host-runner attempts reproduced intermittent native WebKit stalls at scene transitions as well as Ubuntu package-mirror stalls. The exact native cause is not established. In the matching official Playwright image, three independent 31-case campaign runs and three 31-case loading/facing runs passed with native audio enabled and cleanup completed. CI now requires those repetitions without retrying failures. This automated Linux result is not physical Safari/Android or audible-output verification.

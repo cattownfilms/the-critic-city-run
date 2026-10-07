@@ -60,7 +60,7 @@ See [Story and canon](docs/STORY-CANON.md), [Content definitions](docs/CONTENT.m
 
 ## Release verification
 
-The reviewed v8 source passed Core, Chromium, Firefox and WebKit in [Actions run 37656134125](https://github.com/cattownfilms/the-critic-city-run/actions/runs/37656134125). WebKit passed an unchanged-source rerun after the first job timed out. The manual [deployed Pages check](https://github.com/cattownfilms/the-critic-city-run/actions/workflows/verify-pages.yml) verifies the deployed commit and runs the existing browser regressions against the public game. See [publishing](docs/PUBLISHING.md) for the release gates; a source-CI pass alone does not verify deployment.
+[Source verification](https://github.com/cattownfilms/the-critic-city-run/actions/workflows/verify.yml) runs Core and real Chromium, Firefox and WebKit tests. Browser jobs use the official pinned Playwright 1.58.0 image; WebKit must pass three independent campaign/loading runs without retrying failures. The manual [deployed Pages check](https://github.com/cattownfilms/the-critic-city-run/actions/workflows/verify-pages.yml) verifies the deployed commit and runs existing regressions against public HTTPS. See [publishing](docs/PUBLISHING.md) and the final external release receipt for deployment evidence; a source-CI pass alone does not verify publication.
 
 ## Build and verify
 
