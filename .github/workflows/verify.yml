@@ -74,7 +74,11 @@ jobs:
           trap 'kill "$server" 2>/dev/null || true' EXIT
           python -c "import time,urllib.request; time.sleep(1); urllib.request.urlopen('http://127.0.0.1:8788/').read(100)"
           python tests/gamepad-browser.test.py --engine ${{ matrix.browser }} --url local
-          python tests/campaign-browser.test.py --engine ${{ matrix.browser }}
+          if [ "${{ matrix.browser }}" = webkit ]; then
+            CRITIC_TRACE_AUDIO=1 timeout 5m python tests/campaign-browser.test.py --engine webkit
+          else
+            python tests/campaign-browser.test.py --engine ${{ matrix.browser }}
+          fi
           python tests/v8-loading-facing-browser.test.py --engine ${{ matrix.browser }}
           python tests/v8-gameplay-browser.test.py --engine ${{ matrix.browser }}
           python tests/v8-archive-facing-browser.test.py --engine ${{ matrix.browser }}
