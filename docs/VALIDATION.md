@@ -4,7 +4,7 @@ The v8 refinement baseline is reviewed commit `29e97395ee88a63724a32c83a6c019996
 
 ## Current local results
 
-The current local release has **845 passing structured cases and zero failures**: 651 curated browser/launcher/asset/parity cases, 171 Node cases and 23 Python cases. The separate grouped cutscene-contract suite also passes and is excluded from that total. Final same-frame archive checks and exact rebuilt-artifact checks are included. Public v8 release verification remains pending.
+The recorded local validation has **845 passing structured cases and zero failures**: 651 curated browser/launcher/asset/parity cases, 171 Node cases and 23 Python cases. The separate grouped cutscene-contract suite also passes and is excluded from that total. Archive checks and exact rebuilt-artifact checks are included in that earlier snapshot. A later intermittent native WebKit audio stall prompted the targeted fix below. Its final 93 loading/facing/native-audio cases, clean WebKit campaign recheck (31), source Chromium audio recheck (19) and refreshed build/payload rechecks (20) all pass. Those overlapping rechecks are reported separately and do not inflate the earlier 845-case scope. Public v8 release verification remains pending.
 
 | Suite / edition | Passed | Failed |
 |---|---:|---:|
@@ -40,6 +40,13 @@ Startup checks stall required files, keep title/options usable, gate every gamep
 
 The source scene suites watch the approved opening, delayed Marty reveal, actual screen-emitted cast and physical street launch. Both routes keep portraits and layout anchors stable in landscape/portrait, and Franklin uses his own playable replies. The complete editable script contains 19 definitions and 56 beats, with the untriggered reusable projection-intro scene identified as an appendix. The Word export matches resolved script content; all **17 rendered pages** were inspected at original detail. The final gallery-only app change did not alter that script.
 
+## Targeted native WebKit audio follow-up
+
+Repeated Start/Skip/Pause/Title transitions exposed an intermittent native WebKit stall after the earlier passing suites. Pause now stops active sound cues and pauses both music nodes while leaving the silent AudioContext running. Concurrent unlock requests share a single in-flight native resume promise. Combat, scene content, loading and saves are unchanged.
+
+The initial pause-only repair passed rapid-cycle probes but a clean campaign rerun stalled at Franklin's opening; that incomplete run receives no pass credit. The final shared-resume repair (`app.js` SHA256 `28a6c88fbb5cb735146dd9410bd0dbb16b06627e74348f425d90e71469acd505`) passes all **31 loading/facing/native-audio cases in each browser, 93/93 total**, with no page errors. Native concurrent unlock calls produce one resume operation; pause leaves music paused and active cues stopped. A clean, unwrapped WebKit campaign recheck also passes **31/31**, including both seven-stage routes with 75 knockouts, three waves, zero retries and correct machine/Duke/rescue order. Actual-source Chromium audio/presentation passes **19/19**, without media stubs or native-prototype replacement.
+
+Portable receipts are `evidence/v8-loading-facing-{chromium,firefox,webkit}-results.json`, `evidence/campaign-webkit-final-audio-guard.json` and `evidence/audio-final-guard-chromium19.json`. These focused confirmations remain separate from the recorded 845-case aggregate; the final loading suite includes two new native-audio scenarios per browser and repeats its other earlier scenarios.
 ## Audio, input and compatibility boundaries
 
 Chromium tests verify decoded MP3 playback, overlapping 0.9-second crossfades, thirteen real sound cues, mute and pause. Firefox headless keeps its AudioContext suspended: its checks verify retained cue bytes and deferred decoding, without claiming audible Firefox playback. WebKit decodes cues. This environment has no audible output device.
@@ -48,15 +55,14 @@ Controller checks inject standard/nonstandard Gamepad API fixtures into the real
 
 The launcher tests start a real local HTTP server on port 8788. The upgrade begins with the recovered exact v7 launcher, checks byte-identical old HTML backups and preserves companion/browser-save fixtures. The final ten-case upgrade reuses the original server process, retains the exact v7 backup/save fixture and serves the final v8 bytes at the same origin. It is a Linux launcher test, not physical Termux on Android.
 
-## Frozen final build fingerprints
+## Final local build fingerprints
 
-These are the rebuilt deliverable bytes, separate from the earlier broad-suite artifact snapshot:
+These refreshed bytes include both native WebKit audio repairs:
 
-- `The-Critic-Coming-Attractions-v8.html`: 109,607,376 bytes; SHA256 `2d52f4b22af90abfebc8fe272e8d353756373b0d4c6929b89ec3a844a5f7363d`.
-- `The-Critic-Coming-Attractions-v8-Play.sh`: 111,457,874 bytes; SHA256 `13cb655d4c14ab080c85a8f82167d48b0ba2cc329b861499c763a231134ec224`.
+- `The-Critic-Coming-Attractions-v8.html`: 109,607,442 bytes; SHA256 `87e915c38ff84ca775aa4eff2a38ee5976673be5e9587de5591608001e38423b`.
+- `The-Critic-Coming-Attractions-v8-Play.sh`: 111,457,902 bytes; SHA256 `2e565128d42302dc2f7b71e0065cc8d360923a7a56d5a03962c8759c8ff274fd`.
 
-The broad behavioral suite used `app.js` hash prefix `ab13f22` and `render.js` prefix `e1c246` before a final archive-only orientation/bounds correction. The final sixteen source/offline archive checks, three strict embedding checks and seventeen rerun launcher/payload checks verify that affected boundary against these deliverables. Combat, campaign, scene, audio, save and source-frame data did not change in that correction. All 159 embedded runtime files, nine scripts, two stylesheets and current metadata match authoring bytes; launcher payload responses match the final HTML exactly.
-
+The broad behavioral suite used `app.js` hash prefix `ab13f22` and `render.js` prefix `e1c246` before the archive-only orientation/bounds correction. Sixteen source/offline archive checks verified that display boundary. The native audio repairs were then verified by the focused suites above. Final rebuild verification passes **20/20**: three strict embedding checks, seven real-HTTP launcher checks and ten v7-to-v8 upgrade checks. All 159 embedded runtime files, nine scripts, two stylesheets and current metadata match authoring bytes; launcher responses match the refreshed HTML exactly. Upgrade preserves the original server process, exact v7 backup and save fixtures. Repeated checks are counted once in their stated scope.
 ## Public release verification
 
 **Pending for v8.** Local success does not establish that GitHub Pages serves these bytes. Reviewed merge, Pages deployment, actual HTTPS JavaScript/assets/music/story checks and public-browser route verification are recorded after publication. The existing address remains https://cattownfilms.github.io/the-critic-city-run/.

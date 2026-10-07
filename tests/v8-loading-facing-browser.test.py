@@ -2,6 +2,8 @@
 
 Network stalls and corrupt image responses are deliberate fixtures. Story facing
 fixtures exercise the shared resolver; the canonical ending is also inspected.
+The audio recovery fixture suspends the real context once, then delegates every
+native resume/stop call while checking concurrent unlocks and silent pause.
 No gameplay health, score, flags or enemies are changed by this suite.
 """
 import argparse
@@ -31,10 +33,19 @@ def wait(page, expression):
     page.wait_for_function(expression, timeout=120000, polling=50)
 
 
-audio_probe = """window.__decodeCount=0;
+audio_probe = """window.__decodeCount=0;window.__audioSuspendCount=0;window.__cueStopCount=0;
+  window.__audioResumeCount=0;window.__audioResumePending=0;window.__audioResumeMaxPending=0;
   const AudioCtor=window.AudioContext||window.webkitAudioContext;
   if(AudioCtor){const original=AudioCtor.prototype.decodeAudioData;
-    AudioCtor.prototype.decodeAudioData=function(...args){window.__decodeCount++;return original.apply(this,args)};}
+    AudioCtor.prototype.decodeAudioData=function(...args){window.__decodeCount++;return original.apply(this,args)};
+    const suspend=AudioCtor.prototype.suspend;
+    AudioCtor.prototype.suspend=function(...args){window.__audioSuspendCount++;return suspend.apply(this,args)};
+    const resume=AudioCtor.prototype.resume;
+    AudioCtor.prototype.resume=function(...args){window.__audioResumeCount++;window.__audioResumePending++;
+      window.__audioResumeMaxPending=Math.max(window.__audioResumeMaxPending,window.__audioResumePending);
+      const result=resume.apply(this,args);result.then(()=>window.__audioResumePending--,()=>window.__audioResumePending--);return result;};}
+  if(window.AudioBufferSourceNode){const stop=AudioBufferSourceNode.prototype.stop;
+    AudioBufferSourceNode.prototype.stop=function(...args){window.__cueStopCount++;return stop.apply(this,args)};}
 """
 
 with source_site(args.url) as url, sync_playwright() as pw:
@@ -100,6 +111,17 @@ with source_site(args.url) as url, sync_playwright() as pw:
             decoded = page.evaluate('({calls:window.__decodeCount,buffers:Object.keys(__brawler.audio.buffers).length,state:__brawler.audio.ctx?.state,errors:__brawler.audio.errors})')
             check('All thirteen real cues decode after an actual options input gesture',
                   decoded['calls'] == 13 and decoded['buffers'] == 13 and not decoded['errors'], decoded)
+        resume_recovery = page.evaluate('''async()=>{
+          const audio=__brawler.audio;
+          if(audio.ctx.state==='running')await audio.ctx.suspend();
+          const before=__audioResumeCount, pending=[];
+          for(let i=0;i<6;i++){audio.unlock();pending.push(audio.resuming);}
+          return {before,after:__audioResumeCount,maxPending:__audioResumeMaxPending,
+            shared:!!pending[0]&&pending.every(p=>p===pending[0]),state:audio.ctx.state};
+        }''')
+        check('Concurrent audio unlock requests share one real native resume operation',
+              resume_recovery['after'] >= 1 and resume_recovery['after'] - resume_recovery['before'] <= 1 and
+              resume_recovery['maxPending'] <= 1 and resume_recovery['shared'], resume_recovery)
         page.locator('#titleButton').tap()
         request_boundary = len(requests)
         page.locator('#galleryButton').tap()
@@ -118,7 +140,14 @@ with source_site(args.url) as url, sync_playwright() as pw:
         page.locator('#startButton').tap()
         wait(page, '__brawler.scenes().active&&!__brawler.scenes().loading')
         page.evaluate('__brawler.scenes().skip()')
+        before_pause = page.evaluate('()=>{__brawler.audio.sample("bear-call");return {suspends:__audioSuspendCount,stops:__cueStopCount,active:__brawler.audio.active.size}}')
         page.keyboard.press('Escape')
+        paused_audio = page.evaluate('({musicPaused:__brawler.audio.music.paused,outgoingPaused:!__brawler.audio.outgoing||__brawler.audio.outgoing.paused,active:__brawler.audio.active.size,wantMusic:__brawler.audio.wantMusic,suspends:__audioSuspendCount,stops:__cueStopCount,contextState:__brawler.audio.ctx?.state})')
+        check('Pause stops music and active cues without explicitly suspending the audio context',
+              paused_audio['musicPaused'] and paused_audio['outgoingPaused'] and not paused_audio['wantMusic'] and
+              paused_audio['active'] == 0 and paused_audio['suspends'] == before_pause['suspends'] and
+              (before_pause['active'] == 0 or paused_audio['stops'] > before_pause['stops']),
+              {'before': before_pause, 'paused': paused_audio})
         page.locator('#titleButton').tap()
         check('A fresh New Game story checkpoint enables Continue immediately on returning to Title',
               page.locator('#continueButton').is_visible() and page.locator('#continueButton').is_enabled() and

@@ -3,7 +3,7 @@
   "title": "THE CRITIC: COMING ATTRACTIONS",
   "version": "8.0.0",
   "baselineCommit": "29e97395ee88a63724a32c83a6c019996d09a39c",
-  "status": "local validation passed; public release verification pending",
+  "status": "recorded 845-case local scope passed; final native-audio and refreshed build follow-up passed; public release pending",
   "testedAtUTC": "2026-10-07T15:19:17.820617+00:00",
   "checks": [
     {
@@ -613,8 +613,8 @@
   },
   "currentRuntimeInputs": {
     "app.js": {
-      "bytes": 41725,
-      "sha256": "96b4e2acbcd5045220c8cffe2f0aa70a6a9c273477965cacecdcc4fef035c376"
+      "bytes": 41791,
+      "sha256": "28a6c88fbb5cb735146dd9410bd0dbb16b06627e74348f425d90e71469acd505"
     },
     "engine.js": {
       "bytes": 53081,
@@ -647,12 +647,12 @@
   },
   "finalBuilds": {
     "The-Critic-Coming-Attractions-v8.html": {
-      "bytes": 109607376,
-      "sha256": "2d52f4b22af90abfebc8fe272e8d353756373b0d4c6929b89ec3a844a5f7363d"
+      "bytes": 109607442,
+      "sha256": "87e915c38ff84ca775aa4eff2a38ee5976673be5e9587de5591608001e38423b"
     },
     "The-Critic-Coming-Attractions-v8-Play.sh": {
-      "bytes": 111457874,
-      "sha256": "13cb655d4c14ab080c85a8f82167d48b0ba2cc329b861499c763a231134ec224"
+      "bytes": 111457902,
+      "sha256": "2e565128d42302dc2f7b71e0065cc8d360923a7a56d5a03962c8759c8ff274fd"
     }
   },
   "fullScript": {
@@ -724,7 +724,8 @@
     "The final archive-only display fix is verified by 16 targeted real-browser checks and 3 strict exact standalone embedding checks. Full behavior suites were not broadly repeated because no combat, campaign, scene, audio, save or source-frame data changed. Final launcher and v7-to-v8 upgrade tests were rerun against the final exact payload; repeats are counted once.",
     "Broad behavioral suites used app.js ab13f22 and render.js e1c246 before the final archive-only orientation/bounds correction. Sixteen final source/offline archive checks, three strict embedding checks and seventeen final launcher/payload checks verify the affected boundary. Combat, campaign, scene, audio, save and source-frame data did not change in that final display fix.",
     "No cold-network or physical Android loading-speed claim is made. Bulk startup intentionally prepares the full runtime library.",
-    "Portable evidence filenames refer to the offline release bundle; local workspace paths and private prompt/media files are excluded from this public report."
+    "Portable evidence filenames refer to the offline release bundle; local workspace paths and private prompt/media files are excluded from this public report.",
+    "After the archive correction, native WebKit pause and concurrent-resume repairs changed only app audio lifecycle. Final focused 93 browser, clean WebKit 31, source Chromium audio 19, and refreshed embedding/launcher/upgrade 20 cases pass separately from the earlier 845-case scope."
   ],
   "knownLimitations": [
     "Physical Android, Termux on Android, Logitech hardware, iPhone and Safari were not tested.",
@@ -829,5 +830,68 @@
       "status": "verified-locally",
       "evidence": "Schema/Continue/unlock/controller suites and final 10-case v7-to-v8 launcher upgrade"
     }
-  ]
+  ],
+  "nativeWebKitAudioFollowUp": {
+    "discoveredIssue": "Intermittent native WebKit stall during repeated Start/Skip/Pause/Title transitions after earlier passing suites.",
+    "targetedChange": "Pause stops active cues and pauses both music nodes while leaving the silent AudioContext running; concurrent unlock requests share one in-flight native resume promise.",
+    "sourceAppSHA256": "28a6c88fbb5cb735146dd9410bd0dbb16b06627e74348f425d90e71469acd505",
+    "initialPauseOnlyRecheck": "Rapid probes passed but a clean Franklin opening recheck stalled and was interrupted; no full-suite pass credited.",
+    "finalCleanWebKitCampaign": {
+      "passed": 31,
+      "failed": 0,
+      "report": "evidence/campaign-webkit-final-audio-guard.json",
+      "nativeBoundary": "Clean unwrapped actual WebKit, no media stubs or prototype replacement",
+      "routes": [
+        {
+          "character": "Jay",
+          "stages": 7,
+          "kos": 75,
+          "retries": 0,
+          "machineWaves": 3
+        },
+        {
+          "character": "Franklin",
+          "stages": 7,
+          "kos": 75,
+          "retries": 0,
+          "machineWaves": 3
+        }
+      ],
+      "sha256": "854c80bbf3ae1d81049f63d595700f7d73a0f9838991b24e653d1f89c960802b"
+    },
+    "finalLoadingFacingNativeAudio": {
+      "passed": 93,
+      "failed": 0,
+      "casesPerEngine": 31,
+      "reports": [
+        "evidence/v8-loading-facing-chromium-results.json",
+        "evidence/v8-loading-facing-firefox-results.json",
+        "evidence/v8-loading-facing-webkit-results.json"
+      ],
+      "testSHA256": "72f783431bd9505042160fcd32e960468540806a34b6dc71368cc26879333782",
+      "receiptSHA256": {
+        "chromium": "490f50a374312fc4afaa57de3bbe1a1ca7184f3f60cf79126edda3d8889ed005",
+        "firefox": "668524b526df0dec078d76d25f2d7dc22c862a5f9c03ea4439273bb143d30abb",
+        "webkit": "cc8c45241077fb0137c68c09a368cc1226824b74e36d0a2f7b4038617ceaa533"
+      }
+    },
+    "chromiumAudioPresentationRecheck": {
+      "passed": 19,
+      "failed": 0,
+      "report": "evidence/audio-final-guard-chromium19.json",
+      "scope": "Actual source HTTP, real decode/playback/crossfades/pause/resume/mute; explicit scenarios rather than normal campaign; no media stubs or native-prototype replacement.",
+      "sha256": "cae418d5dd2dc1f1343663e94d0d413dbcdb05e2861beb6e771a7d1470c73761"
+    },
+    "refreshedBuildRechecks": {
+      "passed": 20,
+      "failed": 0,
+      "strictEmbedding": 3,
+      "realHTTPLauncher": 7,
+      "v7ToV8Upgrade": 10,
+      "embeddedRuntimeFiles": 159
+    },
+    "countBoundary": "The earlier 845 unique passing cases retain their recorded scope. These focused checks overlap earlier scenarios and are reported separately without adding their totals to 845; final loading adds two native-audio scenarios per engine.",
+    "publicStatus": "pending"
+  },
+  "finalBuildsStatus": "Refreshed after native WebKit pause and shared-resume repairs; 3 strict embedding, 7 real-HTTP launcher and 10 upgrade cases passed."
 }

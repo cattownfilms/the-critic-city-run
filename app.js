@@ -44,7 +44,7 @@ class Input{
 }
 class AudioSystem{
  constructor(){this.music=new Audio();this.music.loop=true;this.music.preload='none';this.music.volume=settings.music;this.trackKey='title';this.outgoing=null;this.fade=1;this.wantMusic=false;this.musicSerial=0;this.ctx=null;this.buffers={};this.bytes=new Map();this.active=new Set();this.loaded=false;this.ready=null;this.muted=false;this.lastVoice=-9;this.duck=0;this.played={};this.errors=[];this.cueNames=['swish','backhand','bear-call','bear-hit','hit','heavy','hippo-hit','slam','step1','step2','elder-strike','elder-hit','fall'];}
- async unlock(){if(!window.AudioContext&&!window.webkitAudioContext)return;try{if(!this.ctx){this.ctx=new (window.AudioContext||window.webkitAudioContext)();this.bus=this.ctx.createGain();this.bus.gain.value=settings.sfx;const comp=this.ctx.createDynamicsCompressor();comp.threshold.value=-14;comp.knee.value=20;comp.ratio.value=4;this.bus.connect(comp);comp.connect(this.ctx.destination);this.ready=this.decode();}if(this.ctx.state==='suspended'||this.ctx.state==='interrupted')await this.ctx.resume();}catch(e){this.errors.push(String(e));}}
+ async unlock(){if(!window.AudioContext&&!window.webkitAudioContext)return;try{if(!this.ctx){this.ctx=new (window.AudioContext||window.webkitAudioContext)();this.bus=this.ctx.createGain();this.bus.gain.value=settings.sfx;const comp=this.ctx.createDynamicsCompressor();comp.threshold.value=-14;comp.knee.value=20;comp.ratio.value=4;this.bus.connect(comp);comp.connect(this.ctx.destination);this.ready=this.decode();}if(this.ctx.state==='suspended'||this.ctx.state==='interrupted'){if(!this.resuming)this.resuming=this.ctx.resume();const pending=this.resuming;try{await pending;}finally{if(this.resuming===pending)this.resuming=null;}}}catch(e){this.errors.push(String(e));}}
  async decode(){const load=async name=>{const data=this.bytes.get(name+'.wav');if(!data||this.buffers[name])return;try{this.buffers[name]=await this.ctx.decodeAudioData(data.slice(0));}catch(e){this.errors.push(name+': '+e);}};await Promise.all(this.cueNames.map(load));this.loaded=Object.keys(this.buffers).length===this.cueNames.length;}
  chooseTrack(key){
   const item=conf.music[key]||conf.music.title;if(key===this.trackKey){if(!this.music.getAttribute('src')&&cachedURLs.has(item.file))this.music.src=src(item.file);return;}
@@ -68,7 +68,7 @@ class AudioSystem{
   if(e.type==='ko'&&performance.now()/1000-this.lastVoice>.9){this.lastVoice=performance.now()/1000;this.sample(this.buffers[e.kind+'-hit']?e.kind+'-hit':e.kind==='franklin'?'elder-hit':'hit',.42,1);}
   if(e.type==='encounter'){this.sample('bear-call',.28,1.0);}if(e.type==='special'){this.sample('backhand',.60,.70);this.duck=.5;}
  }
- pause(){this.wantMusic=false;this.musicSerial++;this.music.pause();if(this.outgoing)this.outgoing.pause();for(const n of this.active){try{n.stop();}catch(_){}}this.active.clear();if(this.ctx?.state==='running')this.ctx.suspend().catch(()=>{});}
+ pause(){this.wantMusic=false;this.musicSerial++;this.music.pause();if(this.outgoing)this.outgoing.pause();for(const n of this.active){try{n.stop();}catch(_){}}this.active.clear();}
  update(dt){
   this.duck=Math.max(0,this.duck-dt);if(this.wantMusic&&!this.music.paused)this.fade=Math.min(1,this.fade+dt/.9);
   const level=this.muted?0:settings.music*(this.duck>0?.62:1);this.music.volume=level*Math.sin(this.fade*Math.PI/2);

@@ -26,6 +26,6 @@ This checklist maps the eight follow-up requests to their source changes and rel
 - [x] Existing save migration, unlocks, controller/settings and launcher upgrade verified.
 - [ ] Offline release rebuilt and inspected; reviewed repository and actual public HTTPS game verified.
 
-The first nine items have current local evidence: 845 structured cases passed with zero failures, plus the reviewed editable script. Final offline parity and launcher upgrade also passed; the final combined release item stays pending until the actual public deployment is verified.
+The first nine items have current local evidence: 845 structured cases passed with zero failures, plus the reviewed editable script. The final native-audio repair additionally passes 93 focused browser cases, a clean 31-case WebKit campaign recheck and 19 current-source Chromium audio cases; all 20 refreshed embedding/launcher/upgrade checks pass. These confirmations remain separate from the earlier aggregate. the final combined release item stays pending until the actual public deployment is verified.
 
 Physical Android/Termux, Logitech hardware and Safari/iPhone checks are reported separately in [KNOWN-LIMITATIONS.md](KNOWN-LIMITATIONS.md). Browser automation does not imply physical-device testing.
