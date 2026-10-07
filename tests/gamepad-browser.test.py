@@ -24,7 +24,7 @@ with source_site(args.url) as site_url, sync_playwright() as pw:
  if args.url:
   p.add_init_script(fixtures);p.goto(site_url);p.wait_for_function('window.__brawler?.ready()',timeout=60000)
  else:load_html(p,html)
- check('Controller and every runtime atlas decode before bulk startup completes',p.evaluate('BRAWLER_CONFIG.version==="8.0.0"&&__brawler.meta().pages.length>=85&&__brawler.meta().pages.every((_,i)=>__brawler.renderer().images[i]?.naturalWidth>0)'))
+ check('Controller and every runtime atlas decode before bulk startup completes',p.evaluate('BRAWLER_CONFIG.version==="9.0.0"&&__brawler.meta().pages.length>=85&&__brawler.meta().pages.every((_,i)=>__brawler.renderer().images[i]?.naturalWidth>0)'))
  check('Controller defaults off without hiding touch controls',p.evaluate('!__brawler.controller.enabled'))
  p.locator('#movesButton').click();p.locator('#controllerEnabled').check();p.evaluate('__pads=[__makePad()]');p.wait_for_function('__brawler.controller.mappingOrigin==="standard"&&document.getElementById("controllerDevice").textContent.includes("Logitech-style")',timeout=10000)
  check('Browser-reported standard layout is recognized',p.evaluate('__brawler.controller.mappingOrigin==="standard"'))

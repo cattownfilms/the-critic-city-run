@@ -35,7 +35,7 @@ with source_site(args.url) as url,sync_playwright() as pw:
   t=state(page)['time'];page.wait_for_timeout(300);check('Changed stage music advances',state(page)['time']>t)
   page.reload();wait(page,'__brawler.ready()');page.locator('#continueButton').tap();skip_story(page);wait(page,"__brawler.audio.ctx?.state==='running'&&!__brawler.audio.music.paused");check('Reload and Continue recover from another trusted gesture',state(page)['context']=='running',state(page))
   check('No JavaScript console crash',not errors,errors)
- except Exception as e:check('Native browser lifecycle completed',False,str(e))
+ except Exception as e:check('Native browser lifecycle completed',False,{'error':str(e),'audio':state(page),'activation':page.evaluate('({active:navigator.userActivation?.isActive,ever:navigator.userActivation?.hasBeenActive,visibility:document.visibilityState})')})
  finally:
   report={'engine':args.engine,'url':url,'browserVersion':browser.version,'tests':results,'passed':sum(r['passed'] for r in results),'failed':sum(not r['passed'] for r in results),'boundary':'Native headless playback and measured SFX bus; physical speaker output not heard.'}
   Path(__file__).with_name('v9-audio-'+args.engine+'-results.json').write_text(json.dumps(report,indent=2)+'\n');browser.close()

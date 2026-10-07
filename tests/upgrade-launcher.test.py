@@ -1,4 +1,4 @@
-"""Upgrade the reviewed v7 installation with the actual v8 launcher on port 8788.
+"""Upgrade the reviewed v7 installation with the actual v9 launcher on port 8788.
 
 The old launcher's Python bootstrap runs verbatim in this process, so the
 loopback server remains reachable in test environments with process isolation.
@@ -54,7 +54,7 @@ def prepare_v7(folder):
         target.parent.mkdir(parents=True, exist_ok=True)
         target.write_bytes(baseline_blob(name))
     # Runtime assets are restored from the reviewed commit too: later atlases and
-    # metadata changes cannot accidentally turn the old fixture into a v8 game.
+    # metadata changes cannot accidentally turn the old fixture into a v9 game.
     names = subprocess.run(['git', 'ls-tree', '-r', '--name-only', BASELINE, 'assets/'],
                            cwd=ROOT, check=True, text=True, capture_output=True).stdout.splitlines()
     for name in names:
@@ -79,7 +79,7 @@ def bootstrap(path):
 
 
 if not NEW_HTML.is_file() or not NEW_LAUNCHER.is_file():
-    raise FileNotFoundError('Build the v8 standalone HTML and launcher before running this test. '
+    raise FileNotFoundError('Build the v9 standalone HTML and launcher before running this test. '
                             'See docs/PUBLISHING.md for the two build commands.')
 # This fixed port is part of the save-origin contract. Never stop an unrelated
 # process to make the test pass; launcher tests must run serially.
@@ -93,7 +93,7 @@ with socket.socket() as probe:
         raise RuntimeError('Port 8788 is occupied. Run launcher tests serially after stopping '
                            'your own local test server; this test will not kill it.') from exc
 
-with tempfile.TemporaryDirectory(prefix='critic-v7-v8-upgrade-') as temporary:
+with tempfile.TemporaryDirectory(prefix='critic-v7-v9-upgrade-') as temporary:
     folder = Path(temporary)
     old = prepare_v7(folder)
     home = folder / 'user-home'
@@ -133,8 +133,8 @@ with tempfile.TemporaryDirectory(prefix='critic-v7-v8-upgrade-') as temporary:
             check('Reviewed v7 launcher starts on the retained 8788 browser origin',
                   version.get('app') == 'cattown-critic-brawler-v7' and thread.is_alive(),
                   {'origin': URL, 'baseline': BASELINE})
-            check('The installed v7 payload differs from the new v8 payload',
-                  original != expected and b"version:'7.0.0'" in original and b"version:'8.0.0'" in expected)
+            check('The installed v7 payload differs from the new v9 payload',
+                  original != expected and b"version:'7.0.0'" in original and b"version:'9.0.0'" in expected)
 
             retained = {
                 index.parent / 'existing-save-marker.json': b'{"keep":"installed companion data"}',
@@ -148,18 +148,18 @@ with tempfile.TemporaryDirectory(prefix='critic-v7-v8-upgrade-') as temporary:
                 path.write_bytes(value)
             first = subprocess.run(['bash', str(NEW_LAUNCHER)], env=env,
                                    capture_output=True, timeout=60)
-            check('v8 reuses the running v7 server without replacing its process',
+            check('v9 reuses the running v7 server without replacing its process',
                   first.returncode == 0 and thread.is_alive() and namespace['server'] is server
                   and b'already running' in first.stdout,
                   {'returncode': first.returncode, 'stderr': first.stderr.decode()[:500]})
             with urllib.request.urlopen(URL, timeout=10) as response:
                 served = response.read()
                 cache = response.headers.get('Cache-Control')
-            check('The same origin immediately serves the exact complete v8 HTML',
+            check('The same origin immediately serves the exact complete v9 HTML',
                   served == expected and index.read_bytes() == expected,
                   {'bytes': len(served), 'sha256': hashlib.sha256(served).hexdigest()})
             check('Updated HTML is not trapped behind a stale browser cache', cache == 'no-cache')
-            backup = index.with_name('index-before-v8.html')
+            backup = index.with_name('index-before-v9.html')
             check('The original installed v7 HTML is backed up byte-for-byte',
                   backup.is_file() and backup.read_bytes() == original)
             second = subprocess.run(['bash', str(NEW_LAUNCHER)], env=env,
@@ -171,10 +171,10 @@ with tempfile.TemporaryDirectory(prefix='critic-v7-v8-upgrade-') as temporary:
                   all(path.read_bytes() == value for path, value in retained.items()))
             check('Upgrade keeps the same install directory with no stale temporary file',
                   sorted(path.name for path in index.parent.iterdir()) ==
-                  ['existing-save-marker.json', 'index-before-v8.html', 'index.html'])
+                  ['existing-save-marker.json', 'index-before-v9.html', 'index.html'])
             with urllib.request.urlopen(URL + 'version.json', timeout=5) as response:
                 final_version = json.load(response)
-            check('The retained v7 server reports the hash of the updated v8 file',
+            check('The retained v7 server reports the hash of the updated v9 file',
                   final_version.get('app') == 'cattown-critic-brawler-v7'
                   and final_version.get('sha256') == hashlib.sha256(expected).hexdigest())
         finally:
@@ -186,7 +186,7 @@ with tempfile.TemporaryDirectory(prefix='critic-v7-v8-upgrade-') as temporary:
 report = {'tests': results, 'passed': sum(item['passed'] for item in results),
           'failed': sum(not item['passed'] for item in results),
           'boundary': 'Reviewed v7 offline payload and launcher rebuilt from git; original v7 Python '
-                      'bootstrap and HTTP handler run verbatim in a same-process thread. Actual v8 '
+                      'bootstrap and HTTP handler run verbatim in a same-process thread. Actual v9 '
                       'Bash launcher updates that installation twice on loopback port 8788. Retained '
                       'filesystem sentinels checked; browser localStorage migration is tested separately. '
                       'No physical Android or Termux testing claimed.'}

@@ -322,7 +322,7 @@ class Renderer{
   }}
   const actors=[];for(const e of g.enemies){if(e.kind==='broadcast-rig'||e.hidden||e.hp<=0&&e.timer>2.4)continue;actors.push({type:'enemy',e,y:e.y});}for(const o of g.props)actors.push({type:'prop',o,y:o.y});for(const o of g.pickups)actors.push({type:'pickup',o,y:o.y});actors.push({type:'hero',y:g.p.y});actors.sort((a,b)=>a.y-b.y||(a.type==='hero'?1:-1));
   for(const a of actors){
-   if(a.type==='prop'){this.prop(c,a.o,a.o.x-g.camera,a.o.y);continue;}
+   if(a.type==='prop'){this.prop(c,a.o,a.o.x-g.camera,a.o.y-(a.o.z||0));continue;}
    if(a.type==='pickup'){const x=a.o.x-g.camera,y=a.o.y;const bob=settings.reducedMotion?0:Math.sin(this.time*5)*3;c.fillStyle='#192536';c.beginPath();c.ellipse(x,y+2,a.o.kind==='turkey-dinner'?24:16,5,0,0,7);c.fill();if(a.o.kind==='turkey-dinner'&&this.available('turkey-dinner','idle')){this.sprite(c,'turkey-dinner','idle',x,y+bob,1,this.time,0);text(c,'+',x,y-61+bob,16,'#a1ffd6','center');}else{rect(c,x-9,y-28+bob,18,23,'#ecceb1');rect(c,x-11,y-30+bob,22,4,'#fff0d8');rect(c,x-8,y-21+bob,16,6,'#a54e53');text(c,'+',x,y-40+bob,16,'#a1ffd6','center');}continue;}
    const e=a.type==='hero'?g.p:a.e,x=e.x-g.camera;if(x<-220||x>r.w+220)continue;const baseSc=a.type==='hero'?1.05:(e.renderScale||Brawler.EINFO[e.kind]?.renderScale||(e.elite?1.15:1)),emerging=e.entry&&['screen','broadcast'].includes(e.entry.route)&&e.entry.phase==='emerge',entryProgress=emerging?clamp(e.entry.elapsed/(e.entry.duration||1.15),0,1):1,sc=baseSc*(emerging?(e.entryScale??(.28+.72*entryProgress)):1);let alpha=e.hp<=0?Math.max(0,1-Math.max(0,(a.type==='hero'?e.deadT:e.timer)-1.7)/.7):1;
    const kind=a.type==='hero'?(g.playerKind||'hero'):e.kind,drawName=a.type==='hero'?Brawler.playerAnimation(g.playerKind,e.anim):e.anim;

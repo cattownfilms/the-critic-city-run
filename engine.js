@@ -63,6 +63,7 @@ class Game{
  drain(){const a=this.events;this.events=[];return a;}
  makePlayer(){this.p={x:170,y:407,z:0,vx:0,vy:0,vz:0,face:1,hp:100,lives:3,meter:35,inv:0,action:null,anim:'idle',animT:0,animDuration:0,idleT:0,cosmetic:null,cosmeticT:0,combo:0,comboClock:0,chainIndex:0,attackBuffer:0,jumpBuffer:0,guard:false,guardAge:10,guardMeter:100,counter:0,run:false,airUsed:false,landTimer:0,deadT:0,lastHit:0,footT:0,exertion:0};}
  resetWorld(){this.storyActors=[];this.bossSpawned=false;this.bossDefeated=false;this.finalPhase='machine';this.machineDefeated=false;this.dukeDefeated=false;this.lastUnlockEarned=false;this.stageClearT=0;this.entranceId=0;this.enemies=[];this.corpses=[];this.effects=[];this.pickups=[];this.props=Campaign.propsFor(this.stage);this.projectiles=[];this.projectileId=0;this.broadcastSummons={active:false,timer:0,wave:0};this.projection={active:false,disabled:false,visible:false,phase:'waiting',window:-1,timer:0,windowXs:[...PROJECTION.windowXs],booths:PROJECTION.windowXs.map((x,id)=>({id,x,circuitId:id%3})),windowY:196,telegraph:null,circuits:PROJECTION.colors.map((color,id)=>({id,color,active:true}))};this.nextGate=0;this.activeGate=-1;this.cleared=0;this.camera=0;this.waveWait=0;this.shake=0;this.hitstop=0;this.stageBanner=3;this.banner='';this.bannerT=0;this.target=null;this.targetT=0;this.enemyId=0;this.attackTicketT=0;}
+ updateProps(dt){for(const o of this.props)if(o.kind==='remote'&&o.hp>0&&o.z>0){o.vz=(o.vz||0)-1000*dt;o.z=Math.max(0,o.z+o.vz*dt);if(o.z===0)this.emit('projectileImpact',{kind:'remote',x:o.x,y:o.y});}}
  attackSpec(name){return name==='dash'?(RUN_ATTACKS[this.playerKind]||RUN_ATTACKS.hero):HITS[name];}
  start(save=null,character=save?.playerKind||this.playerKind||'hero'){
   this.franklinUnlocked=this.franklinUnlocked||save?.franklinUnlocked===true;
@@ -123,7 +124,7 @@ class Game{
  }
  spawnBoothCircuits(){if(this.projection.disabled)return false;this.configureProjection();return true;}
  dropRemote(circuitId){if(this.props.some(o=>o.kind==='remote'&&o.hp>0))return false;
-  const c=this.projection.circuits[circuitId];this.props.push({id:50+circuitId,kind:'remote',circuitId,color:c.color,x:clamp(this.p.x+85,this.camera+70,this.camera+this.viewWidth-70),y:this.p.y,hp:20,maxHp:20,drop:null});
+  const c=this.projection.circuits[circuitId];this.props.push({id:50+circuitId,kind:'remote',circuitId,color:c.color,x:clamp(this.p.x+85,this.camera+70,this.camera+this.viewWidth-70),y:this.p.y,hp:20,maxHp:20,z:150,vz:0,drop:null});
   this.projection.phase='remote';this.projection.telegraph=null;this.banner='SMASH THE REMOTE';this.bannerT=3;this.emit('remoteDrop',{circuitId});return true;
  }
  configureProjection(){
@@ -137,7 +138,7 @@ class Game{
  projectileContact(q){
   const p=this.p;if(q.done||q.contacted||p.z>(q.kind==='trash-can'?58:43)||Math.abs(p.x-q.x)>=q.radius||Math.abs(p.y-q.y)>=26||q.z>43)return false;
   // The incoming side changes when a reel reflects. Never guard against its old booth position.
-  q.contacted=true;const hit=this.damagePlayer({kind:q.kind==='trash-can'?'spike':'projection-woman',x:q.x-q.face*65,y:q.y,face:q.face,attackDamage:q.damage});
+  q.contacted=true;const hit=this.damagePlayer({kind:q.kind==='trash-can'?'spike':'projection-woman',x:q.x-q.face*65,y:q.y,face:q.face,hitHeight:q.kind==='trash-can'?58:43,attackDamage:q.damage});
   if(hit&&(q.kind==='reel'||q.kind==='trash-can')&&p.hp>0)this.knockdown(q.face,q.kind);return hit;
  }
  updateProjectiles(dt){
@@ -200,8 +201,8 @@ class Game{
   if(e.hp<=0){e.state='dead';e.telegraph=null;return;}e.state='seek';
   if(a.phase!=='shielded'){e.telegraph=null;e.timer=0;return;}
   e.timer+=dt;const interval=3.5-(a.wave||1)*.35;
-  if(!e.telegraph&&e.timer>interval){e.telegraph={kind:'lane',x:e.x,y:this.p.y,face:-1,range:900,lane:20,duration:1.05};e.timer=0;}
-  else if(e.telegraph&&e.timer>=1.05){if(Math.abs(this.p.y-e.telegraph.y)<20)this.damagePlayer({kind:'broadcast-rig',x:e.x,y:e.telegraph.y,face:sign(this.p.x-e.x),attackDamage:14+(a.wave||1)*2});this.emit('signalSweep',{x:e.x,y:e.telegraph.y,face:-1});e.telegraph=null;e.timer=0;}
+  if(!e.telegraph&&e.timer>interval){e.telegraph={kind:'lane',x:1795,y:this.p.y,face:1,range:980,lane:20,duration:1.05};e.timer=0;}
+  else if(e.telegraph&&e.timer>=1.05){if(Math.abs(this.p.y-e.telegraph.y)<20&&this.p.x>=1795&&this.p.x<=2775)this.damagePlayer({kind:'broadcast-rig',x:e.x,y:e.telegraph.y,face:sign(this.p.x-e.x),attackDamage:14+(a.wave||1)*2});this.emit('signalSweep',{x:e.x,y:e.telegraph.y,face:-1});e.telegraph=null;e.timer=0;}
  }
  stopBroadcastSummons(){this.broadcastSummons.active=false;this.projectiles=this.projectiles.filter(q=>q.kind!=='signal');this.emit('broadcastStopped');return true;}
  resolveBroadcast(){if(!this.machineDefeated||this.storyFlags['boss-broadcast-defeat']||this.enemies.some(e=>e.hp>0))return false;this.mode='confrontation';this.p.action=null;this.p.vx=this.p.vy=0;this.story('boss-broadcast-defeat');return true;}
@@ -348,9 +349,9 @@ class Game{
  hitTest(s,a){const p=this.p;if(p.hp<=0)return;const ordered=a.name==='dash'?[...this.enemies].sort((a,b)=>(a.x-p.x)*p.face-(b.x-p.x)*p.face):this.enemies;for(const e of ordered){if(e.hp<=0||e.hidden||e.targetable===false||a.hits.includes(e.id))continue;const dx=e.x-p.x,dy=Math.abs(e.y-p.y);if(dy>(s.all?60:33))continue;if(!s.all&&(dx*p.face<-20||dx*p.face>s.range+EINFO[e.kind].radius*.55))continue;if(s.all&&Math.abs(dx)>s.range+18)continue;if(a.name==='air'&&(p.z>125||p.z<7))continue;
    a.hits.push(e.id);if(a.name==='dash'&&(e.kind==='bear'||e.kind==='hippo'||e.kind==='pizzeria-boss')){this.blockRun(e);return;}a.confirmed=true;this.registerHit(e,s);
   }
-  for(const o of this.props){if(o.hp<=0||a.hits.includes('o'+o.id))continue;const dx=o.x-p.x;if(Math.abs(o.y-p.y)>42||(!s.all&&(dx*p.face<-14||dx*p.face>s.range))||(s.all&&Math.abs(dx)>s.range))continue;o.hp-=s.damage;a.hits.push('o'+o.id);this.emit('break',{x:o.x,y:o.y,broken:o.hp<=0,kind:o.kind,circuitId:o.circuitId,color:o.color});if(o.hp<=0){const drop=o.drop===undefined?'coffee':o.drop;if(drop)this.pickups.push({x:o.x,y:o.y,kind:drop,age:0});this.score+=40;if(o.kind==='remote'||o.kind==='circuit')this.disableCircuit(o.circuitId??o.id-50);}}
+  for(const o of this.props){if(o.hp<=0||o.z>15||a.hits.includes('o'+o.id))continue;const dx=o.x-p.x;if(Math.abs(o.y-p.y)>42||(!s.all&&(dx*p.face<-14||dx*p.face>s.range))||(s.all&&Math.abs(dx)>s.range))continue;o.hp-=s.damage;a.hits.push('o'+o.id);this.emit('break',{x:o.x,y:o.y,broken:o.hp<=0,kind:o.kind,circuitId:o.circuitId,color:o.color});if(o.hp<=0){const drop=o.drop===undefined?'coffee':o.drop;if(drop)this.pickups.push({x:o.x,y:o.y,kind:drop,age:0});this.score+=40;if(o.kind==='remote'||o.kind==='circuit')this.disableCircuit(o.circuitId??o.id-50);}}
  }
- damagePlayer(e){const p=this.p,k=EINFO[e.kind];if(p.hp<=0||p.inv>0||p.z>43||p.action?.name==='dodge')return false;let dmg=(e.attackDamage||k.damage)*(e.elite?1.2:1);
+ damagePlayer(e){const p=this.p,k=EINFO[e.kind];if(p.hp<=0||p.inv>0||p.z>(e.hitHeight||43)||p.action?.name==='dodge')return false;let dmg=(e.attackDamage||k.damage)*(e.elite?1.2:1);
    const facing=(e.x-p.x)*p.face>-8;
    if(p.guard&&facing){if(p.guardAge<.20){p.counter=1.4;p.meter=clamp(p.meter+18,0,100);e.state='hurt';e.timer=0;e.cooldown=1;e.kb=-e.face*65;this.stats.parries++;this.hitstop=.075;this.emit('parry',{x:p.x+p.face*32,y:p.y-100});this.cosmetic('high-block',.25);return false;}
     p.guardMeter=Math.max(0,p.guardMeter-24);this.emit('block',{x:p.x+p.face*35,y:p.y-80});this.hitstop=.026;if(p.guardMeter>0){p.inv=.15;return false;}dmg*=.65;p.guard=false;
@@ -448,7 +449,7 @@ class Game{
   if(!p.action&&p.z===0&&p.idleT>3.2&&!p.cosmetic&&this.nearby(400).length===0){
    let an=IDLES[Math.floor(this.rng()*IDLES.length)];if(p.hp<25)an=this.rng()<.5?'panic-settle':'sigh';else if(this.stage===1)an=['disgust-grimace','nose-pinch','wave-off','shiver'][Math.floor(this.rng()*4)];this.cosmetic(an,1.25);p.idleT=0;
   }
-  this.updateEnemies(dt);this.updateBroadcastSummons(dt);this.updateProjection(dt);this.updateProjectiles(dt);
+  this.updateProps(dt);this.updateEnemies(dt);this.updateBroadcastSummons(dt);this.updateProjection(dt);this.updateProjectiles(dt);
   for(const c of this.pickups){c.age+=dt;if(!c.got&&Math.abs(c.x-p.x)<42&&Math.abs(c.y-p.y)<30&&p.z<16){const item=ITEMS[c.kind]||ITEMS.coffee;c.got=true;p.hp=Math.min(100,p.hp+item.health);p.meter=Math.min(100,p.meter+item.meter);this.score+=item.score;this.emit('pickup',{x:c.x,y:c.y,kind:c.kind,heal:item.health});}}
   this.pickups=this.pickups.filter(c=>!c.got);
   if(this.machineDefeated&&!this.dukeDefeated&&this.resolveBroadcast())return;

@@ -8,7 +8,7 @@ const stageMusic=()=>Brawler.STAGES[game.stage]?.music||['broadway','subway','ro
 const validSave=s=>[2,3,4,5].includes(s?.version)&&(!s.complete||(s.version<4&&s.stage===3)||(s.version===4&&s.stage===6))?s:null;
 let storageOK=true;function readStore(k){try{return JSON.parse(localStorage.getItem(k)||'null');}catch(e){storageOK=false;return null;}}
 function store(k,v){try{localStorage.setItem(k,JSON.stringify(v));return true;}catch(e){storageOK=false;$('saveNote').textContent='Browser storage unavailable. The game still plays; keep this tab open.';return false;}}
-const stored=readStore(conf.settingsKey);if(stored){for(const key of ['music','sfx'])if(typeof stored[key]==='number'&&Number.isFinite(stored[key]))settings[key]=clamp(stored[key],0,1);settings.reducedMotion=!!stored.reducedMotion;settings.vibration=!!stored.vibration;}
+const stored=readStore(conf.settingsKey);if(stored){for(const key of ['music','sfx'])if((typeof stored[key]==='number'||typeof stored[key]==='string'&&stored[key].trim()!=='')&&Number.isFinite(+stored[key]))settings[key]=clamp(+stored[key],0,1);settings.reducedMotion=!!stored.reducedMotion;settings.vibration=!!stored.vibration;}
 let save=validSave(readStore(conf.saveKey)||readStore(conf.legacySaveKey));
 let profile=readStore(conf.profileKey)||{};if(typeof profile!=='object')profile={};profile.franklinUnlocked=profile.franklinUnlocked===true||save?.franklinUnlocked===true;let selected=profile.selected==='franklin'&&profile.franklinUnlocked?'franklin':'hero';
 $('continueButton').hidden=!save;$('musicVolume').value=Math.round(settings.music*100);$('sfxVolume').value=Math.round(settings.sfx*100);$('reducedMotion').checked=settings.reducedMotion;$('vibration').checked=settings.vibration;
@@ -239,6 +239,7 @@ function beginWorldScene(scene){
 function drawWorldScene(s){
  const dt=s.paused||s.loading?0:Math.max(0,Math.min(.05,s.totalTime-(game.sceneClock||0)));game.sceneClock=s.totalTime;
  s.actorStates=[];
+ if(s.shot.booth&&game.stage===4){const a=game.projection,booth=game.projection.booths.find(b=>b.x>=game.camera+70&&b.x<=game.camera+renderer.rect.w-70);if(booth){a.window=booth.id;a.visible=s.shot.booth.phase!=='off';a.phase=s.shot.booth.phase==='shadow'?'shadow':'reveal';a.timer=s.time;s.boothState={phase:s.shot.booth.phase,active:booth.id};}}
  const realBoss=game.enemies.find(e=>e.boss&&e.kind!=='broadcast-rig');
  if(realBoss?.entry){game.updateEntry(realBoss,dt);}
  if(realBoss&&realBoss.hp<=0){realBoss.timer+=dt;realBoss.anim='death';realBoss.animT=realBoss.timer;}
@@ -261,7 +262,7 @@ function drawWorldScene(s){
  }
  game.storyActors=game.storyActors.filter(a=>active.has(a.id));
 }
-scenes=window.CriticScenePlayer?new CriticScenePlayer({beginWorldScene,drawWorldScene,resolve:src,character:()=>game.playerKind,renderer:()=>renderer,meta:()=>meta,settings:()=>settings,clearInput:()=>input.clear(),sound:name=>audio.sample(name,.45),music:key=>audio.playMusic(key),onOpen:()=>{assetScreen.hidden=true;game.mode='cutscene';input.clear();screen('cutscene');if(document.hidden)scenes.togglePause(true);},onPause:on=>{if(on)audio.pause();else audio.playMusic(scenes?.scene?.music||stageMusic());},onIdle:()=>{if(sceneQueue.length){pumpScenes();return;}if(scenePreparing)return;if(assetPending){showAssetLoading();return;}game.storyActors=[];game.mode=sceneReturnMode;input.clear();screen(game.mode==='play'?null:game.mode);audio.playMusic(game.mode==='complete'?'title':stageMusic());}}):null;
+scenes=window.CriticScenePlayer?new CriticScenePlayer({beginWorldScene,drawWorldScene,resolve:src,character:()=>game.playerKind,renderer:()=>renderer,meta:()=>meta,settings:()=>settings,clearInput:()=>input.clear(),sound:name=>audio.sample(name,.45),music:key=>audio.playMusic(key),onOpen:()=>{assetScreen.hidden=true;game.mode='cutscene';input.clear();screen('cutscene');if(document.hidden)scenes.togglePause(true);},onPause:on=>{if(on)audio.pause();else audio.playMusic(scenes?.scene?.music||stageMusic());},onIdle:()=>{if(sceneQueue.length){pumpScenes();return;}if(scenePreparing)return;if(assetPending){showAssetLoading();return;}game.storyActors=[];if(game.stage===4&&!game.projection.active){game.projection.visible=false;game.projection.phase='waiting';game.projection.timer=0;}game.mode=sceneReturnMode;input.clear();screen(game.mode==='play'?null:game.mode);audio.playMusic(game.mode==='complete'?'title':stageMusic());}}):null;
 const controllerUI=CriticControllerUI({hub:pad,game,input,ready:()=>ready,pause,resume,title,start:()=>start(false),closeGallery,continueDistrict});
 function gestureAudio(){audio.gesture();if(ready&&game.mode==='title'&&!audio.wantMusic)audio.playMusic('title');if(audio.wantMusic&&audio.music.paused&&!audio.muted&&settings.music>0)audio.playMusic(audio.trackKey);}
 document.addEventListener('pointerdown',gestureAudio,{capture:true,passive:true});
