@@ -38,7 +38,7 @@ test('A normal-input driver clears the seven-stage campaign and reaches the reso
  if(g.mode==='confrontation')g.finishDukeConfrontation();if(g.mode==='gameover'){retries++;g.retry(true);}
  if(g.mode==='stageclear')g.finishStageClear();
  if(g.mode!=='play')continue;visits.add(g.stage);anims.add(g.p.anim);
- const p=g.p,live=g.enemies.filter(e=>e.hp>0).concat(g.props.filter(o=>o.kind==='circuit'&&o.hp>0)).sort((a,b)=>Math.hypot(a.x-p.x,(a.y-p.y)*2)-Math.hypot(b.x-p.x,(b.y-p.y)*2));let input={};
+ const p=g.p,live=g.enemies.filter(e=>e.hp>0&&(e.kind!=='broadcast-rig'||e.targetable)).concat(g.props.filter(o=>['circuit','remote'].includes(o.kind)&&o.hp>0)).sort((a,b)=>Math.hypot(a.x-p.x,(a.y-p.y)*2)-Math.hypot(b.x-p.x,(b.y-p.y)*2));let input={};
  if(live.length){const e=live[0],dx=e.x-p.x,dy=e.y-p.y;input.mx=Math.abs(dx)>62?Math.sign(dx)*(Math.abs(dx)>150?1:.4):0;input.my=Math.abs(dy)>8?Math.sign(dy)*.55:0;
   input.attackPressed=Math.abs(dx)<122&&Math.abs(dy)<25&&tickN%12===0;input.attackHeld=Math.abs(dx)<116&&Math.abs(dy)<27;
   if(p.meter>=100&&live.length>1&&!p.action)input.specialPressed=true;

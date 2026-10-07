@@ -1,3 +1,7 @@
+# v9 verification status
+
+V9 adds deterministic encounter/AI/knockdown regressions and real native-browser audio playback checks. Tests and final publication are in progress. Physical Android speaker output, controller hardware and subjective boss difficulty are not inferred from automation. Historical evidence below remains historical.
+
 # THE CRITIC: COMING ATTRACTIONS / validation
 
 The v8 refinement baseline is reviewed commit `29e97395ee88a63724a32c83a6c019996d09a39c`. The results below are freshly executed v8 checks. Earlier v7 totals, browser versions and public deployment receipts are historical and are not evidence for this release.

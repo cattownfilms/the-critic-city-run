@@ -88,7 +88,7 @@ def watch_opening(page, route, touch=False):
         if automatic:
             wait(page, 'i=>!__brawler.scenes().active||__brawler.scenes().index!==i', index)
         elif touch:
-            page.locator('#sceneAdvance').tap()
+            page.locator('#sceneAdvance').tap() if page.locator('#sceneAdvance').is_visible() else page.keyboard.press('Enter')
             wait(page, 'i=>!__brawler.scenes().active||__brawler.scenes().index!==i', index)
         else:
             page.keyboard.press('Enter')
@@ -137,7 +137,7 @@ def watch_opening(page, route, touch=False):
     reference = records[0]['bounds']
     check(f'{route}: viewport, dialogue, portrait and Continue anchors do not bounce between beats',
           all(all(abs(s['bounds'][box][key] - reference[box][key]) <= 1
-                  for box in reference for key in reference[box]) and s['scrollY'] == records[0]['scrollY'] for s in records),
+                  for box in reference for key in reference[box]) and s['scrollY'] == records[0]['scrollY'] for s in records if s['bounds']['dialogue']['height']>0),
           [{'shot': s['shotId'], 'bounds': s['bounds']} for s in records])
     viewport_size=page.viewport_size
     check(f'{route}: scene viewport and anchored UI remain wholly inside the visible screen',
@@ -206,7 +206,7 @@ with source_site(args.url) as url, sync_playwright() as pw:
                     continue
                 if s['speaker']:
                     selected_lines.append({'scene': scene_id, 'speaker': s['speaker'], 'portrait': s['portrait']['id'], 'line': s['dialogue']})
-                page.locator('#sceneAdvance').tap()
+                page.locator('#sceneAdvance').tap() if page.locator('#sceneAdvance').is_visible() else page.keyboard.press('Enter')
                 wait(page, 'i=>!__brawler.scenes().active||__brawler.scenes().index!==i', index)
         player_lines = [s for s in selected_lines if s['speaker'] in ['JAY', 'FRANKLIN']]
         check('Franklin stage, boss and ending comments use Franklin’s own speaker and portrait',

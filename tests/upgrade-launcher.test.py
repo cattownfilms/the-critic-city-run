@@ -20,8 +20,8 @@ from unittest.mock import patch
 
 ROOT = Path(__file__).resolve().parents[1]
 BASELINE = os.environ.get('CRITIC_V7_REF', '29e97395ee88a63724a32c83a6c019996d09a39c')
-NEW_HTML = Path(os.environ.get('CRITIC_HTML', ROOT / 'The-Critic-Coming-Attractions-v8.html'))
-NEW_LAUNCHER = Path(os.environ.get('CRITIC_LAUNCHER', ROOT / 'The-Critic-Coming-Attractions-v8-Play.sh'))
+NEW_HTML = Path(os.environ.get('CRITIC_HTML', ROOT / 'The-Critic-Coming-Attractions-v9.html'))
+NEW_LAUNCHER = Path(os.environ.get('CRITIC_LAUNCHER', ROOT / 'The-Critic-Coming-Attractions-v9-Play.sh'))
 URL = 'http://127.0.0.1:8788/'
 results = []
 

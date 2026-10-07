@@ -7,11 +7,11 @@ const STAGES=[
  {id:'theater',name:'Theater District',sub:'FRANKLIN / THE PREMIERE',scene:'theater',music:'theater',exit:'PALACE CINEMA',purpose:'Follow Duke through the premiere and confront Franklin’s Baby New Year 1937 performance on Jay’s route.',intro:'stage-04-intro',boss:{kind:'franklin',alternateKind:'sherm-slam',hp:420,definition:'franklin'},waves:[['sherm-punch','sherm-slam','hippo'],['sherm-shove','sherm-punch','striped','sherm-slam'],['sherm-punch','sherm-shove','raptor','sherm-slam']]},
  {id:'cinema',name:'Palace Cinema',sub:'THE SHOW WILL NOT STOP',scene:'cinema',music:'theater',exit:'LITTLE ITALY',purpose:'Silence the projection booths and defeat the Violent Austrian Rabbi as he emerges from the cinema screen.',intro:'stage-05-intro',projection:true,boss:{kind:'pizzeria-boss',hp:330,definition:'pizzeria-boss',intro:'boss-cinema-intro'},waves:[['sherm-punch','sherm-shove','sherm-punch'],['sherm-punch','sherm-shove','bear'],['sherm-slam','sherm-punch','sherm-shove']]},
  {id:'little-italy',name:'Little Italy',sub:'A VERY SHORT INTERMISSION',scene:'little-italy',music:'broadway',exit:'BROADCAST TOWER',purpose:'Get past Spike’s trash-can ambush outside the pizzeria on Duke’s service route.',intro:'stage-06-intro',boss:{kind:'spike',hp:340,definition:'spike',intro:'boss-spike-intro'},waves:[['sherm-punch','sherm-shove','sherm-punch'],['sherm-slam','sherm-punch','raptor'],['sherm-shove','sherm-punch','sherm-slam']]},
- {id:'broadcast',name:'Broadcast Tower',sub:'DUKE’S LAST BROADCAST',scene:'broadcast',music:'rooftop',exit:'MARTY',purpose:'Disable the transmitter, confront Duke himself, and rescue Marty after Duke falls.',intro:'stage-07-intro',boss:{kind:'broadcast-rig',hp:460,definition:'broadcast-rig',intro:'boss-broadcast-intro'},finalBoss:{kind:'duke',hp:340,definition:'duke',intro:'boss-duke-intro'},waves:[['sherm-punch','sherm-shove','sherm-slam'],['sherm-punch','sherm-shove','hippo'],['sherm-slam','sherm-punch','sherm-shove']]}
+ {id:'broadcast',name:'Broadcast Tower',sub:'DUKE’S LAST BROADCAST',scene:'broadcast',music:'rooftop',exit:'MARTY',purpose:'Disable the transmitter, confront Duke himself, and rescue Marty after Duke falls.',intro:'stage-07-intro',boss:{kind:'broadcast-rig',hp:300,definition:'broadcast-rig',intro:'boss-broadcast-intro'},finalBoss:{kind:'duke',hp:340,definition:'duke',intro:'boss-duke-intro'},waves:[['sherm-punch','sherm-shove','sherm-slam'],['sherm-punch','sherm-shove','hippo'],['sherm-slam','sherm-punch','sherm-shove']]}
 ];
 const EINFO={
- bear:{hp:56,speed:95,damage:11,range:104,wind:.53,attack:.52,hit:.23,radius:32,name:'Accordion Bear',score:140},
- hippo:{hp:102,speed:74,damage:17,range:117,wind:.68,attack:.58,hit:.24,radius:43,name:'Green Hippo',score:220},
+ bear:{hp:56,speed:95,damage:11,range:104,wind:.53,attack:.52,hit:.23,radius:38,renderScale:1.28,name:'Accordion Bear',score:140},
+ hippo:{hp:102,speed:74,damage:17,range:117,wind:.68,attack:.58,hit:.24,radius:49,renderScale:1.38,name:'Green Hippo',score:220},
  'sherm-punch':{hp:45,speed:136,damage:9,range:86,wind:.45,attack:.41,hit:.17,radius:27,name:'Shermometer v1',score:120},
  'sherm-shove':{hp:56,speed:99,damage:11,range:104,wind:.56,attack:.52,hit:.23,radius:29,name:'Shermometer v2',score:140},
  'sherm-slam':{hp:94,speed:76,damage:16,range:117,wind:.70,attack:.58,hit:.24,radius:34,name:'Shermometer v3',score:200},
@@ -19,7 +19,7 @@ const EINFO={
  raptor:{hp:72,speed:103,damage:13,range:116,wind:.61,attack:.55,hit:.24,radius:35,name:'JP Raptor Esq',score:180},
  franklin:{hp:420,speed:124,damage:14,range:110,wind:.65,attack:.65,hit:.25,radius:30,name:'Franklin',score:1200},
  'booth-enforcer':{hp:280,speed:95,damage:15,range:117,wind:.85,attack:.8,hit:.3,radius:34,name:'Shermometer v3',score:1300},
- 'pizzeria-boss':{hp:330,speed:110,damage:14,range:112,wind:.65,attack:.7,hit:.25,radius:32,name:'Violent Austrian Rabbi',score:1600,renderScale:1.24},
+ 'pizzeria-boss':{hp:330,speed:110,damage:14,range:112,wind:.65,attack:.7,hit:.25,radius:39,name:'Violent Austrian Rabbi',score:1600,renderScale:1.52},
  spike:{hp:340,speed:115,damage:16,range:500,wind:.9,attack:.78,hit:.32,radius:36,name:'Spike',score:1800,renderScale:1.08},
  duke:{hp:340,speed:145,damage:17,range:118,wind:.75,attack:.68,hit:.25,radius:36,name:'Duke Phillips',score:2400,renderScale:1.1},
  'broadcast-rig':{hp:460,speed:0,damage:15,range:580,wind:1.05,attack:.7,hit:.25,radius:58,name:'Duke’s Broadcast System',score:2400},
@@ -51,6 +51,12 @@ const BOSS_DEFINITIONS={
   {name:'LIVE FEED',anim:'attack',wind:1.02,duration:.92,hits:[.24],radius:44,damage:12,area:'projectile',recovery:1.55}
  ]}
 };
+// Shared contextual decisions use these readable, authored moves; health is unchanged.
+for(const [kind,def] of Object.entries(BOSS_DEFINITIONS)){
+ const rank=kind==='duke'?4:kind==='spike'?3:kind==='pizzeria-boss'?2:1;
+ def.rank=rank;def.cooldown=[0,.56,.46,.36,.24][rank];def.phaseCooldown=def.cooldown*.6;
+ if(!def.stationary)for(const move of def.moves)move.damage=Math.round(move.damage*(1.1+rank*.025));
+}
 const ITEMS={coffee:{name:'Coffee',health:18,meter:8,score:25},'turkey-dinner':{name:'Turkey Dinner',health:46,meter:12,score:50}};
 const PROPS={bin:{name:'Trash Can',alias:'trash-can'},'trash-can':{name:'Trash Can'},box:{name:'Box'},circuit:{name:'Booth Circuit',health:45}};
 const PROJECTION={colors:['#ffc36b','#73e3e4','#c2a0ff'],windowXs:[170,390,610,830,1050,1270,1490,1710,1930,2110,2310,2530,2750],shadow:.4,reveal:.55,wind:1.15,flight:.7,cooldown:2.4};

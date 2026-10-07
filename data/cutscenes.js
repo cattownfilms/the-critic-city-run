@@ -30,6 +30,7 @@ const scenes={
   dialogue('MARTY','Dad!',{id:'marty-reveal',portrait:'marty',expression:'worried',actors:revealed,cage:cage(),curtainReveal:1,minTime:1}),
   dialogue('JAY','Marty!',{id:'father-reaction',portrait:'jay',expression:'worried',actors:revealed,cage:cage()}),
   dialogue('DUKE',"If television can't bring the audience to us, perhaps we'll just bring the television to the audience!",{id:'activation',portrait:'duke',expression:'smug',actors:[revealed[0],duke(615,{animation:'attack'}),revealed[2],revealed[3]],cage:cage(),powered:true,sound:'swish'}),
+  {id:'second-press',auto:1,minTime:.9,actors:[revealed[0],duke(615,{animation:'attack'}),revealed[2],revealed[3]],cage:cage(),powered:true,sound:'heavy',flash:.14},
   {id:'screen-emergence',auto:4.1,minTime:3.8,actors:revealed,cage:cage(),powered:true,emissions:openingEmissions,emissionGroup:'opening-attractions',alarm:true,sound:'slam',flash:.14},
   dialogue('JAY','Hatchi Matchi!!!',{id:'hatchi-matchi',portrait:'jay',expression:'shocked',actors:[actor('jay','hero',260,318,{animation:'jump'}),duke(),boy(),revealed[3]],cage:cage(),powered:true,emissions:openingEmissions,emissionGroup:'opening-attractions'}),
   {id:'window-launch',auto:1.9,minTime:1.8,actors:[actor('jay','hero',260,318,{animation:'hurt',motion:move(260,-95,1,.35,{fromY:318,toY:135,arc:55}),rotate:-22}),actor('ally','franklin',145,318,{routes:['franklin'],animation:'jump',motion:move(145,-70,.85,.85,{fromY:318,toY:145,arc:55})}),duke(610,{animation:'walk',motion:move(610,1090,1.8)}),boy(822,{motion:move(822,1302,1.8)})],cage:cage(822,{motion:move(822,1302,1.8)}),powered:true,emissions:openingEmissions,emissionGroup:'opening-attractions',emissionActions:{'*':{advance:38,duration:1.8,animation:'walk'},'attraction-0':{advance:22,duration:.28,animation:'walk',after:.22,afterAnimation:'attack'}},brokenWindow:true,glass:true,sound:'heavy',shake:.35},
@@ -37,21 +38,21 @@ const scenes={
  ]},
  'stage-02-intro':chase('stage-02-intro','LAST TRAIN UPTOWN','subway','UPTOWN EXPRESS',"You're filthy stinking rich and you're still taking public transit?!","I'm baby New Year!!!"),
  'stage-03-intro':chase('stage-03-intro','ABOVE THE AVENUE','rooftop','ROOF ACCESS / PREMIERE',"Stairs! My one weakness!","The peanut is neither a pea or a nut! Oh wait… It is a nut."),
- 'stage-04-intro':chase('stage-04-intro','THEATER DISTRICT','theater','PALACE CINEMA',"Ah, isn't this where we saw Cats? Not the musical, I think they were literally eating out of the garbage…","I can say my name backward. Nilknarf!"),
+ 'stage-04-intro':chase('stage-04-intro','THEATER DISTRICT','theater','PALACE CINEMA',"Isn't this where we saw Cats? Not the play... It was the cast eating out of the garbage.","I can say my name backward. Nilknarf!"),
  'stage4-clear':{id:'stage4-clear',title:'THE PREMIERE CONTINUES',environment:'theater',shots:[
   dialogue('FRANKLIN',"Nilknarf!",{routes:['hero'],portrait:'franklin',actors:[hero(270),actor('franklin','franklin',565)]}),
   route("Ah the theater, where nothing is sharper than my rapier wit!","I'm not wearing pants.",{actors:[hero(270,{animation:'walk',motion:move(270,470,1.1)})]})
  ]},
  'stage-05-intro':{id:'stage-05-intro',title:'PALACE CINEMA',environment:'cinema',shots:[
   {id:'transport',auto:2,minTime:1.8,screenForeshadow:true,actors:[duke(250,{animation:'walk',motion:move(250,690,2)}),boy(360,{motion:move(360,800,2)}),hero(80,{animation:'run',motion:move(-90,185,1,.8)})],cage:cage(360,{carried:true,motion:move(360,800,2)}),destination:'SERVICE EXIT / LITTLE ITALY'},
-  {id:'booth-eyes',auto:1.5,minTime:1.25,actors:[hero(260)],booth:{phase:'shadow',active:1},circuits:3,screenForeshadow:true},
-  {id:'booth-light',portrait:'projectionist',speaker:'PROJECTIONIST',auto:1,minTime:.9,actors:[hero(260)],booth:{phase:'lit',active:1},circuits:3,sound:'swish',screenForeshadow:true},
-  route("That's one very hostile projectionist.","This looks like a job for the robot puncher!",{actors:[hero(260)],booth:{phase:'lit',active:1},circuits:3,objective:'DISABLE THE 3 PROJECTION CIRCUITS',expression:'focused',screenForeshadow:true})
+  {id:'booth-eyes',auto:1.5,minTime:1.25,actors:[hero(260)],booth:{phase:'shadow',active:1},circuits:undefined,screenForeshadow:true},
+  {id:'booth-light',portrait:'projectionist',speaker:'PROJECTIONIST',auto:1,minTime:.9,actors:[hero(260)],booth:{phase:'lit',active:1},circuits:undefined,sound:'swish',screenForeshadow:true},
+  route("That's one very hostile projectionist.","This looks like a job for the robot puncher!",{actors:[hero(260)],booth:{phase:'lit',active:1},circuits:undefined,objective:'DODGE THREE REELS — SMASH THE REMOTE',expression:'focused',screenForeshadow:true})
  ]},
  'boss-projection-intro':{id:'boss-projection-intro',title:'THE PROJECTION BOOTH',environment:'cinema',shots:[
-  {id:'booth-eyes',auto:1,minTime:.9,actors:[hero(260)],booth:{phase:'shadow',active:1},circuits:3},
-  {id:'booth-light',portrait:'projectionist',speaker:'PROJECTIONIST',auto:1,minTime:.9,actors:[hero(260)],booth:{phase:'lit',active:1},circuits:3,sound:'swish'},
-  route('Three circuits. At least this theater has an off switch.','Lights first. Then the exit.',{actors:[hero(260)],booth:{phase:'lit',active:1},circuits:3,objective:'DISABLE THE 3 PROJECTION CIRCUITS',expression:'focused'})
+  {id:'booth-eyes',auto:1,minTime:.9,actors:[hero(260)],booth:{phase:'shadow',active:1},circuits:undefined},
+  {id:'booth-light',portrait:'projectionist',speaker:'PROJECTIONIST',auto:1,minTime:.9,actors:[hero(260)],booth:{phase:'lit',active:1},circuits:undefined,sound:'swish'},
+  route('Three circuits. Three remotes. At least this theater has an off switch.','Lights first. Then the exit.',{actors:[hero(260)],booth:{phase:'lit',active:1},circuits:undefined,objective:'DODGE THREE REELS — SMASH THE REMOTE',expression:'focused'})
  ]},
  'boss-projection-defeat':{id:'boss-projection-defeat',title:'END OF REEL',environment:'cinema',shots:[
   {id:'booth-shutdown',auto:1.2,minTime:1,actors:[hero(260)],booth:{phase:'off'},circuits:0,sound:'slam',destination:'BOOTH POWER / OFF'},
@@ -60,12 +61,12 @@ const scenes={
  'stage-06-intro':chase('stage-06-intro','LITTLE ITALY','pizzeria','BROADCAST TOWER',"I'm going to fight my boss. Do I dare live out the American dream?","Everbody seen the leprechaun say, “Yeah!”"),
  'boss-cinema-intro':{id:'boss-cinema-intro',title:'THE MAIN ATTRACTION',environment:'cinema',shots:[
   {id:'screen-shadow',auto:1.3,minTime:1.1,actors:[hero(235)],screenForeshadow:true,sound:'swish'},
-  {id:'screen-emergence',auto:1.6,minTime:1.4,actors:[hero(235),actor('headliner','pizzeria-boss',635,318,{animation:'walk',afterAnimation:'guard-reset',after:1.4,face:1,scale:1.24,emerging:true,motion:move(242,635,1.6,0,{fromY:180,toY:318})})],screenForeshadow:true,flash:.12,sound:'slam'},
-  dialogue('VIOLENT AUSTRIAN RABBI',"Welcome to your Bar Mitsfa. It's time to become a man. A dead man.",{portrait:'pizzeria',actors:[hero(235),actor('headliner','pizzeria-boss',635,318,{animation:'guard-reset',face:-1,scale:1.24})]}),
-  route('I usually leave before the credits.','You’re blocking the exit.',{actors:[hero(235),actor('headliner','pizzeria-boss',635,318,{face:-1,scale:1.24})]})
+  {id:'screen-emergence',auto:1.6,minTime:1.4,actors:[hero(235),actor('headliner','pizzeria-boss',635,318,{animation:'walk',afterAnimation:'guard-reset',after:1.4,face:1,scale:1.52,emerging:true,motion:move(242,635,1.6,0,{fromY:180,toY:318})})],screenForeshadow:false,flash:.12,sound:'slam'},
+  dialogue('VIOLENT AUSTRIAN RABBI',"Welcome to your Bar Mitsfa. It's time to become a man. A dead man.",{portrait:'pizzeria',actors:[hero(235),actor('headliner','pizzeria-boss',635,318,{animation:'guard-reset',face:-1,scale:1.52})]}),
+  route('I usually leave before the credits.','You’re blocking the exit.',{actors:[hero(235),actor('headliner','pizzeria-boss',635,318,{face:-1,scale:1.52})]})
  ]},
  'boss-cinema-defeat':{id:'boss-cinema-defeat',title:'THE CREDITS',environment:'cinema',shots:[
-  route("Finally! A believable performance.","23 Skidoo!!!",{actors:[hero(235),actor('headliner','pizzeria-boss',635,318,{animation:'death',face:-1,scale:1.24})]})
+  route("Finally! A believable performance.","23 Skidoo!!!",{actors:[hero(235),actor('headliner','pizzeria-boss',635,318,{animation:'death',face:-1,scale:1.52})]})
  ]},
  'boss-spike-intro':{id:'boss-spike-intro',title:'SPIKE',environment:'pizzeria',shots:[
   {id:'door-opens',auto:1,minTime:.85,door:{opening:true},actors:[hero(235)],sound:'step2'},
@@ -106,6 +107,7 @@ const scenes={
   route('Now let’s find something good to watch.',"Has anyone seen the remote control?",{actors:[...endingParty(),boy(350,{animation:'idle',y:318})],caption:'MARTY IS SAFE. THE BROADCAST IS OFF. NEW YORK GETS ITS REALITY BACK.'})
  ]}
 };
+for(const scene of Object.values(scenes))if(scene.id!=='opening')scene.worldStage=true;
 // Expressions supplied in the revised campaign script.
 scenes['stage-02-intro'].shots[1].routeDialogue.hero.expression='smug';
 scenes['stage-03-intro'].shots[1].routeDialogue.hero.expression='worried';

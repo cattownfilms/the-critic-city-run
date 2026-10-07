@@ -1,3 +1,7 @@
+# v9 verification status
+
+V9 adds deterministic encounter/AI/knockdown regressions and real native-browser audio playback checks. Tests and final publication are in progress. Physical Android speaker output, controller hardware and subjective boss difficulty are not inferred from automation. Historical evidence below remains historical.
+
 # THE CRITIC: COMING ATTRACTIONS — known limitations
 
 - Physical Android/Termux installations and Logitech controllers have not been tested. Automated browser touch, controller and launcher checks are distinguished from hardware tests in the validation report. Playwright WebKit coverage does not certify a physical Safari/iPhone.

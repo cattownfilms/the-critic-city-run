@@ -55,6 +55,8 @@ jobs:
         run: chown "$(id -u):$(id -g)" "$HOME"
       - name: Run existing regressions against public HTTPS
         run: |
+          python tests/v9-presentation-browser.test.py --engine chromium --url "$PAGES_URL"
+          python tests/v9-audio-browser.test.py --engine chromium --url "$PAGES_URL"
           python tests/gamepad-browser.test.py --engine chromium --url "$PAGES_URL"
           python tests/campaign-browser.test.py --engine chromium --url "$PAGES_URL"
           python tests/v8-gameplay-browser.test.py --engine chromium --url "$PAGES_URL"
@@ -67,3 +69,4 @@ jobs:
             tests/*-results.json
             tests/controller-*.png
             tests/screenshots-public/
+            tests/screenshots-v9/

@@ -84,7 +84,7 @@ def route_run(page,kind):
             if(g.mode!=='play')break;
             if(!qa.stages.includes(g.stage))qa.stages.push(g.stage);for(const e of g.enemies)if(e.boss&&!qa.bosses.includes(e.kind))qa.bosses.push(e.kind);
             if(g.projection.disabled)qa.projectionDisabled=true;
-            const p=g.p,live=g.enemies.filter(e=>e.hp>0).concat(g.props.filter(o=>o.kind==='circuit'&&o.hp>0)).sort((a,b)=>Math.hypot(a.x-p.x,(a.y-p.y)*2)-Math.hypot(b.x-p.x,(b.y-p.y)*2));let input={};
+            const p=g.p,live=g.enemies.filter(e=>e.hp>0&&(e.kind!=='broadcast-rig'||e.targetable)).concat(g.props.filter(o=>['circuit','remote'].includes(o.kind)&&o.hp>0)).sort((a,b)=>Math.hypot(a.x-p.x,(a.y-p.y)*2)-Math.hypot(b.x-p.x,(b.y-p.y)*2));let input={};
             if(live.length){const e=live[0],dx=e.x-p.x,dy=e.y-p.y;
               input.mx=Math.abs(dx)>62?Math.sign(dx)*(Math.abs(dx)>150?1:.4):0;
               input.my=Math.abs(dy)>8?Math.sign(dy)*.55:0;
@@ -126,7 +126,7 @@ with source_site(args.url) as url, sync_playwright() as pw:
     page=context.new_page()
     trace_native_audio(page)
     load(page,url)
-    check('Current canonical title and expanded campaign load',page.title().upper()=='THE CRITIC: COMING ATTRACTIONS' and page.evaluate('Brawler.STAGES.length===7&&BRAWLER_CONFIG.version==="8.0.0"'))
+    check('Current canonical title and expanded campaign load',page.title().upper()=='THE CRITIC: COMING ATTRACTIONS' and page.evaluate('Brawler.STAGES.length===7&&BRAWLER_CONFIG.version==="9.0.0"'))
     ui_step('New Game click',lambda: page.locator('#startButton').click());opening_ready(page)
     check('New Game opens the implemented story',page.evaluate('__brawler.game.mode==="cutscene"&&__brawler.scenes().state().id==="opening"'))
     expected=[('DUKE','Ratings are low. I need you to give this a glowing review, Sherman!'),('JAY','It Stinks!'),('DUKE','I thought you might say that... Allow me to give you a little motivation...'),('MARTY','Dad!'),('JAY','Marty!'),('DUKE',"If television can't bring the audience to us, perhaps we'll just bring the television to the audience!"),('JAY','Hatchi Matchi!!!')]
