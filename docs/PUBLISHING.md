@@ -14,6 +14,7 @@ Use a branch in the existing clone:
 git fetch origin
 git switch -c production/coming-attractions-v6
 python -m pip install -r requirements-test.txt
+python -m playwright install --with-deps chromium firefox webkit
 node tests/engine.test.js
 node tests/v4-engine.test.js
 node tests/franklin.test.js
@@ -22,7 +23,18 @@ node tests/campaign-engine.test.js
 python tests/production-assets.test.py
 ```
 
-Review the source, asset provenance, save migration, and the validation report. Run the browser checks with available Playwright browsers and record unavailable engines honestly. `tests/campaign-browser.test.py` supports source-HTTP testing; the standalone regression scripts require the generated HTML below. Keep test reports out of the published runtime.
+Review the source, asset provenance, save migration, and the validation report. Browser checks use Playwright's installed engines by default. To deliberately test a separately provisioned Chromium binary, set `CRITIC_CHROMIUM` to its full executable path; the harness does not automatically select a host-system browser. Record unavailable engines honestly.
+
+Run the source-HTTP controller and campaign checks in each installed engine:
+
+```sh
+for browser_engine in chromium firefox webkit; do
+  python tests/gamepad-browser.test.py --engine "$browser_engine" --url local
+  python tests/campaign-browser.test.py --engine "$browser_engine"
+done
+```
+
+The standalone regression scripts require the generated HTML below. Keep test reports out of the published runtime.
 
 After validation, commit the reviewed changes and push the branch to the existing repository. Merge through the repository's normal review workflow. Preserve its current Pages configuration and deployment continuity. Do not force-push or create a replacement repository for this update.
 
