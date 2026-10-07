@@ -51,6 +51,14 @@ Normal-input full-route drivers accelerate fixed updates through the real app ev
 
 This is not physical Android, physical Logitech, iPhone or desktop Safari testing. Playwright WebKit checks compatibility, not every Safari/device combination. Chromium uses the explicitly selected Chrome for Testing 143 headless shell; Firefox and WebKit use installed Playwright engines. No newly synthesized music is claimed.
 
-Local verification is complete. Current-v7 GitHub CI and public HTTPS verification remain separate release checks and must be appended after publication. Prior-v6 hosted success is not evidence of a deployed v7 build.
+## Public release verification
+
+[PR #3](https://github.com/cattownfilms/the-critic-city-run/pull/3) was merged normally as `1753ea9bba7da28ae3e09da60f36d54774f2a364`. Both [review CI](https://github.com/cattownfilms/the-critic-city-run/actions/runs/37575989698) and [merged-main CI](https://github.com/cattownfilms/the-critic-city-run/actions/runs/37576529229) passed core, Chromium, Firefox and WebKit jobs. The [GitHub Pages deployment](https://github.com/cattownfilms/the-critic-city-run/actions/runs/37576528727) completed successfully.
+
+The actual [public HTTPS game](https://cattownfilms.github.io/the-critic-city-run/) then passed **140/140 asset checks** and **96/96 Chromium browser checks**: 39 controller, 31 campaign/save and 26 scene/input/layout checks. Current dependencies matched reviewed bytes; PNG/WebP images decoded and supplied audio bytes matched. Fresh Jay and Franklin contexts each completed all seven stages with 71 knockouts, no retries, machine followed by Duke and no premature rescue. Public browser tests used real responses and origin-local saves without asset interception or substituted responses.
+
+The first cold public campaign attempt exhausted the driver's fixed simulation budget while network preparation remained pending at Stage 4. Its failed report is retained with the offline evidence. The test driver now waits up to 60 seconds for actual application progression and fails immediately when dependency Retry UI appears. The complete 31-check suite passed in a fresh public context after that test-only correction. Runtime, assets and gameplay were unchanged.
+
+Live results are separate from the 627 local checks. Raw hosted reports and the final documentation/test CI receipt are included with the offline release. Physical-device limits still apply.
 
 [Machine-readable report](../Validation-Report.json) · [Browser details](COMPATIBILITY.md) · [Known limitations](KNOWN-LIMITATIONS.md)

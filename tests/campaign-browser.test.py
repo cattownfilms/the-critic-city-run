@@ -49,7 +49,7 @@ def reload_game(page,url):
         page.reload();page.wait_for_function('__brawler.ready()',timeout=60000)
 def route_run(page,kind):
     page.evaluate('''kind=>{window.__campaignQA={ticks:0,retries:0,stages:[],bosses:[],scenes:[],defeats:[],projectionDisabled:false,earlyRescue:false,dukeBeforeMachine:false,kind};}''',kind)
-    started=time.monotonic()
+    started=time.monotonic();loading_waits=[]
     for batch in range(220):
         value=page.evaluate('''()=>{
           const g=__brawler.game,qa=window.__campaignQA;
@@ -77,11 +77,21 @@ def route_run(page,kind):
           return {...qa,mode:g.mode,stage:g.stage,seconds:g.t,kos:g.stats.kos,hits:g.stats.hits,flags:{...g.storyFlags},selected:g.playerKind,finalPhase:g.finalPhase,machineDefeated:g.machineDefeated,dukeDefeated:g.dukeDefeated};
         }''')
         if value['mode']=='complete':
-            value['wallSeconds']=round(time.monotonic()-started,2)
+            value['wallSeconds']=round(time.monotonic()-started,2);value['loadingWaits']=loading_waits
             return value
-        if value['mode']=='loading':page.wait_for_timeout(120)
+        if value['mode']=='loading':
+            # Network preparation is asynchronous app work, not a combat update.
+            # Wait for a real scene/play transition without spending the fixed
+            # simulation batch budget on a cold public asset download.
+            loading_started=time.monotonic()
+            diagnostic=page.evaluate('''()=>({stage:__brawler.game.stage,status:document.getElementById('contentLoadStatus').textContent,retryVisible:!document.getElementById('contentLoadRetry').hidden,scene:__brawler.scenes().state().id})''' )
+            wait(page,"__brawler.game.mode!=='loading'||!document.getElementById('contentLoadRetry').hidden")
+            outcome=page.evaluate('''()=>({mode:__brawler.game.mode,status:document.getElementById('contentLoadStatus').textContent,retryVisible:!document.getElementById('contentLoadRetry').hidden})''' )
+            loading_waits.append({**diagnostic,**outcome,'waitSeconds':round(time.monotonic()-loading_started,2)})
+            print('LOADING PROGRESSION',json.dumps(loading_waits[-1]),flush=True)
+            if outcome['retryVisible']:raise AssertionError('Actual required dependency failed: '+outcome['status'])
         else:page.wait_for_timeout(5)
-    value['wallSeconds']=round(time.monotonic()-started,2)
+    value['wallSeconds']=round(time.monotonic()-started,2);value['loadingWaits']=loading_waits
     return value
 
 with source_site(args.url) as url, sync_playwright() as pw:

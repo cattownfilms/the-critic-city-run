@@ -11,8 +11,67 @@
   "publicRepository": "https://github.com/cattownfilms/the-critic-city-run",
   "publicGame": "https://cattownfilms.github.io/the-critic-city-run/",
   "releaseVerification": {
-    "status": "local validation complete; public release verification pending",
-    "note": "CI and hosted HTTPS evidence must be appended after publication. These local tests alone do not establish a deployed v7 build."
+    "status": "released; public HTTPS and browser verification passed",
+    "version": "7.0.0",
+    "runtimeMergeCommit": "1753ea9bba7da28ae3e09da60f36d54774f2a364",
+    "reviewedPullRequest": "https://github.com/cattownfilms/the-critic-city-run/pull/3",
+    "pullRequestCI": {
+      "url": "https://github.com/cattownfilms/the-critic-city-run/actions/runs/37575989698",
+      "conclusion": "success",
+      "jobs": [
+        "core",
+        "Chromium",
+        "Firefox",
+        "WebKit"
+      ]
+    },
+    "mergedMainCI": {
+      "url": "https://github.com/cattownfilms/the-critic-city-run/actions/runs/37576529229",
+      "conclusion": "success",
+      "jobs": [
+        "core",
+        "Chromium",
+        "Firefox",
+        "WebKit"
+      ]
+    },
+    "pagesDeployment": {
+      "url": "https://github.com/cattownfilms/the-critic-city-run/actions/runs/37576528727",
+      "conclusion": "success"
+    },
+    "publicAssets": {
+      "passed": 140,
+      "failed": 0,
+      "report": "hosted-assets-v7.json",
+      "boundary": "Actual HTTPS dependencies matched byte-for-byte; PNG/WebP decoded, supplied music and effects matched unchanged bytes. No substituted responses."
+    },
+    "publicBrowser": {
+      "passed": 96,
+      "failed": 0,
+      "browser": "Chromium 143.0.7499.4",
+      "suites": {
+        "controller": 39,
+        "campaign": 31,
+        "scenes": 26
+      },
+      "report": "HOSTED-V7-VALIDATION.json",
+      "verifiedAt": "2026-10-07T05:34:28.307704+00:00",
+      "routes": {
+        "Jay": {
+          "stages": 7,
+          "knockouts": 71,
+          "retries": 0
+        },
+        "Franklin": {
+          "stages": 7,
+          "knockouts": 71,
+          "retries": 0
+        }
+      },
+      "boundary": "Fresh real HTTPS contexts and origin-local saves through the configured proxy with its certificate SPKI pinned. No response substitution or local asset interception. Automated ordinary-input routes accelerate fixed updates; hardware input remains untested."
+    },
+    "testHarnessCorrection": "The first cold public campaign attempt exhausted its fixed simulation budget while real network loading was pending at Stage 4. Its failed report is preserved in the offline evidence. The driver now waits up to 60 seconds for actual app progression and immediately rejects visible dependency Retry errors. The complete 31-check suite then passed in a fresh public context. No runtime change or asset substitution was used.",
+    "note": "Local 627 checks, live browser 96 checks and live asset 140 checks are separate evidence sets. Final documentation/test follow-up CI is recorded in the packaged release receipt."
   },
   "offlineArtifact": {
     "filename": "The-Critic-Coming-Attractions-v7.html",
@@ -648,7 +707,6 @@
   ],
   "knownLimitations": [
     "Physical hardware testing remains outstanding.",
-    "Public CI/HTTPS publication evidence is appended separately after release.",
     "Cold localhost startup duration rose .432\u2192.725 seconds in this headless sample despite ~46% lower startup atlas/decode budget; no measured wall-clock speedup is claimed."
   ]
 }
