@@ -18,23 +18,38 @@ ap.add_argument('--url',default='local',help='local serves source; a real URL te
 ap.add_argument('--output',type=Path)
 ap.add_argument('--screenshots',type=Path)
 args=ap.parse_args()
-results=[];errors=[];routes=[]
+results=[];errors=[];routes=[];test_started=time.monotonic()
+def trace(label, details=None):
+    # Observation only: flush before potentially blocking browser operations so
+    # a cancelled CI job identifies the exact unfinished action or route batch.
+    print('CAMPAIGN TRACE',json.dumps({'elapsedSeconds':round(time.monotonic()-test_started,2),'engine':args.engine,'operation':label,'details':details}),flush=True)
+def ui_step(label, action):
+    trace(label+' begin')
+    value=action()
+    trace(label+' end')
+    return value
 def check(name,ok,details=None):
     results.append({'name':name,'passed':bool(ok),'details':details})
     print('PASS' if ok else 'FAIL',name,details or '',flush=True)
 def wait(page, expression, arg=None):
     page.wait_for_function(expression, arg=arg, timeout=60000, polling=50)
 def opening_ready(page):
+    trace('wait for decoded opening begin')
     wait(page,'__brawler.scenes().active&&!__brawler.scenes().loading&&__brawler.scenes().state().id==="opening"')
+    trace('wait for decoded opening end')
 def skip_scenes(page):
     # Actual app scene callbacks may prepare the next scene asynchronously.
+    trace('safe scene queue skip begin')
     for _ in range(100):
         if page.evaluate('__brawler.scenes().active'):
+            trace('safe scene skip callback begin',{'iteration':_})
             page.evaluate('__brawler.scenes().skip()')
+            trace('safe scene skip callback end',{'iteration':_})
         elif page.evaluate('__brawler.game.mode!=="loading"&&__brawler.game.mode!=="cutscene"'):
             break
         page.wait_for_timeout(50)
     wait(page,'!__brawler.scenes().active&&__brawler.game.mode!=="loading"&&__brawler.game.mode!=="cutscene"')
+    trace('safe scene queue skip end')
 def load(page,url):
     page.on('pageerror',lambda e:errors.append(str(e)))
     if url=='standalone':load_html(page,standalone_path().read_text())
@@ -48,9 +63,13 @@ def reload_game(page,url):
     else:
         page.reload();page.wait_for_function('__brawler.ready()',timeout=60000)
 def route_run(page,kind):
+    trace('route initialization begin',{'kind':kind})
     page.evaluate('''kind=>{window.__campaignQA={ticks:0,retries:0,stages:[],bosses:[],scenes:[],defeats:[],projectionDisabled:false,earlyRescue:false,dukeBeforeMachine:false,machineWaves:0,maxLiveSummons:0,summonsAfterMachine:false,kind};}''',kind)
-    started=time.monotonic();loading_waits=[]
+    trace('route initialization end',{'kind':kind})
+    started=time.monotonic();loading_waits=[];previous=None
     for batch in range(220):
+        batch_started=time.monotonic()
+        trace('route batch begin',{'kind':kind,'batch':batch,'priorStage':previous.get('stage') if previous else None,'priorTicks':previous.get('ticks',0) if previous else 0})
         value=page.evaluate('''()=>{
           const g=__brawler.game,qa=window.__campaignQA;
           const events=()=>{for(const e of g.drain()){if(e.type==='bossEnter'&&!qa.bosses.includes(e.kind))qa.bosses.push(e.kind);if(e.type==='bossDefeated')qa.defeats.push(e.kind);if(e.type==='bossEnter'&&e.kind==='duke'&&!g.machineDefeated)qa.dukeBeforeMachine=true;__brawler.handleEvent(e);}};
@@ -77,6 +96,8 @@ def route_run(page,kind):
           }
           return {...qa,mode:g.mode,stage:g.stage,seconds:g.t,kos:g.stats.kos,hits:g.stats.hits,flags:{...g.storyFlags},selected:g.playerKind,finalPhase:g.finalPhase,machineDefeated:g.machineDefeated,dukeDefeated:g.dukeDefeated};
         }''')
+        trace('route batch end',{'kind':kind,'batch':batch,'wallSeconds':round(time.monotonic()-batch_started,3),'stage':value['stage'],'mode':value['mode'],'ticks':value['ticks'],'deltaTicks':value['ticks']-(previous['ticks'] if previous else 0),'kos':value['kos'],'deltaKOs':value['kos']-(previous['kos'] if previous else 0),'simulationSeconds':value['seconds'],'stageChanged':previous is None or previous['stage']!=value['stage'],'scenes':value['scenes'][-2:]})
+        previous=value
         if value['mode']=='complete':
             value['wallSeconds']=round(time.monotonic()-started,2);value['loadingWaits']=loading_waits
             return value
@@ -104,7 +125,7 @@ with source_site(args.url) as url, sync_playwright() as pw:
     context=browser.new_context(viewport={'width':1000,'height':560},has_touch=True)
     page=context.new_page();load(page,url)
     check('Current canonical title and expanded campaign load',page.title().upper()=='THE CRITIC: COMING ATTRACTIONS' and page.evaluate('Brawler.STAGES.length===7&&BRAWLER_CONFIG.version==="8.0.0"'))
-    page.locator('#startButton').click();opening_ready(page)
+    ui_step('New Game click',lambda: page.locator('#startButton').click());opening_ready(page)
     check('New Game opens the implemented story',page.evaluate('__brawler.game.mode==="cutscene"&&__brawler.scenes().state().id==="opening"'))
     expected=[('DUKE','Ratings are low. I need you to give this a glowing review, Sherman!'),('JAY','It Stinks!'),('DUKE','I thought you might say that... Allow me to give you a little motivation...'),('MARTY','Dad!'),('JAY','Marty!'),('DUKE',"If television can't bring the audience to us, perhaps we'll just bring the television to the audience!"),('JAY','Hatchi Matchi!!!')]
     shown=[]
@@ -131,24 +152,24 @@ with source_site(args.url) as url, sync_playwright() as pw:
     check('Actual keyboard attack drives accepted combat',page.evaluate('!!__brawler.game.p.action'))
     page.keyboard.up('KeyJ');page.wait_for_timeout(800)
     page.keyboard.press('Escape');check('Keyboard pause is preserved',page.evaluate('__brawler.game.mode==="pause"'))
-    page.locator('#titleButton').click();page.locator('#startButton').click();opening_ready(page)
-    page.locator('#scenePause').click();before=page.evaluate('__brawler.scenes().time');page.wait_for_timeout(180)
+    ui_step('Return to title click',lambda: page.locator('#titleButton').click());ui_step('New Game click',lambda: page.locator('#startButton').click());opening_ready(page)
+    ui_step('Scene pause toggle',lambda: page.locator('#scenePause').click());before=page.evaluate('__brawler.scenes().time');page.wait_for_timeout(180)
     check('Scene pause freezes time and audio',page.evaluate('__brawler.scenes().paused&&__brawler.audio.music.paused&&__brawler.scenes().time')==before)
-    page.locator('#scenePause').click();page.wait_for_timeout(140)
+    ui_step('Scene pause toggle',lambda: page.locator('#scenePause').click());page.wait_for_timeout(140)
     page.keyboard.down('KeyJ');page.keyboard.press('Escape');page.wait_for_timeout(140)
     check('Skipping with HIT held does not leak a punch',page.evaluate('__brawler.game.mode==="play"&&!__brawler.getInput().attackHeld&&!__brawler.game.p.action'))
     page.keyboard.up('KeyJ');page.keyboard.down('KeyJ');page.wait_for_timeout(70)
     check('Fresh HIT after key release restores attack',page.evaluate('!!__brawler.game.p.action'));page.keyboard.up('KeyJ')
-    page.keyboard.press('Escape');page.locator('#titleButton').click();page.locator('#startButton').click();opening_ready(page)
-    wait(page,'__brawler.scenes().time>=(__brawler.scenes().shot.minTime??.2)');before=page.evaluate('__brawler.scenes().index');page.locator('#sceneAdvance').tap();page.wait_for_timeout(150)
+    page.keyboard.press('Escape');ui_step('Return to title click',lambda: page.locator('#titleButton').click());ui_step('New Game click',lambda: page.locator('#startButton').click());opening_ready(page)
+    wait(page,'__brawler.scenes().time>=(__brawler.scenes().shot.minTime??.2)');before=page.evaluate('__brawler.scenes().index');ui_step('Touch scene advance',lambda: page.locator('#sceneAdvance').tap());page.wait_for_timeout(150)
     check('Touch advances the cutscene',page.evaluate('__brawler.scenes().index')==before+1)
     page.set_viewport_size({'width':412,'height':915});page.wait_for_timeout(120)
     check('Portrait scene text and controls stay inside viewport',page.evaluate('''()=>['sceneDialogue','sceneAdvance','sceneSkip','scenePause'].every(id=>{const r=document.getElementById(id).getBoundingClientRect();return r.x>=0&&r.y>=0&&r.right<=innerWidth+1&&r.bottom<=innerHeight+1})&&document.documentElement.scrollWidth<=innerWidth'''))
     shotpath=(args.screenshots or ROOT/'tests')/f'campaign-scene-portrait-{args.engine}.png';shotpath.parent.mkdir(parents=True,exist_ok=True);page.screenshot(path=str(shotpath))
-    page.locator('#sceneSkip').tap();page.wait_for_timeout(100);check('Touch skip restores gameplay and clean input',page.evaluate('__brawler.game.mode==="play"&&__brawler.input.pointers.size===0'))
+    ui_step('Touch scene skip',lambda: page.locator('#sceneSkip').tap());page.wait_for_timeout(100);check('Touch skip restores gameplay and clean input',page.evaluate('__brawler.game.mode==="play"&&__brawler.input.pointers.size===0'))
     page.set_viewport_size({'width':1000,'height':560})
     # Start each full run through the real title UI. Route simulation uses normal inputs.
-    page.keyboard.press('Escape');page.locator('#titleButton').click();page.locator('#startButton').click();skip_scenes(page)
+    page.keyboard.press('Escape');ui_step('Return to title click',lambda: page.locator('#titleButton').click());ui_step('New Game click',lambda: page.locator('#startButton').click());skip_scenes(page)
     jay=route_run(page,'hero');routes.append(jay)
     check('Jay completes all seven stages through normal combat inputs',jay['mode']=='complete' and jay['stages']==list(range(7)) and jay['kos']>=71,jay)
     check('Jay route includes every required boss and projection counterplay',all(kind in jay['bosses'] for kind in ['franklin','pizzeria-boss','spike','broadcast-rig','duke']) and jay['projectionDisabled'] and jay['machineWaves']>=2 and jay['maxLiveSummons']<=4 and not jay['summonsAfterMachine'])
@@ -158,7 +179,7 @@ with source_site(args.url) as url, sync_playwright() as pw:
     # An unlocked-profile fixture allows the replay route independently of driver eligibility.
     page.evaluate('localStorage.setItem(BRAWLER_CONFIG.profileKey,JSON.stringify({franklinUnlocked:true,selected:"franklin"}))')
     reload_game(page,url)
-    page.select_option('#playerSelect','franklin');page.locator('#startButton').click();skip_scenes(page)
+    page.select_option('#playerSelect','franklin');ui_step('New Game click',lambda: page.locator('#startButton').click());skip_scenes(page)
     franklin=route_run(page,'franklin');routes.append(franklin)
     check('Franklin replay completes all seven stages through normal combat inputs',franklin['mode']=='complete' and franklin['stages']==list(range(7)) and franklin['selected']=='franklin',franklin)
     check('Franklin defeats the machine and Duke before rescuing Marty',not franklin['earlyRescue'] and not franklin['dukeBeforeMachine'] and franklin['defeats'][-2:]==['broadcast-rig','duke'] and franklin['dukeDefeated'] and franklin['machineWaves']>=2 and franklin['maxLiveSummons']<=4 and not franklin['summonsAfterMachine'],franklin['defeats'])
@@ -167,21 +188,21 @@ with source_site(args.url) as url, sync_playwright() as pw:
     page.evaluate('''()=>{localStorage.setItem(BRAWLER_CONFIG.saveKey,JSON.stringify({version:3,stage:3,nextGate:3,complete:true,lives:2,score:4321,meter:42,franklinUnlocked:true,playerKind:'hero',deathsByStage:[0,1,0,0],stage4Eligible:true,bossDefeated:true}));localStorage.setItem(BRAWLER_CONFIG.settingsKey,JSON.stringify({music:.19,sfx:.43,reducedMotion:true,vibration:false}));localStorage.setItem(CriticGamepad.KEY,JSON.stringify({version:1,enabled:false,deadzone:.22,profiles:{}}));}''')
     reload_game(page,url)
     check('Completed legacy four-stage save offers Continue',page.locator('#continueButton').is_visible())
-    page.locator('#continueButton').click();wait(page,'__brawler.scenes().active&&!__brawler.scenes().loading')
+    ui_step('Continue click',lambda: page.locator('#continueButton').click());wait(page,'__brawler.scenes().active&&!__brawler.scenes().loading')
     check('Legacy completion continues into cinema without replaying opening',page.evaluate('__brawler.game.stage===4&&__brawler.scenes().state().id==="stage-05-intro"&&__brawler.game.score===4321&&__brawler.game.p.lives===2'))
     check('Migration retains Franklin, volume, accessibility, and controller settings',page.evaluate('__brawler.getProfile().franklinUnlocked&&settings.music===.19&&settings.sfx===.43&&settings.reducedMotion&&__brawler.controller.deadzone===.22'))
     skip_scenes(page);page.evaluate('__brawler.game.checkpointSave();for(const e of __brawler.game.drain())__brawler.handleEvent(e)')
     checkpoint=page.evaluate('__brawler.getSave()')
-    page.keyboard.press('Escape');page.locator('#titleButton').click();page.locator('#continueButton').click();wait(page,'__brawler.game.mode==="play"&&!__brawler.scenes().active')
+    page.keyboard.press('Escape');ui_step('Return to title click',lambda: page.locator('#titleButton').click());ui_step('Continue click',lambda: page.locator('#continueButton').click());wait(page,'__brawler.game.mode==="play"&&!__brawler.scenes().active')
     check('New-schema Continue restores checkpoint directly',page.evaluate('__brawler.game.mode==="play"&&!__brawler.scenes().active&&__brawler.game.stage===4') and page.evaluate('__brawler.getSave().nextGate')==checkpoint['nextGate'])
     # Older complete v6 saves predate Duke's physical finale and must resume him.
     page.evaluate("""()=>localStorage.setItem(BRAWLER_CONFIG.saveKey,JSON.stringify({version:4,stage:6,nextGate:3,complete:true,lives:2,score:6543,meter:42,playerKind:'franklin',franklinUnlocked:true,bossDefeated:true,storyFlags:{opening:true,martyRescued:true,broadcastStopped:true,ending:true}}))""")
     reload_game(page,url)
     check('Completed v4 seven-stage save offers the new required final confrontation',page.locator('#continueButton').is_visible())
-    page.locator('#continueButton').click();wait(page,'__brawler.game.mode==="play"&&!__brawler.scenes().active')
+    ui_step('Continue click',lambda: page.locator('#continueButton').click());wait(page,'__brawler.game.mode==="play"&&!__brawler.scenes().active')
     check('Old complete save resumes one real Duke with preserved score, route and lives',page.evaluate("""__brawler.game.stage===6&&__brawler.game.finalPhase==='duke'&&__brawler.game.enemies.filter(e=>e.kind==='duke').length===1&&__brawler.game.score===6543&&__brawler.game.p.lives===2&&__brawler.game.playerKind==='franklin'&&!__brawler.game.storyFlags.martyRescued&&!__brawler.game.dukeDefeated"""))
     page.evaluate('__brawler.game.checkpointSave();for(const e of __brawler.game.drain())__brawler.handleEvent(e)')
-    reload_game(page,url);page.locator('#continueButton').click();wait(page,'__brawler.game.mode==="play"&&!__brawler.scenes().active')
+    reload_game(page,url);ui_step('Continue click',lambda: page.locator('#continueButton').click());wait(page,'__brawler.game.mode==="play"&&!__brawler.scenes().active')
     check('Pending-Duke schema5 Continue is idempotent and does not replay ordinary waves',page.evaluate("""__brawler.getSave().version===5&&__brawler.game.enemies.length===1&&__brawler.game.enemies[0].kind==='duke'&&__brawler.game.finalPhase==='duke'&&!__brawler.game.storyFlags.martyRescued"""))
     art=page.evaluate("""async()=>{const names=[...new Set(Object.values(CriticCutscenes.scenes).flatMap(scene=>['hero','franklin'].flatMap(route=>CriticCutscenes.dependencies(scene.id,route,__brawler.meta()).images)))];return Promise.all(names.map(name=>new Promise(resolve=>{const image=new Image();image.onload=()=>resolve({name,decoded:image.naturalWidth>0,width:image.naturalWidth,height:image.naturalHeight});image.onerror=()=>resolve({name,decoded:false});image.src=window.BRAWLER_ASSETS?BRAWLER_ASSETS.files[name]:BRAWLER_CONFIG.assetBase+name;})));}""")
     check('Every declared cutscene art dependency decodes in the browser',all(item['decoded'] for item in art),art)
