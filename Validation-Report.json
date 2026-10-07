@@ -1,752 +1,623 @@
 {
   "schemaVersion": 2,
   "title": "THE CRITIC: COMING ATTRACTIONS",
-  "version": "8.0.0",
-  "baselineCommit": "29e97395ee88a63724a32c83a6c019996d09a39c",
-  "status": "V8 release follow-up removes the captured native media.load deadlock; supplied media, script and gameplay data are preserved. Final source CI, rebuilt artifacts and hosted verification are recorded in the external release receipt.",
-  "testedAtUTC": "2026-10-07T15:19:17.820617+00:00",
-  "checks": [
-    {
-      "name": "source-campaign-chromium.json",
-      "group": "source-browser",
-      "passed": 31,
-      "failed": 0,
-      "sha256": "bcbb6da52bf89041ac27544924272a5bb9dc23a6e18536aca2cbb70dac3d5a2f",
-      "browserVersion": "141.0.7390.37",
-      "edition": "v8-before-archive-display-only-fix",
-      "report": "evidence/source-campaign-chromium.json"
+  "version": "9.0.0",
+  "baselineCommit": "51f1131163edbccc28390d00d766bb348327da30",
+  "status": "source-validated-public-release-gated",
+  "testedAtUTC": "2026-10-07T22:13:26.385731+00:00",
+  "checks": {
+    "localJavaScriptSuites": 10,
+    "site": "pass",
+    "productionAssets": "pass",
+    "publishSafety": "pass",
+    "browser": {
+      "core": "success",
+      "browsers (firefox)": "success",
+      "browsers (chromium)": "success",
+      "browsers (webkit)": "success"
     },
-    {
-      "name": "source-controller-chromium.json",
-      "group": "source-browser",
-      "passed": 39,
-      "failed": 0,
-      "sha256": "48394f8fb7835a2d12d0dbc708a9609c95abff5ed155dd382ec9197937c843b9",
-      "browserVersion": "141.0.7390.37",
-      "edition": "v8-before-archive-display-only-fix",
-      "report": "evidence/source-controller-chromium.json"
-    },
-    {
-      "name": "source-scenes-chromium.json",
-      "group": "source-browser",
-      "passed": 26,
-      "failed": 0,
-      "sha256": "6337ad32bee880e99ea21dc0d31eb38a12d783c3217a9fd26c4852830df8a1f4",
-      "browserVersion": "141.0.7390.37",
-      "edition": "v8-before-archive-display-only-fix",
-      "report": "evidence/source-scenes-chromium.json"
-    },
-    {
-      "name": "source-gameplay-chromium.json",
-      "group": "source-browser",
-      "passed": 23,
-      "failed": 0,
-      "sha256": "2b6a1c1f7e67975361cb5d5d80a5b292b1d914d7f199e9a62c4dd8d97a801019",
-      "browserVersion": "141.0.7390.37",
-      "edition": "v8-before-archive-display-only-fix",
-      "report": "evidence/source-gameplay-chromium.json"
-    },
-    {
-      "name": "source-loading-facing-chromium.json",
-      "group": "source-browser",
-      "passed": 29,
-      "failed": 0,
-      "sha256": "aa3cd19c83061f974faf10fa8fb0cb598aee9a5b49a684bec8d124cda2993e0e",
-      "browserVersion": "141.0.7390.37",
-      "edition": "v8-before-archive-display-only-fix",
-      "report": "evidence/source-loading-facing-chromium.json"
-    },
-    {
-      "name": "source-campaign-firefox.json",
-      "group": "source-browser",
-      "passed": 31,
-      "failed": 0,
-      "sha256": "fcf5f406bbb89e4bbda85f2e8aa70bd01f8c7802bd3a9105144b29ba1a59b831",
-      "browserVersion": "146.0.1",
-      "edition": "v8-before-archive-display-only-fix",
-      "report": "evidence/source-campaign-firefox.json"
-    },
-    {
-      "name": "source-controller-firefox.json",
-      "group": "source-browser",
-      "passed": 39,
-      "failed": 0,
-      "sha256": "7f572253ce71995b0c89d6eb071df587bbedb41f0f47fc8bb980dec57a373553",
-      "browserVersion": "146.0.1",
-      "edition": "v8-before-archive-display-only-fix",
-      "report": "evidence/source-controller-firefox.json"
-    },
-    {
-      "name": "source-scenes-firefox.json",
-      "group": "source-browser",
-      "passed": 26,
-      "failed": 0,
-      "sha256": "2143dcdfa2828a594ac1cc36f5bfa8a8a13a4bdb97b4f7a1baf1d4e4bd75d5f3",
-      "browserVersion": "146.0.1",
-      "edition": "v8-before-archive-display-only-fix",
-      "report": "evidence/source-scenes-firefox.json"
-    },
-    {
-      "name": "source-gameplay-firefox.json",
-      "group": "source-browser",
-      "passed": 23,
-      "failed": 0,
-      "sha256": "eb6ad37fffc491068ba6eafee3c156c47b94873a098ae95193ab360b6556b071",
-      "browserVersion": "146.0.1",
-      "edition": "v8-before-archive-display-only-fix",
-      "report": "evidence/source-gameplay-firefox.json"
-    },
-    {
-      "name": "source-loading-facing-firefox.json",
-      "group": "source-browser",
-      "passed": 29,
-      "failed": 0,
-      "sha256": "82c576c0cc8e11329f8bdcd6df65c17dc31974d5860fd513783c03b1a0074aec",
-      "browserVersion": "146.0.1",
-      "edition": "v8-before-archive-display-only-fix",
-      "report": "evidence/source-loading-facing-firefox.json"
-    },
-    {
-      "name": "source-campaign-webkit.json",
-      "group": "source-browser",
-      "passed": 31,
-      "failed": 0,
-      "sha256": "d6f2fd6a6740a45874b0b480f60499374286b01773ba3821505d22de1943cd6f",
-      "browserVersion": "26.0",
-      "edition": "v8-before-archive-display-only-fix",
-      "report": "evidence/source-campaign-webkit.json"
-    },
-    {
-      "name": "source-controller-webkit.json",
-      "group": "source-browser",
-      "passed": 39,
-      "failed": 0,
-      "sha256": "9b7ac42ebc811f9b76f8428bf7e3b4d8b5103bf42b3bd36c338db2fa8ed96d61",
-      "browserVersion": "26.0",
-      "edition": "v8-before-archive-display-only-fix",
-      "report": "evidence/source-controller-webkit.json"
-    },
-    {
-      "name": "source-scenes-webkit.json",
-      "group": "source-browser",
-      "passed": 26,
-      "failed": 0,
-      "sha256": "ee96a9ddfe78d9bc574bc5dc4ec1d83287c7d1e7456a742039354f5a43c0cbce",
-      "browserVersion": "26.0",
-      "edition": "v8-before-archive-display-only-fix",
-      "report": "evidence/source-scenes-webkit.json"
-    },
-    {
-      "name": "source-gameplay-webkit.json",
-      "group": "source-browser",
-      "passed": 23,
-      "failed": 0,
-      "sha256": "e906c1297e4003baf40ea972233d4d62ce9282bc76bb15151fce32879a392838",
-      "browserVersion": "26.0",
-      "edition": "v8-before-archive-display-only-fix",
-      "report": "evidence/source-gameplay-webkit.json"
-    },
-    {
-      "name": "source-loading-facing-webkit.json",
-      "group": "source-browser",
-      "passed": 29,
-      "failed": 0,
-      "sha256": "747d7de90e7633be2734b9cbe5bf3f3dea092122ff2dcb47afd5a411467a9dc1",
-      "browserVersion": "26.0",
-      "edition": "v8-before-archive-display-only-fix",
-      "report": "evidence/source-loading-facing-webkit.json"
-    },
-    {
-      "name": "offline-campaign-chromium.json",
-      "group": "offline-browser",
-      "passed": 31,
-      "failed": 0,
-      "sha256": "5db890e987d8d9884ef4f54f678f4073f33becfa660baf150f724d4c5e9aeaf2",
-      "browserVersion": "141.0.7390.37",
-      "edition": "v8-before-archive-display-only-fix",
-      "report": "evidence/offline-campaign-chromium.json"
-    },
-    {
-      "name": "offline-controller-chromium.json",
-      "group": "offline-browser",
-      "passed": 39,
-      "failed": 0,
-      "sha256": "122f9674506c88c5976d8bcbc8e056b595b6a6f647f4d1ff60c1f6beff321c77",
-      "browserVersion": "141.0.7390.37",
-      "edition": "v8-before-archive-display-only-fix",
-      "report": "evidence/offline-controller-chromium.json"
-    },
-    {
-      "name": "offline-gameplay-chromium.json",
-      "group": "offline-browser",
-      "passed": 23,
-      "failed": 0,
-      "sha256": "2b6a1c1f7e67975361cb5d5d80a5b292b1d914d7f199e9a62c4dd8d97a801019",
-      "browserVersion": "141.0.7390.37",
-      "edition": "v8-before-archive-display-only-fix",
-      "report": "evidence/offline-gameplay-chromium.json"
-    },
-    {
-      "name": "offline-mobile-results.json",
-      "group": "offline-browser",
-      "passed": 34,
-      "failed": 0,
-      "sha256": "f870104b44a3d8d04379dadbf4cfc271c4b7a90ead0b4e0a79009f0694aae1b7",
-      "browserVersion": null,
-      "edition": "v8-before-archive-display-only-fix",
-      "report": "evidence/offline-mobile-results.json"
-    },
-    {
-      "name": "offline-v4-presentation-results.json",
-      "group": "offline-browser",
-      "passed": 19,
-      "failed": 0,
-      "sha256": "256251e868517d4173bd88558a0d147627b9ab585b03fd12d8d9f1b2cfee8942",
-      "browserVersion": null,
-      "edition": "v8-before-archive-display-only-fix",
-      "report": "evidence/offline-v4-presentation-results.json"
-    },
-    {
-      "name": "offline-v4-storage-results.json",
-      "group": "offline-browser",
-      "passed": 3,
-      "failed": 0,
-      "sha256": "ad841da04c92c3e81225435208b3519c3b57dc0d1d30aa8985f60f93d466643d",
-      "browserVersion": null,
-      "edition": "v8-before-archive-display-only-fix",
-      "report": "evidence/offline-v4-storage-results.json"
-    },
-    {
-      "name": "offline-resilience-results.json",
-      "group": "offline-browser",
-      "passed": 8,
-      "failed": 0,
-      "sha256": "e8dc701b7df053515f4bab0a12a6487e35bff130d2929e1243c35f7e965148f3",
-      "browserVersion": null,
-      "edition": "v8-before-archive-display-only-fix",
-      "report": "evidence/offline-resilience-results.json"
-    },
-    {
-      "name": "launcher-results.json",
-      "group": "launcher",
-      "passed": 7,
-      "failed": 0,
-      "sha256": "9ff7abbfdc36e6677829cb8452536688e8c66387a9cb130cbbbb906b024916f0",
-      "browserVersion": null,
-      "edition": "v8-final-exact-build",
-      "report": "evidence/launcher-results.json"
-    },
-    {
-      "name": "upgrade-launcher-results.json",
-      "group": "launcher",
-      "passed": 10,
-      "failed": 0,
-      "sha256": "9d54b69f008bc54aa85e11319f6a705be5280df7ae98b7171312567e5e5c31a2",
-      "browserVersion": null,
-      "report": "evidence/upgrade-launcher-results.json"
-    },
-    {
-      "name": "production-assets.test.py",
-      "group": "asset-semantic",
-      "passed": 14,
-      "failed": 0,
-      "sha256": "b2949ed1f3a92ed437900c14de027a835cd64b6b78b4d26a55a7de40e5fb6bfc",
-      "report": "evidence/production-assets.log"
-    },
-    {
-      "name": "archive-facing-chromium.json",
-      "group": "source-browser",
-      "passed": 4,
-      "failed": 0,
-      "sha256": "f08b3dcbe2f699b44dcb5a8f7b197031d84e4b6876f02f3d94ec8c57c950c5d0",
-      "browserVersion": "141.0.7390.37",
-      "edition": "v8-final-exact-build",
-      "report": "evidence/archive-facing-chromium.json"
-    },
-    {
-      "name": "archive-facing-firefox.json",
-      "group": "source-browser",
-      "passed": 4,
-      "failed": 0,
-      "sha256": "645288faef422ee23ab5cdac47dca5a41cf516293b51bbf7eb3e707c8fe010e8",
-      "browserVersion": "146.0.1",
-      "edition": "v8-final-exact-build",
-      "report": "evidence/archive-facing-firefox.json"
-    },
-    {
-      "name": "archive-facing-webkit.json",
-      "group": "source-browser",
-      "passed": 4,
-      "failed": 0,
-      "sha256": "0f35309a9a2c8d00d1ee4c1229da21f085f552fea453a2efd8a773a030c88c46",
-      "browserVersion": "26.0",
-      "edition": "v8-final-exact-build",
-      "report": "evidence/archive-facing-webkit.json"
-    },
-    {
-      "name": "archive-facing-offline-chromium.json",
-      "group": "offline-browser",
-      "passed": 4,
-      "failed": 0,
-      "sha256": "f08b3dcbe2f699b44dcb5a8f7b197031d84e4b6876f02f3d94ec8c57c950c5d0",
-      "browserVersion": "141.0.7390.37",
-      "edition": "v8-final-exact-build",
-      "report": "evidence/archive-facing-offline-chromium.json"
-    },
-    {
-      "name": "build-parity.json",
-      "group": "build-parity",
-      "passed": 3,
-      "failed": 0,
-      "sha256": "4c2073bf79a06444a8b5273926807511717ef07c9831a7017317f28db50f70bf",
-      "browserVersion": null,
-      "edition": "v8-final-exact-build",
-      "report": "evidence/build-parity.json"
-    },
-    {
-      "name": "campaign-engine-results.json",
-      "group": "node-core",
-      "passed": 24,
-      "failed": 0,
-      "report": "evidence/campaign-engine-results.json",
-      "sha256": "d0072b2f545483da70e510fdbe47dc340ac3e82728760a81fb583169ffca3fc7"
-    },
-    {
-      "name": "engine-results.json",
-      "group": "node-core",
-      "passed": 31,
-      "failed": 0,
-      "report": "evidence/engine-results.json",
-      "sha256": "255a8be74322f6c3f1ab313f1396eb55c8d241d420f0eca8598aecfe6cab054f"
-    },
-    {
-      "name": "franklin-results.json",
-      "group": "node-core",
-      "passed": 26,
-      "failed": 0,
-      "report": "evidence/franklin-results.json",
-      "sha256": "f6ef1259799c2639f777dd783feb16108abf83fb6d2c79d1c96ae5cab1216aa2"
-    },
-    {
-      "name": "gamepad-results.json",
-      "group": "node-core",
-      "passed": 27,
-      "failed": 0,
-      "report": "evidence/gamepad-results.json",
-      "sha256": "a915017ddf07a8d6ce2108a696240afd7aa4a3307ac5c58440524cf790fe0721"
-    },
-    {
-      "name": "publish-results.json",
-      "group": "python-core",
-      "passed": 13,
-      "failed": 0,
-      "report": "evidence/publish-results.json",
-      "sha256": "04c38014bf3d4b3b21aa80ecee7cd416955c72cd41e6c7411470780aa156bcc5"
-    },
-    {
-      "name": "site-results.json",
-      "group": "python-core",
-      "passed": 10,
-      "failed": 0,
-      "report": "evidence/site-results.json",
-      "sha256": "1fa7dd064f743f96981c326edf04c96ceb30cfc1e6df80d3e57a3e2444f23b69"
-    },
-    {
-      "name": "v4-engine-results.json",
-      "group": "node-core",
-      "passed": 15,
-      "failed": 0,
-      "report": "evidence/v4-engine-results.json",
-      "sha256": "ba9ed842ac7339e06f53f1fb55ab2c3d674b25a844067b74ee2b3390a61c6fe6"
-    },
-    {
-      "name": "v7-engine-results.json",
-      "group": "node-core",
-      "passed": 20,
-      "failed": 0,
-      "report": "evidence/v7-engine-results.json",
-      "sha256": "817b3d8ff680812fc5ecea3f4cf807bbbdb7f5b4dedb40494d2db0ecc5906b17"
-    },
-    {
-      "name": "v8-engine-results.json",
-      "group": "node-core",
-      "passed": 28,
-      "failed": 0,
-      "report": "evidence/v8-engine-results.json",
-      "sha256": "7a9e8bbf9d5629faf1035275597f05b18308a9ed2144034792c9e21fcaf4a989"
-    }
-  ],
-  "totalPassedChecks": 845,
-  "totalFailedChecks": 0,
-  "groupPassed": {
-    "asset-semantic": 14,
-    "offline-browser": 161,
-    "launcher": 17,
-    "source-browser": 456,
-    "build-parity": 3,
-    "node-core": 171,
-    "python-core": 23
-  },
-  "sourceBrowserChecks": 456,
-  "offlineBrowserChecks": 161,
-  "routes": [
-    {
-      "suite": "source-campaign-chromium.json",
-      "kind": "hero",
-      "stages": [
-        0,
-        1,
-        2,
-        3,
-        4,
-        5,
-        6
-      ],
-      "kos": 75,
-      "retries": 0,
-      "machineWaves": 3,
-      "maxLiveSummons": 2,
-      "summonsAfterMachine": false,
-      "earlyRescue": false,
-      "dukeBeforeMachine": false,
-      "loadingWaits": [],
-      "mode": "complete"
-    },
-    {
-      "suite": "source-campaign-chromium.json",
-      "kind": "franklin",
-      "stages": [
-        0,
-        1,
-        2,
-        3,
-        4,
-        5,
-        6
-      ],
-      "kos": 75,
-      "retries": 0,
-      "machineWaves": 3,
-      "maxLiveSummons": 2,
-      "summonsAfterMachine": false,
-      "earlyRescue": false,
-      "dukeBeforeMachine": false,
-      "loadingWaits": [],
-      "mode": "complete"
-    },
-    {
-      "suite": "source-campaign-firefox.json",
-      "kind": "hero",
-      "stages": [
-        0,
-        1,
-        2,
-        3,
-        4,
-        5,
-        6
-      ],
-      "kos": 75,
-      "retries": 0,
-      "machineWaves": 3,
-      "maxLiveSummons": 2,
-      "summonsAfterMachine": false,
-      "earlyRescue": false,
-      "dukeBeforeMachine": false,
-      "loadingWaits": [],
-      "mode": "complete"
-    },
-    {
-      "suite": "source-campaign-firefox.json",
-      "kind": "franklin",
-      "stages": [
-        0,
-        1,
-        2,
-        3,
-        4,
-        5,
-        6
-      ],
-      "kos": 75,
-      "retries": 0,
-      "machineWaves": 3,
-      "maxLiveSummons": 2,
-      "summonsAfterMachine": false,
-      "earlyRescue": false,
-      "dukeBeforeMachine": false,
-      "loadingWaits": [],
-      "mode": "complete"
-    },
-    {
-      "suite": "source-campaign-webkit.json",
-      "kind": "hero",
-      "stages": [
-        0,
-        1,
-        2,
-        3,
-        4,
-        5,
-        6
-      ],
-      "kos": 75,
-      "retries": 0,
-      "machineWaves": 3,
-      "maxLiveSummons": 2,
-      "summonsAfterMachine": false,
-      "earlyRescue": false,
-      "dukeBeforeMachine": false,
-      "loadingWaits": [],
-      "mode": "complete"
-    },
-    {
-      "suite": "source-campaign-webkit.json",
-      "kind": "franklin",
-      "stages": [
-        0,
-        1,
-        2,
-        3,
-        4,
-        5,
-        6
-      ],
-      "kos": 75,
-      "retries": 0,
-      "machineWaves": 3,
-      "maxLiveSummons": 2,
-      "summonsAfterMachine": false,
-      "earlyRescue": false,
-      "dukeBeforeMachine": false,
-      "loadingWaits": [],
-      "mode": "complete"
-    },
-    {
-      "suite": "offline-campaign-chromium.json",
-      "kind": "hero",
-      "stages": [
-        0,
-        1,
-        2,
-        3,
-        4,
-        5,
-        6
-      ],
-      "kos": 75,
-      "retries": 0,
-      "machineWaves": 2,
-      "maxLiveSummons": 2,
-      "summonsAfterMachine": false,
-      "earlyRescue": false,
-      "dukeBeforeMachine": false,
-      "loadingWaits": [],
-      "mode": "complete"
-    },
-    {
-      "suite": "offline-campaign-chromium.json",
-      "kind": "franklin",
-      "stages": [
-        0,
-        1,
-        2,
-        3,
-        4,
-        5,
-        6
-      ],
-      "kos": 76,
-      "retries": 0,
-      "machineWaves": 3,
-      "maxLiveSummons": 2,
-      "summonsAfterMachine": false,
-      "earlyRescue": false,
-      "dukeBeforeMachine": false,
-      "loadingWaits": [],
-      "mode": "complete"
-    }
-  ],
-  "runtimeContent": {
-    "stages": 7,
-    "banks": 15,
-    "animationStates": 219,
-    "frameReferences": 3379,
-    "uniquePackedRectangles": 2979,
-    "atlasPages": 85,
-    "portraitImages": 47,
-    "speakers": 7
-  },
-  "suiteRuntimeInputs": {
-    "app.js": {
-      "bytes": 41725,
-      "sha256": "96b4e2acbcd5045220c8cffe2f0aa70a6a9c273477965cacecdcc4fef035c376"
-    },
-    "engine.js": {
-      "bytes": 53081,
-      "sha256": "0a48a84d7d607cd2f9832df53ce8ee74ef71ff846f80aabb69d74a72d1db427e"
-    },
-    "render.js": {
-      "bytes": 45377,
-      "sha256": "4c010f9e87d50404306bd421a70fc0076a56e9d822a15ee113c9eec93bef21b8"
-    },
-    "cutscenes.js": {
-      "bytes": 22906,
-      "sha256": "673294a52931cee1bf0d006d24f317f3ce22aeaa7dc5c6d22de673d67910831c"
-    },
-    "data/cutscenes.js": {
-      "bytes": 18317,
-      "sha256": "2548de7c2c929f5ac8d311e059c7798a9d2b51526185fe5281441dc460b89a92"
-    },
-    "data/campaign.js": {
-      "bytes": 7987,
-      "sha256": "39c82169ac81b43c8009a0aab185dfea419ea80f7eea3a013d859efcf04694a1"
-    },
-    "assets/sprites.json": {
-      "bytes": 460488,
-      "sha256": "20cab18bed3161010c5d9e2057c39ca6958f8652d4ebb31b00238dc22af610d4"
-    },
-    "assets/portraits.json": {
-      "bytes": 7652,
-      "sha256": "3872cff14dd775b7e7c6bceddd77aa36ae06378b4906fb7c2ddadc3116c93584"
-    }
-  },
-  "currentRuntimeInputs": {
-    "app.js": {
-      "bytes": 42854,
-      "sha256": "58ae13c1d44eac1cf7a8e87529d7753b65adf681ed73e6ddf012a2e1bc22b0a8"
-    },
-    "engine.js": {
-      "bytes": 53081,
-      "sha256": "0a48a84d7d607cd2f9832df53ce8ee74ef71ff846f80aabb69d74a72d1db427e"
-    },
-    "render.js": {
-      "bytes": 45377,
-      "sha256": "4c010f9e87d50404306bd421a70fc0076a56e9d822a15ee113c9eec93bef21b8"
-    },
-    "cutscenes.js": {
-      "bytes": 24590,
-      "sha256": "41d7942fddfe26380f5be82eb7e37f97adcef4a49987e506609b10dedba560fd"
-    },
-    "data/cutscenes.js": {
-      "bytes": 19574,
-      "sha256": "827a2e02a9eaf18be4dba8e23126eb9b59c761b2372682d33de7785fa1e3d11b"
-    },
-    "data/campaign.js": {
-      "bytes": 8014,
-      "sha256": "035ff4dc0787a09e69bcea6a57988ea2ddd048ea19d07ea37b0952c455f2d8ad"
-    },
-    "assets/sprites.json": {
-      "bytes": 460494,
-      "sha256": "1e8a2c9ed53123b386ed353184fc7979a88ce6a7000afe0ec08b325060b35ab9"
-    },
-    "assets/portraits.json": {
-      "bytes": 7658,
-      "sha256": "d3674a445b328a63981e6de01cded1ea63bbb185b0a71bf4fdaed3858d0b1fe7"
-    }
-  },
-  "finalBuilds": {
-    "The-Critic-Coming-Attractions-v8.html": {
-      "bytes": 109611479,
-      "sha256": "adce30e266383d488b88084f8fac942243ecc3e09e63af5883dc73abcf7545fd"
-    },
-    "The-Critic-Coming-Attractions-v8-Play.sh": {
-      "bytes": 111459900,
-      "sha256": "e4dacf752a4bf3237837413164f0a79cea5c37f04b82a3b2e7adfb368b233b2a"
-    }
-  },
-  "fullScript": {
-    "scenes": 19,
-    "beats": 56,
-    "dialogueEntriesByRoute": {
-      "hero": 36,
-      "franklin": 35
-    },
-    "activeCampaignDialogueEntriesByRoute": {
-      "hero": 35,
-      "franklin": 34
-    },
-    "optionalSceneAppendix": [
-      "boss-projection-intro"
-    ],
-    "markdownSha256": "eda80326cbc062d76c5e7eb2b4e30d5669c16af3c8e07a6f18d88f753b8825c1",
-    "docxSha256": "668bca66a379d39730260d280129fefc47a00d9e8ce3405e99cdf3a1924f983c",
-    "docxBytes": 44661
-  },
-  "scriptVisualReview": {
-    "pageCount": 17,
-    "reviewedPages": [
-      1,
-      2,
-      3,
-      4,
-      5,
-      6,
-      7,
-      8,
-      9,
-      10,
-      11,
-      12,
-      13,
-      14,
-      15,
-      16,
-      17
-    ],
-    "status": "passed",
-    "detail": "original",
-    "sourceMatchingCheck": "passed",
-    "postFreezeValidation": "Regenerated from the final edited dialogue and staging; all17 Letter pages rendered and visually reviewed. All55 supplied PDF spoken entries match applicable routes verbatim."
-  },
-  "additionalContractSuite": {
-    "file": "tests/cutscenes-v7.test.js",
-    "status": "passed",
-    "note": "Grouped assertions are excluded from the structured case total."
-  },
-  "pendingChecks": [
-    "Physical Android-browser, Logitech, iPhone/Safari-device and audible listening tests have not been performed."
-  ],
-  "publicRelease": {
-    "status": "Deployment verification is recorded by the Pages workflow and external release receipt after merge",
-    "repository": "cattownfilms/the-critic-city-run",
-    "url": "https://cattownfilms.github.io/the-critic-city-run/",
-    "sourceVerification": "https://github.com/cattownfilms/the-critic-city-run/actions/workflows/verify.yml",
-    "publicVerification": "https://github.com/cattownfilms/the-critic-city-run/actions/workflows/verify-pages.yml",
-    "note": "This source report preserves validation evidence without recursively changing the deployed commit to record its own SHA."
+    "publicPages": "Post-merge deployment and public-browser checks required; exact results in release receipt",
+    "browserRun": "https://github.com/cattownfilms/the-critic-city-run/actions/runs/37693754120",
+    "nativeAudio": "15 assertions per browser; clocks, AudioContext and measured SFX signal",
+    "launcher": 7,
+    "isolatedUpgrade": 10
   },
   "boundaries": [
-    "All results are freshly executed v8 checks, not recovered v7 count receipts.",
-    "Normal-input route drivers accelerate fixed engine time and use the actual application event/cutscene flow; neither route mutates health, position, score, or campaign flags.",
-    "Feature, collision, rendering and legacy-save scenarios are explicit fixtures separate from full routes.",
-    "Chromium141.0.7390.37, Firefox146.0.1, and WebKit26.0 were actually launched and ran the source game.",
-    "Chromium mobile-sized viewports include actual three-finger CDP touches. Physical Android, Termux, Logitech hardware, iPhone and Safari were not tested.",
-    "Chromium verifies actual decoded MP3 playback, crossfades,13 sampled cues, mute and pause. Firefox headless AudioContext remains suspended;13cue bytes cached and decode deferred. WebKit decodes cues, but the environment has no audible output device.",
-    "Launcher tests run actual local HTTP and exactpayload responses on port8788. Upgrade uses the recovered exact v7 launcher unchanged and confirms byte-for-byte backups and companion/browser-save fixtures.",
-    "The final archive-only display fix is verified by 16 targeted real-browser checks and 3 strict exact standalone embedding checks. Full behavior suites were not broadly repeated because no combat, campaign, scene, audio, save or source-frame data changed. Final launcher and v7-to-v8 upgrade tests were rerun against the final exact payload; repeats are counted once.",
-    "Broad behavioral suites used app.js ab13f22 and render.js e1c246 before the final archive-only orientation/bounds correction. Sixteen final source/offline archive checks, three strict embedding checks and seventeen final launcher/payload checks verify the affected boundary. Combat, campaign, scene, audio, save and source-frame data did not change in that final display fix.",
-    "No cold-network or physical Android loading-speed claim is made. Bulk startup intentionally prepares the full runtime library.",
-    "Portable evidence filenames refer to the offline release bundle; local workspace paths and private prompt/media files are excluded from this public report.",
-    "After the archive correction, native WebKit pause and concurrent-resume repairs changed only app audio lifecycle. Final focused 93 browser, clean WebKit 31, source Chromium audio 19, and refreshed embedding/launcher/upgrade 20 cases pass separately from the earlier 845-case scope."
+    "No physical speaker or Logitech hardware validation",
+    "Existing asset and audio bytes unchanged",
+    "Schema 5 and storage keys preserved"
   ],
-  "knownLimitations": [
-    "Physical Android, Termux on Android, Logitech hardware, iPhone and Safari were not tested.",
-    "Firefox headless AudioContext remained suspended; this run confirms cached cue bytes and deferred decode, not Firefox audible playback.",
-    "The environment has no audible output device; browser playback/decoding observations do not establish a listening test."
-  ],
-  "behavioralInputsBeforeArchiveOnlyDisplayFix": {
-    "runtimeInputs": {
+  "historicalV8Report": {
+    "schemaVersion": 2,
+    "title": "THE CRITIC: COMING ATTRACTIONS",
+    "version": "8.0.0",
+    "baselineCommit": "29e97395ee88a63724a32c83a6c019996d09a39c",
+    "status": "V8 release follow-up removes the captured native media.load deadlock; supplied media, script and gameplay data are preserved. Final source CI, rebuilt artifacts and hosted verification are recorded in the external release receipt.",
+    "testedAtUTC": "2026-10-07T15:19:17.820617+00:00",
+    "checks": [
+      {
+        "name": "source-campaign-chromium.json",
+        "group": "source-browser",
+        "passed": 31,
+        "failed": 0,
+        "sha256": "bcbb6da52bf89041ac27544924272a5bb9dc23a6e18536aca2cbb70dac3d5a2f",
+        "browserVersion": "141.0.7390.37",
+        "edition": "v8-before-archive-display-only-fix",
+        "report": "evidence/source-campaign-chromium.json"
+      },
+      {
+        "name": "source-controller-chromium.json",
+        "group": "source-browser",
+        "passed": 39,
+        "failed": 0,
+        "sha256": "48394f8fb7835a2d12d0dbc708a9609c95abff5ed155dd382ec9197937c843b9",
+        "browserVersion": "141.0.7390.37",
+        "edition": "v8-before-archive-display-only-fix",
+        "report": "evidence/source-controller-chromium.json"
+      },
+      {
+        "name": "source-scenes-chromium.json",
+        "group": "source-browser",
+        "passed": 26,
+        "failed": 0,
+        "sha256": "6337ad32bee880e99ea21dc0d31eb38a12d783c3217a9fd26c4852830df8a1f4",
+        "browserVersion": "141.0.7390.37",
+        "edition": "v8-before-archive-display-only-fix",
+        "report": "evidence/source-scenes-chromium.json"
+      },
+      {
+        "name": "source-gameplay-chromium.json",
+        "group": "source-browser",
+        "passed": 23,
+        "failed": 0,
+        "sha256": "2b6a1c1f7e67975361cb5d5d80a5b292b1d914d7f199e9a62c4dd8d97a801019",
+        "browserVersion": "141.0.7390.37",
+        "edition": "v8-before-archive-display-only-fix",
+        "report": "evidence/source-gameplay-chromium.json"
+      },
+      {
+        "name": "source-loading-facing-chromium.json",
+        "group": "source-browser",
+        "passed": 29,
+        "failed": 0,
+        "sha256": "aa3cd19c83061f974faf10fa8fb0cb598aee9a5b49a684bec8d124cda2993e0e",
+        "browserVersion": "141.0.7390.37",
+        "edition": "v8-before-archive-display-only-fix",
+        "report": "evidence/source-loading-facing-chromium.json"
+      },
+      {
+        "name": "source-campaign-firefox.json",
+        "group": "source-browser",
+        "passed": 31,
+        "failed": 0,
+        "sha256": "fcf5f406bbb89e4bbda85f2e8aa70bd01f8c7802bd3a9105144b29ba1a59b831",
+        "browserVersion": "146.0.1",
+        "edition": "v8-before-archive-display-only-fix",
+        "report": "evidence/source-campaign-firefox.json"
+      },
+      {
+        "name": "source-controller-firefox.json",
+        "group": "source-browser",
+        "passed": 39,
+        "failed": 0,
+        "sha256": "7f572253ce71995b0c89d6eb071df587bbedb41f0f47fc8bb980dec57a373553",
+        "browserVersion": "146.0.1",
+        "edition": "v8-before-archive-display-only-fix",
+        "report": "evidence/source-controller-firefox.json"
+      },
+      {
+        "name": "source-scenes-firefox.json",
+        "group": "source-browser",
+        "passed": 26,
+        "failed": 0,
+        "sha256": "2143dcdfa2828a594ac1cc36f5bfa8a8a13a4bdb97b4f7a1baf1d4e4bd75d5f3",
+        "browserVersion": "146.0.1",
+        "edition": "v8-before-archive-display-only-fix",
+        "report": "evidence/source-scenes-firefox.json"
+      },
+      {
+        "name": "source-gameplay-firefox.json",
+        "group": "source-browser",
+        "passed": 23,
+        "failed": 0,
+        "sha256": "eb6ad37fffc491068ba6eafee3c156c47b94873a098ae95193ab360b6556b071",
+        "browserVersion": "146.0.1",
+        "edition": "v8-before-archive-display-only-fix",
+        "report": "evidence/source-gameplay-firefox.json"
+      },
+      {
+        "name": "source-loading-facing-firefox.json",
+        "group": "source-browser",
+        "passed": 29,
+        "failed": 0,
+        "sha256": "82c576c0cc8e11329f8bdcd6df65c17dc31974d5860fd513783c03b1a0074aec",
+        "browserVersion": "146.0.1",
+        "edition": "v8-before-archive-display-only-fix",
+        "report": "evidence/source-loading-facing-firefox.json"
+      },
+      {
+        "name": "source-campaign-webkit.json",
+        "group": "source-browser",
+        "passed": 31,
+        "failed": 0,
+        "sha256": "d6f2fd6a6740a45874b0b480f60499374286b01773ba3821505d22de1943cd6f",
+        "browserVersion": "26.0",
+        "edition": "v8-before-archive-display-only-fix",
+        "report": "evidence/source-campaign-webkit.json"
+      },
+      {
+        "name": "source-controller-webkit.json",
+        "group": "source-browser",
+        "passed": 39,
+        "failed": 0,
+        "sha256": "9b7ac42ebc811f9b76f8428bf7e3b4d8b5103bf42b3bd36c338db2fa8ed96d61",
+        "browserVersion": "26.0",
+        "edition": "v8-before-archive-display-only-fix",
+        "report": "evidence/source-controller-webkit.json"
+      },
+      {
+        "name": "source-scenes-webkit.json",
+        "group": "source-browser",
+        "passed": 26,
+        "failed": 0,
+        "sha256": "ee96a9ddfe78d9bc574bc5dc4ec1d83287c7d1e7456a742039354f5a43c0cbce",
+        "browserVersion": "26.0",
+        "edition": "v8-before-archive-display-only-fix",
+        "report": "evidence/source-scenes-webkit.json"
+      },
+      {
+        "name": "source-gameplay-webkit.json",
+        "group": "source-browser",
+        "passed": 23,
+        "failed": 0,
+        "sha256": "e906c1297e4003baf40ea972233d4d62ce9282bc76bb15151fce32879a392838",
+        "browserVersion": "26.0",
+        "edition": "v8-before-archive-display-only-fix",
+        "report": "evidence/source-gameplay-webkit.json"
+      },
+      {
+        "name": "source-loading-facing-webkit.json",
+        "group": "source-browser",
+        "passed": 29,
+        "failed": 0,
+        "sha256": "747d7de90e7633be2734b9cbe5bf3f3dea092122ff2dcb47afd5a411467a9dc1",
+        "browserVersion": "26.0",
+        "edition": "v8-before-archive-display-only-fix",
+        "report": "evidence/source-loading-facing-webkit.json"
+      },
+      {
+        "name": "offline-campaign-chromium.json",
+        "group": "offline-browser",
+        "passed": 31,
+        "failed": 0,
+        "sha256": "5db890e987d8d9884ef4f54f678f4073f33becfa660baf150f724d4c5e9aeaf2",
+        "browserVersion": "141.0.7390.37",
+        "edition": "v8-before-archive-display-only-fix",
+        "report": "evidence/offline-campaign-chromium.json"
+      },
+      {
+        "name": "offline-controller-chromium.json",
+        "group": "offline-browser",
+        "passed": 39,
+        "failed": 0,
+        "sha256": "122f9674506c88c5976d8bcbc8e056b595b6a6f647f4d1ff60c1f6beff321c77",
+        "browserVersion": "141.0.7390.37",
+        "edition": "v8-before-archive-display-only-fix",
+        "report": "evidence/offline-controller-chromium.json"
+      },
+      {
+        "name": "offline-gameplay-chromium.json",
+        "group": "offline-browser",
+        "passed": 23,
+        "failed": 0,
+        "sha256": "2b6a1c1f7e67975361cb5d5d80a5b292b1d914d7f199e9a62c4dd8d97a801019",
+        "browserVersion": "141.0.7390.37",
+        "edition": "v8-before-archive-display-only-fix",
+        "report": "evidence/offline-gameplay-chromium.json"
+      },
+      {
+        "name": "offline-mobile-results.json",
+        "group": "offline-browser",
+        "passed": 34,
+        "failed": 0,
+        "sha256": "f870104b44a3d8d04379dadbf4cfc271c4b7a90ead0b4e0a79009f0694aae1b7",
+        "browserVersion": null,
+        "edition": "v8-before-archive-display-only-fix",
+        "report": "evidence/offline-mobile-results.json"
+      },
+      {
+        "name": "offline-v4-presentation-results.json",
+        "group": "offline-browser",
+        "passed": 19,
+        "failed": 0,
+        "sha256": "256251e868517d4173bd88558a0d147627b9ab585b03fd12d8d9f1b2cfee8942",
+        "browserVersion": null,
+        "edition": "v8-before-archive-display-only-fix",
+        "report": "evidence/offline-v4-presentation-results.json"
+      },
+      {
+        "name": "offline-v4-storage-results.json",
+        "group": "offline-browser",
+        "passed": 3,
+        "failed": 0,
+        "sha256": "ad841da04c92c3e81225435208b3519c3b57dc0d1d30aa8985f60f93d466643d",
+        "browserVersion": null,
+        "edition": "v8-before-archive-display-only-fix",
+        "report": "evidence/offline-v4-storage-results.json"
+      },
+      {
+        "name": "offline-resilience-results.json",
+        "group": "offline-browser",
+        "passed": 8,
+        "failed": 0,
+        "sha256": "e8dc701b7df053515f4bab0a12a6487e35bff130d2929e1243c35f7e965148f3",
+        "browserVersion": null,
+        "edition": "v8-before-archive-display-only-fix",
+        "report": "evidence/offline-resilience-results.json"
+      },
+      {
+        "name": "launcher-results.json",
+        "group": "launcher",
+        "passed": 7,
+        "failed": 0,
+        "sha256": "9ff7abbfdc36e6677829cb8452536688e8c66387a9cb130cbbbb906b024916f0",
+        "browserVersion": null,
+        "edition": "v8-final-exact-build",
+        "report": "evidence/launcher-results.json"
+      },
+      {
+        "name": "upgrade-launcher-results.json",
+        "group": "launcher",
+        "passed": 10,
+        "failed": 0,
+        "sha256": "9d54b69f008bc54aa85e11319f6a705be5280df7ae98b7171312567e5e5c31a2",
+        "browserVersion": null,
+        "report": "evidence/upgrade-launcher-results.json"
+      },
+      {
+        "name": "production-assets.test.py",
+        "group": "asset-semantic",
+        "passed": 14,
+        "failed": 0,
+        "sha256": "b2949ed1f3a92ed437900c14de027a835cd64b6b78b4d26a55a7de40e5fb6bfc",
+        "report": "evidence/production-assets.log"
+      },
+      {
+        "name": "archive-facing-chromium.json",
+        "group": "source-browser",
+        "passed": 4,
+        "failed": 0,
+        "sha256": "f08b3dcbe2f699b44dcb5a8f7b197031d84e4b6876f02f3d94ec8c57c950c5d0",
+        "browserVersion": "141.0.7390.37",
+        "edition": "v8-final-exact-build",
+        "report": "evidence/archive-facing-chromium.json"
+      },
+      {
+        "name": "archive-facing-firefox.json",
+        "group": "source-browser",
+        "passed": 4,
+        "failed": 0,
+        "sha256": "645288faef422ee23ab5cdac47dca5a41cf516293b51bbf7eb3e707c8fe010e8",
+        "browserVersion": "146.0.1",
+        "edition": "v8-final-exact-build",
+        "report": "evidence/archive-facing-firefox.json"
+      },
+      {
+        "name": "archive-facing-webkit.json",
+        "group": "source-browser",
+        "passed": 4,
+        "failed": 0,
+        "sha256": "0f35309a9a2c8d00d1ee4c1229da21f085f552fea453a2efd8a773a030c88c46",
+        "browserVersion": "26.0",
+        "edition": "v8-final-exact-build",
+        "report": "evidence/archive-facing-webkit.json"
+      },
+      {
+        "name": "archive-facing-offline-chromium.json",
+        "group": "offline-browser",
+        "passed": 4,
+        "failed": 0,
+        "sha256": "f08b3dcbe2f699b44dcb5a8f7b197031d84e4b6876f02f3d94ec8c57c950c5d0",
+        "browserVersion": "141.0.7390.37",
+        "edition": "v8-final-exact-build",
+        "report": "evidence/archive-facing-offline-chromium.json"
+      },
+      {
+        "name": "build-parity.json",
+        "group": "build-parity",
+        "passed": 3,
+        "failed": 0,
+        "sha256": "4c2073bf79a06444a8b5273926807511717ef07c9831a7017317f28db50f70bf",
+        "browserVersion": null,
+        "edition": "v8-final-exact-build",
+        "report": "evidence/build-parity.json"
+      },
+      {
+        "name": "campaign-engine-results.json",
+        "group": "node-core",
+        "passed": 24,
+        "failed": 0,
+        "report": "evidence/campaign-engine-results.json",
+        "sha256": "d0072b2f545483da70e510fdbe47dc340ac3e82728760a81fb583169ffca3fc7"
+      },
+      {
+        "name": "engine-results.json",
+        "group": "node-core",
+        "passed": 31,
+        "failed": 0,
+        "report": "evidence/engine-results.json",
+        "sha256": "255a8be74322f6c3f1ab313f1396eb55c8d241d420f0eca8598aecfe6cab054f"
+      },
+      {
+        "name": "franklin-results.json",
+        "group": "node-core",
+        "passed": 26,
+        "failed": 0,
+        "report": "evidence/franklin-results.json",
+        "sha256": "f6ef1259799c2639f777dd783feb16108abf83fb6d2c79d1c96ae5cab1216aa2"
+      },
+      {
+        "name": "gamepad-results.json",
+        "group": "node-core",
+        "passed": 27,
+        "failed": 0,
+        "report": "evidence/gamepad-results.json",
+        "sha256": "a915017ddf07a8d6ce2108a696240afd7aa4a3307ac5c58440524cf790fe0721"
+      },
+      {
+        "name": "publish-results.json",
+        "group": "python-core",
+        "passed": 13,
+        "failed": 0,
+        "report": "evidence/publish-results.json",
+        "sha256": "04c38014bf3d4b3b21aa80ecee7cd416955c72cd41e6c7411470780aa156bcc5"
+      },
+      {
+        "name": "site-results.json",
+        "group": "python-core",
+        "passed": 10,
+        "failed": 0,
+        "report": "evidence/site-results.json",
+        "sha256": "1fa7dd064f743f96981c326edf04c96ceb30cfc1e6df80d3e57a3e2444f23b69"
+      },
+      {
+        "name": "v4-engine-results.json",
+        "group": "node-core",
+        "passed": 15,
+        "failed": 0,
+        "report": "evidence/v4-engine-results.json",
+        "sha256": "ba9ed842ac7339e06f53f1fb55ab2c3d674b25a844067b74ee2b3390a61c6fe6"
+      },
+      {
+        "name": "v7-engine-results.json",
+        "group": "node-core",
+        "passed": 20,
+        "failed": 0,
+        "report": "evidence/v7-engine-results.json",
+        "sha256": "817b3d8ff680812fc5ecea3f4cf807bbbdb7f5b4dedb40494d2db0ecc5906b17"
+      },
+      {
+        "name": "v8-engine-results.json",
+        "group": "node-core",
+        "passed": 28,
+        "failed": 0,
+        "report": "evidence/v8-engine-results.json",
+        "sha256": "7a9e8bbf9d5629faf1035275597f05b18308a9ed2144034792c9e21fcaf4a989"
+      }
+    ],
+    "totalPassedChecks": 845,
+    "totalFailedChecks": 0,
+    "groupPassed": {
+      "asset-semantic": 14,
+      "offline-browser": 161,
+      "launcher": 17,
+      "source-browser": 456,
+      "build-parity": 3,
+      "node-core": 171,
+      "python-core": 23
+    },
+    "sourceBrowserChecks": 456,
+    "offlineBrowserChecks": 161,
+    "routes": [
+      {
+        "suite": "source-campaign-chromium.json",
+        "kind": "hero",
+        "stages": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "kos": 75,
+        "retries": 0,
+        "machineWaves": 3,
+        "maxLiveSummons": 2,
+        "summonsAfterMachine": false,
+        "earlyRescue": false,
+        "dukeBeforeMachine": false,
+        "loadingWaits": [],
+        "mode": "complete"
+      },
+      {
+        "suite": "source-campaign-chromium.json",
+        "kind": "franklin",
+        "stages": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "kos": 75,
+        "retries": 0,
+        "machineWaves": 3,
+        "maxLiveSummons": 2,
+        "summonsAfterMachine": false,
+        "earlyRescue": false,
+        "dukeBeforeMachine": false,
+        "loadingWaits": [],
+        "mode": "complete"
+      },
+      {
+        "suite": "source-campaign-firefox.json",
+        "kind": "hero",
+        "stages": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "kos": 75,
+        "retries": 0,
+        "machineWaves": 3,
+        "maxLiveSummons": 2,
+        "summonsAfterMachine": false,
+        "earlyRescue": false,
+        "dukeBeforeMachine": false,
+        "loadingWaits": [],
+        "mode": "complete"
+      },
+      {
+        "suite": "source-campaign-firefox.json",
+        "kind": "franklin",
+        "stages": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "kos": 75,
+        "retries": 0,
+        "machineWaves": 3,
+        "maxLiveSummons": 2,
+        "summonsAfterMachine": false,
+        "earlyRescue": false,
+        "dukeBeforeMachine": false,
+        "loadingWaits": [],
+        "mode": "complete"
+      },
+      {
+        "suite": "source-campaign-webkit.json",
+        "kind": "hero",
+        "stages": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "kos": 75,
+        "retries": 0,
+        "machineWaves": 3,
+        "maxLiveSummons": 2,
+        "summonsAfterMachine": false,
+        "earlyRescue": false,
+        "dukeBeforeMachine": false,
+        "loadingWaits": [],
+        "mode": "complete"
+      },
+      {
+        "suite": "source-campaign-webkit.json",
+        "kind": "franklin",
+        "stages": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "kos": 75,
+        "retries": 0,
+        "machineWaves": 3,
+        "maxLiveSummons": 2,
+        "summonsAfterMachine": false,
+        "earlyRescue": false,
+        "dukeBeforeMachine": false,
+        "loadingWaits": [],
+        "mode": "complete"
+      },
+      {
+        "suite": "offline-campaign-chromium.json",
+        "kind": "hero",
+        "stages": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "kos": 75,
+        "retries": 0,
+        "machineWaves": 2,
+        "maxLiveSummons": 2,
+        "summonsAfterMachine": false,
+        "earlyRescue": false,
+        "dukeBeforeMachine": false,
+        "loadingWaits": [],
+        "mode": "complete"
+      },
+      {
+        "suite": "offline-campaign-chromium.json",
+        "kind": "franklin",
+        "stages": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "kos": 76,
+        "retries": 0,
+        "machineWaves": 3,
+        "maxLiveSummons": 2,
+        "summonsAfterMachine": false,
+        "earlyRescue": false,
+        "dukeBeforeMachine": false,
+        "loadingWaits": [],
+        "mode": "complete"
+      }
+    ],
+    "runtimeContent": {
+      "stages": 7,
+      "banks": 15,
+      "animationStates": 219,
+      "frameReferences": 3379,
+      "uniquePackedRectangles": 2979,
+      "atlasPages": 85,
+      "portraitImages": 47,
+      "speakers": 7
+    },
+    "suiteRuntimeInputs": {
       "app.js": {
-        "bytes": 41729,
-        "sha256": "ab13f22dbb1f6521307a15c557d6aa77c0676e1bf59893d6ca9329f32f520483"
+        "bytes": 41725,
+        "sha256": "96b4e2acbcd5045220c8cffe2f0aa70a6a9c273477965cacecdcc4fef035c376"
       },
       "engine.js": {
         "bytes": 53081,
         "sha256": "0a48a84d7d607cd2f9832df53ce8ee74ef71ff846f80aabb69d74a72d1db427e"
       },
       "render.js": {
-        "bytes": 44308,
-        "sha256": "e1c246b37525e7436e772798fc8bf6f242a673454d378f4f1cb19f0a5341d22a"
+        "bytes": 45377,
+        "sha256": "4c010f9e87d50404306bd421a70fc0076a56e9d822a15ee113c9eec93bef21b8"
       },
       "cutscenes.js": {
         "bytes": 22906,
@@ -767,299 +638,459 @@
       "assets/portraits.json": {
         "bytes": 7652,
         "sha256": "3872cff14dd775b7e7c6bceddd77aa36ae06378b4906fb7c2ddadc3116c93584"
+      }
+    },
+    "currentRuntimeInputs": {
+      "app.js": {
+        "bytes": 42854,
+        "sha256": "58ae13c1d44eac1cf7a8e87529d7753b65adf681ed73e6ddf012a2e1bc22b0a8"
       },
+      "engine.js": {
+        "bytes": 53081,
+        "sha256": "0a48a84d7d607cd2f9832df53ce8ee74ef71ff846f80aabb69d74a72d1db427e"
+      },
+      "render.js": {
+        "bytes": 45377,
+        "sha256": "4c010f9e87d50404306bd421a70fc0076a56e9d822a15ee113c9eec93bef21b8"
+      },
+      "cutscenes.js": {
+        "bytes": 24590,
+        "sha256": "41d7942fddfe26380f5be82eb7e37f97adcef4a49987e506609b10dedba560fd"
+      },
+      "data/cutscenes.js": {
+        "bytes": 19574,
+        "sha256": "827a2e02a9eaf18be4dba8e23126eb9b59c761b2372682d33de7785fa1e3d11b"
+      },
+      "data/campaign.js": {
+        "bytes": 8014,
+        "sha256": "035ff4dc0787a09e69bcea6a57988ea2ddd048ea19d07ea37b0952c455f2d8ad"
+      },
+      "assets/sprites.json": {
+        "bytes": 460494,
+        "sha256": "1e8a2c9ed53123b386ed353184fc7979a88ce6a7000afe0ec08b325060b35ab9"
+      },
+      "assets/portraits.json": {
+        "bytes": 7658,
+        "sha256": "d3674a445b328a63981e6de01cded1ea63bbb185b0a71bf4fdaed3858d0b1fe7"
+      }
+    },
+    "finalBuilds": {
       "The-Critic-Coming-Attractions-v8.html": {
-        "bytes": 109606311,
-        "sha256": "eaa9056ba593ecdf1173a343fafc08a319e3d3ccf50562375245afe32650e128"
+        "bytes": 109611479,
+        "sha256": "adce30e266383d488b88084f8fac942243ecc3e09e63af5883dc73abcf7545fd"
       },
       "The-Critic-Coming-Attractions-v8-Play.sh": {
-        "bytes": 111457205,
-        "sha256": "f6da142915ac3aed51745a550c9f1ebf1cd74d5cc834d6161d059dfac574616e"
+        "bytes": 111459900,
+        "sha256": "e4dacf752a4bf3237837413164f0a79cea5c37f04b82a3b2e7adfb368b233b2a"
       }
     },
-    "scope": "Full normal-input campaigns, controllers, watched scenes, gameplay, mobile, audio and storage suites were executed against these v8 inputs. Only archive orientation resolution and the matching gallery layout delegation changed afterward; the 16 targeted archive checks and strict final embedding parity verify that final display change. No combat, campaign, scene, audio, save or source-frame data changed in that final fix."
-  },
-  "finalEmbeddedRuntimeFiles": 159,
-  "curatedLocalReceipt": {
-    "report": "evidence/V8-LOCAL-QA.json",
-    "sha256": "c63eb1070f14b80fda37a31b4d7a9a9e8a4bdab500184df6fc4b2b2dc3d635af",
-    "passed": 651,
-    "failed": 0
-  },
-  "refinementChecklist": [
-    {
-      "id": 1,
-      "status": "verified-locally",
-      "evidence": "Bulk loading/facing suites, 29 cases per source engine; no later HTTP dependencies"
+    "fullScript": {
+      "scenes": 19,
+      "beats": 56,
+      "dialogueEntriesByRoute": {
+        "hero": 36,
+        "franklin": 35
+      },
+      "activeCampaignDialogueEntriesByRoute": {
+        "hero": 35,
+        "franklin": 34
+      },
+      "optionalSceneAppendix": [
+        "boss-projection-intro"
+      ],
+      "markdownSha256": "eda80326cbc062d76c5e7eb2b4e30d5669c16af3c8e07a6f18d88f753b8825c1",
+      "docxSha256": "668bca66a379d39730260d280129fefc47a00d9e8ce3405e99cdf3a1924f983c",
+      "docxBytes": 44661
     },
-    {
-      "id": 2,
-      "status": "verified-locally",
-      "evidence": "Preferred cartwheel provenance, engine source-impact tests and actual browser RUN + HIT"
+    "scriptVisualReview": {
+      "pageCount": 17,
+      "reviewedPages": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17
+      ],
+      "status": "passed",
+      "detail": "original",
+      "sourceMatchingCheck": "passed",
+      "postFreezeValidation": "Regenerated from the final edited dialogue and staging; all17 Letter pages rendered and visually reviewed. All55 supplied PDF spoken entries match applicable routes verbatim."
     },
-    {
-      "id": 3,
-      "status": "verified-locally",
-      "evidence": "Complete routes plus repeated capped machine-wave fixtures and Duke pressure definitions"
+    "additionalContractSuite": {
+      "file": "tests/cutscenes-v7.test.js",
+      "status": "passed",
+      "note": "Grouped assertions are excluded from the structured case total."
     },
-    {
-      "id": 4,
-      "status": "verified-locally",
-      "evidence": "Actual keyboard RUN + HIT heavy collisions for both players plus preserved ordinary baseline"
+    "pendingChecks": [
+      "Physical Android-browser, Logitech, iPhone/Safari-device and audible listening tests have not been performed."
+    ],
+    "publicRelease": {
+      "status": "Deployment verification is recorded by the Pages workflow and external release receipt after merge",
+      "repository": "cattownfilms/the-critic-city-run",
+      "url": "https://cattownfilms.github.io/the-critic-city-run/",
+      "sourceVerification": "https://github.com/cattownfilms/the-critic-city-run/actions/workflows/verify.yml",
+      "publicVerification": "https://github.com/cattownfilms/the-critic-city-run/actions/workflows/verify-pages.yml",
+      "note": "This source report preserves validation evidence without recursively changing the deployed commit to record its own SHA."
     },
-    {
-      "id": 5,
-      "status": "verified-locally",
-      "evidence": "Full source audit, Marty story-facing checks and 16 final source/offline archive cases"
+    "boundaries": [
+      "All results are freshly executed v8 checks, not recovered v7 count receipts.",
+      "Normal-input route drivers accelerate fixed engine time and use the actual application event/cutscene flow; neither route mutates health, position, score, or campaign flags.",
+      "Feature, collision, rendering and legacy-save scenarios are explicit fixtures separate from full routes.",
+      "Chromium141.0.7390.37, Firefox146.0.1, and WebKit26.0 were actually launched and ran the source game.",
+      "Chromium mobile-sized viewports include actual three-finger CDP touches. Physical Android, Termux, Logitech hardware, iPhone and Safari were not tested.",
+      "Chromium verifies actual decoded MP3 playback, crossfades,13 sampled cues, mute and pause. Firefox headless AudioContext remains suspended;13cue bytes cached and decode deferred. WebKit decodes cues, but the environment has no audible output device.",
+      "Launcher tests run actual local HTTP and exactpayload responses on port8788. Upgrade uses the recovered exact v7 launcher unchanged and confirms byte-for-byte backups and companion/browser-save fixtures.",
+      "The final archive-only display fix is verified by 16 targeted real-browser checks and 3 strict exact standalone embedding checks. Full behavior suites were not broadly repeated because no combat, campaign, scene, audio, save or source-frame data changed. Final launcher and v7-to-v8 upgrade tests were rerun against the final exact payload; repeats are counted once.",
+      "Broad behavioral suites used app.js ab13f22 and render.js e1c246 before the final archive-only orientation/bounds correction. Sixteen final source/offline archive checks, three strict embedding checks and seventeen final launcher/payload checks verify the affected boundary. Combat, campaign, scene, audio, save and source-frame data did not change in that final display fix.",
+      "No cold-network or physical Android loading-speed claim is made. Bulk startup intentionally prepares the full runtime library.",
+      "Portable evidence filenames refer to the offline release bundle; local workspace paths and private prompt/media files are excluded from this public report.",
+      "After the archive correction, native WebKit pause and concurrent-resume repairs changed only app audio lifecycle. Final focused 93 browser, clean WebKit 31, source Chromium audio 19, and refreshed embedding/launcher/upgrade 20 cases pass separately from the earlier 845-case scope."
+    ],
+    "knownLimitations": [
+      "Physical Android, Termux on Android, Logitech hardware, iPhone and Safari were not tested.",
+      "Firefox headless AudioContext remained suspended; this run confirms cached cue bytes and deferred decode, not Firefox audible playback.",
+      "The environment has no audible output device; browser playback/decoding observations do not establish a listening test."
+    ],
+    "behavioralInputsBeforeArchiveOnlyDisplayFix": {
+      "runtimeInputs": {
+        "app.js": {
+          "bytes": 41729,
+          "sha256": "ab13f22dbb1f6521307a15c557d6aa77c0676e1bf59893d6ca9329f32f520483"
+        },
+        "engine.js": {
+          "bytes": 53081,
+          "sha256": "0a48a84d7d607cd2f9832df53ce8ee74ef71ff846f80aabb69d74a72d1db427e"
+        },
+        "render.js": {
+          "bytes": 44308,
+          "sha256": "e1c246b37525e7436e772798fc8bf6f242a673454d378f4f1cb19f0a5341d22a"
+        },
+        "cutscenes.js": {
+          "bytes": 22906,
+          "sha256": "673294a52931cee1bf0d006d24f317f3ce22aeaa7dc5c6d22de673d67910831c"
+        },
+        "data/cutscenes.js": {
+          "bytes": 18317,
+          "sha256": "2548de7c2c929f5ac8d311e059c7798a9d2b51526185fe5281441dc460b89a92"
+        },
+        "data/campaign.js": {
+          "bytes": 7987,
+          "sha256": "39c82169ac81b43c8009a0aab185dfea419ea80f7eea3a013d859efcf04694a1"
+        },
+        "assets/sprites.json": {
+          "bytes": 460488,
+          "sha256": "20cab18bed3161010c5d9e2057c39ca6958f8652d4ebb31b00238dc22af610d4"
+        },
+        "assets/portraits.json": {
+          "bytes": 7652,
+          "sha256": "3872cff14dd775b7e7c6bceddd77aa36ae06378b4906fb7c2ddadc3116c93584"
+        },
+        "The-Critic-Coming-Attractions-v8.html": {
+          "bytes": 109606311,
+          "sha256": "eaa9056ba593ecdf1173a343fafc08a319e3d3ccf50562375245afe32650e128"
+        },
+        "The-Critic-Coming-Attractions-v8-Play.sh": {
+          "bytes": 111457205,
+          "sha256": "f6da142915ac3aed51745a550c9f1ebf1cd74d5cc834d6161d059dfac574616e"
+        }
+      },
+      "scope": "Full normal-input campaigns, controllers, watched scenes, gameplay, mobile, audio and storage suites were executed against these v8 inputs. Only archive orientation resolution and the matching gallery layout delegation changed afterward; the 16 targeted archive checks and strict final embedding parity verify that final display change. No combat, campaign, scene, audio, save or source-frame data changed in that final fix."
     },
-    {
-      "id": 6,
-      "status": "verified-locally",
-      "evidence": "Source-matching editable Markdown/Word export and all 17 rendered pages reviewed"
+    "finalEmbeddedRuntimeFiles": 159,
+    "curatedLocalReceipt": {
+      "report": "evidence/V8-LOCAL-QA.json",
+      "sha256": "c63eb1070f14b80fda37a31b4d7a9a9e8a4bdab500184df6fc4b2b2dc3d635af",
+      "passed": 651,
+      "failed": 0
     },
-    {
-      "id": 7,
-      "status": "verified-locally",
-      "evidence": "Whole-wall booth alignment/visibility, eyes choreography, circuit/reel/guard/knockdown fixtures"
+    "refinementChecklist": [
+      {
+        "id": 1,
+        "status": "verified-locally",
+        "evidence": "Bulk loading/facing suites, 29 cases per source engine; no later HTTP dependencies"
+      },
+      {
+        "id": 2,
+        "status": "verified-locally",
+        "evidence": "Preferred cartwheel provenance, engine source-impact tests and actual browser RUN + HIT"
+      },
+      {
+        "id": 3,
+        "status": "verified-locally",
+        "evidence": "Complete routes plus repeated capped machine-wave fixtures and Duke pressure definitions"
+      },
+      {
+        "id": 4,
+        "status": "verified-locally",
+        "evidence": "Actual keyboard RUN + HIT heavy collisions for both players plus preserved ordinary baseline"
+      },
+      {
+        "id": 5,
+        "status": "verified-locally",
+        "evidence": "Full source audit, Marty story-facing checks and 16 final source/offline archive cases"
+      },
+      {
+        "id": 6,
+        "status": "verified-locally",
+        "evidence": "Source-matching editable Markdown/Word export and all 17 rendered pages reviewed"
+      },
+      {
+        "id": 7,
+        "status": "verified-locally",
+        "evidence": "Whole-wall booth alignment/visibility, eyes choreography, circuit/reel/guard/knockdown fixtures"
+      },
+      {
+        "id": 8,
+        "status": "verified-locally",
+        "evidence": "Cinema screen-emergence and Spike door/throw fixtures plus complete campaign progression"
+      },
+      {
+        "id": 9,
+        "status": "verified-locally",
+        "evidence": "Schema/Continue/unlock/controller suites and final 10-case v7-to-v8 launcher upgrade"
+      }
+    ],
+    "nativeWebKitAudioFollowUp": {
+      "discoveredIssue": "Intermittent native WebKit stall during repeated Start/Skip/Pause/Title transitions after earlier passing suites.",
+      "targetedChange": "Pause stops active cues and pauses both music nodes while leaving the silent AudioContext running; concurrent unlock requests share one in-flight native resume promise.",
+      "sourceAppSHA256": "28a6c88fbb5cb735146dd9410bd0dbb16b06627e74348f425d90e71469acd505",
+      "initialPauseOnlyRecheck": "Rapid probes passed but a clean Franklin opening recheck stalled and was interrupted; no full-suite pass credited.",
+      "finalCleanWebKitCampaign": {
+        "passed": 31,
+        "failed": 0,
+        "report": "evidence/campaign-webkit-final-audio-guard.json",
+        "nativeBoundary": "Clean unwrapped actual WebKit, no media stubs or prototype replacement",
+        "routes": [
+          {
+            "character": "Jay",
+            "stages": 7,
+            "kos": 75,
+            "retries": 0,
+            "machineWaves": 3
+          },
+          {
+            "character": "Franklin",
+            "stages": 7,
+            "kos": 75,
+            "retries": 0,
+            "machineWaves": 3
+          }
+        ],
+        "sha256": "854c80bbf3ae1d81049f63d595700f7d73a0f9838991b24e653d1f89c960802b"
+      },
+      "finalLoadingFacingNativeAudio": {
+        "passed": 93,
+        "failed": 0,
+        "casesPerEngine": 31,
+        "reports": [
+          "evidence/v8-loading-facing-chromium-results.json",
+          "evidence/v8-loading-facing-firefox-results.json",
+          "evidence/v8-loading-facing-webkit-results.json"
+        ],
+        "testSHA256": "72f783431bd9505042160fcd32e960468540806a34b6dc71368cc26879333782",
+        "receiptSHA256": {
+          "chromium": "490f50a374312fc4afaa57de3bbe1a1ca7184f3f60cf79126edda3d8889ed005",
+          "firefox": "668524b526df0dec078d76d25f2d7dc22c862a5f9c03ea4439273bb143d30abb",
+          "webkit": "cc8c45241077fb0137c68c09a368cc1226824b74e36d0a2f7b4038617ceaa533"
+        }
+      },
+      "chromiumAudioPresentationRecheck": {
+        "passed": 19,
+        "failed": 0,
+        "report": "evidence/audio-final-guard-chromium19.json",
+        "scope": "Actual source HTTP, real decode/playback/crossfades/pause/resume/mute; explicit scenarios rather than normal campaign; no media stubs or native-prototype replacement.",
+        "sha256": "cae418d5dd2dc1f1343663e94d0d413dbcdb05e2861beb6e771a7d1470c73761"
+      },
+      "refreshedBuildRechecks": {
+        "passed": 20,
+        "failed": 0,
+        "strictEmbedding": 3,
+        "realHTTPLauncher": 7,
+        "v7ToV8Upgrade": 10,
+        "embeddedRuntimeFiles": 159
+      },
+      "countBoundary": "The earlier 845 unique passing cases retain their recorded scope. These focused checks overlap earlier scenarios and are reported separately without adding their totals to 845; final loading adds two native-audio scenarios per engine.",
+      "publicStatus": "pending"
     },
-    {
-      "id": 8,
-      "status": "verified-locally",
-      "evidence": "Cinema screen-emergence and Spike door/throw fixtures plus complete campaign progression"
+    "finalBuildsStatus": "Rebuilt after the revised full script and staging notes. Real HTTP launcher and v7 upgrade17 cases pass; strict embedding parity is recorded separately.",
+    "editedScriptRevision": {
+      "applied": true,
+      "authoredSpokenLineEdits": 28,
+      "resolvedRouteLineEdits": 30,
+      "expressionEdits": 2,
+      "matchedPdfSpokenEntries": 55,
+      "sourceDigest": "35a3e1521acbd638faeb507f84d21b29c9d80769a8b74abf554a58a8f9b2829e",
+      "stagingNotes": [
+        "Persistent seven screen-born enemies approach Jay clear of the cage",
+        "Launch hands directly to actual gameplay landing",
+        "Broadway display label",
+        "Franklin Baby New Year1937 purpose",
+        "Violent Austrian Rabbi approved name"
+      ],
+      "baselineSourceCommit": "9970a08a64dc6118aacdfa3cd11b48e1cbe2e708",
+      "validationStatus": "Core, Chromium, Firefox and WebKit passed on reviewed source 9e9cf3a43c066a495da13ee2e3616e0b0aa36ff6 in Actions run 37656134125 (WebKit attempt 2)."
     },
-    {
-      "id": 9,
-      "status": "verified-locally",
-      "evidence": "Schema/Continue/unlock/controller suites and final 10-case v7-to-v8 launcher upgrade"
-    }
-  ],
-  "nativeWebKitAudioFollowUp": {
-    "discoveredIssue": "Intermittent native WebKit stall during repeated Start/Skip/Pause/Title transitions after earlier passing suites.",
-    "targetedChange": "Pause stops active cues and pauses both music nodes while leaving the silent AudioContext running; concurrent unlock requests share one in-flight native resume promise.",
-    "sourceAppSHA256": "28a6c88fbb5cb735146dd9410bd0dbb16b06627e74348f425d90e71469acd505",
-    "initialPauseOnlyRecheck": "Rapid probes passed but a clean Franklin opening recheck stalled and was interrupted; no full-suite pass credited.",
-    "finalCleanWebKitCampaign": {
-      "passed": 31,
-      "failed": 0,
-      "report": "evidence/campaign-webkit-final-audio-guard.json",
-      "nativeBoundary": "Clean unwrapped actual WebKit, no media stubs or prototype replacement",
-      "routes": [
+    "releaseCompletion": {
+      "reviewedSourceCommit": "9e9cf3a43c066a495da13ee2e3616e0b0aa36ff6",
+      "verifiedAtUTC": "2026-10-07T17:48:48.885411+00:00",
+      "githubActions": {
+        "url": "https://github.com/cattownfilms/the-critic-city-run/actions/runs/37656134125",
+        "core": "success",
+        "chromium": "success",
+        "firefox": "success",
+        "webkit": "success",
+        "webkitAttempt": 2
+      },
+      "webkitCancellation": {
+        "original": "Job reached its 15-minute limit after all loading/facing assertions printed PASS; no report was emitted from that suite. The last visible boundary was context/browser teardown.",
+        "recovery": "Only WebKit rerun, unchanged source, all suites passed in under five minutes.",
+        "certainty": "Native cleanup stall suspected; exact native cause unproven. No game change justified by the successful rerun."
+      },
+      "localEnvironment": "Native Termux, Python 3.14 with Pillow 12.3.0; desktop browser engines tested remotely in GitHub Actions.",
+      "localCommands": [
         {
-          "character": "Jay",
-          "stages": 7,
-          "kos": 75,
-          "retries": 0,
-          "machineWaves": 3
+          "command": "node tests/engine.test.js",
+          "exitCode": 0
         },
         {
-          "character": "Franklin",
-          "stages": 7,
-          "kos": 75,
-          "retries": 0,
-          "machineWaves": 3
+          "command": "node tests/franklin.test.js",
+          "exitCode": 0
+        },
+        {
+          "command": "node tests/v4-engine.test.js",
+          "exitCode": 0
+        },
+        {
+          "command": "node tests/campaign-engine.test.js",
+          "exitCode": 0
+        },
+        {
+          "command": "node tests/gamepad.test.js",
+          "exitCode": 0
+        },
+        {
+          "command": "node tests/v7-engine.test.js",
+          "exitCode": 0
+        },
+        {
+          "command": "node tests/v8-engine.test.js",
+          "exitCode": 0
+        },
+        {
+          "command": "node tests/cutscenes-v7.test.js",
+          "exitCode": 0
+        },
+        {
+          "command": "python tests/site.test.py",
+          "exitCode": 0
+        },
+        {
+          "command": "python tests/production-assets.test.py",
+          "exitCode": 0
+        },
+        {
+          "command": "python tests/publish.test.py",
+          "exitCode": 0
+        },
+        {
+          "command": "python tools/export_script.py --check",
+          "exitCode": 0
+        },
+        {
+          "command": "python tools/publish.py --check-only",
+          "exitCode": 0
+        },
+        {
+          "command": "python tools/build_standalone.py",
+          "exitCode": 0
+        },
+        {
+          "command": "python tools/build_launcher.py The-Critic-Coming-Attractions-v8.html The-Critic-Coming-Attractions-v8-Play.sh",
+          "exitCode": 0
+        },
+        {
+          "command": "python tests/launcher.test.py",
+          "exitCode": 0
+        },
+        {
+          "command": "python tests/upgrade-launcher.test.py",
+          "exitCode": 0
         }
       ],
-      "sha256": "854c80bbf3ae1d81049f63d595700f7d73a0f9838991b24e653d1f89c960802b"
-    },
-    "finalLoadingFacingNativeAudio": {
-      "passed": 93,
-      "failed": 0,
-      "casesPerEngine": 31,
-      "reports": [
-        "evidence/v8-loading-facing-chromium-results.json",
-        "evidence/v8-loading-facing-firefox-results.json",
-        "evidence/v8-loading-facing-webkit-results.json"
-      ],
-      "testSHA256": "72f783431bd9505042160fcd32e960468540806a34b6dc71368cc26879333782",
-      "receiptSHA256": {
-        "chromium": "490f50a374312fc4afaa57de3bbe1a1ca7184f3f60cf79126edda3d8889ed005",
-        "firefox": "668524b526df0dec078d76d25f2d7dc22c862a5f9c03ea4439273bb143d30abb",
-        "webkit": "cc8c45241077fb0137c68c09a368cc1226824b74e36d0a2f7b4038617ceaa533"
-      }
-    },
-    "chromiumAudioPresentationRecheck": {
-      "passed": 19,
-      "failed": 0,
-      "report": "evidence/audio-final-guard-chromium19.json",
-      "scope": "Actual source HTTP, real decode/playback/crossfades/pause/resume/mute; explicit scenarios rather than normal campaign; no media stubs or native-prototype replacement.",
-      "sha256": "cae418d5dd2dc1f1343663e94d0d413dbcdb05e2861beb6e771a7d1470c73761"
-    },
-    "refreshedBuildRechecks": {
-      "passed": 20,
-      "failed": 0,
-      "strictEmbedding": 3,
-      "realHTTPLauncher": 7,
-      "v7ToV8Upgrade": 10,
-      "embeddedRuntimeFiles": 159
-    },
-    "countBoundary": "The earlier 845 unique passing cases retain their recorded scope. These focused checks overlap earlier scenarios and are reported separately without adding their totals to 845; final loading adds two native-audio scenarios per engine.",
-    "publicStatus": "pending"
-  },
-  "finalBuildsStatus": "Rebuilt after the revised full script and staging notes. Real HTTP launcher and v7 upgrade17 cases pass; strict embedding parity is recorded separately.",
-  "editedScriptRevision": {
-    "applied": true,
-    "authoredSpokenLineEdits": 28,
-    "resolvedRouteLineEdits": 30,
-    "expressionEdits": 2,
-    "matchedPdfSpokenEntries": 55,
-    "sourceDigest": "35a3e1521acbd638faeb507f84d21b29c9d80769a8b74abf554a58a8f9b2829e",
-    "stagingNotes": [
-      "Persistent seven screen-born enemies approach Jay clear of the cage",
-      "Launch hands directly to actual gameplay landing",
-      "Broadway display label",
-      "Franklin Baby New Year1937 purpose",
-      "Violent Austrian Rabbi approved name"
-    ],
-    "baselineSourceCommit": "9970a08a64dc6118aacdfa3cd11b48e1cbe2e708",
-    "validationStatus": "Core, Chromium, Firefox and WebKit passed on reviewed source 9e9cf3a43c066a495da13ee2e3616e0b0aa36ff6 in Actions run 37656134125 (WebKit attempt 2)."
-  },
-  "releaseCompletion": {
-    "reviewedSourceCommit": "9e9cf3a43c066a495da13ee2e3616e0b0aa36ff6",
-    "verifiedAtUTC": "2026-10-07T17:48:48.885411+00:00",
-    "githubActions": {
-      "url": "https://github.com/cattownfilms/the-critic-city-run/actions/runs/37656134125",
-      "core": "success",
-      "chromium": "success",
-      "firefox": "success",
-      "webkit": "success",
-      "webkitAttempt": 2
-    },
-    "webkitCancellation": {
-      "original": "Job reached its 15-minute limit after all loading/facing assertions printed PASS; no report was emitted from that suite. The last visible boundary was context/browser teardown.",
-      "recovery": "Only WebKit rerun, unchanged source, all suites passed in under five minutes.",
-      "certainty": "Native cleanup stall suspected; exact native cause unproven. No game change justified by the successful rerun."
-    },
-    "localEnvironment": "Native Termux, Python 3.14 with Pillow 12.3.0; desktop browser engines tested remotely in GitHub Actions.",
-    "localCommands": [
-      {
-        "command": "node tests/engine.test.js",
-        "exitCode": 0
-      },
-      {
-        "command": "node tests/franklin.test.js",
-        "exitCode": 0
-      },
-      {
-        "command": "node tests/v4-engine.test.js",
-        "exitCode": 0
-      },
-      {
-        "command": "node tests/campaign-engine.test.js",
-        "exitCode": 0
-      },
-      {
-        "command": "node tests/gamepad.test.js",
-        "exitCode": 0
-      },
-      {
-        "command": "node tests/v7-engine.test.js",
-        "exitCode": 0
-      },
-      {
-        "command": "node tests/v8-engine.test.js",
-        "exitCode": 0
-      },
-      {
-        "command": "node tests/cutscenes-v7.test.js",
-        "exitCode": 0
-      },
-      {
-        "command": "python tests/site.test.py",
-        "exitCode": 0
-      },
-      {
-        "command": "python tests/production-assets.test.py",
-        "exitCode": 0
-      },
-      {
-        "command": "python tests/publish.test.py",
-        "exitCode": 0
-      },
-      {
-        "command": "python tools/export_script.py --check",
-        "exitCode": 0
-      },
-      {
-        "command": "python tools/publish.py --check-only",
-        "exitCode": 0
-      },
-      {
-        "command": "python tools/build_standalone.py",
-        "exitCode": 0
-      },
-      {
-        "command": "python tools/build_launcher.py The-Critic-Coming-Attractions-v8.html The-Critic-Coming-Attractions-v8-Play.sh",
-        "exitCode": 0
-      },
-      {
-        "command": "python tests/launcher.test.py",
-        "exitCode": 0
-      },
-      {
-        "command": "python tests/upgrade-launcher.test.py",
-        "exitCode": 0
-      }
-    ],
-    "launcherBoundary": "Actual loopback HTTP and v7-to-v8 upgrade in temporary HOME directories on Termux; personal installation and browser saves untouched. No physical browser/controller claim.",
-    "publicVerification": "Run the manual Verify deployed Pages game workflow after main deploys. It requires the Pages build commit to equal the dispatched main commit and reuses existing Chromium controller, campaign, gameplay and opening tests against the API-returned HTTPS URL.",
-    "receipt": "Final deployment commit, HTTPS byte checks, hosted-browser result and artifact hashes are recorded outside the tracked release in the release-completion receipt.",
-    "followUp": {
-      "observedHostFailures": [
-        "Ubuntu package mirror stalled before tests, exhausting the job timeout",
-        "Unpinned host WebKit intermittently stalled inside scene skip, loading/facing or native cleanup; exact native cause is unproven"
-      ],
-      "runnerCorrection": "Use the official Playwright Python 1.58.0 Noble image pinned to sha256:678457c4c323b981d8b4befc57b95366bb1bb6aa30057b1269f6b171e8d9975a, matching requirements-test.txt. Correct the temporary container HOME ownership for Firefox without changing local Termux configuration.",
-      "pinnedEnvironmentEvidence": {
-        "run": "https://github.com/cattownfilms/the-critic-city-run/actions/runs/37670144999",
-        "webkitCampaign": [
-          {
-            "passed": 31,
-            "failed": 0
-          },
-          {
-            "passed": 31,
-            "failed": 0
-          },
-          {
-            "passed": 31,
-            "failed": 0
-          }
+      "launcherBoundary": "Actual loopback HTTP and v7-to-v8 upgrade in temporary HOME directories on Termux; personal installation and browser saves untouched. No physical browser/controller claim.",
+      "publicVerification": "Run the manual Verify deployed Pages game workflow after main deploys. It requires the Pages build commit to equal the dispatched main commit and reuses existing Chromium controller, campaign, gameplay and opening tests against the API-returned HTTPS URL.",
+      "receipt": "Final deployment commit, HTTPS byte checks, hosted-browser result and artifact hashes are recorded outside the tracked release in the release-completion receipt.",
+      "followUp": {
+        "observedHostFailures": [
+          "Ubuntu package mirror stalled before tests, exhausting the job timeout",
+          "Unpinned host WebKit intermittently stalled inside scene skip, loading/facing or native cleanup; exact native cause is unproven"
         ],
-        "webkitLoadingFacing": [
-          {
-            "passed": 31,
-            "failed": 0
-          },
-          {
-            "passed": 31,
-            "failed": 0
-          },
-          {
-            "passed": 31,
-            "failed": 0
-          }
-        ],
-        "nativeCleanup": "All three loading/facing cleanups returned. Native audio remains enabled; calls are traced and delegated unchanged.",
-        "otherFindings": "Firefox refused mismatched HOME ownership. WebKit archive gallery snapshot read before its selected animation draw; exhaustive 162-frame renderer pixel comparisons passed."
+        "runnerCorrection": "Use the official Playwright Python 1.58.0 Noble image pinned to sha256:678457c4c323b981d8b4befc57b95366bb1bb6aa30057b1269f6b171e8d9975a, matching requirements-test.txt. Correct the temporary container HOME ownership for Firefox without changing local Termux configuration.",
+        "pinnedEnvironmentEvidence": {
+          "run": "https://github.com/cattownfilms/the-critic-city-run/actions/runs/37670144999",
+          "webkitCampaign": [
+            {
+              "passed": 31,
+              "failed": 0
+            },
+            {
+              "passed": 31,
+              "failed": 0
+            },
+            {
+              "passed": 31,
+              "failed": 0
+            }
+          ],
+          "webkitLoadingFacing": [
+            {
+              "passed": 31,
+              "failed": 0
+            },
+            {
+              "passed": 31,
+              "failed": 0
+            },
+            {
+              "passed": 31,
+              "failed": 0
+            }
+          ],
+          "nativeCleanup": "All three loading/facing cleanups returned. Native audio remains enabled; calls are traced and delegated unchanged.",
+          "otherFindings": "Firefox refused mismatched HOME ownership. WebKit archive gallery snapshot read before its selected animation draw; exhaustive 162-frame renderer pixel comparisons passed."
+        },
+        "galleryTestCorrection": "Wait for the actual renderer to draw the selected gallery animation, replacing a fixed 60 ms delay. The exact canvas pixel comparison and all frame/orientation assertions remain unchanged.",
+        "repeatPolicy": "Three independent WebKit campaign/loading passes are mandatory and fail immediately on any failure; no retry converts a failure into success.",
+        "runtimeChanges": "Only app.js AudioSystem music-player lifecycle changes: bounded per-track reuse, no outgoing source clear/load, and safe handling of stale native play completion. All supplied assets, approved script and gameplay/renderer data remain unchanged."
       },
-      "galleryTestCorrection": "Wait for the actual renderer to draw the selected gallery animation, replacing a fixed 60 ms delay. The exact canvas pixel comparison and all frame/orientation assertions remain unchanged.",
-      "repeatPolicy": "Three independent WebKit campaign/loading passes are mandatory and fail immediately on any failure; no retry converts a failure into success.",
-      "runtimeChanges": "Only app.js AudioSystem music-player lifecycle changes: bounded per-track reuse, no outgoing source clear/load, and safe handling of stale native play completion. All supplied assets, approved script and gameplay/renderer data remain unchanged."
-    },
-    "nativeMediaReloadFix": {
-      "evidenceRun": "https://github.com/cattownfilms/the-critic-city-run/actions/runs/37673334509",
-      "evidenceJob": 112970383952,
-      "unfinishedCall": {
-        "call": "HTMLMediaElement.load",
-        "traceId": 19,
-        "startedAtUTC": "2026-10-07T19:20:33.2048763Z",
-        "result": "No returned trace; campaign terminated by explicit five-minute timeout with exit 124"
-      },
-      "trigger": "Return to Title, New Game, then opening scene skip while changing music",
-      "change": "Keep one prepared HTMLAudioElement per configured track. Pause retired players without clearing src or calling load(). Preserve restart-on-track-change, 0.9-second crossfade, same-track resume position and stale playback cancellation.",
-      "appSHA256": "7563619a6356bd8a7c53e368392d09edaf962dbd8fb403f0ece7793da833aea9",
-      "unitRegression": "Actual AudioSystem class: 3 regressions failed on the prior source, 4/4 pass with the fix. Native browser runs remain required.",
-      "mediaAndScript": "Byte-identical to reviewed 9e9cf3a."
+      "nativeMediaReloadFix": {
+        "evidenceRun": "https://github.com/cattownfilms/the-critic-city-run/actions/runs/37673334509",
+        "evidenceJob": 112970383952,
+        "unfinishedCall": {
+          "call": "HTMLMediaElement.load",
+          "traceId": 19,
+          "startedAtUTC": "2026-10-07T19:20:33.2048763Z",
+          "result": "No returned trace; campaign terminated by explicit five-minute timeout with exit 124"
+        },
+        "trigger": "Return to Title, New Game, then opening scene skip while changing music",
+        "change": "Keep one prepared HTMLAudioElement per configured track. Pause retired players without clearing src or calling load(). Preserve restart-on-track-change, 0.9-second crossfade, same-track resume position and stale playback cancellation.",
+        "appSHA256": "7563619a6356bd8a7c53e368392d09edaf962dbd8fb403f0ece7793da833aea9",
+        "unitRegression": "Actual AudioSystem class: 3 regressions failed on the prior source, 4/4 pass with the fix. Native browser runs remain required.",
+        "mediaAndScript": "Byte-identical to reviewed 9e9cf3a."
+      }
     }
-  }
+  },
+  "sourceCommit": "6bb28cc3b4b3579ddae2897c59fa68bbe7f83819"
 }

@@ -1,3 +1,12 @@
+# v9.0.0 — gameplay and playtest correction pass
+
+- Trusted-gesture music/SFX unlock, per-element preparation and partial-settings defaults.
+- Heavy scale/knockdown, contextual phased bosses and rolling Spike cans.
+- Temporary projection remotes; three-round environmental broadcast core; no live summon deletion.
+- Live-stage dialogue overlays, two activation presses, no empty dialogue panels, direct boss progression and Duke position handoff.
+- Save schema remains 5; supplied media and character libraries unchanged.
+- Validation and publication evidence is recorded in the v9 release receipt; implementation alone does not imply physical audio verification.
+
 # THE CRITIC: COMING ATTRACTIONS — Changelog
 
 ## 8.0.0

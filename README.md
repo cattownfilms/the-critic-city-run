@@ -2,13 +2,13 @@
 
 A complete seven-stage, mobile-first arcade brawler. Duke demands a glowing review, kidnaps Marty, and turns his experimental broadcasting system on. The Coming Attractions spill into New York. Jay goes after his son.
 
-**[Play the game](https://cattownfilms.github.io/the-critic-city-run/)** · v8.0.0 · Touch, keyboard, optional remappable controller · No account or runtime service required.
+**[Play the game](https://cattownfilms.github.io/the-critic-city-run/)** · v9.0.0 · Touch, keyboard, optional remappable controller · No account or runtime service required.
 
 ## Play locally
 
 Run `python3 -m http.server 8788 --bind 127.0.0.1` in this folder and open `http://127.0.0.1:8788/`. Keep this origin to retain existing local saves. Direct `file://index.html` is unsupported; use the generated standalone file for direct offline play.
 
-The release bundle includes the complete standalone `The-Critic-Coming-Attractions-v8.html` and Termux launcher `The-Critic-Coming-Attractions-v8-Play.sh`. In Termux, install Python, then run `bash The-Critic-Coming-Attractions-v8-Play.sh`. It keeps the existing localhost:8788 origin and installation directory, backs up the old HTML, and never clears browser saves. The browser and Termux must remain open for reloads.
+The release bundle includes the complete standalone `The-Critic-Coming-Attractions-v9.html` and Termux launcher `The-Critic-Coming-Attractions-v9-Play.sh`. In Termux, install Python, then run `bash The-Critic-Coming-Attractions-v9-Play.sh`. It keeps the existing localhost:8788 origin and installation directory, backs up the old HTML, and never clears browser saves. The browser and Termux must remain open for reloads.
 
 The title shell and options appear first. The game then bulk loads and decodes all runtime sprite atlases, portraits, scene and environment images, and downloads the five music recordings and thirteen sound cues. Start, Continue and every Animation Room entrance remain disabled until this preparation finishes. Progress reflects actual completed files and downloaded bytes, with Retry after a failed download. Later scenes use the prepared cache. This intentionally moves loading to startup and retains every unique animation.
 
@@ -22,7 +22,7 @@ The title shell and options appear first. The game then bulk loads and decodes a
 
 Small stick deflection walks; full deflection runs. Standing HIT chains jab, cross, front kick, palm. JUMP + HIT kicks in the air; RUN + HIT Belly Bashes as Jay or cartwheels as Franklin. Hold GUARD for frontal block, time GUARD to parry, MOVE + GUARD slips, then HIT counters. Full REVIEW meter fires the established finisher.
 
-Accordion Bear and Green Hippo stop either player's running attack. The collision stuns the player and breaks the combo; use ordinary punches, kicks and defensive timing against these heavy opponents. Other running-attack targets retain the strong horizontal launch. Franklin's cartwheel now uses the preferred supplied performance, retimed to the existing running-attack window.
+Accordion Bear, Green Hippo and the Violent Austrian Rabbi overpower either player's running attack: one backward knockdown and brief protected recovery. The original Belly Bash/cartwheel remains strong against ordinary enemies. Heavy character scale is consistent across each complete animation bank.
 
 Controllers remain optional and off by default. Enable one in Controls/Pause; nonstandard devices require the existing eleven-step remapping wizard. Standard mapping is accepted only when the browser reports it, including Logitech-style devices. Disconnect/focus loss clears held controls and pauses. Hardware has not been tested physically.
 
@@ -46,7 +46,7 @@ Shermometers v1/v2/v3 remain the ordinary roster’s backbone. Accordion Bear, G
 
 Franklin remains brown-haired and unlocks when Jay defeats him and exits Stage 4 without dying during that attempt. The campaign continues after that unlock. Franklin never fights himself; later results never announce him as newly unlocked again.
 
-Palace Cinema's booths span the rear wall and move with that wall. The projectionist appears only in an onscreen powered booth. Each of three circuit colors controls a group of booths; breaking a circuit darkens its group and cancels its reels. Reels bounce three times and knock down the player after an unblocked hit. Both all circuits and the Violent Austrian Rabbi must be defeated before the exit opens.
+Palace Cinema uses three projection phases: dodge three reels, then smash one temporary remote to darken that circuit. No permanent floor boxes. After the third remote, the larger Rabbi emerges once from the auditorium screen. Spike releases a bouncing, rolling can aimed at the player's lane at release; jump over it. Broadcast Tower has three screen-born waves, each followed by a timed core vulnerability. Living summons must be defeated. Duke pursues physically, varies attacks contextually, and increases pressure below 65% and 35% health. Boss clears progress directly into the next story/stage.
 
 ## Saves and content
 
@@ -68,7 +68,7 @@ Python 3.10+ and Node 22+; gameplay itself has no package dependencies.
 
 ```sh
 python3 tools/build_standalone.py
-python3 tools/build_launcher.py The-Critic-Coming-Attractions-v8.html The-Critic-Coming-Attractions-v8-Play.sh
+python3 tools/build_launcher.py The-Critic-Coming-Attractions-v9.html The-Critic-Coming-Attractions-v9-Play.sh
 node tests/engine.test.js
 node tests/franklin.test.js
 node tests/v4-engine.test.js
@@ -86,3 +86,11 @@ python3 tests/launcher.test.py
 Browser tests require `pip install -r requirements-test.txt` and installed Playwright browser engines. `python3 tests/gamepad-browser.test.py --engine chromium --url local` exercises the real source site. `python3 tests/campaign-browser.test.py` covers scenes, touch, migration and campaign integration. The v8 loading/facing and gameplay browser suites cover bulk readiness, scene cache use, direction, heavy run collisions, world-fixed booths, bouncing projectiles and the new boss sequence. The retained v7 scene suite covers route-aware staging and input safety; its old deferred-loading suite is historical because v8 intentionally changes that contract. CI runs Chromium/Firefox/WebKit and reports actual failures; configuration alone is not evidence of a passing run.
 
 The historical first-publish tool remains for provenance and safety tests. Updates to this existing repository use a branch and reviewed merge, preserving the Pages path and history. `PUBLIC-FILES.json` fingerprints the reviewed release allowlist; prompt logs, saves, credentials, raw source media and duplicate builds are excluded from the repository.
+
+## v9 playtest corrections
+
+Music and WebAudio unlock directly on trusted pointer/key gestures; blocked playback retries on later interaction. Missing fields in old settings retain defaults; explicit zero volumes remain respected. The five songs and thirteen SFX are unchanged. Native browser tests measure advancing music time and nonzero SFX output, not only HTTP availability. Physical Android speaker output still requires the on-phone checklist.
+
+Stage scenes overlay the real gameplay world. Visual-only beats hide the empty dialogue frame; the opening has distinct screen-power and materialization presses, retains its crowd, and lands on the live Broadway canvas.
+
+Run `node tests/v9-engine.test.js` and `python tests/v9-audio-browser.test.py --engine chromium --url local` for the focused v9 regressions. CI also runs Firefox/WebKit. See `docs/V9-PLAYTEST-LEDGER.md` for each annotation and its evidence status.

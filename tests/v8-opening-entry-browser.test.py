@@ -55,7 +55,7 @@ with source_site(args.url) as url,sync_playwright() as pw:
             page.locator('#startButton').click();wait(page,'__brawler.scenes().active&&!__brawler.scenes().loading');to_launch(page)
             if route=='franklin':
                 # Hold a gameplay key before the beat is advanceable, then use touch.
-                page.keyboard.down('KeyJ');page.evaluate('__brawler.scenes().time=1.8');page.locator('#sceneAdvance').tap()
+                page.keyboard.down('KeyJ');page.evaluate('__brawler.scenes().time=1.8');page.keyboard.press('Enter')
             else:
                 page.evaluate('__brawler.scenes().time=1.8');page.keyboard.down('KeyJ')
             wait(page,'__brawler.game.mode==="play"&&!__brawler.scenes().active')

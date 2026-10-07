@@ -34,7 +34,7 @@ with source_site(args.url) as url,sync_playwright() as pw:
     if enemy in ['bear','hippo']:
      page.wait_for_function('__v8Events.some(e=>e.type==="runBlocked")',timeout=5000)
      value=page.evaluate('({hp:__brawler.game.enemies[0].hp,combo:__brawler.game.p.combo,chain:__brawler.game.p.chainIndex,action:__brawler.game.p.action?.name,events:__v8Events.filter(e=>e.type==="runBlocked").length,buffer:__brawler.game.p.attackBuffer,kb:__brawler.game.enemies[0].kb})')
-     check(f'{character}: actual RUN + HIT into {enemy} stuns player once without enemy damage',value['hp']==1000 and value['action']=='run-stun' and value['events']==1 and value['kb']==0,value)
+     check(f'{character}: actual RUN + HIT into {enemy} knocks player down once without enemy damage',value['hp']==1000 and value['action']=='knockdown' and value['events']==1 and value['kb']==0,value)
      check(f'{character}: {enemy} collision clears the standing combo and attack buffer',value['combo']==0 and value['chain']==0 and value['buffer']==0,value)
     else:
      page.wait_for_function('__brawler.game.enemies[0].hp<1000',timeout=5000)
@@ -55,18 +55,17 @@ with source_site(args.url) as url,sync_playwright() as pw:
   check('Reel keeps travelling through three visible floor hops before expiring',value['bounces']==3 and value['remaining']==0,value)
   value=page.evaluate('''()=>{const g=__brawler.game;g.projectiles=[];g.p.inv=0;g.p.hp=100;g.p.guard=true;g.p.guardT=1;g.p.face=-1;g.p.action=null;g.p.x=700;g.p.y=400;const q={kind:'reel',x:695,y:400,z:0,radius:32,sourceX:2600,face:1,damage:9,contacted:false};g.projectileContact(q);return {hp:g.p.hp,action:g.p.action?.name};}''')
   check('A reflected reel uses its current incoming side for frontal guard and does not knock down',value['hp']>=96 and value['action']!='knockdown',value)
-  fixture(page,stage=4);value=page.evaluate('''()=>{const g=__brawler.game;g.activeGate=2;g.spawnBoss();return {kind:g.enemies[0].kind,route:g.enemies[0].entry.route,source:g.enemies[0].entry.sourceX,hp:g.enemies[0].hp};}''')
+  fixture(page,stage=4);value=page.evaluate('''()=>{const g=__brawler.game;g.activeGate=2;for(let i=0;i<3;i++)g.disableCircuit(i);g.spawnBoss();return {kind:g.enemies[0].kind,route:g.enemies[0].entry.route,source:g.enemies[0].entry.sourceX,hp:g.enemies[0].hp};}''')
   check('Cream Scarf is the cinema boss with an explicit film-screen emergence',value['kind']=='pizzeria-boss' and value['route']=='screen' and value['source']==2450,value)
   skip_story(page);photo(page,'cream-cinema-entry')
   fixture(page,stage=5);value=page.evaluate('''()=>{const g=__brawler.game;g.activeGate=2;g.spawnBoss();return {kind:g.enemies[0].kind,route:g.enemies[0].entry.route,bank:Object.keys(__brawler.meta().characters.spike),impact:__brawler.meta().characters.spike['trash-throw'].sourceImpact};}''')
   check('Spike is the Little Italy boss with supplied trash-can combat and a door entrance',value['kind']=='spike' and value['route']=='door' and 'trash-throw' in value['bank'] and page.evaluate('!!__brawler.meta().characters["trash-can"]["thrown"]') and abs(value['impact']-.3684210526)<1e-6,value)
   skip_story(page);photo(page,'spike-pizzeria-entry')
-  fixture(page,stage=6);value=page.evaluate('''()=>{const g=__brawler.game;g.activeGate=2;g.spawnBoss();g.mode='play';g.updateBroadcastSummons(1.21);const first=g.enemies.filter(e=>e.broadcastSummon&&e.hp>0);g.updateBroadcastSummons(5.01);const capped=g.enemies.filter(e=>e.broadcastSummon&&e.hp>0).length;g.updateBroadcastSummons(50);const max=g.enemies.filter(e=>e.broadcastSummon&&e.hp>0).length;for(const e of first){e.hp=0;e.timer=2;}g.updateBroadcastSummons(.01);return {first:first.length,routes:first.map(e=>e.entry.route),capped,max,waves:g.broadcastSummons.wave,replenished:g.enemies.filter(e=>e.broadcastSummon&&e.hp>0).length};}''')
-  check('Broadcast machine sends repeated pairs through visible screens with a four-live-enemy cap',value['first']==2 and value['routes']==['broadcast','broadcast'] and value['capped']==4 and value['max']==4,value)
-  check('Machine replaces defeated waves rather than exhausting a fixed spawn list',value['waves']==3 and value['replenished']==4,value)
-  skip_story(page);photo(page,'machine-wave')
-  value=page.evaluate('''()=>{const g=__brawler.game;g.mode='play';const before=g.stats.kos;g.registerHit(g.enemies.find(e=>e.kind==='broadcast-rig'),{damage:9999,kb:0});const state={active:g.broadcastSummons.active,living:g.enemies.filter(e=>e.broadcastSummon&&e.hp>0).length,mode:g.mode,rescued:!!g.storyFlags.martyRescued,kos:g.stats.kos-before};g.updateBroadcastSummons(100);return {...state,after:g.enemies.filter(e=>e.broadcastSummon&&e.hp>0).length};}''')
-  check('Machine defeat ends all summons once without extra KO rewards or premature Marty rescue',not value['active'] and value['living']==0 and value['after']==0 and value['kos']==1 and not value['rescued'] and value['mode']=='confrontation',value)
+  fixture(page,stage=6)
+  value=page.evaluate("""()=>{const g=__brawler.game;g.activeGate=2;g.spawnBoss();g.updateBroadcastSummons(.01);const core=g.enemies[0],waves=[];for(let round=1;round<=3;round++){g.updateBroadcastSummons(.01);const live=g.enemies.filter(e=>e.broadcastSummon&&e.hp>0);waves.push({round:g.broadcastSummons.wave,count:live.length,screenBorn:live.every(e=>e.entry?.route==='broadcast'),shielded:g.registerHit(core,{damage:9999,kb:0})===false});for(const e of live)g.registerHit(e,{damage:9999,kb:0});g.updateBroadcastSummons(.01);waves[waves.length-1].exposed=g.broadcastSummons.phase==='vulnerable';g.registerHit(core,{damage:9999,kb:0});}return {waves,mode:g.mode,stopped:!g.broadcastSummons.active,remaining:g.enemies.filter(e=>e.hp>0).length,kos:g.stats.kos,rescued:!!g.storyFlags.martyRescued};}""")
+  check('Three screen-born broadcast rounds require actual kills before core vulnerability',len(value['waves'])==3 and all(w['shielded'] and w['exposed'] and w['screenBorn'] and w['count']==w['round']+1 for w in value['waves']),value)
+  check('Final core destruction ends spawning after nine actual enemy defeats and one machine',value['stopped'] and value['remaining']==0 and value['kos']==10 and value['mode']=='confrontation' and not value['rescued'],value)
+  skip_story(page);photo(page,'machine-resolved')
   check('V8 gameplay and presentation fixtures have no uncaught JavaScript errors',not errors,errors)
  except Exception as e:
   import traceback

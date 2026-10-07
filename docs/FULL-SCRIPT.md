@@ -1,6 +1,6 @@
 # THE CRITIC: COMING ATTRACTIONS
 
-Full campaign script v8.0.0
+Full campaign script v9.0.0
 
 Edit the dialogue under each speaker. Scene and beat identifiers connect every line to its place in the game. Shared exchanges appear once; Jay and Franklin alternatives are shown together.
 
@@ -116,7 +116,17 @@ If television can't bring the audience to us, perhaps we'll just bring the telev
 
 Portrait: duke | Expression: smug
 
-### Beat 07 screen emergence
+### Beat 07 second press
+
+opening/second-press | Automatic advance after 1s; earliest advance 0.9s.
+
+*Jay: hurt; Duke: attack; Marty: scared idle; Marty is confined in the cage; broadcast monitors are powered; a white flash punctuates the beat; sound cue: heavy.*
+
+*Franklin route: Franklin: idle.*
+
+No spoken dialogue.
+
+### Beat 08 screen emergence
 
 opening/screen-emergence | Automatic advance after 4.1s; earliest advance 3.8s.
 
@@ -126,7 +136,7 @@ opening/screen-emergence | Automatic advance after 4.1s; earliest advance 3.8s.
 
 No spoken dialogue.
 
-### Beat 08 hatchi matchi
+### Beat 09 hatchi matchi
 
 opening/hatchi-matchi | Player advances; earliest advance 0.22s.
 
@@ -140,7 +150,7 @@ Hatchi Matchi!!!
 
 Portrait: jay | Expression: shocked
 
-### Beat 09 window launch
+### Beat 10 window launch
 
 opening/window-launch | Automatic advance after 1.9s; earliest advance 1.8s.
 
@@ -150,7 +160,7 @@ opening/window-launch | Automatic advance after 1.9s; earliest advance 1.8s.
 
 No spoken dialogue.
 
-### Beat 10 street recovery
+### Beat 11 street recovery
 
 opening/street-recovery | Immediate transition to Stage 1 gameplay; no cutscene hold.
 
@@ -262,7 +272,7 @@ stage-04-intro/beat-02 | Player advances; earliest advance 0.22s.
 
 **JAY / Jay route**
 
-Ah, isn't this where we saw Cats? Not the musical, I think they were literally eating out of the garbage…
+Isn't this where we saw Cats? Not the play... It was the cast eating out of the garbage.
 
 Portrait: jay | Expression: neutral
 
@@ -368,7 +378,7 @@ This looks like a job for the robot puncher!
 
 Portrait: franklin | Expression: neutral
 
-Objective: DISABLE THE 3 PROJECTION CIRCUITS
+Objective: DODGE THREE REELS — SMASH THE REMOTE
 
 ## THE MAIN ATTRACTION
 
@@ -390,7 +400,7 @@ No spoken dialogue.
 
 boss-cinema-intro/screen-emergence | Automatic advance after 1.6s; earliest advance 1.4s.
 
-*Selected player: idle; Violent Austrian Rabbi emerges from the cinema screen and moves right and down onto the combat plane, then guard reset after 1.4s; the Violent Austrian Rabbi is foreshadowed inside the cinema screen; a white flash punctuates the beat; sound cue: slam.*
+*Selected player: idle; Violent Austrian Rabbi emerges from the cinema screen and moves right and down onto the combat plane, then guard reset after 1.4s; a white flash punctuates the beat; sound cue: slam.*
 
 No spoken dialogue.
 
@@ -944,7 +954,7 @@ boss-projection-intro/beat-03 | Player advances; earliest advance 0.22s.
 
 **JAY / Jay route**
 
-Three circuits. At least this theater has an off switch.
+Three circuits. Three remotes. At least this theater has an off switch.
 
 Portrait: jay | Expression: neutral
 
@@ -954,7 +964,7 @@ Lights first. Then the exit.
 
 Portrait: franklin | Expression: neutral
 
-Objective: DISABLE THE 3 PROJECTION CIRCUITS
+Objective: DODGE THREE REELS — SMASH THE REMOTE
 
 ## Unlock and results text
 
@@ -1042,4 +1052,4 @@ Story lines and staging are authored in data/cutscenes.js. Stage and boss trigge
 
 Use the scene and beat identifiers when returning revisions. Replace the spoken line under the appropriate route; shared lines affect both characters. The seven approved opening lines are preserved exactly.
 
-Source fingerprint: 35a3e1521acbd638
+Source fingerprint: 9747ca6bf5993119

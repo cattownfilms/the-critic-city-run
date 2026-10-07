@@ -3,7 +3,7 @@ from pathlib import Path
 import base64,gzip,hashlib,sys
 html=Path(sys.argv[1]).read_bytes();out=Path(sys.argv[2]);sha=hashlib.sha256(html).hexdigest()
 header='''#!/usr/bin/env bash
-# THE CRITIC: COMING ATTRACTIONS v8.0. Offline game, local browser launcher.
+# THE CRITIC: COMING ATTRACTIONS v9.0. Offline game, local browser launcher.
 # The embedded game is extracted only when you run this script.
 set -euo pipefail
 PYTHON="$(command -v python3 || command -v python || true)"
@@ -14,7 +14,7 @@ fi
 "$PYTHON" - "$0" <<'PYGAME'
 from pathlib import Path
 import base64,gzip,hashlib,http.server,json,os,subprocess,sys,urllib.request
-MARKER=b"\\n__CRITIC_EMBEDDED_BRAWLER_V8__\\n"
+MARKER=b"\\n__CRITIC_EMBEDDED_BRAWLER_V9__\\n"
 raw=Path(sys.argv[1]).read_bytes().split(MARKER,1)[1]
 html=gzip.decompress(base64.b64decode(raw))
 EXPECTED="__SHA256__"
@@ -23,10 +23,10 @@ if hashlib.sha256(html).hexdigest()!=EXPECTED:
 app=Path.home()/'.local/share/cattown/critic-brawler';app.mkdir(parents=True,exist_ok=True)
 f=app/'index.html';tmp=app/'index.html.tmp'
 if f.exists() and f.read_bytes()!=html:
-    backup=app/'index-before-v8.html'
+    backup=app/'index-before-v9.html'
     if not backup.exists():backup.write_bytes(f.read_bytes())
 tmp.write_bytes(html);tmp.replace(f)
-HOST='127.0.0.1';PORT=8788;URL=f'http://{HOST}:{PORT}/';TAG='cattown-critic-brawler-v8'
+HOST='127.0.0.1';PORT=8788;URL=f'http://{HOST}:{PORT}/';TAG='cattown-critic-brawler-v9'
 def open_browser():
     if os.environ.get('CRITIC_NO_BROWSER')=='1':return
     for cmd in (['termux-open-url',URL],['am','start','-a','android.intent.action.VIEW','-d',URL],['xdg-open',URL]):
@@ -68,6 +68,6 @@ except KeyboardInterrupt:print('\\nComing Attractions launcher stopped. Your bro
 finally:server.server_close()
 PYGAME
 exit 0
-__CRITIC_EMBEDDED_BRAWLER_V8__
+__CRITIC_EMBEDDED_BRAWLER_V9__
 '''.replace('__SHA256__',sha)
 encoded=base64.encodebytes(gzip.compress(html,compresslevel=9)).decode();out.write_text(header+encoded);out.chmod(0o755);print(out,out.stat().st_size)

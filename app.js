@@ -8,7 +8,7 @@ const stageMusic=()=>Brawler.STAGES[game.stage]?.music||['broadway','subway','ro
 const validSave=s=>[2,3,4,5].includes(s?.version)&&(!s.complete||(s.version<4&&s.stage===3)||(s.version===4&&s.stage===6))?s:null;
 let storageOK=true;function readStore(k){try{return JSON.parse(localStorage.getItem(k)||'null');}catch(e){storageOK=false;return null;}}
 function store(k,v){try{localStorage.setItem(k,JSON.stringify(v));return true;}catch(e){storageOK=false;$('saveNote').textContent='Browser storage unavailable. The game still plays; keep this tab open.';return false;}}
-const stored=readStore(conf.settingsKey);if(stored){settings.music=clamp(+stored.music||0,0,1);settings.sfx=clamp(+stored.sfx||0,0,1);settings.reducedMotion=!!stored.reducedMotion;settings.vibration=!!stored.vibration;}
+const stored=readStore(conf.settingsKey);if(stored){for(const key of ['music','sfx'])if((typeof stored[key]==='number'||typeof stored[key]==='string'&&stored[key].trim()!=='')&&Number.isFinite(+stored[key]))settings[key]=clamp(+stored[key],0,1);settings.reducedMotion=!!stored.reducedMotion;settings.vibration=!!stored.vibration;}
 let save=validSave(readStore(conf.saveKey)||readStore(conf.legacySaveKey));
 let profile=readStore(conf.profileKey)||{};if(typeof profile!=='object')profile={};profile.franklinUnlocked=profile.franklinUnlocked===true||save?.franklinUnlocked===true;let selected=profile.selected==='franklin'&&profile.franklinUnlocked?'franklin':'hero';
 $('continueButton').hidden=!save;$('musicVolume').value=Math.round(settings.music*100);$('sfxVolume').value=Math.round(settings.sfx*100);$('reducedMotion').checked=settings.reducedMotion;$('vibration').checked=settings.vibration;
@@ -57,12 +57,37 @@ class AudioSystem{
   else next.currentTime=0;
   this.music=next;this.music.volume=0;this.fade=0;this.trackKey=key;
  }
+ gesture(){
+  // All policy-sensitive calls occur synchronously within the trusted event.
+  this.unlock();
+  if(this.muted)return;
+  for(const [key,item] of Object.entries(conf.music)){
+   if(!cachedURLs.has(item.file))continue;
+   let node=this.musicNodes.get(key);
+   // A terminal media decode/source error cannot recover by replaying the same
+   // element. Replace only that failed player on a fresh explicit gesture.
+   if(node?.error&&[3,4].includes(node.error.code)){
+    const failed=node;failed.pause();node=new Audio(src(item.file));node.loop=true;node.preload='none';
+    this.musicNodes.set(key,node);this.primed?.delete(failed);this.priming?.delete(failed);
+    if(failed===this.music){this.music=node;node.volume=settings.music;}
+    if(failed===this.outgoing)this.outgoing=null;
+   }
+   if(!node){node=new Audio(src(item.file));node.loop=true;node.preload='auto';this.musicNodes.set(key,node);}
+   if(!node.getAttribute('src'))node.src=src(item.file);
+   if(node===this.music)continue;
+   if(this.primed?.has(node)||this.priming?.has(node))continue;
+   (this.priming||(this.priming=new Set())).add(node);
+   node.volume=0;
+   try{const pending=node.play();Promise.resolve(pending).then(()=>{this.priming.delete(node);(this.primed||(this.primed=new Set())).add(node);if(!this.wantMusic||this.muted||(node!==this.music&&node!==this.outgoing))node.pause();},e=>{this.priming.delete(node);this.lastPrimeError=String(e);});}catch(e){this.priming.delete(node);this.lastPrimeError=String(e);}
+  }
+  if(this.wantMusic&&this.music.paused)this.playMusic(this.trackKey);
+ }
  async playMusic(key){
-  key=key||stageMusic();this.chooseTrack(key);this.wantMusic=true;const serial=++this.musicSerial,node=this.music;await this.unlock();
+  key=key||stageMusic();this.chooseTrack(key);this.wantMusic=true;const serial=++this.musicSerial,node=this.music;this.unlock();
   if(!this.wantMusic||serial!==this.musicSerial||this.muted||settings.music<=0)return;
   if(!node.getAttribute('src'))return;
-  try{await node.play();if(!this.wantMusic||node!==this.music||this.muted)node.pause();}
-  catch(e){if(this.wantMusic&&serial===this.musicSerial){this.errors.push('music: '+e);toast('Tap the sound button to enable audio.');}}
+  try{const pending=node.play();await pending;this.lastBlocked=null;if(!this.wantMusic||node!==this.music||this.muted)node.pause();}
+  catch(e){if(this.wantMusic&&serial===this.musicSerial){this.lastBlocked=String(e);this.errors.push('music: '+e);toast('Tap the sound button to enable audio.');}}
  }
  sample(name,vol=.65,rate=1){if(this.muted||!this.ctx||this.ctx.state!=='running'||!this.buffers[name]||this.active.size>=10)return;const b=this.ctx.createBufferSource(),g=this.ctx.createGain();b.buffer=this.buffers[name];b.playbackRate.value=rate;g.gain.value=vol;b.connect(g);g.connect(this.bus);this.bus.gain.value=settings.sfx;b.start();this.active.add(b);this.played[name]=(this.played[name]||0)+1;b.onended=()=>{this.active.delete(b);b.disconnect();g.disconnect();};}
  event(e){if(e.type==='swing')this.sample(e.sound,.22,1.05);if(e.type==='hit'){this.sample(e.sound,.72,.94+Math.random()*.12);this.duck=.18;}
@@ -73,18 +98,19 @@ class AudioSystem{
   if(e.type==='ko'&&performance.now()/1000-this.lastVoice>.9){this.lastVoice=performance.now()/1000;this.sample(this.buffers[e.kind+'-hit']?e.kind+'-hit':e.kind==='franklin'?'elder-hit':'hit',.42,1);}
   if(e.type==='encounter'){this.sample('bear-call',.28,1.0);}if(e.type==='special'){this.sample('backhand',.60,.70);this.duck=.5;}
  }
- pause(){this.wantMusic=false;this.musicSerial++;this.music.pause();if(this.outgoing)this.outgoing.pause();for(const n of this.active){try{n.stop();}catch(_){}}this.active.clear();}
+ pause(){this.wantMusic=false;this.musicSerial++;for(const node of this.musicNodes.values())node.pause();for(const n of this.active){try{n.stop();}catch(_){}}this.active.clear();}
  update(dt){
   this.duck=Math.max(0,this.duck-dt);if(this.wantMusic&&!this.music.paused)this.fade=Math.min(1,this.fade+dt/.9);
   const level=this.muted?0:settings.music*(this.duck>0?.62:1);this.music.volume=level*Math.sin(this.fade*Math.PI/2);
   if(this.outgoing){this.outgoing.volume=level*Math.cos(this.fade*Math.PI/2);if(this.fade>=1){this.outgoing.pause();this.outgoing=null;}}
   if(this.bus)this.bus.gain.value=this.muted?0:settings.sfx;
  }
- toggle(){this.muted=!this.muted;if(this.muted){this.music.pause();if(this.outgoing)this.outgoing.pause();}else if(['play','stageclear','complete','title','cutscene'].includes(game.mode))this.playMusic(game.mode==='cutscene'?scenes?.scene?.music||stageMusic():['title','complete'].includes(game.mode)?'title':undefined);toast(this.muted?'Audio muted':'Audio on');}
+ toggle(){if(this.lastBlocked&&(this.music.paused||this.music.readyState<2)&&!this.muted){this.gesture();this.playMusic(this.trackKey);toast('Retrying audio');return;}this.muted=!this.muted;if(this.muted){this.music.pause();if(this.outgoing)this.outgoing.pause();}else if(['play','stageclear','complete','title','cutscene'].includes(game.mode))this.playMusic(game.mode==='cutscene'?scenes?.scene?.music||stageMusic():['title','complete'].includes(game.mode)?'title':undefined);toast(this.muted?'Audio muted':'Audio on');}
 
 }
 const game=new Brawler.Game(),audio=new AudioSystem(),input=new Input();game.franklinUnlocked=profile.franklinUnlocked;let renderer,meta,ready=false,last=performance.now(),acc=0,fromGallery='title',galleryTime=0,galleryPlaying=true,completeTime=0,tipTime=0,clearTime=0,presentationPaused=false,openingArrival=null;
 pad=new CriticGamepad.Hub({storage:{getItem:k=>localStorage.getItem(k),setItem:(k,v)=>localStorage.setItem(k,v)},onDisconnect:()=>{input.clear();if(scenes?.active){scenes.togglePause(true);toast('Controller disconnected. Resume with touch, keyboard, or the reconnected pad.');}if(game.mode==='play'){pause();toast('Controller disconnected. Reconnect or use touch / keyboard, then Resume.');}},onMapped:()=>toast('Controller mapping saved. Release controls to continue.')});
+
 window.__brawler={game,input,audio,controller:pad,ready:()=>ready,renderer:()=>renderer,meta:()=>meta,start:()=>start(false),pause,resume,getInput:()=>input.snapshot(false),getSave:()=>readStore(conf.saveKey),getProfile:()=>({...profile}),restartStage4,scenes:()=>scenes,continueDistrict,handleEvent:handle,openingArrival:()=>openingArrival?{...openingArrival}:null};
 function show(id,on){$(id).hidden=!on;}
 function screen(which){if(pad)pad.suspend();for(const id of ['title','pause','gameover','complete','gallery','stageclear'])show(id,id===which);const play=which===null;show('hud',play);show('controls',play);if(!play){show('targetHud',false);show('comboHud',false);show('tip',false);show('bossHud',false);}}
@@ -118,6 +144,7 @@ $('fullBtn').onclick=async()=>{try{if(document.fullscreenElement)await document.
 for(const id of ['musicVolume','sfxVolume','reducedMotion','vibration'])$(id).oninput=()=>{settings.music=+$('musicVolume').value/100;settings.sfx=+$('sfxVolume').value/100;settings.reducedMotion=$('reducedMotion').checked;settings.vibration=$('vibration').checked;store(conf.settingsKey,settings);if(settings.music>0&&!audio.muted&&audio.music.paused&&['play','stageclear','complete'].includes(game.mode))audio.playMusic(game.mode==='complete'?'title':undefined);};
 window.addEventListener('blur',()=>{input.clear();input.physicalKeys.clear();input.blockedKeys.clear();if(scenes?.active){scenes.togglePause(true);return;}if(game.mode==='play')pause();else if(['stageclear','complete','title'].includes(game.mode)){presentationPaused=true;audio.pause();}});
 window.addEventListener('focus',()=>{if(presentationPaused&&!document.hidden){presentationPaused=false;if(['stageclear','complete'].includes(game.mode))audio.playMusic(game.mode==='complete'?'title':undefined);}});
+window.addEventListener('pagehide',()=>audio.pause());
 document.addEventListener('visibilitychange',()=>{if(document.hidden){input.clear();input.physicalKeys.clear();input.blockedKeys.clear();if(scenes?.active){scenes.togglePause(true);return;}if(game.mode==='play')pause();else{presentationPaused=true;audio.pause();}}else if(presentationPaused){presentationPaused=false;if(['stageclear','complete'].includes(game.mode))audio.playMusic(game.mode==='complete'?'title':undefined);}});
 window.addEventListener('resize',()=>{input.clear();if(renderer)game.viewWidth=renderer.resize().w;});window.addEventListener('contextmenu',e=>e.preventDefault());
 // A single bounded startup download owns all current runtime dependencies. Optional
@@ -148,7 +175,7 @@ function makePlan(){const jobs=new Map(),add=(name,kind='image',page)=>{if(name&
 async function load(){if(bulkRunning||ready)return;bulkRunning=true;bulk.error='';bulk.failures=[];initialRetry.hidden=true;updateDestinationButtons();progress();try{if(!meta){if(!window.fetch&&!inline)throw new Error('This browser does not support asset loading.');if(inline)meta=inline.sprites;else{const response=await fetch(rawSrc('sprites.json'));if(!response.ok)throw new Error('Sprite manifest (HTTP '+response.status+')');const bytes=await response.arrayBuffer();bulk.downloadedBytes+=bytes.byteLength;meta=JSON.parse(new TextDecoder().decode(bytes));}completedFiles.add('sprites.json');renderer=new CityRenderer($('game'),meta,assetImages);renderer.onMissingAnimation=(who,name)=>{const ids=pageIdsForAnimation(who,name);if(ids.some(id=>!assetImages[id]))console.error('Required atlas missing after startup:',who,name);};game.viewWidth=renderer.rect.w;requestAnimationFrame(loop);bulkPlan=makePlan();bulk.totalFiles=bulkPlan.length+1;}bulk.phase='bulk';progress();const pending=bulkPlan.filter(job=>!completedFiles.has(job.name));let cursor=0;const failures=[];const worker=async()=>{bulk.activeWorkers++;try{while(cursor<pending.length){const job=pending[cursor++];try{await loadFile(job);}catch(error){failures.push({file:job.name,error:String(error)});}}}finally{bulk.activeWorkers--;}};await Promise.all(Array.from({length:Math.min(4,pending.length)},worker));if(failures.length){bulk.failures=failures;throw new Error(failures.length+' file'+(failures.length===1?'':'s')+' could not load.');}ready=true;bulk.ready=true;bulk.phase='ready';bulk.error='';$('titleArt').src=src('title.png');updatePortrait();audio.chooseTrack('title');if(audio.ctx)audio.ready=audio.decode();initialRetry.hidden=true;$('loadbar').hidden=true;progress();updateDestinationButtons();if(audio.wantMusic)audio.playMusic(audio.trackKey);}catch(error){bulk.error=String(error);bulk.phase='error';initialRetry.hidden=false;progress();updateDestinationButtons();}finally{bulkRunning=false;}}
 initialRetry.onclick=load;optionsRetry.onclick=load;$('contentLoadRetry').onclick=load;
 
-function handle(e){if(e.type==='land'&&openingArrival?.active){openingArrival.active=false;openingArrival.landed=true;openingArrival.landedAt=game.t;}if(renderer)renderer.emit(e);audio.event(e);if(settings.vibration&&navigator.vibrate&&['hit','parry','playerHit'].includes(e.type))navigator.vibrate(e.type==='hit'?12:22);
+function handle(e){if(e.type==='land'&&openingArrival?.active){openingArrival.active=false;openingArrival.landed=true;openingArrival.landedAt=game.t;game.knockdown(0,'cinematic-landing',.72);}if(renderer)renderer.emit(e);audio.event(e);if(settings.vibration&&navigator.vibrate&&['hit','parry','playerHit'].includes(e.type))navigator.vibrate(e.type==='hit'?12:22);
  if(e.type==='save'){save=e.save;store(conf.saveKey,e.save);updateDestinationButtons();}
  if(e.type==='unlock'){profile.franklinUnlocked=true;game.franklinUnlocked=true;store(conf.profileKey,profile);updateRoster();toast('FRANKLIN UNLOCKED');}
  if(e.type==='bossEnter'){tipTime=3;$('tip').textContent=(e.name||'BOSS')+'. Watch the windup, then punish the recovery.';show('tip',!scenes?.active);}
@@ -206,18 +233,52 @@ async function pumpScenes(){
  if(task.completed)return;task.completed=true;
  if(task.id==='opening'&&!result?.skipped&&result?.reason==='gameplayEntry')beginOpeningArrival();
  game.storyFlags=game.storyFlags||{};game.storyFlags[task.id]=true;
- if(task.id==='boss-broadcast-defeat'&&typeof game.finishDukeConfrontation==='function'){game.finishDukeConfrontation();for(const event of game.drain())handle(event);}
+ if(task.id==='boss-broadcast-defeat'&&typeof game.finishDukeConfrontation==='function'){game.dukeStaged=game.storyActors?.find(a=>a.kind==='duke');game.finishDukeConfrontation();game.storyActors=(game.storyActors||[]).filter(a=>a.kind!=='duke');for(const event of game.drain())handle(event);}
  if(game.checkpoint)game.checkpoint={...game.checkpoint,storyFlags:{...game.storyFlags}};
  if(typeof game.snapshot==='function'){save={...game.snapshot(),complete:sceneReturnMode==='complete'};store(conf.saveKey,save);}
  });
  }catch(e){scenePreparing=false;updateDestinationButtons();sceneQueue.unshift(task);assetError=String(e);$('contentLoadStatus').textContent='Required story files could not load. Your checkpoint is safe.';$('contentLoadRetry').hidden=false;game.mode='loading';}
 }
 
-scenes=window.CriticScenePlayer?new CriticScenePlayer({resolve:src,character:()=>game.playerKind,renderer:()=>renderer,meta:()=>meta,settings:()=>settings,clearInput:()=>input.clear(),sound:name=>audio.sample(name,.45),music:key=>audio.playMusic(key),onOpen:()=>{assetScreen.hidden=true;game.mode='cutscene';input.clear();screen('cutscene');if(document.hidden)scenes.togglePause(true);},onPause:on=>{if(on)audio.pause();else audio.playMusic(scenes?.scene?.music||stageMusic());},onIdle:()=>{if(sceneQueue.length){pumpScenes();return;}if(scenePreparing)return;if(assetPending){showAssetLoading();return;}game.mode=sceneReturnMode;input.clear();screen(game.mode==='play'?null:game.mode);audio.playMusic(game.mode==='complete'?'title':stageMusic());}}):null;
+function beginWorldScene(scene){
+ if(!scene.worldStage)return;
+ game.storyActors=game.storyActors||[];
+ // A live boss owns its single entrance. The overlay never creates a second copy.
+ game.sceneClock=0;
+}
+function drawWorldScene(s){
+ const dt=s.paused||s.loading?0:Math.max(0,Math.min(.05,s.totalTime-(game.sceneClock||0)));game.sceneClock=s.totalTime;
+ s.actorStates=[];
+ if(s.shot.booth&&game.stage===4){const a=game.projection,booth=game.projection.booths.find(b=>b.x>=game.camera+70&&b.x<=game.camera+renderer.rect.w-70);if(booth){a.window=booth.id;a.visible=s.shot.booth.phase!=='off';a.phase=s.shot.booth.phase==='shadow'?'shadow':'reveal';a.timer=s.time;s.boothState={phase:s.shot.booth.phase,active:booth.id};}}
+ const realBoss=game.enemies.find(e=>e.boss&&e.kind!=='broadcast-rig');
+ if(realBoss?.entry){game.updateEntry(realBoss,dt);}
+ if(realBoss&&realBoss.hp<=0){realBoss.timer+=dt;realBoss.anim='death';realBoss.animT=realBoss.timer;}
+ const active=new Set();
+ for(const a of s.shot.actors||[]){
+  if(a.hidden||a.routes&&!a.routes.includes(game.playerKind))continue;
+  const who=a.character==='selected'?game.playerKind:a.character,isPlayer=a.id==='player',isBoss=realBoss?.kind===who;
+  let body=isPlayer?game.p:isBoss?realBoss:game.storyActors.find(e=>e.id===a.id);
+  if(!body){body={id:a.id,kind:who,x:game.camera+Math.min(renderer.rect.w-100,a.x),y:who==='duke'&&game.stage===6?324:407,face:-1,anim:'idle',animT:0,renderScale:a.scale||1};game.storyActors.push(body);}
+  active.add(a.id);
+  if(!isBoss){
+   const key=s.index+':'+a.id;
+   if(!s.worldActors.has(key))s.worldActors.set(key,{x:body.x,y:body.y});
+   const origin=s.worldActors.get(key),m=a.motion;
+   if(m){const u=Brawler.clamp((s.time-(m.start||0))/(m.duration||1),0,1);const dx=(m.toX??a.x)-(m.fromX??a.x);body.x=origin.x+dx*u;body.face=dx<0?-1:1;body.anim=u<1?(a.animation||'walk'):'idle';}
+   else{body.anim=a.animation==='death'?'death':a.animation||'idle';if(a.face)body.face=a.face;}
+   body.animT=body.anim==='death'?1.7:s.time;body.animDuration=body.anim==='death'?1.7:0;
+  }
+  s.actorStates.push({id:a.id,character:who,x:body.x,y:body.y,animation:body.anim,visible:true,resolvedFace:body.face,faceReason:a.motion?'motion':a.face?'explicit':'world-continuity'});
+ }
+ game.storyActors=game.storyActors.filter(a=>active.has(a.id));const boy=game.storyActors.find(a=>a.kind==='marty');game.storyCage=s.shot.cage&&boy?{x:boy.x,y:boy.y,open:!!s.shot.cage.open}:null;
+}
+scenes=window.CriticScenePlayer?new CriticScenePlayer({beginWorldScene,drawWorldScene,resolve:src,character:()=>game.playerKind,renderer:()=>renderer,meta:()=>meta,settings:()=>settings,clearInput:()=>input.clear(),sound:name=>audio.sample(name,.45),music:key=>audio.playMusic(key),onOpen:()=>{assetScreen.hidden=true;game.mode='cutscene';input.clear();screen('cutscene');if(document.hidden)scenes.togglePause(true);},onPause:on=>{if(on)audio.pause();else audio.playMusic(scenes?.scene?.music||stageMusic());},onIdle:()=>{if(sceneQueue.length){pumpScenes();return;}if(scenePreparing)return;if(assetPending){showAssetLoading();return;}game.storyActors=[];game.storyCage=null;if(game.stage===4&&!game.projection.active){game.projection.visible=false;game.projection.phase='waiting';game.projection.timer=0;}game.mode=sceneReturnMode;input.clear();screen(game.mode==='play'?null:game.mode);audio.playMusic(game.mode==='complete'?'title':stageMusic());}}):null;
 const controllerUI=CriticControllerUI({hub:pad,game,input,ready:()=>ready,pause,resume,title,start:()=>start(false),closeGallery,continueDistrict});
-function gestureAudio(){audio.unlock();if(audio.wantMusic&&audio.music.paused&&!audio.muted&&settings.music>0)audio.playMusic(audio.trackKey);}
-document.addEventListener('pointerdown',gestureAudio,{passive:true});
-document.addEventListener('keydown',gestureAudio);
+function gestureAudio(){audio.gesture();if(ready&&game.mode==='title'&&!audio.wantMusic)audio.playMusic('title');if(audio.wantMusic&&audio.music.paused&&!audio.muted&&settings.music>0)audio.playMusic(audio.trackKey);}
+document.addEventListener('pointerdown',gestureAudio,{capture:true,passive:true});
+document.addEventListener('pointerup',gestureAudio,{capture:true,passive:true});
+document.addEventListener('click',gestureAudio,{capture:true,passive:true});
+document.addEventListener('keydown',gestureAudio,{capture:true});
 if(!storageOK)$('saveNote').textContent='Browser storage unavailable. Gameplay works, but this session cannot save progress.';
 if(!document.createElement('canvas').getContext('2d'))fatal('Canvas 2D is unavailable.');else load();
 })();

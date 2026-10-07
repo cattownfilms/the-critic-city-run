@@ -38,6 +38,7 @@ jobs:
           node tests/v8-engine.test.js
           node tests/cutscenes-v7.test.js
           node tests/audio-lifecycle.test.js
+          node tests/v9-engine.test.js
           python tests/publish.test.py
           python tests/site.test.py
           python tests/production-assets.test.py
@@ -75,6 +76,25 @@ jobs:
           python -m pip install -r requirements-test.txt
       - name: Match temporary runner home ownership to the container user
         run: chown "$(id -u):$(id -g)" "$HOME"
+      - name: Provide a real virtual audio sink for native media in the headless runner
+        if: matrix.browser == 'firefox' || matrix.browser == 'webkit'
+        run: |
+          if ! command -v pulseaudio >/dev/null; then
+            python - <<'PYAPT'
+          from pathlib import Path
+          import re
+          for path in Path('/etc/apt/sources.list.d').glob('*.sources'):
+              text = path.read_text().replace('http://archive.ubuntu.com/', 'https://archive.ubuntu.com/').replace('http://security.ubuntu.com/', 'https://security.ubuntu.com/')
+              text = re.sub(r'^Components:.*$', 'Components: main universe', text, flags=re.M)
+              path.write_text(text)
+          PYAPT
+            timeout 240 apt-get update -o Acquire::Retries=2 -o Acquire::https::Timeout=25
+            timeout 180 apt-get install -y --no-install-recommends pulseaudio pulseaudio-utils
+          fi
+          pulseaudio --daemonize=yes --exit-idle-time=-1 --log-target=file:/tmp/critic-pulse.log
+          pactl load-module module-null-sink sink_name=critic_ci
+          pactl set-default-sink critic_ci
+          pactl info
       - name: Build standalone parity edition
         run: python tools/build_standalone.py
       - name: Test actual multi-file site in browser engine
@@ -83,6 +103,8 @@ jobs:
           server=$!
           trap 'kill "$server" 2>/dev/null || true' EXIT
           python -c "import time,urllib.request; time.sleep(1); urllib.request.urlopen('http://127.0.0.1:8788/').read(100)"
+          python tests/v9-presentation-browser.test.py --engine ${{ matrix.browser }} --url local
+          GST_DEBUG=2 DEBUG=pw:browser python tests/v9-audio-browser.test.py --engine ${{ matrix.browser }} --url local
           python tests/gamepad-browser.test.py --engine ${{ matrix.browser }} --url local
           if [ "${{ matrix.browser }}" = webkit ]; then
             # Independent clean runs for the intermittent native media stall.
@@ -99,6 +121,17 @@ jobs:
           python tests/v8-archive-facing-browser.test.py --engine ${{ matrix.browser }}
           python tests/v7-scenes-browser.test.py --engine ${{ matrix.browser }}
           python tests/v8-opening-entry-browser.test.py --engine ${{ matrix.browser }}
+      - name: Validate the standalone campaign and native audio
+        if: matrix.browser == 'chromium'
+        run: |
+          python tests/campaign-browser.test.py --engine chromium --url standalone --output tests/campaign-chromium-offline-results.json
+          mv tests/v9-audio-chromium-results.json tests/v9-audio-chromium-source-results.json
+          python -m http.server 8788 --bind 127.0.0.1 > /tmp/critic-offline-http.log 2>&1 &
+          server=$!
+          trap 'kill "$server" 2>/dev/null || true' EXIT
+          python -c "import time,urllib.request; time.sleep(1); urllib.request.urlopen('http://127.0.0.1:8788/').read(100)"
+          python tests/v9-audio-browser.test.py --engine chromium --url http://127.0.0.1:8788/The-Critic-Coming-Attractions-v9.html
+          mv tests/v9-audio-chromium-results.json tests/v9-audio-chromium-offline-results.json
       - uses: actions/upload-artifact@v7
         if: always()
         with:
@@ -108,4 +141,6 @@ jobs:
             tests/campaign-*-results.json
             tests/v7-*-results.json
             tests/v8-*-results.json
+            tests/v9-*-results.json
             tests/controller-*.png
+            tests/screenshots-v9/
