@@ -37,6 +37,7 @@ jobs:
           node tests/v7-engine.test.js
           node tests/v8-engine.test.js
           node tests/cutscenes-v7.test.js
+          node tests/audio-lifecycle.test.js
           python tests/publish.test.py
           python tests/site.test.py
           python tests/production-assets.test.py

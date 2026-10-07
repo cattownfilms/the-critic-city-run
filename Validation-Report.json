@@ -3,7 +3,7 @@
   "title": "THE CRITIC: COMING ATTRACTIONS",
   "version": "8.0.0",
   "baselineCommit": "29e97395ee88a63724a32c83a6c019996d09a39c",
-  "status": "Reviewed v8 game/media/script bytes preserved. Local Termux core, asset, publication and launcher validation passed. Source CI and public deployment results are tracked by the verification workflows and final external release receipt.",
+  "status": "V8 release follow-up removes the captured native media.load deadlock; supplied media, script and gameplay data are preserved. Final source CI, rebuilt artifacts and hosted verification are recorded in the external release receipt.",
   "testedAtUTC": "2026-10-07T15:19:17.820617+00:00",
   "checks": [
     {
@@ -1044,7 +1044,22 @@
       },
       "galleryTestCorrection": "Wait for the actual renderer to draw the selected gallery animation, replacing a fixed 60 ms delay. The exact canvas pixel comparison and all frame/orientation assertions remain unchanged.",
       "repeatPolicy": "Three independent WebKit campaign/loading passes are mandatory and fail immediately on any failure; no retry converts a failure into success.",
-      "runtimeChanges": "None. All game JavaScript, CSS, media, campaign and approved FULL-SCRIPT.md remain byte-identical to 9e9cf3a."
+      "runtimeChanges": "Only app.js AudioSystem music-player lifecycle changes: bounded per-track reuse, no outgoing source clear/load, and safe handling of stale native play completion. All supplied assets, approved script and gameplay/renderer data remain unchanged."
+    },
+    "nativeMediaReloadFix": {
+      "evidenceRun": "https://github.com/cattownfilms/the-critic-city-run/actions/runs/37673334509",
+      "evidenceJob": 112970383952,
+      "unfinishedCall": {
+        "call": "HTMLMediaElement.load",
+        "traceId": 19,
+        "startedAtUTC": "2026-10-07T19:20:33.2048763Z",
+        "result": "No returned trace; campaign terminated by explicit five-minute timeout with exit 124"
+      },
+      "trigger": "Return to Title, New Game, then opening scene skip while changing music",
+      "change": "Keep one prepared HTMLAudioElement per configured track. Pause retired players without clearing src or calling load(). Preserve restart-on-track-change, 0.9-second crossfade, same-track resume position and stale playback cancellation.",
+      "appSHA256": "7563619a6356bd8a7c53e368392d09edaf962dbd8fb403f0ece7793da833aea9",
+      "unitRegression": "Actual AudioSystem class: 3 regressions failed on the prior source, 4/4 pass with the fix. Native browser runs remain required.",
+      "mediaAndScript": "Byte-identical to reviewed 9e9cf3a."
     }
   }
 }

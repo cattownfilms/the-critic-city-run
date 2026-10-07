@@ -2,7 +2,9 @@
 
 ## 8.0.0
 
-- Completed reviewed-source Core/Chromium/Firefox/WebKit validation and native Termux launcher/upgrade checks; added a manual public Pages verification using the existing browser suites. Pinned CI to the matching official Playwright image, added native-call diagnostics and repeated WebKit checks, and made the gallery pixel test wait for its real draw rather than a fixed delay. Game, media and revised script bytes are unchanged by release completion.
+- Fixed a captured native WebKit stall in `HTMLMediaElement.load()` during rapid music transitions. Reuse at most one prepared audio player per supplied track instead of clearing/reloading outgoing players; preserve crossfades, track restarts, pause/resume and all five recordings. A late playback completion cannot pause a newer request using the same player.
+
+- Completed reviewed-source Core/Chromium/Firefox/WebKit validation and native Termux launcher/upgrade checks; added a manual public Pages verification using the existing browser suites. Pinned CI to the matching official Playwright image, added native-call diagnostics and repeated WebKit checks, and made the gallery pixel test wait for its real draw rather than a fixed delay. Supplied media, gameplay mechanics and the revised script remain unchanged.
 
 - Applied the user-edited full script verbatim on both character routes, including expression cues, Broadway naming and Franklin’s Baby New Year1937 stage context.
 - Kept all seven screen-born enemies present through the opening disruption, approaching Jay in front of the cage, then handed the launch directly to the real gameplay landing.
