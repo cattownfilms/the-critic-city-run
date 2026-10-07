@@ -1,31 +1,56 @@
 # THE CRITIC: COMING ATTRACTIONS — Validation
 
-The implementation baseline was the existing public repository’s reviewed main commit `03fe0af9d1857874edeb64e2f430dd1989576c64`. Repository history and the original Pages origin are retained. The first four districts reproduce their original 12 wave arrays and 39 ordinary spawns before the three added districts.
+The correction baseline is reviewed main commit `20f6a80e468f69e53baffea4268e6df0ee4f92cb`. Its immutable source and offline builds first passed 418 checks. The v7 correction preserves the accepted ordinary combat definitions, decoded source frames, action timing/registration and existing campaign, then adds the requested presentation changes, dedicated running attacks and physical Duke finale.
 
-## Verification boundary
+## Current local results
 
-The tests exercise the actual source build over HTTP and the generated offline HTML in real Playwright browser engines. Complete route drivers accelerate fixed engine updates using ordinary movement, attack and Review inputs, route real events through the app, and skip presentation delays through the real transition methods. They do not alter health, enemy health, position, score or campaign flags during either route. These are automated complete combat runs, rather than a claimed human or physical-device playthrough. Separate explicit fixtures test unlock failures, checkpoints, old saves and boss counterplay.
+All 627 structured cases passed; the separate grouped cutscene-contract suite also passed. The machine→Duke→Marty order is checked in both normal-input routes in each source engine and the offline edition. Every route completed 7 stages and 71 knockouts, with no retries. Franklin never fights himself. Completed-v4 saves now resume the required Duke encounter, and schema 5 Continue preserves that phase without duplicate enemies or premature rescue.
 
-Both routes visit all seven stages, defeat 70 opponents, shut down the projection circuits, defeat the final transmitter, rescue Marty and reach the ending. Franklin’s route uses Shermometer v3 in Stage 4. Stage-4 death-free unlock and death disqualification remain independently covered.
+| Suite / edition | Passed | Failed |
+|---|---:|---:|
+| Node engine/controller/campaign/correction cases |143|0|
+| Python source paths / publication / asset semantics |36|0|
+| Chromium 143.0.7499.4 — actual source HTTP |112|0|
+| Firefox 144.0.2 — actual source HTTP |112|0|
+| WebKit 26.0 — actual source HTTP |112|0|
+| Exact offline Chromium — campaign/save |31|0|
+| Exact offline Chromium — mobile/touch/render/gallery |34|0|
+| Exact offline Chromium — soundtrack/presentation |19|0|
+| Exact offline Chromium — denied storage |3|0|
+| Exact offline Chromium — optional API fallbacks |8|0|
+| Local Linux launcher |7|0|
+| v6→v7 launcher upgrade |10|0|
 
-Keyboard, simulated simultaneous touch, standard and nonstandard Gamepad API layouts, custom mapping, neutral gating, reconnect/disconnect and focus loss are tested. Gamepad fixtures are not physical Logitech hardware. Browser sizes cover desktop, small landscape and Android-sized portrait. Playwright WebKit coverage is not a claim of physical Safari/iPhone testing.
+Each source engine’s 112 cases comprise 39 controller, 31 campaign/save, 16 loading/failure-recovery, and 26 scene/layout/portrait checks. Source tests use genuine HTTP and origin-local saves. Scene tests watch the full opening in normal browser time with keyboard and touch, verifying exact approved dialogue, delayed Marty reveal, actual cast screen origins, Jay’s launch, six portraits, route-aware Franklin and fixed portrait/landscape anchors. Loading tests deliberately stall dependencies and abort repeated Continue requests; options remain usable, all gallery entrances stay blocked until ready, and retries preserve the pending-Duke checkpoint.
 
-## Combat, saves and content
+The offline tests load the exact HTML with bounded parser writes and explicitly emulated storage. CDP sends multiple simultaneous touches to the real browser. All 14 complete animation banks are loaded through the actual gallery before all 193 runtime states are drawn at both facings. Music tests use actual decoded recordings and overlapping crossfades. Missing Gamepad API, Web Audio, fullscreen and denied storage are explicit fixtures. Launcher tests start the real local server; upgrade tests preserve existing installation files and reject conflicting listeners.
 
-Accepted player hit constants, timing, reach and combo definitions remain byte-identical to the preserved baseline. Movement, depth, walk/run, jump, air attack, running attack, guard, parry, evasive slip, counter and Review pass regression checks. No player damage or timing rebalance was introduced. New enemy patterns use visible warnings and explicit recovery windows; the projection target locks before its reel is thrown.
+## Exact offline artifact
 
-Every original animation bank, frame mapping and atlas file is preserved. New asset tests check source identity, derived hashes, dimensions, frame bounds, transparent padding, death ground contact and green-key residue. All six generated images have matching recorded SHA-256 hashes and were visually inspected. Actual rendered stage fixtures verify theater windows, projectionist silhouettes/reveal, readable floor markers, Cream Scarf boss identity, separate props, transmitter warnings and protected Duke/Marty staging.
+`The-Critic-Coming-Attractions-v7.html`: 99,553,793 bytes.
 
-Scene checks cover the exact approved opening dialogue, watch/skip equivalence, completion idempotence, keyboard/touch/controller advance and skip, pause, held-input suppression, portrait text layout, checkpoint flags, art decoding and the ending. Legacy save schemas 2/3 migrate to 4, retaining unlocks and settings; a completed old demo continues into Palace Cinema. Continue after the cinema defender’s defeat preserves the remaining circuit objective without duplicating the boss.
+SHA256: `241ff96b2f5eef28fdd4b5f88eb5d72d49f0bfce7125ab7ac3f6423fb7b350fe`.
 
-Music/effects, separate volume, mute, pause, crossfades, MP3 decoding and overlapping sampled cues are exercised in Chromium. Missing Gamepad/Web Audio/fullscreen/vibration and denied storage fixtures remain playable. Five original music recordings and thirteen source-derived cues are retained; no new recordings are claimed.
+## Loading comparison
 
-## Release artifacts and publication
+| Fresh source startup budget | Reviewed v6 | v7 |
+|---|---:|---:|
+| Requested atlas bytes |55,478,726|29,973,308|
+| Actual decoded atlas RGBA bytes |204,845,056|109,731,128|
+| Cold headless localhost duration |.432s|.725s|
 
-The offline builder embeds all runtime dependencies. Linux loopback tests verify byte-exact served HTML, no-cache responses, repeat launch and restricted endpoints. The reviewed v5 launcher is rebuilt and upgraded to v6 twice: port/origin, install path, running server, original backup and retained files remain intact. Physical Termux/Android installation remains untested.
+Startup atlas/decode budgets are about 46% lower while retained performances remain available on demand. This local timing sample did not show a wall-clock speedup and does not measure Android/network loading speed. The final atlas library has 75 pages; page count alone is not a byte or performance measure. See [startup measurements](../Validation-Report.json).
 
-`PUBLIC-FILES.json` fingerprints the reviewed source/runtime allowlist. Publication tests reject changed files, unsafe paths, unrelated history, private repositories and wrong accounts. Raw videos, input archives, browser saves, credentials, private prompt logs and delivery duplicates remain outside the public repository.
+## Visual and correction review
 
-Local suite results and browser versions are recorded in `Validation-Report.json`. The downloadable release’s hosted verification record is produced after the actual Pages deployment; a push alone is not treated as deployment evidence. GitHub Actions runs the core checks plus the real Chromium/Firefox/WebKit source/controller/campaign matrix. Read its actual results before claiming CI success.
+Actual rendered screenshots were reviewed for the seated shared opening, Marty’s single cage, cast emergence, pixel portraits, all seven environments, three masked projection windows/circuit links, readable reel flight, larger pizzeria-door entrance, grounded defeats and the physical Duke arena. The original strengths marked GOOD were retained. [The 45-item checklist](PLAYTEST-CHECKLIST.md) links each correction to concise evidence; the raw private prompt and annotated video are not published.
 
-See [COMPATIBILITY.md](COMPATIBILITY.md) and [KNOWN-LIMITATIONS.md](KNOWN-LIMITATIONS.md) for the remaining hardware, source-reference and loading limits.
+## Scope and limitations
+
+Normal-input full-route drivers accelerate fixed updates through the real app event handlers and use ordinary movement, attack and Review. They do not edit player/enemy health, position, enemies, score or story flags during either route. Stage-clear presentation delays are skipped through the real transition; scene callbacks are exercised rather than bypassed. Explicit render/save/scene fixtures are identified separately.
+
+This is not physical Android, physical Logitech, iPhone or desktop Safari testing. Playwright WebKit checks compatibility, not every Safari/device combination. Chromium uses the explicitly selected Chrome for Testing 143 headless shell; Firefox and WebKit use installed Playwright engines. No newly synthesized music is claimed.
+
+Local verification is complete. Current-v7 GitHub CI and public HTTPS verification remain separate release checks and must be appended after publication. Prior-v6 hosted success is not evidence of a deployed v7 build.
+
+[Machine-readable report](../Validation-Report.json) · [Browser details](COMPATIBILITY.md) · [Known limitations](KNOWN-LIMITATIONS.md)

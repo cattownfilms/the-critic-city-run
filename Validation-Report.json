@@ -1,3463 +1,654 @@
 {
   "title": "THE CRITIC: COMING ATTRACTIONS",
-  "version": "6.0.0",
-  "date": "2026-10-07",
-  "reviewedBaseline": "03fe0af9d1857874edeb64e2f430dd1989576c64",
+  "version": "7.0.0",
+  "date": "2026-10-07T05:20:51.079627+00:00",
+  "reviewedBaseline": "20f6a80e468f69e53baffea4268e6df0ee4f92cb",
+  "baselineRegression": {
+    "passed": 418,
+    "failed": 0,
+    "boundary": "Immutable reviewed v6 source and offline verification before corrections."
+  },
   "publicRepository": "https://github.com/cattownfilms/the-critic-city-run",
   "publicGame": "https://cattownfilms.github.io/the-critic-city-run/",
+  "releaseVerification": {
+    "status": "local validation complete; public release verification pending",
+    "note": "CI and hosted HTTPS evidence must be appended after publication. These local tests alone do not establish a deployed v7 build."
+  },
+  "offlineArtifact": {
+    "filename": "The-Critic-Coming-Attractions-v7.html",
+    "bytes": 99553793,
+    "sha256": "241ff96b2f5eef28fdd4b5f88eb5d72d49f0bfce7125ab7ac3f6423fb7b350fe"
+  },
   "results": [
     {
       "suite": "engine",
+      "edition": "Node",
       "passed": 31,
       "failed": 0,
-      "browserVersion": null,
-      "edition": null,
-      "boundary": null,
-      "checks": [
-        {
-          "name": "Movement accelerates continuously from partial to full analog deflection",
-          "passed": true,
-          "details": {
-            "partial": 55.1809395066914,
-            "full": 246.61181591026957
-          }
-        },
-        {
-          "name": "Depth movement stays within the pavement lane",
-          "passed": true
-        },
-        {
-          "name": "Releasing the pad decelerates without drift",
-          "passed": true
-        },
-        {
-          "name": "Jab > cross > kick > palm is an ordered, four-step held combo",
-          "passed": true,
-          "details": {
-            "moves": [
-              "jab",
-              "cross",
-              "kick",
-              "palm"
-            ],
-            "hits": 4,
-            "damage": 76
-          }
-        },
-        {
-          "name": "Repeated button edges advance the combo rather than restarting jab",
-          "passed": true
-        },
-        {
-          "name": "An attack damages a target only once per strike",
-          "passed": true
-        },
-        {
-          "name": "Enemies in another depth lane cannot be hit by a normal punch",
-          "passed": true
-        },
-        {
-          "name": "A normal strike does not hit behind the facing direction",
-          "passed": true
-        },
-        {
-          "name": "A combo tap is retained during hitstop",
-          "passed": true
-        },
-        {
-          "name": "Jump applies one physics arc and lands on its lane",
-          "passed": true,
-          "details": {
-            "apex": 98.32916666666665
-          }
-        },
-        {
-          "name": "Airborne attack selects the supplied kick and hits a nearby target",
-          "passed": true
-        },
-        {
-          "name": "Standing far outside the target lane cannot jump-kick it",
-          "passed": true
-        },
-        {
-          "name": "Guard blocks a frontal attack without health damage",
-          "passed": true
-        },
-        {
-          "name": "Guard does not block an attack from behind",
-          "passed": true
-        },
-        {
-          "name": "Precisely timed guard parries and arms the two-palm counter",
-          "passed": true
-        },
-        {
-          "name": "Move plus guard slips and can cancel into a rising elbow",
-          "passed": true
-        },
-        {
-          "name": "Full-deflection sprint attack uses charge entry then standing rush punch",
-          "passed": true
-        },
-        {
-          "name": "Special cannot fire without a full meter",
-          "passed": true
-        },
-        {
-          "name": "Full review executes backfist, low chamber and rising-palm finisher",
-          "passed": true,
-          "details": {
-            "moves": [
-              "spin",
-              "specialWind",
-              "specialPalm"
-            ]
-          }
-        },
-        {
-          "name": "Cosmetic gestures cancel immediately on movement",
-          "passed": true
-        },
-        {
-          "name": "Cosmetic gestures cannot delay an attack",
-          "passed": true
-        },
-        {
-          "name": "Enemy telegraphs precede active hits",
-          "passed": true
-        },
-        {
-          "name": "Damage grants a grace window against immediate stun-lock",
-          "passed": true
-        },
-        {
-          "name": "Pause freezes physics and resume retains the scene",
-          "passed": true
-        },
-        {
-          "name": "Breakable prop drops a health pickup",
-          "passed": true
-        },
-        {
-          "name": "A nearby pickup restores health and disappears once",
-          "passed": true
-        },
-        {
-          "name": "Checkpoint snapshots restore stage and cleared encounter only",
-          "passed": true
-        },
-        {
-          "name": "Zero health causes life loss then checkpoint recovery, not a stuck corpse",
-          "passed": true
-        },
-        {
-          "name": "Last life reaches game-over and retry restores three lives",
-          "passed": true
-        },
-        {
-          "name": "A normal-input driver clears the seven-stage campaign and reaches the resolved finale",
-          "passed": true,
-          "details": {
-            "seconds": 247.70833333327238,
-            "ticks": 31578,
-            "retries": 0,
-            "stages": [
-              0,
-              1,
-              2,
-              3,
-              4,
-              5,
-              6
-            ],
-            "kos": 70,
-            "bestCombo": 24,
-            "animations": [
-              "idle",
-              "run",
-              "walk",
-              "jab",
-              "jab-impact",
-              "cross",
-              "cross-impact",
-              "front-kick",
-              "palm-strike",
-              "spinning-backfist",
-              "low-finisher-windup",
-              "rising-palm-impact",
-              "guard-enter",
-              "guard",
-              "exerted-guard",
-              "hurt"
-            ]
-          }
-        },
-        {
-          "name": "Jump-kick active contact retimes to the extended-foot source pose",
-          "passed": true,
-          "details": {
-            "sourceFraction": 0.58
-          }
-        }
-      ]
+      "report": "tests/engine-results.json"
     },
     {
-      "suite": "franklin",
+      "suite": "Franklin",
+      "edition": "Node",
       "passed": 26,
       "failed": 0,
-      "browserVersion": null,
-      "edition": null,
-      "boundary": null,
-      "checks": [
-        {
-          "name": "Shermometers dominate every stage and at least two thirds of the regular roster",
-          "passed": true,
-          "details": {
-            "shermometers": 53,
-            "regularEnemies": 66,
-            "share": 0.803030303030303
-          }
-        },
-        {
-          "name": "All three Shermometer types and both new guest enemies occur in the campaign",
-          "passed": true
-        },
-        {
-          "name": "Franklin and legacy Elder never appear as ordinary wave enemies",
-          "passed": true
-        },
-        {
-          "name": "Hero combo damage, reach, timing, and chain are byte-identical to v2 definitions",
-          "passed": true
-        },
-        {
-          "name": "Franklin cannot be selected before being unlocked",
-          "passed": true
-        },
-        {
-          "name": "Franklin becomes playable without replacing the original player",
-          "passed": true
-        },
-        {
-          "name": "The final regular wave must be cleared before Franklin appears",
-          "passed": true
-        },
-        {
-          "name": "Living regular enemies prevent an early boss entrance",
-          "passed": true
-        },
-        {
-          "name": "The boss entrance happens only once, not every empty-frame update",
-          "passed": true
-        },
-        {
-          "name": "Stage 4 cannot complete or unlock Franklin by walking past an undefeated boss",
-          "passed": true
-        },
-        {
-          "name": "Boss defeat alone does not award the playable character before the exit",
-          "passed": true
-        },
-        {
-          "name": "Death-free Stage 4 plus boss defeat and exit awards Franklin exactly once",
-          "passed": true
-        },
-        {
-          "name": "Deaths in Stages 1-3 do not disqualify a death-free fourth stage",
-          "passed": true
-        },
-        {
-          "name": "One Stage 4 death disqualifies the run even when Franklin is defeated",
-          "passed": true
-        },
-        {
-          "name": "Death is counted once across the entire death animation",
-          "passed": true
-        },
-        {
-          "name": "Death disqualification is written immediately to the last checkpoint",
-          "passed": true
-        },
-        {
-          "name": "Checkpoint retry with replenished lives does not erase Stage 4 deaths",
-          "passed": true
-        },
-        {
-          "name": "Reloading a serialized failed checkpoint does not erase disqualification",
-          "passed": true
-        },
-        {
-          "name": "Restart Stage 4 offers a fresh legitimate unlock attempt from its beginning",
-          "passed": true
-        },
-        {
-          "name": "Already-unlocked Franklin survives failed replays and New Game",
-          "passed": true
-        },
-        {
-          "name": "Old v2 Stage 4 clear checkpoints cannot skip the newly added boss",
-          "passed": true
-        },
-        {
-          "name": "Old v2 checkpoints before Stage 4 retain progress and qualify after entering Stage 4",
-          "passed": true
-        },
-        {
-          "name": "Franklin uses the unchanged four-link attack and air-kick input paths",
-          "passed": true
-        },
-        {
-          "name": "Every Franklin mapping resolves to an actual new animation without falling back to the old Elder",
-          "passed": true
-        },
-        {
-          "name": "Boss attacks telegraph before damage and expose recovery",
-          "passed": true
-        },
-        {
-          "name": "Boss has five distinct source-derived physical attacks",
-          "passed": true
-        }
-      ]
+      "report": "tests/franklin-results.json"
     },
     {
-      "suite": "v4-engine",
+      "suite": "v4 regression",
+      "edition": "Node",
       "passed": 15,
       "failed": 0,
-      "browserVersion": null,
-      "edition": null,
-      "boundary": null,
-      "checks": [
-        {
-          "name": "Lethal airborne states continue gravity to the pavement",
-          "passed": true
-        },
-        {
-          "name": "A fatal fall does not teleport straight to ground on the first tick",
-          "passed": true
-        },
-        {
-          "name": "The clear screen freezes combat and preserves outgoing stage",
-          "passed": true
-        },
-        {
-          "name": "Continue completes the district transition exactly once",
-          "passed": true
-        },
-        {
-          "name": "Wave spawn composition remains 39 regular enemies, 29 Shermometers",
-          "passed": true
-        },
-        {
-          "name": "Ordinary arrivals start outside the actual viewport for narrow and wide views",
-          "passed": true
-        },
-        {
-          "name": "Hidden arrivals cannot be hit or clear their encounter prematurely",
-          "passed": true
-        },
-        {
-          "name": "Sewer emergence is shared by all variants without new damage mechanics",
-          "passed": true
-        },
-        {
-          "name": "Every ordinary entrant finishes its entry in a bounded interval",
-          "passed": true
-        },
-        {
-          "name": "Franklin boss arrives physically before the taunt and combat",
-          "passed": true
-        },
-        {
-          "name": "Franklin player receives the existing Slam Shermometer instead of himself",
-          "passed": true
-        },
-        {
-          "name": "Alternate boss defeat completes the run without a second unlock award",
-          "passed": true
-        },
-        {
-          "name": "Selected-player route survives serialized Continue and checkpoint retry",
-          "passed": true
-        },
-        {
-          "name": "Jump/air art changes do not change HITS constants or analog input class",
-          "passed": true
-        },
-        {
-          "name": "Franklin route remains completable using normal combat inputs",
-          "passed": true,
-          "details": {
-            "seconds": 247.70833333327238,
-            "retries": 0,
-            "kos": 70
-          }
-        }
-      ]
+      "report": "tests/v4-engine-results.json"
     },
     {
-      "suite": "gamepad",
+      "suite": "Gamepad unit",
+      "edition": "Node",
       "passed": 27,
       "failed": 0,
-      "browserVersion": null,
-      "edition": null,
-      "boundary": "Deterministic API fixtures, not a physical Logitech hardware test.",
-      "checks": [
-        {
-          "name": "Optional support defaults OFF and leaves input neutral",
-          "passed": true
-        },
-        {
-          "name": "Sparse array and nonzero device index are supported",
-          "passed": true
-        },
-        {
-          "name": "Radial dead zone suppresses drift",
-          "passed": true
-        },
-        {
-          "name": "Partial stick deflection is slower than full deflection",
-          "passed": true
-        },
-        {
-          "name": "Diagonal stick magnitude is limited to one",
-          "passed": true
-        },
-        {
-          "name": "Standard D-pad drives both street axes",
-          "passed": true
-        },
-        {
-          "name": "Standard face button defaults and optional LB guard",
-          "passed": true
-        },
-        {
-          "name": "Pressed edges survive polling until consumed once",
-          "passed": true
-        },
-        {
-          "name": "Button release never generates another attack edge",
-          "passed": true
-        },
-        {
-          "name": "New press generates a new edge",
-          "passed": true
-        },
-        {
-          "name": "Pause/menu transitions suppress held controls until neutral",
-          "passed": true
-        },
-        {
-          "name": "Connecting with held buttons does not immediately fire",
-          "passed": true
-        },
-        {
-          "name": "Disconnect releases all inputs and notifies once",
-          "passed": true
-        },
-        {
-          "name": "Controller selection reads only the selected controller",
-          "passed": true
-        },
-        {
-          "name": "Device replacement at same index does not reuse wrong mapping",
-          "passed": true
-        },
-        {
-          "name": "Nonstandard controllers require explicit mapping",
-          "passed": true
-        },
-        {
-          "name": "SecurityError falls back to neutral rather than crashing",
-          "passed": true
-        },
-        {
-          "name": "Missing Gamepad API leaves touch/keyboard path available",
-          "passed": true
-        },
-        {
-          "name": "Malformed storage and denied storage do not crash",
-          "passed": true
-        },
-        {
-          "name": "Persisted configuration is bounded and validated",
-          "passed": true
-        },
-        {
-          "name": "Mapping cancel does not overwrite saved mapping",
-          "passed": true
-        },
-        {
-          "name": "Nonstandard mapping wizard captures and persists the complete layout",
-          "passed": true
-        },
-        {
-          "name": "Hat-value directional mapping can be evaluated",
-          "passed": true
-        },
-        {
-          "name": "Reset nonstandard profile requests mapping, not guessed buttons",
-          "passed": true
-        },
-        {
-          "name": "NaN axes and short button arrays produce finite input",
-          "passed": true
-        },
-        {
-          "name": "Profiles include identity, reported layout and device shape",
-          "passed": true
-        },
-        {
-          "name": "Unsafe mapping indices and malformed bindings are rejected",
-          "passed": true
-        }
-      ]
+      "report": "tests/gamepad-results.json"
     },
     {
-      "suite": "campaign-engine",
+      "suite": "campaign engine",
+      "edition": "Node",
       "passed": 24,
       "failed": 0,
-      "browserVersion": null,
-      "edition": null,
-      "boundary": null,
-      "checks": [
-        {
-          "name": "Campaign preserves the 12 authored opening fights and 39 original regular spawns",
-          "passed": true
-        },
-        {
-          "name": "All new districts have a distinct scene, story purpose and recurring Shermometer majority",
-          "passed": true
-        },
-        {
-          "name": "Only canonical names are exposed through legacy combat IDs",
-          "passed": true
-        },
-        {
-          "name": "New content leaves accepted player hit timing, damage and reach unchanged",
-          "passed": true
-        },
-        {
-          "name": "Stage 4 awards Franklin at its exit and continues to the cinema exactly once",
-          "passed": true
-        },
-        {
-          "name": "A Stage 4 death does not block the campaign, but disqualifies its unlock challenge",
-          "passed": true
-        },
-        {
-          "name": "Saved Franklin replay uses the alternate Stage 4 opponent after migration",
-          "passed": true
-        },
-        {
-          "name": "v2 and v3 checkpoints retain stage, score, lives and meter in the expanded schema",
-          "passed": true
-        },
-        {
-          "name": "Previously completed v3 campaigns resume at the cinema with Franklin retained",
-          "passed": true
-        },
-        {
-          "name": "Expanded late-stage Continue retains story flags, unlock and checkpoint identity",
-          "passed": true
-        },
-        {
-          "name": "Stage story hooks are idempotent across repeats and serialized Continue",
-          "passed": true
-        },
-        {
-          "name": "The projectionist locks her warning to the floor before launching a visible projectile",
-          "passed": true
-        },
-        {
-          "name": "Staying inside the projection target incurs damage only when the reel arrives",
-          "passed": true
-        },
-        {
-          "name": "An evasive slip avoids the incoming reel using the existing dodge immunity",
-          "passed": true
-        },
-        {
-          "name": "The cinema cannot finish until its enforcer and all three booth circuits are defeated",
-          "passed": true
-        },
-        {
-          "name": "Booth shutdown cancels active reels and awards its story consequence once",
-          "passed": true
-        },
-        {
-          "name": "Continue between enforcer defeat and circuit shutdown restores the remaining objective",
-          "passed": true
-        },
-        {
-          "name": "Booth boss spawning cannot duplicate enemies, circuits or intro events",
-          "passed": true
-        },
-        {
-          "name": "Turkey Dinner is a distinct immediate heal and Trash Can keeps the legacy alias",
-          "passed": true
-        },
-        {
-          "name": "New physical bosses show a windup before hitting and a punishable recovery afterward",
-          "passed": true
-        },
-        {
-          "name": "The final transmitter locks its lane sweep and lets the player leave that lane",
-          "passed": true
-        },
-        {
-          "name": "The transmitter exposes full damage during recovery and armor only during committed attacks",
-          "passed": true
-        },
-        {
-          "name": "The final exit resolves Marty and the broadcast exactly once for either playable route",
-          "passed": true
-        },
-        {
-          "name": "The complete seven-stage story is playable through combat inputs on Jay and Franklin routes",
-          "passed": true,
-          "details": [
-            {
-              "character": "hero",
-              "seconds": 247.70833333327238,
-              "retries": 0,
-              "stages": 7,
-              "kos": 70,
-              "bosses": [
-                "franklin",
-                "booth-enforcer",
-                "pizzeria-boss",
-                "broadcast-rig"
-              ]
-            },
-            {
-              "character": "franklin",
-              "seconds": 247.70833333327238,
-              "retries": 0,
-              "stages": 7,
-              "kos": 70,
-              "bosses": [
-                "sherm-slam",
-                "booth-enforcer",
-                "pizzeria-boss",
-                "broadcast-rig"
-              ]
-            }
-          ]
-        }
-      ]
+      "report": "tests/campaign-engine-results.json"
     },
     {
-      "suite": "publish",
-      "passed": 13,
+      "suite": "v7 corrections",
+      "edition": "Node",
+      "passed": 20,
       "failed": 0,
-      "browserVersion": null,
-      "edition": null,
-      "boundary": "Real local git repositories; mocked GitHub CLI/API network mutations. No public repository was created by these tests.",
-      "checks": [
-        {
-          "name": "Only reviewed paths are published; extra user files are excluded",
-          "passed": true
-        },
-        {
-          "name": "Changed content stops publication",
-          "passed": true
-        },
-        {
-          "name": "Path traversal is rejected",
-          "passed": true
-        },
-        {
-          "name": "Existing private repositories never become public",
-          "passed": true
-        },
-        {
-          "name": "Unsafe names cannot become CLI flags or paths",
-          "passed": true
-        },
-        {
-          "name": "Network errors are not mistaken for a missing repository",
-          "passed": true
-        },
-        {
-          "name": "A verified HTTP 404 is the optional missing-resource path",
-          "passed": true
-        },
-        {
-          "name": "Wrong authenticated account stops before any remote mutation",
-          "passed": true
-        },
-        {
-          "name": "Unrelated existing main is not overwritten",
-          "passed": true
-        },
-        {
-          "name": "Private repository rejected during complete preflight",
-          "passed": true
-        },
-        {
-          "name": "Declining PUBLISH leaves local and remote repositories unchanged",
-          "passed": true
-        },
-        {
-          "name": "New public repo is committed, pushed, and Pages configured through mocked API",
-          "passed": true
-        },
-        {
-          "name": "Existing empty public repo accepts initial publication without ref-error guesswork",
-          "passed": true
-        }
-      ]
+      "report": "tests/v7-engine-results.json"
     },
     {
-      "suite": "site",
+      "suite": "HTTP/source paths",
+      "edition": "Python",
       "passed": 10,
       "failed": 0,
-      "browserVersion": null,
-      "edition": null,
-      "boundary": "Actual Python loopback HTTP reads under a repository-style subpath. No live GitHub Pages deployment or browser URL navigation is claimed.",
-      "checks": [
-        {
-          "name": "All HTML, atlas, soundtrack and cue references are relative local files",
-          "passed": true,
-          "details": {
-            "references": 67
-          }
-        },
-        {
-          "name": "Root index loads under a repository-style URL subpath",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Every runtime reference serves exact bytes beneath that subpath",
-          "passed": true,
-          "details": []
-        },
-        {
-          "name": "Web manifest stays inside the repository URL scope",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "JavaScript gamepad modules are loaded before the browser shell",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Source does not require an external runtime CDN",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Seven authored stages preserve the established opening four",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Every original bank, animation, frame, and atlas mapping remains exact",
-          "passed": true,
-          "details": {
-            "states": 189,
-            "frames": 2811,
-            "pages": 22
-          }
-        },
-        {
-          "name": "Music and SFX libraries remain complete",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "No file in the runtime asset set approaches the GitHub per-file limit",
-          "passed": true,
-          "details": null
-        }
-      ]
+      "report": "tests/site-results.json"
+    },
+    {
+      "suite": "publication safety",
+      "edition": "Python",
+      "passed": 13,
+      "failed": 0,
+      "report": "tests/publish-results.json"
+    },
+    {
+      "suite": "asset/semantic provenance",
+      "edition": "Python",
+      "passed": 13,
+      "failed": 0,
+      "report": "tests/production-assets.test.py"
+    },
+    {
+      "suite": "controller",
+      "edition": "source HTTP",
+      "engine": "chromium",
+      "passed": 39,
+      "failed": 0,
+      "report": "tests/gamepad-chromium-results.json"
+    },
+    {
+      "suite": "campaign/save",
+      "edition": "source HTTP",
+      "engine": "chromium",
+      "passed": 31,
+      "failed": 0,
+      "report": "tests/campaign-browser-chromium-results.json"
+    },
+    {
+      "suite": "loading/failure recovery",
+      "edition": "source HTTP",
+      "engine": "chromium",
+      "passed": 16,
+      "failed": 0,
+      "report": "tests/v7-loading-chromium-results.json"
+    },
+    {
+      "suite": "staging/layout/portraits",
+      "edition": "source HTTP",
+      "engine": "chromium",
+      "passed": 26,
+      "failed": 0,
+      "report": "tests/v7-scenes-chromium-results.json"
+    },
+    {
+      "suite": "controller",
+      "edition": "source HTTP",
+      "engine": "firefox",
+      "passed": 39,
+      "failed": 0,
+      "report": "tests/gamepad-firefox-results.json"
+    },
+    {
+      "suite": "campaign/save",
+      "edition": "source HTTP",
+      "engine": "firefox",
+      "passed": 31,
+      "failed": 0,
+      "report": "tests/campaign-browser-firefox-results.json"
+    },
+    {
+      "suite": "loading/failure recovery",
+      "edition": "source HTTP",
+      "engine": "firefox",
+      "passed": 16,
+      "failed": 0,
+      "report": "tests/v7-loading-firefox-results.json"
+    },
+    {
+      "suite": "staging/layout/portraits",
+      "edition": "source HTTP",
+      "engine": "firefox",
+      "passed": 26,
+      "failed": 0,
+      "report": "tests/v7-scenes-firefox-results.json"
+    },
+    {
+      "suite": "controller",
+      "edition": "source HTTP",
+      "engine": "webkit",
+      "passed": 39,
+      "failed": 0,
+      "report": "tests/gamepad-webkit-results.json"
+    },
+    {
+      "suite": "campaign/save",
+      "edition": "source HTTP",
+      "engine": "webkit",
+      "passed": 31,
+      "failed": 0,
+      "report": "tests/campaign-browser-webkit-results.json"
+    },
+    {
+      "suite": "loading/failure recovery",
+      "edition": "source HTTP",
+      "engine": "webkit",
+      "passed": 16,
+      "failed": 0,
+      "report": "tests/v7-loading-webkit-results.json"
+    },
+    {
+      "suite": "staging/layout/portraits",
+      "edition": "source HTTP",
+      "engine": "webkit",
+      "passed": 26,
+      "failed": 0,
+      "report": "tests/v7-scenes-webkit-results.json"
+    },
+    {
+      "suite": "offline campaign/save",
+      "edition": "offline Chromium",
+      "passed": 31,
+      "failed": 0,
+      "report": "tests/campaign-browser-chromium-offline-results.json"
+    },
+    {
+      "suite": "offline touch/render/gallery",
+      "edition": "offline Chromium",
+      "passed": 34,
+      "failed": 0,
+      "report": "tests/mobile-results.json"
+    },
+    {
+      "suite": "offline soundtrack/presentation",
+      "edition": "offline Chromium",
+      "passed": 19,
+      "failed": 0,
+      "report": "tests/v4-presentation-results.json"
+    },
+    {
+      "suite": "offline denied storage",
+      "edition": "offline Chromium",
+      "passed": 3,
+      "failed": 0,
+      "report": "tests/v4-storage-results.json"
+    },
+    {
+      "suite": "offline optional APIs",
+      "edition": "offline Chromium",
+      "passed": 8,
+      "failed": 0,
+      "report": "tests/resilience-results.json"
     },
     {
       "suite": "launcher",
+      "edition": "Linux launcher",
       "passed": 7,
       "failed": 0,
-      "browserVersion": null,
-      "edition": null,
-      "boundary": "Actual Python loopback server and downloaded-launcher payload tested in Linux. No physical Termux/Android installation claimed.",
-      "checks": [
-        {
-          "name": "Launcher starts its dedicated local server",
-          "passed": true,
-          "details": {
-            "app": "cattown-critic-brawler-v6",
-            "version": "6.0",
-            "sha256": "dbdaff1f9c4acb3b6f6e2e804db4f7c5d3653346c054c218acd226cf73fcc5cf"
-          }
-        },
-        {
-          "name": "Served HTML is byte-identical to standalone",
-          "passed": true,
-          "details": {
-            "bytes": 89671832,
-            "sha256": "dbdaff1f9c4acb3b6f6e2e804db4f7c5d3653346c054c218acd226cf73fcc5cf"
-          }
-        },
-        {
-          "name": "HTML response has the correct MIME type",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Local index uses no-cache to avoid stale updates",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Only the new brawler directory receives the extracted game",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "A second launch reuses the same server without killing it",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Local server exposes only the intended endpoints",
-          "passed": true,
-          "details": null
-        }
-      ]
+      "report": "tests/launcher-results.json"
     },
     {
-      "suite": "upgrade-launcher",
+      "suite": "v6\u2192v7 launcher upgrade",
+      "edition": "Linux launcher",
       "passed": 10,
       "failed": 0,
-      "browserVersion": null,
-      "edition": null,
-      "boundary": "Reviewed v5 offline payload and launcher rebuilt from git; original v5 Python bootstrap and HTTP handler run verbatim in a same-process thread. Actual v6 Bash launcher updates that installation twice on loopback port 8788. Retained filesystem sentinels checked; browser localStorage migration is tested separately. No physical Android or Termux testing claimed.",
-      "checks": [
-        {
-          "name": "Reviewed v5 launcher starts on the retained 8788 browser origin",
-          "passed": true,
-          "details": {
-            "origin": "http://127.0.0.1:8788/",
-            "baseline": "03fe0af9d1857874edeb64e2f430dd1989576c64"
-          }
-        },
-        {
-          "name": "The installed v5 payload differs from the new v6 payload",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "v6 reuses the running v5 server without replacing its process",
-          "passed": true,
-          "details": {
-            "returncode": 0,
-            "stderr": ""
-          }
-        },
-        {
-          "name": "The same origin immediately serves the exact complete v6 HTML",
-          "passed": true,
-          "details": {
-            "bytes": 89671832,
-            "sha256": "dbdaff1f9c4acb3b6f6e2e804db4f7c5d3653346c054c218acd226cf73fcc5cf"
-          }
-        },
-        {
-          "name": "Updated HTML is not trapped behind a stale browser cache",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "The original installed v5 HTML is backed up byte-for-byte",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Repeat launch reuses the live server and preserves the original backup",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Existing browser-profile, companion, and unrelated legacy files are intact",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Upgrade keeps the same install directory with no stale temporary file",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "The retained v5 server reports the hash of the updated v6 file",
-          "passed": true,
-          "details": null
-        }
-      ]
-    },
-    {
-      "suite": "mobile",
-      "passed": 33,
-      "failed": 0,
-      "browserVersion": null,
-      "edition": null,
-      "boundary": "Mobile-sized Chromium using exact single-file HTML via bounded document.write chunks. Real CDP touches. Storage round-trip emulated separately. Not a physical Android device. Source URL coverage is recorded in the controller and campaign suites.",
-      "checks": [
-        {
-          "name": "Exact standalone HTML loads all atlas pages",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "All 50 original hero tracks are retained",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "All 943 source hero frame entries are retained",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Original nine character banks and added production bank load",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Press Start begins gameplay",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "All 13 extracted audio clips decode",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Stage soundtrack plays after a genuine tap",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Radial pad provides proportional analog movement",
-          "passed": true,
-          "details": {
-            "partial": 0.3004755577911543,
-            "full": 1
-          }
-        },
-        {
-          "name": "Outer pad range enables run automatically",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Pad release resets both axes",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Analog pad moves between street depth lanes",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Movement + jump + attack accept three simultaneous touches",
-          "passed": true,
-          "details": {
-            "pointers": 3,
-            "z": 85.4125,
-            "action": "air",
-            "input": {
-              "mx": 1,
-              "my": 0,
-              "attackPressed": false,
-              "jumpPressed": false,
-              "guardPressed": false,
-              "specialPressed": false,
-              "attackHeld": true,
-              "guardHeld": false
-            }
-          }
-        },
-        {
-          "name": "Releasing jump preserves movement and attack fingers",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Releasing attack preserves the stick finger",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Touch cancellation clears movement without stuck controls",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Holding Guard enters the defense state",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Pause freezes the simulation",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Music pauses with the game",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Resume restores gameplay and music",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Focus loss pauses and releases every input",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Every runtime animation draws at both facing directions",
-          "passed": true,
-          "details": {
-            "animationStates": 189
-          }
-        },
-        {
-          "name": "Animation room lists all original and derived hero clips",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Animation viewer selects full source tracks",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Checkpoint save serializes the current brawler format",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Continue appears when a checkpoint exists",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Continue resumes after the cleared block",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Sample engine supports overlapping combat effects",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Seven campaign scenes render without code errors",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Final exit shows an actual completion screen",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Portrait keeps every touch control on screen",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "No horizontal document overflow",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Small landscape keeps all four action buttons on screen",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "No uncaught JavaScript errors",
-          "passed": true,
-          "details": []
-        }
-      ]
-    },
-    {
-      "suite": "resilience",
-      "passed": 8,
-      "failed": 0,
-      "browserVersion": null,
-      "edition": null,
-      "boundary": "Chromium feature-removal fixtures. This does not emulate every old browser or every Safari restriction.",
-      "checks": [
-        {
-          "name": "Game loads when Gamepad API and Web Audio are unavailable",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Unavailable gamepad status is explicit and nonfatal",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Normal gameplay still begins without optional APIs",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Music can play without the optional sampled-SFX audio context",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Keyboard movement survives missing gamepad and audio contexts",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Unsupported fullscreen produces a message, not a crash",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Pause and resume survive missing optional browser APIs",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "No unhandled JS errors in degraded browser feature mode",
-          "passed": true,
-          "details": []
-        }
-      ]
-    },
-    {
-      "suite": "v4-storage",
-      "passed": 3,
-      "failed": 0,
-      "browserVersion": null,
-      "edition": null,
-      "boundary": "Browser storage denied by explicit fixture. Final standalone bytes loaded with bounded document.write. No physical Android test.",
-      "checks": [
-        {
-          "name": "Exact final build loads when browser storage is denied",
-          "passed": true
-        },
-        {
-          "name": "Denied-storage fallback remains playable with district music",
-          "passed": true
-        },
-        {
-          "name": "Failed checkpoint persistence is nonfatal and surfaced to the player",
-          "passed": true
-        }
-      ]
-    },
-    {
-      "suite": "v4-presentation",
-      "passed": 19,
-      "failed": 0,
-      "browserVersion": null,
-      "edition": null,
-      "boundary": "Exact standalone HTML streamed to Chromium in bounded CDP chunks. Real decoded MP3 playback and DOM interactions. Stage/completion fixtures explicit; storage emulated. Not a physical Android test.",
-      "checks": [
-        {
-          "name": "Title retains supplied art, Press Start and original-theme assignment",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "First district starts the Broadway recording",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Changing districts starts an overlapping, bounded crossfade",
-          "passed": true,
-          "details": {
-            "track": "subway",
-            "fade": 0.20366666666666586,
-            "both": true,
-            "newVolume": 0.11007133582231426,
-            "oldVolume": 0.3322413295035573
-          }
-        },
-        {
-          "name": "Crossfade retires the old audio element after 0.9 seconds",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "All four district recordings decode, loop and play in their assigned levels",
-          "passed": true,
-          "details": {
-            "broadway": {
-              "key": "broadway",
-              "seconds": 46.4,
-              "playing": true,
-              "loop": true
-            },
-            "subway": {
-              "key": "subway",
-              "seconds": 91.88,
-              "playing": true,
-              "loop": true
-            },
-            "rooftop": {
-              "key": "rooftop",
-              "seconds": 44.36,
-              "playing": true,
-              "loop": true
-            },
-            "theater": {
-              "key": "theater",
-              "seconds": 45.84,
-              "playing": true,
-              "loop": true
-            }
-          }
-        },
-        {
-          "name": "Same-level music requests preserve playback position",
-          "passed": true,
-          "details": {
-            "before": 1.042479,
-            "after": 1.270688
-          }
-        },
-        {
-          "name": "Pause stops music and clears held controls",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Resume keeps the assigned track and resumes its position",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Mute pauses the music without altering its assignment",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Unmute restores current-level music",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "District exit presents a separate visible character celebration",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Clear-screen Continue advances once and flushes stale attack/movement",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Stage celebration automatically continues without a mandatory tap",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Franklin replay finale uses the existing Slam Shermometer, not Franklin",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Franklin Stage4 clear continues the expanded campaign",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Franklin completion has visible winner art and no second unlock claim",
-          "passed": true,
-          "details": "FRANKLIN / THE FINAL CURTAIN"
-        },
-        {
-          "name": "The original recording returns on the ending screen",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Ending panel remains within portrait viewport",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "No uncaught JavaScript or media decoding errors",
-          "passed": true,
-          "details": {
-            "page": [],
-            "audio": []
-          }
-        }
-      ]
-    },
-    {
-      "suite": "gamepad-chromium",
-      "passed": 39,
-      "failed": 0,
-      "browserVersion": "153.0.8010.0",
-      "edition": null,
-      "boundary": "Real browser rendering and event loop; injected standard and nonstandard Gamepad API fixtures. No physical Logitech device. Actual multi-file authoring source served on same-process localhost.",
-      "checks": [
-        {
-          "name": "Controller module and all existing atlases load",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Controller defaults off without hiding touch controls",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Browser-reported standard layout is recognized",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Controller status identifies the connected device",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Controller Start opens the approved story from title",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Controller Confirm advances a story beat",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Controller Start pauses the scene and freezes its clock",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Controller Start resumes the cutscene",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Controller Back skips the opening into gameplay",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Held controller HIT does not leak through scene skip",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Controller neutral plus a fresh HIT restores combat",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Start does not also jump or attack",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Stick has graduated walk/run response",
-          "passed": true,
-          "details": {
-            "partial": 0.37029663446507094
-          }
-        },
-        {
-          "name": "Stick release returns to zero",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Centered stick noise is rejected",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "D-pad moves along street depth",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "West face button enters jab",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Held attack advances combo without repeated edges",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Jump plus attack selects the dedicated airborne kick",
-          "passed": true,
-          "details": {
-            "z": 49.39166666666667,
-            "action": "air"
-          }
-        },
-        {
-          "name": "East face button holds guard",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "North face button triggers existing Review",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Start pauses rather than repeatedly toggling",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Held Start resumes only once",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Disconnect pauses and releases pad input",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Keyboard remains playable after controller disconnect",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Releasing physical HIT does not release touch HIT",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Independent touch release clears the last HIT owner",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Focus loss pauses and suppresses held movement",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Held stick does not immediately run after resume",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Neutral-then-move restores control",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Nonstandard pad does not guess the Logitech layout",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Complete UI mapping wizard saves a custom profile",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Custom profile is persisted in separate settings key",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Custom physical HIT drives the real game",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Stick navigates focus through the current menu",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Custom Menu Back resumes gameplay and returns keyboard focus",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Controller panel fits portrait width",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Keyboard can adjust native settings without game movement",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "No uncaught JavaScript errors during controller integration",
-          "passed": true,
-          "details": []
-        }
-      ]
-    },
-    {
-      "suite": "gamepad-firefox",
-      "passed": 39,
-      "failed": 0,
-      "browserVersion": "144.0.2",
-      "edition": null,
-      "boundary": "Real browser rendering and event loop; injected standard and nonstandard Gamepad API fixtures. No physical Logitech device. Actual multi-file authoring source served on same-process localhost.",
-      "checks": [
-        {
-          "name": "Controller module and all existing atlases load",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Controller defaults off without hiding touch controls",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Browser-reported standard layout is recognized",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Controller status identifies the connected device",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Controller Start opens the approved story from title",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Controller Confirm advances a story beat",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Controller Start pauses the scene and freezes its clock",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Controller Start resumes the cutscene",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Controller Back skips the opening into gameplay",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Held controller HIT does not leak through scene skip",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Controller neutral plus a fresh HIT restores combat",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Start does not also jump or attack",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Stick has graduated walk/run response",
-          "passed": true,
-          "details": {
-            "partial": 0.37029663446507094
-          }
-        },
-        {
-          "name": "Stick release returns to zero",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Centered stick noise is rejected",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "D-pad moves along street depth",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "West face button enters jab",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Held attack advances combo without repeated edges",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Jump plus attack selects the dedicated airborne kick",
-          "passed": true,
-          "details": {
-            "z": 49.39166666666667,
-            "action": "air"
-          }
-        },
-        {
-          "name": "East face button holds guard",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "North face button triggers existing Review",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Start pauses rather than repeatedly toggling",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Held Start resumes only once",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Disconnect pauses and releases pad input",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Keyboard remains playable after controller disconnect",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Releasing physical HIT does not release touch HIT",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Independent touch release clears the last HIT owner",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Focus loss pauses and suppresses held movement",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Held stick does not immediately run after resume",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Neutral-then-move restores control",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Nonstandard pad does not guess the Logitech layout",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Complete UI mapping wizard saves a custom profile",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Custom profile is persisted in separate settings key",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Custom physical HIT drives the real game",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Stick navigates focus through the current menu",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Custom Menu Back resumes gameplay and returns keyboard focus",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Controller panel fits portrait width",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Keyboard can adjust native settings without game movement",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "No uncaught JavaScript errors during controller integration",
-          "passed": true,
-          "details": []
-        }
-      ]
-    },
-    {
-      "suite": "gamepad-webkit",
-      "passed": 39,
-      "failed": 0,
-      "browserVersion": "26.0",
-      "edition": null,
-      "boundary": "Real browser rendering and event loop; injected standard and nonstandard Gamepad API fixtures. No physical Logitech device. Actual multi-file authoring source served on same-process localhost.",
-      "checks": [
-        {
-          "name": "Controller module and all existing atlases load",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Controller defaults off without hiding touch controls",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Browser-reported standard layout is recognized",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Controller status identifies the connected device",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Controller Start opens the approved story from title",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Controller Confirm advances a story beat",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Controller Start pauses the scene and freezes its clock",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Controller Start resumes the cutscene",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Controller Back skips the opening into gameplay",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Held controller HIT does not leak through scene skip",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Controller neutral plus a fresh HIT restores combat",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Start does not also jump or attack",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Stick has graduated walk/run response",
-          "passed": true,
-          "details": {
-            "partial": 0.37029663446507094
-          }
-        },
-        {
-          "name": "Stick release returns to zero",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Centered stick noise is rejected",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "D-pad moves along street depth",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "West face button enters jab",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Held attack advances combo without repeated edges",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Jump plus attack selects the dedicated airborne kick",
-          "passed": true,
-          "details": {
-            "z": 62.04444444444445,
-            "action": "air"
-          }
-        },
-        {
-          "name": "East face button holds guard",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "North face button triggers existing Review",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Start pauses rather than repeatedly toggling",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Held Start resumes only once",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Disconnect pauses and releases pad input",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Keyboard remains playable after controller disconnect",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Releasing physical HIT does not release touch HIT",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Independent touch release clears the last HIT owner",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Focus loss pauses and suppresses held movement",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Held stick does not immediately run after resume",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Neutral-then-move restores control",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Nonstandard pad does not guess the Logitech layout",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Complete UI mapping wizard saves a custom profile",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Custom profile is persisted in separate settings key",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Custom physical HIT drives the real game",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Stick navigates focus through the current menu",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Custom Menu Back resumes gameplay and returns keyboard focus",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Controller panel fits portrait width",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Keyboard can adjust native settings without game movement",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "No uncaught JavaScript errors during controller integration",
-          "passed": true,
-          "details": []
-        }
-      ]
-    },
-    {
-      "suite": "campaign-browser-chromium-source",
-      "passed": 26,
-      "failed": 0,
-      "browserVersion": "153.0.8010.0",
-      "edition": "source",
-      "boundary": "Real browser rendering, event loop, keyboard/touch scenes. Source/hosted tests use actual origin-local storage; standalone parser tests explicitly emulate storage and restore its serialized values on reload. Complete routes accelerate fixed updates with normal combat inputs through the actual app event handlers; stageclear delays are skipped via the real engine transition. Legacy storage and unlocked Franklin profiles are explicit fixtures. No physical Android/Logitech hardware.",
-      "checks": [
-        {
-          "name": "Current canonical title and expanded campaign load",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "New Game opens the implemented story",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Opening presents every approved dialogue line verbatim",
-          "passed": true,
-          "details": [
-            [
-              "DUKE",
-              "Ratings are low. I need you to give this a glowing review, Sherman!"
-            ],
-            [
-              "JAY",
-              "It Stinks!"
-            ],
-            [
-              "DUKE",
-              "I thought you might say that... Allow me to give you a little motivation..."
-            ],
-            [
-              "MARTY",
-              "Dad!"
-            ],
-            [
-              "JAY",
-              "Marty!"
-            ],
-            [
-              "DUKE",
-              "If television can't bring the audience to us, perhaps we'll just bring the television to the audience!"
-            ],
-            [
-              "JAY",
-              "Hatchi Matchi!!!"
-            ]
-          ]
-        },
-        {
-          "name": "Watching the opening restores play and commits one completion flag",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Repeated scene completion is idempotent",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Actual keyboard movement works after the story",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Actual keyboard attack drives accepted combat",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Keyboard pause is preserved",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Scene pause freezes time and audio",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Skipping with HIT held does not leak a punch",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Fresh HIT after key release restores attack",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Touch advances the cutscene",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Portrait scene text and controls stay inside viewport",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Touch skip restores gameplay and clean input",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Jay completes all seven stages through normal combat inputs",
-          "passed": true,
-          "details": {
-            "ticks": 31383,
-            "retries": 0,
-            "stages": [
-              0,
-              1,
-              2,
-              3,
-              4,
-              5,
-              6
-            ],
-            "bosses": [
-              "franklin",
-              "booth-enforcer",
-              "pizzeria-boss",
-              "broadcast-rig"
-            ],
-            "scenes": [
-              "stage-02-intro",
-              "stage-03-intro",
-              "stage-04-intro",
-              "stage4-clear",
-              "stage-05-intro",
-              "boss-projection-intro",
-              "boss-projection-defeat",
-              "stage-06-intro",
-              "boss-pizzeria-intro",
-              "boss-pizzeria-defeat",
-              "stage-07-intro",
-              "boss-duke-intro",
-              "boss-duke-defeat",
-              "ending"
-            ],
-            "projectionDisabled": true,
-            "kind": "hero",
-            "mode": "complete",
-            "stage": 6,
-            "seconds": 246.86666666660648,
-            "kos": 70,
-            "hits": 338,
-            "flags": {
-              "opening": true,
-              "stage-02-intro": true,
-              "stage-03-intro": true,
-              "stage-04-intro": true,
-              "stage4-clear": true,
-              "stage-05-intro": true,
-              "boss-projection-intro": true,
-              "boss-projection-defeat": true,
-              "stage-06-intro": true,
-              "boss-pizzeria-intro": true,
-              "boss-pizzeria-defeat": true,
-              "stage-07-intro": true,
-              "boss-duke-intro": true,
-              "boss-duke-defeat": true,
-              "martyRescued": true,
-              "broadcastStopped": true,
-              "ending": true
-            },
-            "selected": "hero",
-            "wallSeconds": 1.08
-          }
-        },
-        {
-          "name": "Jay route includes every required boss and projection counterplay",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Ending resolves Marty and broadcasting and shows selected celebration",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Completed save uses migrated schema and retains story completion",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Franklin replay completes all seven stages through normal combat inputs",
-          "passed": true,
-          "details": {
-            "ticks": 31274,
-            "retries": 0,
-            "stages": [
-              0,
-              1,
-              2,
-              3,
-              4,
-              5,
-              6
-            ],
-            "bosses": [
-              "sherm-slam",
-              "booth-enforcer",
-              "pizzeria-boss",
-              "broadcast-rig"
-            ],
-            "scenes": [
-              "stage-02-intro",
-              "stage-03-intro",
-              "stage-04-intro",
-              "stage4-clear",
-              "stage-05-intro",
-              "boss-projection-intro",
-              "boss-projection-defeat",
-              "stage-06-intro",
-              "boss-pizzeria-intro",
-              "boss-pizzeria-defeat",
-              "stage-07-intro",
-              "boss-duke-intro",
-              "boss-duke-defeat",
-              "ending"
-            ],
-            "projectionDisabled": true,
-            "kind": "franklin",
-            "mode": "complete",
-            "stage": 6,
-            "seconds": 245.79166666660745,
-            "kos": 70,
-            "hits": 338,
-            "flags": {
-              "opening": true,
-              "stage-02-intro": true,
-              "stage-03-intro": true,
-              "stage-04-intro": true,
-              "stage4-clear": true,
-              "stage-05-intro": true,
-              "boss-projection-intro": true,
-              "boss-projection-defeat": true,
-              "stage-06-intro": true,
-              "boss-pizzeria-intro": true,
-              "boss-pizzeria-defeat": true,
-              "stage-07-intro": true,
-              "boss-duke-intro": true,
-              "boss-duke-defeat": true,
-              "martyRescued": true,
-              "broadcastStopped": true,
-              "ending": true
-            },
-            "selected": "franklin",
-            "wallSeconds": 1.01
-          }
-        },
-        {
-          "name": "Franklin never fights himself and receives no duplicate unlock message",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Completed legacy four-stage save offers Continue",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Legacy completion continues into cinema without replaying opening",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Migration retains Franklin, volume, accessibility, and controller settings",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "New-schema Continue restores checkpoint directly",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Every declared cutscene art dependency decodes in the browser",
-          "passed": true,
-          "details": [
-            {
-              "name": "cutscenes/studio.webp",
-              "decoded": true,
-              "width": 1600,
-              "height": 900
-            },
-            {
-              "name": "cutscenes/rupture.webp",
-              "decoded": true,
-              "width": 1600,
-              "height": 900
-            },
-            {
-              "name": "story/projection-shadow.webp",
-              "decoded": true,
-              "width": 564,
-              "height": 430
-            },
-            {
-              "name": "story/projection-woman.webp",
-              "decoded": true,
-              "width": 228,
-              "height": 218
-            },
-            {
-              "name": "story/pizzeria-boss.webp",
-              "decoded": true,
-              "width": 250,
-              "height": 420
-            },
-            {
-              "name": "cutscenes/rescue.webp",
-              "decoded": true,
-              "width": 1600,
-              "height": 900
-            }
-          ]
-        },
-        {
-          "name": "No uncaught browser JavaScript errors in campaign/story integration",
-          "passed": true,
-          "details": []
-        }
-      ]
-    },
-    {
-      "suite": "campaign-browser-firefox-source",
-      "passed": 26,
-      "failed": 0,
-      "browserVersion": "144.0.2",
-      "edition": "source",
-      "boundary": "Real browser rendering, event loop, keyboard/touch scenes. Source/hosted tests use actual origin-local storage; standalone parser tests explicitly emulate storage and restore its serialized values on reload. Complete routes accelerate fixed updates with normal combat inputs through the actual app event handlers; stageclear delays are skipped via the real engine transition. Legacy storage and unlocked Franklin profiles are explicit fixtures. No physical Android/Logitech hardware.",
-      "checks": [
-        {
-          "name": "Current canonical title and expanded campaign load",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "New Game opens the implemented story",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Opening presents every approved dialogue line verbatim",
-          "passed": true,
-          "details": [
-            [
-              "DUKE",
-              "Ratings are low. I need you to give this a glowing review, Sherman!"
-            ],
-            [
-              "JAY",
-              "It Stinks!"
-            ],
-            [
-              "DUKE",
-              "I thought you might say that... Allow me to give you a little motivation..."
-            ],
-            [
-              "MARTY",
-              "Dad!"
-            ],
-            [
-              "JAY",
-              "Marty!"
-            ],
-            [
-              "DUKE",
-              "If television can't bring the audience to us, perhaps we'll just bring the television to the audience!"
-            ],
-            [
-              "JAY",
-              "Hatchi Matchi!!!"
-            ]
-          ]
-        },
-        {
-          "name": "Watching the opening restores play and commits one completion flag",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Repeated scene completion is idempotent",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Actual keyboard movement works after the story",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Actual keyboard attack drives accepted combat",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Keyboard pause is preserved",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Scene pause freezes time and audio",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Skipping with HIT held does not leak a punch",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Fresh HIT after key release restores attack",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Touch advances the cutscene",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Portrait scene text and controls stay inside viewport",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Touch skip restores gameplay and clean input",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Jay completes all seven stages through normal combat inputs",
-          "passed": true,
-          "details": {
-            "ticks": 31260,
-            "retries": 0,
-            "stages": [
-              0,
-              1,
-              2,
-              3,
-              4,
-              5,
-              6
-            ],
-            "bosses": [
-              "franklin",
-              "booth-enforcer",
-              "pizzeria-boss",
-              "broadcast-rig"
-            ],
-            "scenes": [
-              "stage-02-intro",
-              "stage-03-intro",
-              "stage-04-intro",
-              "stage4-clear",
-              "stage-05-intro",
-              "boss-projection-intro",
-              "boss-projection-defeat",
-              "stage-06-intro",
-              "boss-pizzeria-intro",
-              "boss-pizzeria-defeat",
-              "stage-07-intro",
-              "boss-duke-intro",
-              "boss-duke-defeat",
-              "ending"
-            ],
-            "projectionDisabled": true,
-            "kind": "hero",
-            "mode": "complete",
-            "stage": 6,
-            "seconds": 245.88333333327404,
-            "kos": 70,
-            "hits": 338,
-            "flags": {
-              "opening": true,
-              "stage-02-intro": true,
-              "stage-03-intro": true,
-              "stage-04-intro": true,
-              "stage4-clear": true,
-              "stage-05-intro": true,
-              "boss-projection-intro": true,
-              "boss-projection-defeat": true,
-              "stage-06-intro": true,
-              "boss-pizzeria-intro": true,
-              "boss-pizzeria-defeat": true,
-              "stage-07-intro": true,
-              "boss-duke-intro": true,
-              "boss-duke-defeat": true,
-              "martyRescued": true,
-              "broadcastStopped": true,
-              "ending": true
-            },
-            "selected": "hero",
-            "wallSeconds": 1.33
-          }
-        },
-        {
-          "name": "Jay route includes every required boss and projection counterplay",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Ending resolves Marty and broadcasting and shows selected celebration",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Completed save uses migrated schema and retains story completion",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Franklin replay completes all seven stages through normal combat inputs",
-          "passed": true,
-          "details": {
-            "ticks": 31189,
-            "retries": 0,
-            "stages": [
-              0,
-              1,
-              2,
-              3,
-              4,
-              5,
-              6
-            ],
-            "bosses": [
-              "sherm-slam",
-              "booth-enforcer",
-              "pizzeria-boss",
-              "broadcast-rig"
-            ],
-            "scenes": [
-              "stage-02-intro",
-              "stage-03-intro",
-              "stage-04-intro",
-              "stage4-clear",
-              "stage-05-intro",
-              "boss-projection-intro",
-              "boss-projection-defeat",
-              "stage-06-intro",
-              "boss-pizzeria-intro",
-              "boss-pizzeria-defeat",
-              "stage-07-intro",
-              "boss-duke-intro",
-              "boss-duke-defeat",
-              "ending"
-            ],
-            "projectionDisabled": true,
-            "kind": "franklin",
-            "mode": "complete",
-            "stage": 6,
-            "seconds": 245.33333333327454,
-            "kos": 70,
-            "hits": 338,
-            "flags": {
-              "opening": true,
-              "stage-02-intro": true,
-              "stage-03-intro": true,
-              "stage-04-intro": true,
-              "stage4-clear": true,
-              "stage-05-intro": true,
-              "boss-projection-intro": true,
-              "boss-projection-defeat": true,
-              "stage-06-intro": true,
-              "boss-pizzeria-intro": true,
-              "boss-pizzeria-defeat": true,
-              "stage-07-intro": true,
-              "boss-duke-intro": true,
-              "boss-duke-defeat": true,
-              "martyRescued": true,
-              "broadcastStopped": true,
-              "ending": true
-            },
-            "selected": "franklin",
-            "wallSeconds": 1.4
-          }
-        },
-        {
-          "name": "Franklin never fights himself and receives no duplicate unlock message",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Completed legacy four-stage save offers Continue",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Legacy completion continues into cinema without replaying opening",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Migration retains Franklin, volume, accessibility, and controller settings",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "New-schema Continue restores checkpoint directly",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Every declared cutscene art dependency decodes in the browser",
-          "passed": true,
-          "details": [
-            {
-              "name": "cutscenes/studio.webp",
-              "decoded": true,
-              "width": 1600,
-              "height": 900
-            },
-            {
-              "name": "cutscenes/rupture.webp",
-              "decoded": true,
-              "width": 1600,
-              "height": 900
-            },
-            {
-              "name": "story/projection-shadow.webp",
-              "decoded": true,
-              "width": 564,
-              "height": 430
-            },
-            {
-              "name": "story/projection-woman.webp",
-              "decoded": true,
-              "width": 228,
-              "height": 218
-            },
-            {
-              "name": "story/pizzeria-boss.webp",
-              "decoded": true,
-              "width": 250,
-              "height": 420
-            },
-            {
-              "name": "cutscenes/rescue.webp",
-              "decoded": true,
-              "width": 1600,
-              "height": 900
-            }
-          ]
-        },
-        {
-          "name": "No uncaught browser JavaScript errors in campaign/story integration",
-          "passed": true,
-          "details": []
-        }
-      ]
-    },
-    {
-      "suite": "campaign-browser-webkit-source",
-      "passed": 26,
-      "failed": 0,
-      "browserVersion": "26.0",
-      "edition": "source",
-      "boundary": "Real browser rendering, event loop, keyboard/touch scenes. Source/hosted tests use actual origin-local storage; standalone parser tests explicitly emulate storage and restore its serialized values on reload. Complete routes accelerate fixed updates with normal combat inputs through the actual app event handlers; stageclear delays are skipped via the real engine transition. Legacy storage and unlocked Franklin profiles are explicit fixtures. No physical Android/Logitech hardware.",
-      "checks": [
-        {
-          "name": "Current canonical title and expanded campaign load",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "New Game opens the implemented story",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Opening presents every approved dialogue line verbatim",
-          "passed": true,
-          "details": [
-            [
-              "DUKE",
-              "Ratings are low. I need you to give this a glowing review, Sherman!"
-            ],
-            [
-              "JAY",
-              "It Stinks!"
-            ],
-            [
-              "DUKE",
-              "I thought you might say that... Allow me to give you a little motivation..."
-            ],
-            [
-              "MARTY",
-              "Dad!"
-            ],
-            [
-              "JAY",
-              "Marty!"
-            ],
-            [
-              "DUKE",
-              "If television can't bring the audience to us, perhaps we'll just bring the television to the audience!"
-            ],
-            [
-              "JAY",
-              "Hatchi Matchi!!!"
-            ]
-          ]
-        },
-        {
-          "name": "Watching the opening restores play and commits one completion flag",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Repeated scene completion is idempotent",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Actual keyboard movement works after the story",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Actual keyboard attack drives accepted combat",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Keyboard pause is preserved",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Scene pause freezes time and audio",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Skipping with HIT held does not leak a punch",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Fresh HIT after key release restores attack",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Touch advances the cutscene",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Portrait scene text and controls stay inside viewport",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Touch skip restores gameplay and clean input",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Jay completes all seven stages through normal combat inputs",
-          "passed": true,
-          "details": {
-            "ticks": 32088,
-            "retries": 0,
-            "stages": [
-              0,
-              1,
-              2,
-              3,
-              4,
-              5,
-              6
-            ],
-            "bosses": [
-              "franklin",
-              "booth-enforcer",
-              "pizzeria-boss",
-              "broadcast-rig"
-            ],
-            "scenes": [
-              "stage-02-intro",
-              "stage-03-intro",
-              "stage-04-intro",
-              "stage4-clear",
-              "stage-05-intro",
-              "boss-projection-intro",
-              "boss-projection-defeat",
-              "stage-06-intro",
-              "boss-pizzeria-intro",
-              "boss-pizzeria-defeat",
-              "stage-07-intro",
-              "boss-duke-intro",
-              "boss-duke-defeat",
-              "ending"
-            ],
-            "projectionDisabled": true,
-            "kind": "hero",
-            "mode": "complete",
-            "stage": 6,
-            "seconds": 252.5999999999346,
-            "kos": 70,
-            "hits": 337,
-            "flags": {
-              "opening": true,
-              "stage-02-intro": true,
-              "stage-03-intro": true,
-              "stage-04-intro": true,
-              "stage4-clear": true,
-              "stage-05-intro": true,
-              "boss-projection-intro": true,
-              "boss-projection-defeat": true,
-              "stage-06-intro": true,
-              "boss-pizzeria-intro": true,
-              "boss-pizzeria-defeat": true,
-              "stage-07-intro": true,
-              "boss-duke-intro": true,
-              "boss-duke-defeat": true,
-              "martyRescued": true,
-              "broadcastStopped": true,
-              "ending": true
-            },
-            "selected": "hero",
-            "wallSeconds": 1.81
-          }
-        },
-        {
-          "name": "Jay route includes every required boss and projection counterplay",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Ending resolves Marty and broadcasting and shows selected celebration",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Completed save uses migrated schema and retains story completion",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Franklin replay completes all seven stages through normal combat inputs",
-          "passed": true,
-          "details": {
-            "ticks": 32329,
-            "retries": 0,
-            "stages": [
-              0,
-              1,
-              2,
-              3,
-              4,
-              5,
-              6
-            ],
-            "bosses": [
-              "sherm-slam",
-              "booth-enforcer",
-              "pizzeria-boss",
-              "broadcast-rig"
-            ],
-            "scenes": [
-              "stage-02-intro",
-              "stage-03-intro",
-              "stage-04-intro",
-              "stage4-clear",
-              "stage-05-intro",
-              "boss-projection-intro",
-              "boss-projection-defeat",
-              "stage-06-intro",
-              "boss-pizzeria-intro",
-              "boss-pizzeria-defeat",
-              "stage-07-intro",
-              "boss-duke-intro",
-              "boss-duke-defeat",
-              "ending"
-            ],
-            "projectionDisabled": true,
-            "kind": "franklin",
-            "mode": "complete",
-            "stage": 6,
-            "seconds": 254.64999999993273,
-            "kos": 70,
-            "hits": 339,
-            "flags": {
-              "opening": true,
-              "stage-02-intro": true,
-              "stage-03-intro": true,
-              "stage-04-intro": true,
-              "stage4-clear": true,
-              "stage-05-intro": true,
-              "boss-projection-intro": true,
-              "boss-projection-defeat": true,
-              "stage-06-intro": true,
-              "boss-pizzeria-intro": true,
-              "boss-pizzeria-defeat": true,
-              "stage-07-intro": true,
-              "boss-duke-intro": true,
-              "boss-duke-defeat": true,
-              "martyRescued": true,
-              "broadcastStopped": true,
-              "ending": true
-            },
-            "selected": "franklin",
-            "wallSeconds": 1.44
-          }
-        },
-        {
-          "name": "Franklin never fights himself and receives no duplicate unlock message",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Completed legacy four-stage save offers Continue",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Legacy completion continues into cinema without replaying opening",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Migration retains Franklin, volume, accessibility, and controller settings",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "New-schema Continue restores checkpoint directly",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Every declared cutscene art dependency decodes in the browser",
-          "passed": true,
-          "details": [
-            {
-              "name": "cutscenes/studio.webp",
-              "decoded": true,
-              "width": 1600,
-              "height": 900
-            },
-            {
-              "name": "cutscenes/rupture.webp",
-              "decoded": true,
-              "width": 1600,
-              "height": 900
-            },
-            {
-              "name": "story/projection-shadow.webp",
-              "decoded": true,
-              "width": 564,
-              "height": 430
-            },
-            {
-              "name": "story/projection-woman.webp",
-              "decoded": true,
-              "width": 228,
-              "height": 218
-            },
-            {
-              "name": "story/pizzeria-boss.webp",
-              "decoded": true,
-              "width": 250,
-              "height": 420
-            },
-            {
-              "name": "cutscenes/rescue.webp",
-              "decoded": true,
-              "width": 1600,
-              "height": 900
-            }
-          ]
-        },
-        {
-          "name": "No uncaught browser JavaScript errors in campaign/story integration",
-          "passed": true,
-          "details": []
-        }
-      ]
-    },
-    {
-      "suite": "campaign-browser-chromium-offline",
-      "passed": 26,
-      "failed": 0,
-      "browserVersion": "153.0.8010.0",
-      "edition": "offline",
-      "boundary": "Real browser rendering, event loop, keyboard/touch scenes. Source/hosted tests use actual origin-local storage; standalone parser tests explicitly emulate storage and restore its serialized values on reload. Complete routes accelerate fixed updates with normal combat inputs through the actual app event handlers; stageclear delays are skipped via the real engine transition. Legacy storage and unlocked Franklin profiles are explicit fixtures. No physical Android/Logitech hardware.",
-      "checks": [
-        {
-          "name": "Current canonical title and expanded campaign load",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "New Game opens the implemented story",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Opening presents every approved dialogue line verbatim",
-          "passed": true,
-          "details": [
-            [
-              "DUKE",
-              "Ratings are low. I need you to give this a glowing review, Sherman!"
-            ],
-            [
-              "JAY",
-              "It Stinks!"
-            ],
-            [
-              "DUKE",
-              "I thought you might say that... Allow me to give you a little motivation..."
-            ],
-            [
-              "MARTY",
-              "Dad!"
-            ],
-            [
-              "JAY",
-              "Marty!"
-            ],
-            [
-              "DUKE",
-              "If television can't bring the audience to us, perhaps we'll just bring the television to the audience!"
-            ],
-            [
-              "JAY",
-              "Hatchi Matchi!!!"
-            ]
-          ]
-        },
-        {
-          "name": "Watching the opening restores play and commits one completion flag",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Repeated scene completion is idempotent",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Actual keyboard movement works after the story",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Actual keyboard attack drives accepted combat",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Keyboard pause is preserved",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Scene pause freezes time and audio",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Skipping with HIT held does not leak a punch",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Fresh HIT after key release restores attack",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Touch advances the cutscene",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Portrait scene text and controls stay inside viewport",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Touch skip restores gameplay and clean input",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Jay completes all seven stages through normal combat inputs",
-          "passed": true,
-          "details": {
-            "ticks": 31405,
-            "retries": 0,
-            "stages": [
-              0,
-              1,
-              2,
-              3,
-              4,
-              5,
-              6
-            ],
-            "bosses": [
-              "franklin",
-              "booth-enforcer",
-              "pizzeria-boss",
-              "broadcast-rig"
-            ],
-            "scenes": [
-              "stage-02-intro",
-              "stage-03-intro",
-              "stage-04-intro",
-              "stage4-clear",
-              "stage-05-intro",
-              "boss-projection-intro",
-              "boss-projection-defeat",
-              "stage-06-intro",
-              "boss-pizzeria-intro",
-              "boss-pizzeria-defeat",
-              "stage-07-intro",
-              "boss-duke-intro",
-              "boss-duke-defeat",
-              "ending"
-            ],
-            "projectionDisabled": true,
-            "kind": "hero",
-            "mode": "complete",
-            "stage": 6,
-            "seconds": 247.07499999993962,
-            "kos": 70,
-            "hits": 338,
-            "flags": {
-              "opening": true,
-              "stage-02-intro": true,
-              "stage-03-intro": true,
-              "stage-04-intro": true,
-              "stage4-clear": true,
-              "stage-05-intro": true,
-              "boss-projection-intro": true,
-              "boss-projection-defeat": true,
-              "stage-06-intro": true,
-              "boss-pizzeria-intro": true,
-              "boss-pizzeria-defeat": true,
-              "stage-07-intro": true,
-              "boss-duke-intro": true,
-              "boss-duke-defeat": true,
-              "martyRescued": true,
-              "broadcastStopped": true,
-              "ending": true
-            },
-            "selected": "hero",
-            "wallSeconds": 1.13
-          }
-        },
-        {
-          "name": "Jay route includes every required boss and projection counterplay",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Ending resolves Marty and broadcasting and shows selected celebration",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Completed save uses migrated schema and retains story completion",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Franklin replay completes all seven stages through normal combat inputs",
-          "passed": true,
-          "details": {
-            "ticks": 31610,
-            "retries": 0,
-            "stages": [
-              0,
-              1,
-              2,
-              3,
-              4,
-              5,
-              6
-            ],
-            "bosses": [
-              "sherm-slam",
-              "booth-enforcer",
-              "pizzeria-boss",
-              "broadcast-rig"
-            ],
-            "scenes": [
-              "stage-02-intro",
-              "stage-03-intro",
-              "stage-04-intro",
-              "stage4-clear",
-              "stage-05-intro",
-              "boss-projection-intro",
-              "boss-projection-defeat",
-              "stage-06-intro",
-              "boss-pizzeria-intro",
-              "boss-pizzeria-defeat",
-              "stage-07-intro",
-              "boss-duke-intro",
-              "boss-duke-defeat",
-              "ending"
-            ],
-            "projectionDisabled": true,
-            "kind": "franklin",
-            "mode": "complete",
-            "stage": 6,
-            "seconds": 248.9416666666046,
-            "kos": 70,
-            "hits": 337,
-            "flags": {
-              "opening": true,
-              "stage-02-intro": true,
-              "stage-03-intro": true,
-              "stage-04-intro": true,
-              "stage4-clear": true,
-              "stage-05-intro": true,
-              "boss-projection-intro": true,
-              "boss-projection-defeat": true,
-              "stage-06-intro": true,
-              "boss-pizzeria-intro": true,
-              "boss-pizzeria-defeat": true,
-              "stage-07-intro": true,
-              "boss-duke-intro": true,
-              "boss-duke-defeat": true,
-              "martyRescued": true,
-              "broadcastStopped": true,
-              "ending": true
-            },
-            "selected": "franklin",
-            "wallSeconds": 1.16
-          }
-        },
-        {
-          "name": "Franklin never fights himself and receives no duplicate unlock message",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Completed legacy four-stage save offers Continue",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Legacy completion continues into cinema without replaying opening",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Migration retains Franklin, volume, accessibility, and controller settings",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "New-schema Continue restores checkpoint directly",
-          "passed": true,
-          "details": null
-        },
-        {
-          "name": "Every declared cutscene art dependency decodes in the browser",
-          "passed": true,
-          "details": [
-            {
-              "name": "cutscenes/studio.webp",
-              "decoded": true,
-              "width": 1600,
-              "height": 900
-            },
-            {
-              "name": "cutscenes/rupture.webp",
-              "decoded": true,
-              "width": 1600,
-              "height": 900
-            },
-            {
-              "name": "story/projection-shadow.webp",
-              "decoded": true,
-              "width": 564,
-              "height": 430
-            },
-            {
-              "name": "story/projection-woman.webp",
-              "decoded": true,
-              "width": 228,
-              "height": 218
-            },
-            {
-              "name": "story/pizzeria-boss.webp",
-              "decoded": true,
-              "width": 250,
-              "height": 420
-            },
-            {
-              "name": "cutscenes/rescue.webp",
-              "decoded": true,
-              "width": 1600,
-              "height": 900
-            }
-          ]
-        },
-        {
-          "name": "No uncaught browser JavaScript errors in campaign/story integration",
-          "passed": true,
-          "details": []
-        }
-      ]
-    },
-    {
-      "suite": "production-assets",
-      "passed": 7,
-      "failed": 0,
-      "boundary": "Actual Pillow unittest run on final bank/page bytes; seven test methods, all OK."
+      "report": "tests/upgrade-launcher-results.json"
     }
   ],
-  "totalPassedChecks": 454,
+  "totalPassedChecks": 627,
   "totalFailedChecks": 0,
-  "campaignRoutes": [
-    {
-      "ticks": 31383,
-      "retries": 0,
-      "stages": [
-        0,
-        1,
-        2,
-        3,
-        4,
-        5,
-        6
-      ],
-      "bosses": [
-        "franklin",
-        "booth-enforcer",
-        "pizzeria-boss",
-        "broadcast-rig"
-      ],
-      "scenes": [
-        "stage-02-intro",
-        "stage-03-intro",
-        "stage-04-intro",
-        "stage4-clear",
-        "stage-05-intro",
-        "boss-projection-intro",
-        "boss-projection-defeat",
-        "stage-06-intro",
-        "boss-pizzeria-intro",
-        "boss-pizzeria-defeat",
-        "stage-07-intro",
-        "boss-duke-intro",
-        "boss-duke-defeat",
-        "ending"
-      ],
-      "projectionDisabled": true,
-      "kind": "hero",
-      "mode": "complete",
-      "stage": 6,
-      "seconds": 246.86666666660648,
-      "kos": 70,
-      "hits": 338,
-      "flags": {
-        "opening": true,
-        "stage-02-intro": true,
-        "stage-03-intro": true,
-        "stage-04-intro": true,
-        "stage4-clear": true,
-        "stage-05-intro": true,
-        "boss-projection-intro": true,
-        "boss-projection-defeat": true,
-        "stage-06-intro": true,
-        "boss-pizzeria-intro": true,
-        "boss-pizzeria-defeat": true,
-        "stage-07-intro": true,
-        "boss-duke-intro": true,
-        "boss-duke-defeat": true,
-        "martyRescued": true,
-        "broadcastStopped": true,
-        "ending": true
-      },
-      "selected": "hero",
-      "wallSeconds": 1.08
-    },
-    {
-      "ticks": 31274,
-      "retries": 0,
-      "stages": [
-        0,
-        1,
-        2,
-        3,
-        4,
-        5,
-        6
-      ],
-      "bosses": [
-        "sherm-slam",
-        "booth-enforcer",
-        "pizzeria-boss",
-        "broadcast-rig"
-      ],
-      "scenes": [
-        "stage-02-intro",
-        "stage-03-intro",
-        "stage-04-intro",
-        "stage4-clear",
-        "stage-05-intro",
-        "boss-projection-intro",
-        "boss-projection-defeat",
-        "stage-06-intro",
-        "boss-pizzeria-intro",
-        "boss-pizzeria-defeat",
-        "stage-07-intro",
-        "boss-duke-intro",
-        "boss-duke-defeat",
-        "ending"
-      ],
-      "projectionDisabled": true,
-      "kind": "franklin",
-      "mode": "complete",
-      "stage": 6,
-      "seconds": 245.79166666660745,
-      "kos": 70,
-      "hits": 338,
-      "flags": {
-        "opening": true,
-        "stage-02-intro": true,
-        "stage-03-intro": true,
-        "stage-04-intro": true,
-        "stage4-clear": true,
-        "stage-05-intro": true,
-        "boss-projection-intro": true,
-        "boss-projection-defeat": true,
-        "stage-06-intro": true,
-        "boss-pizzeria-intro": true,
-        "boss-pizzeria-defeat": true,
-        "stage-07-intro": true,
-        "boss-duke-intro": true,
-        "boss-duke-defeat": true,
-        "martyRescued": true,
-        "broadcastStopped": true,
-        "ending": true
-      },
-      "selected": "franklin",
-      "wallSeconds": 1.01
-    }
-  ],
-  "content": {
+  "additionalContractSuite": {
+    "file": "tests/cutscenes-v7.test.js",
+    "status": "passed",
+    "note": "Grouped scene-contract assertions are excluded from the structured case total."
+  },
+  "sourceBrowserChecks": 336,
+  "offlineBrowserChecks": 95,
+  "runtimeContent": {
     "stages": 7,
-    "ordinaryEncounters": 21,
-    "ordinarySpawns": 66,
-    "ordinaryShermometers": 53,
-    "bossEncounters": 4,
-    "scenes": 15,
-    "characterAndPropBanks": 14,
-    "animationStates": 189,
-    "frameReferences": 2811,
-    "atlasPages": 22,
-    "musicRecordings": 5,
-    "soundCues": 13
+    "banks": 14,
+    "animationStates": 193,
+    "frames": 2849,
+    "atlasPages": 75
   },
-  "saveSchema": 4,
-  "artifacts": [
+  "startupComparison": {
+    "measurements": [
+      {
+        "version": "6.0.0",
+        "loadedPages": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          21
+        ],
+        "totalPages": 22,
+        "atlasBytes": 55478726,
+        "decodedAtlasRGBABytes": 204845056,
+        "resourceEncodedBytes": 56143507,
+        "edition": "baseline-v6",
+        "coldLocalhostSeconds": 0.432,
+        "browserVersion": "143.0.7499.4"
+      },
+      {
+        "version": "7.0.0",
+        "loadedPages": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          24,
+          25,
+          26,
+          27,
+          28,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39,
+          40,
+          45,
+          46,
+          47,
+          72,
+          73
+        ],
+        "totalPages": 75,
+        "atlasBytes": 29973308,
+        "decodedAtlasRGBABytes": 109731128,
+        "resourceEncodedBytes": 30710117,
+        "edition": "the-critic-city-run",
+        "coldLocalhostSeconds": 0.725,
+        "browserVersion": "143.0.7499.4"
+      }
+    ],
+    "boundary": "Fresh browser contexts, uncached local HTTP source, desktop headless shell at mobile viewport. Byte budgets are actual requested atlas file sizes and actual decoded RGBA geometry. Localhost startup timing is not a physical Android/network loading benchmark."
+  },
+  "correctionChecklist": [
     {
-      "filename": "The-Critic-Coming-Attractions-v6.html",
-      "bytes": 89671832,
-      "sha256": "dbdaff1f9c4acb3b6f6e2e804db4f7c5d3653346c054c218acd226cf73fcc5cf"
+      "id": 1,
+      "correction": "initial loading improved",
+      "status": "verified",
+      "evidence": "Startup atlas request budget is 29,973,308 bytes versus 55,478,726; decoded budget is 109,731,128 versus 204,845,056. Cold localhost time increased .432\u2192.725 s, so no wall-time speedup is claimed.",
+      "reference": "tests/v7-startup-results.json"
     },
     {
-      "filename": "The-Critic-Coming-Attractions-v6-Play.sh",
-      "bytes": 91193582,
-      "sha256": "8fa6f5a295f9f2d43d2a6862a5c214ac9a40dba23714523315b5da1e395da9cf"
+      "id": 2,
+      "correction": "Animation Room inaccessible until ready",
+      "status": "verified",
+      "evidence": "Three browser loading suites: stalled startup/gallery files, every entrance and direct handler guard; repeated failed Continue remains retryable.",
+      "reference": "tests/v7-loading-chromium-results.json"
+    },
+    {
+      "id": 3,
+      "correction": "options menu preserved",
+      "status": "verified",
+      "evidence": "Controller/settings suites retain native volume, accessibility and remapping controls; options usable during stalled loading.",
+      "reference": "tests/gamepad-chromium-results.json"
+    },
+    {
+      "id": 4,
+      "correction": "Belly Bash is Jay's RUN + HIT",
+      "status": "verified",
+      "evidence": "Engine run-attack assertions and original Belly Bash source contact registration.",
+      "reference": "tests/v7-engine-results.json"
+    },
+    {
+      "id": 5,
+      "correction": "Belly Bash gives substantial knockback",
+      "status": "verified",
+      "evidence": "Normal RUN+HIT launches a lane-valid foe 302.68 units, hits once for existing 24 damage; off-lane target is untouched.",
+      "reference": "tests/v7-engine-results.json"
+    },
+    {
+      "id": 6,
+      "correction": "Marty is not prematurely visible in opening",
+      "status": "verified",
+      "evidence": "Both watched opening routes keep Marty absent through duke-approach, refusal and motivation.",
+      "reference": "tests/v7-scenes-chromium-results.json"
+    },
+    {
+      "id": 7,
+      "correction": "opening begins with Jay seated on Coming Attractions set",
+      "status": "verified",
+      "evidence": "Actual landscape screenshot reviewed: seated Jay/chair on a shared pixel Coming Attractions set.",
+      "reference": "cutscenes.js"
+    },
+    {
+      "id": 8,
+      "correction": "Duke approaches Jay",
+      "status": "verified",
+      "evidence": "Real browser time shows Duke x advancing toward seated Jay within the shared shot.",
+      "reference": "tests/v7-scenes-chromium-results.json"
+    },
+    {
+      "id": 9,
+      "correction": "Jay and Duke share scene continuity",
+      "status": "verified",
+      "evidence": "Shared set/camera and Jay/Duke bodies retained across the opening exchange; screenshots reviewed.",
+      "reference": "data/cutscenes.js"
+    },
+    {
+      "id": 10,
+      "correction": "Marty reveal happens later",
+      "status": "verified",
+      "evidence": "Both routes reveal Marty only after motivation; the reveal uses his own portrait and one authored cage.",
+      "reference": "tests/v7-scenes-chromium-results.json"
+    },
+    {
+      "id": 11,
+      "correction": "dialogue portraits implemented",
+      "status": "verified",
+      "evidence": "All 6 speaker portraits decode in all 3 engines with pixel rendering and independent geometry.",
+      "reference": "tests/v7-scenes-chromium-results.json"
+    },
+    {
+      "id": 12,
+      "correction": "cutscenes match 32-bit game aesthetic",
+      "status": "verified",
+      "evidence": "Pixel studio, sprite bodies and portrait frames visually inspected; retained animation pixels verified by semantic asset tests.",
+      "reference": "tests/production-assets.test.py"
+    },
+    {
+      "id": 13,
+      "correction": "Duke's activation visibly releases enemies from screens",
+      "status": "verified",
+      "evidence": "Opening activation/emergence scene shows the 7 actual enemy banks originating from named screen positions.",
+      "reference": "tests/v7-scenes-chromium-results.json"
+    },
+    {
+      "id": 14,
+      "correction": "multiple Coming Attractions emerge in droves",
+      "status": "verified",
+      "evidence": "Seven recurring cast banks appear together and move from screens into the studio.",
+      "reference": "tests/v7-scenes-chromium-results.json"
+    },
+    {
+      "id": 15,
+      "correction": "origin of enemies is visually understandable",
+      "status": "verified",
+      "evidence": "Named screen origins and actual screen-to-floor movement are asserted and visually inspected.",
+      "reference": "tests/v7-scenes-chromium-results.json"
+    },
+    {
+      "id": 16,
+      "correction": "Jay is physically blasted/thrown into Stage 1",
+      "status": "verified",
+      "evidence": "Jay moves out of the studio toward the window before the separate street-recovery beat and Stage1.",
+      "reference": "tests/v7-scenes-chromium-results.json"
+    },
+    {
+      "id": 17,
+      "correction": "boxes/trash props larger",
+      "status": "verified",
+      "evidence": "Props use a consistent1.35 presentation scale; break/drop values retained; screenshots reviewed.",
+      "reference": "tests/v7-engine-results.json"
+    },
+    {
+      "id": 18,
+      "correction": "inter-stage Duke/Marty cage scenes added",
+      "status": "verified",
+      "evidence": "Short stage scenes visibly continue Duke\u2019s portable Marty-cage trail; scene contract and route tests.",
+      "reference": "tests/cutscenes-v7.test.js"
+    },
+    {
+      "id": 19,
+      "correction": "first four stages visually distinct",
+      "status": "verified",
+      "evidence": "Rendered first4 reviewed: broadcasting/media block, subway train/platform, rooftop skyline, neon premiere theater.",
+      "reference": "render.js"
+    },
+    {
+      "id": 20,
+      "correction": "short cutscene between meaningful stages",
+      "status": "verified",
+      "evidence": "All stage/boss story beats integrate into both complete routes and are safely skipped through actual callbacks.",
+      "reference": "tests/campaign-browser-chromium-results.json"
+    },
+    {
+      "id": 21,
+      "correction": "parry preserved",
+      "status": "verified",
+      "evidence": "Original guard/parry/counter combat definitions and controller/touch regression remain passing.",
+      "reference": "tests/engine-results.json"
+    },
+    {
+      "id": 22,
+      "correction": "weak transitional dialogue rewritten",
+      "status": "verified",
+      "evidence": "Stage transitions use brief visual cage/trail exchanges; Jay/Franklin dialogue tables and scene player tested.",
+      "reference": "data/cutscenes.js"
+    },
+    {
+      "id": 23,
+      "correction": "combat preserved",
+      "status": "verified",
+      "evidence": "Exact accepted HITS/CHAIN baseline, original decoded action pixels/timing/registration, movement and combat suites pass.",
+      "reference": "tests/v7-engine-results.json"
+    },
+    {
+      "id": 24,
+      "correction": "projectionist is clearly readable",
+      "status": "verified",
+      "evidence": "Projectionist silhouette/reveal and face are readable inside a masked background window in actual cinema capture.",
+      "reference": "render.js"
+    },
+    {
+      "id": 25,
+      "correction": "projectionist art matches 32-bit game",
+      "status": "verified",
+      "evidence": "New pixel projectionist art uses the supplied identity; actual staged screenshots inspected.",
+      "reference": "assets/story/projection-woman-pixel.webp"
+    },
+    {
+      "id": 26,
+      "correction": "projection windows fixed",
+      "status": "verified",
+      "evidence": "Three windows are fixed and masked, with aligned numbered circuit/wire connections.",
+      "reference": "render.js"
+    },
+    {
+      "id": 27,
+      "correction": "circuit objective understandable",
+      "status": "verified",
+      "evidence": "Three matched circuits, explicit objective and0/3 counter are visible; partial checkpoint and full shutdown tested.",
+      "reference": "tests/v7-engine-results.json"
+    },
+    {
+      "id": 28,
+      "correction": "projectiles fair/readable",
+      "status": "verified",
+      "evidence": "Visible reveal precedes locked-floor telegraph and throw; projectile stays at locked target; matching circuit cancels its reels; large reel visually reviewed.",
+      "reference": "tests/v7-engine-results.json"
+    },
+    {
+      "id": 29,
+      "correction": "good death behavior preserved",
+      "status": "verified",
+      "evidence": "Preserved decoded death frames and ground-contact metadata; pizzeria grounded defeat capture reviewed.",
+      "reference": "tests/production-assets.test.py"
+    },
+    {
+      "id": 30,
+      "correction": "muddy theater progression clarified",
+      "status": "verified",
+      "evidence": "Actual cinema progression requires all 3 circuit shutdowns before exit; both routes clear it; HUD objective remains visible during the enforcer fight.",
+      "reference": "tests/campaign-browser-chromium-results.json"
+    },
+    {
+      "id": 31,
+      "correction": "confusing transitions removed/restaged",
+      "status": "verified",
+      "evidence": "Authored cage trails, cinema objective and pizzeria door entrance visibly communicate cause/exit; full routes and scene tests pass.",
+      "reference": "data/campaign.js"
+    },
+    {
+      "id": 32,
+      "correction": "Pizzeria boss consistently larger",
+      "status": "verified",
+      "evidence": "Boss uses one fixed1.24 body scale across states; doorway capture appears about 19% taller than Jay.",
+      "reference": "tests/v7-engine-results.json"
+    },
+    {
+      "id": 33,
+      "correction": "Pizzeria boss intro clearly staged",
+      "status": "verified",
+      "evidence": "Engine asserts explicit pizzeria-door source, door-open then walk phases, one entrance event; capture reviewed.",
+      "reference": "tests/v7-engine-results.json"
+    },
+    {
+      "id": 34,
+      "correction": "dialogue scene vertical bounce eliminated",
+      "status": "verified",
+      "evidence": "All 10 opening beats have identical viewport/dialogue/portrait/Continue bounds in landscape and portrait in all 3 engines; all lines fit.",
+      "reference": "tests/v7-scenes-chromium-results.json"
+    },
+    {
+      "id": 35,
+      "correction": "final broadcast gameplay preserved",
+      "status": "verified",
+      "evidence": "Both routes fight the original broadcast machine before Duke; existing machine attack definition and normal combat remain passing.",
+      "reference": "tests/campaign-browser-chromium-results.json"
+    },
+    {
+      "id": 36,
+      "correction": "final-broadcast cutscene converted to game-consistent art",
+      "status": "verified",
+      "evidence": "Broadcast story uses pixel stage/studio art, retained cast sprite overlays and pixel portraits; scene dependencies decode.",
+      "reference": "data/cutscenes.js"
+    },
+    {
+      "id": 37,
+      "correction": "final-broadcast scene contains movement",
+      "status": "verified",
+      "evidence": "Broadcast scene actor/screen emergence motion is authored and covered by scene contracts; rendered scene player checked.",
+      "reference": "tests/cutscenes-v7.test.js"
+    },
+    {
+      "id": 38,
+      "correction": "stakes visibly established",
+      "status": "verified",
+      "evidence": "Marty remains visibly caged in the final arena; rescue objective and alarm/screen effects tie the machine to the confrontation.",
+      "reference": "render.js"
+    },
+    {
+      "id": 39,
+      "correction": "Duke becomes final combat boss after broadcast",
+      "status": "verified",
+      "evidence": "Every normal-input route defeats broadcast-rig then the actual grounded Duke;3 source-backed attacks have telegraph/recovery tests.",
+      "reference": "tests/campaign-browser-chromium-results.json"
+    },
+    {
+      "id": 40,
+      "correction": "Marty rescue follows Duke defeat",
+      "status": "verified",
+      "evidence": "Every route asserts no premature martyRescued flag; schema5 and old-complete-v4 Continue require Duke first.",
+      "reference": "tests/campaign-browser-chromium-results.json"
+    },
+    {
+      "id": 41,
+      "correction": "existing ending/results strengths preserved",
+      "status": "verified",
+      "evidence": "Exact offline soundtrack/presentation19 checks retain visible winner, celebrations, title music and portrait results without repeated Franklin unlock.",
+      "reference": "tests/v4-presentation-results.json"
+    },
+    {
+      "id": 42,
+      "correction": "Franklin visible in route-appropriate intro",
+      "status": "verified",
+      "evidence": "Franklin body is visible as ally in the opening; Jay stays present as Marty\u2019s father.",
+      "reference": "tests/v7-scenes-chromium-results.json"
+    },
+    {
+      "id": 43,
+      "correction": "Franklin does not inherit Jay-specific dialogue",
+      "status": "verified",
+      "evidence": "Every Franklin player comment in stage/boss/ending scenes uses FRANKLIN speaker and portrait; approved father lines remain Jay\u2019s.",
+      "reference": "tests/v7-scenes-chromium-results.json"
+    },
+    {
+      "id": 44,
+      "correction": "Franklin dialogue is route-aware",
+      "status": "verified",
+      "evidence": "Resolved route-specific dialogue is watched in the real scene player; Franklin reply/ending contracts pass.",
+      "reference": "tests/v7-scenes-chromium-results.json"
+    },
+    {
+      "id": 45,
+      "correction": "Franklin RUN + HIT improved",
+      "status": "verified",
+      "evidence": "Franklin uses independent cartwheel-run source poses; normal RUN+HIT contact and302.68-unit launch tested; never borrows Belly Bash.",
+      "reference": "tests/v7-engine-results.json"
     }
   ],
-  "visualEvidence": {
-    "boundary": "Actual Chromium source build with authored explicit stage/boss fixtures and real stage asset-loading event; screenshots manually inspected. Does not claim complete campaign or physical hardware play.",
-    "stage-5": {
-      "mode": "play",
-      "boss": "booth-enforcer",
-      "visibleBank": true,
-      "dukeLoaded": false,
-      "martyLoaded": false,
-      "artLoaded": true
-    },
-    "stage-6": {
-      "mode": "play",
-      "boss": "pizzeria-boss",
-      "visibleBank": true,
-      "dukeLoaded": false,
-      "martyLoaded": true,
-      "artLoaded": true
-    },
-    "stage-7": {
-      "mode": "play",
-      "boss": "broadcast-rig",
-      "visibleBank": false,
-      "dukeLoaded": true,
-      "martyLoaded": true,
-      "artLoaded": true
-    },
-    "errors": []
-  },
-  "preserved": {
-    "originalBanks": 9,
-    "originalAtlasPages": 13,
-    "playerCombatConstantsUnchanged": true,
-    "controllerModulesUnchanged": true,
-    "firstFourWaveArraysUnchanged": true
-  },
-  "verificationBoundary": {
-    "completeRoutes": "Accelerated fixed updates with normal combat inputs and real app event dispatch; no HP/position/enemy/score edits during complete routes. UI/input/edge-case scenarios use separately identified fixtures.",
-    "storage": "Source builds use real localhost origin storage. Offline parser reloads explicitly emulate storage.",
-    "hardware": "No physical Android/Termux/Logitech/iPhone or desktop Safari device testing claimed.",
-    "publication": "The offline release records final CI and live HTTPS verification after merge in Hosted-Verification.json; this source report records completed local verification."
-  },
-  "knownLimitationsDocument": "docs/KNOWN-LIMITATIONS.md"
+  "boundaries": [
+    "Normal-input automated full routes accelerate fixed updates through actual app event handlers; no HP, positions, enemies, score or flags are modified during the two route runs.",
+    "Source HTTP checks use genuine origin-local storage. Exact offline HTML parser loading explicitly emulates storage.",
+    "Gamepad API objects are fixtures. CDP sends real browser touch events. Physical Android, Termux on Android, Logitech hardware, iPhone and desktop Safari are untested.",
+    "Playwright WebKit is a compatibility engine. Browser versions and binaries are recorded; no all-browser or all-device guarantee is made.",
+    "Stage/render/scenario fixtures and asset semantic assertions supplement, rather than substitute for, normal-input campaign runs.",
+    "No new music was synthesized. Existing supplied recordings, crossfades and optional-API fallbacks were tested."
+  ],
+  "knownLimitations": [
+    "Physical hardware testing remains outstanding.",
+    "Public CI/HTTPS publication evidence is appended separately after release.",
+    "Cold localhost startup duration rose .432\u2192.725 seconds in this headless sample despite ~46% lower startup atlas/decode budget; no measured wall-clock speedup is claimed."
+  ]
 }

@@ -1,0 +1,233 @@
+{
+  "title": "The Critic: Coming Attractions",
+  "pass": "Annotated playtest presentation correction v7",
+  "date": "2026-10-07",
+  "mode": "Built-in image generation; distinct missing assets generated independently; source banks/portraits/caged Marty preserved.",
+  "nativeAssets": [
+    {
+      "id": "pixel-studio",
+      "path": "assets/cutscenes/pixel-studio.webp",
+      "references": [],
+      "transparent": false,
+      "sourceSHA256": "54f4c3986b8c2859f6ab0013c598e8eae74d79aadf54c405cae58f7d84c42b79",
+      "generator": "built-in image_gen.imagegen",
+      "inspection": "Generated output visually inspected for canonical identity, game-compatible pixel clusters, scene continuity, and no baked dialogue.",
+      "runtimeFiles": [
+        {
+          "path": "assets/cutscenes/pixel-studio.webp",
+          "width": 480,
+          "height": 270,
+          "bytes": 136972,
+          "SHA256": "32d18ba72084c7c36f173bc0c53298846c8ef31ad2bad2146c13a26558d3c807",
+          "alphaBinary": null
+        }
+      ],
+      "normalization": "Nearest-neighbor conversion from generated pixel-art clusters to native runtime grid; binary alpha for transparent assets; exact-RGBA lossless WebP. No high-resolution painted-art pixelation used.",
+      "provenanceScope": "Canonical anchor names, generation method, native dimensions, derivations and runtime checksums. Private production prompts retained separately."
+    },
+    {
+      "id": "jay-seated",
+      "path": "assets/cutscenes/jay-seated.webp",
+      "references": [
+        "anchor.png"
+      ],
+      "transparent": true,
+      "sourceSHA256": "bca43bb2a4f90a02c9e3f7a582630af026d24bd91822d9eaa984b11838440a7a",
+      "generator": "built-in image_gen.imagegen",
+      "inspection": "Generated output visually inspected for canonical identity, game-compatible pixel clusters, scene continuity, and no baked dialogue.",
+      "runtimeFiles": [
+        {
+          "path": "assets/cutscenes/jay-seated.webp",
+          "width": 256,
+          "height": 224,
+          "bytes": 26536,
+          "SHA256": "112e31060ac831981c7d87ce6fd50541c9db6ff9fe38c372563cfe9aba9bab09",
+          "alphaBinary": true
+        }
+      ],
+      "normalization": "Nearest-neighbor conversion from generated pixel-art clusters to native runtime grid; binary alpha for transparent assets; exact-RGBA lossless WebP. No high-resolution painted-art pixelation used.",
+      "provenanceScope": "Canonical anchor names, generation method, native dimensions, derivations and runtime checksums. Private production prompts retained separately."
+    },
+    {
+      "id": "projection-woman-pixel",
+      "path": "assets/story/projection-woman-pixel.webp",
+      "references": [
+        "projection-woman.webp"
+      ],
+      "transparent": true,
+      "sourceSHA256": "dcb3b6adb510f662a7a62cab8d85ba243648a26ba893cfb70689f85d0ee80d9c",
+      "generator": "built-in image_gen.imagegen",
+      "inspection": "Generated output visually inspected for canonical identity, game-compatible pixel clusters, scene continuity, and no baked dialogue.",
+      "runtimeFiles": [
+        {
+          "path": "assets/story/projection-woman-pixel.webp",
+          "width": 96,
+          "height": 112,
+          "bytes": 11204,
+          "SHA256": "80cf3bc01cfaf5c2965818a39acf71775fd943ffd82f6341a677024536da5339",
+          "alphaBinary": true
+        }
+      ],
+      "normalization": "Nearest-neighbor conversion from generated pixel-art clusters to native runtime grid; binary alpha for transparent assets; exact-RGBA lossless WebP. No high-resolution painted-art pixelation used.",
+      "provenanceScope": "Canonical anchor names, generation method, native dimensions, derivations and runtime checksums. Private production prompts retained separately."
+    },
+    {
+      "id": "jay-shock",
+      "path": "assets/portraits/jay/shock.webp",
+      "references": [
+        "portrait_000.png"
+      ],
+      "transparent": true,
+      "sourceSHA256": "19e808f4801a94130b613def05efc0fb16bcdbb7746cc469e51f12814e353c8b",
+      "generator": "built-in image_gen.imagegen",
+      "inspection": "Generated output visually inspected for canonical identity, game-compatible pixel clusters, scene continuity, and no baked dialogue.",
+      "runtimeFiles": [
+        {
+          "path": "assets/portraits/jay/shock.webp",
+          "width": 256,
+          "height": 256,
+          "bytes": 45088,
+          "SHA256": "023b387ffc34121a927f967f5a55dfdea9a70dcc308d1b5d8d58c12f1825a6c3",
+          "alphaBinary": true
+        }
+      ],
+      "normalization": "Nearest-neighbor conversion from generated pixel-art clusters to native runtime grid; binary alpha for transparent assets; exact-RGBA lossless WebP. No high-resolution painted-art pixelation used.",
+      "provenanceScope": "Canonical anchor names, generation method, native dimensions, derivations and runtime checksums. Private production prompts retained separately."
+    },
+    {
+      "id": "marty-fear",
+      "path": "assets/portraits/marty/fear.webp",
+      "references": [
+        "portrait_000.png"
+      ],
+      "transparent": true,
+      "sourceSHA256": "ecd4d41716046308e6aa8f3f614103f1f7fe1c25233403b7838c7b0034370b06",
+      "generator": "built-in image_gen.imagegen",
+      "inspection": "Generated output visually inspected for canonical identity, game-compatible pixel clusters, scene continuity, and no baked dialogue.",
+      "runtimeFiles": [
+        {
+          "path": "assets/portraits/marty/fear.webp",
+          "width": 256,
+          "height": 256,
+          "bytes": 40790,
+          "SHA256": "c311c51cfc5ce3a28be2b4b88872690c0e2e544b8211e3b5079d1837c2661ce2",
+          "alphaBinary": true
+        }
+      ],
+      "normalization": "Nearest-neighbor conversion from generated pixel-art clusters to native runtime grid; binary alpha for transparent assets; exact-RGBA lossless WebP. No high-resolution painted-art pixelation used.",
+      "provenanceScope": "Canonical anchor names, generation method, native dimensions, derivations and runtime checksums. Private production prompts retained separately."
+    },
+    {
+      "id": "jay-disgust",
+      "path": "assets/portraits/jay/disgust.webp",
+      "references": [
+        "portrait_000.png"
+      ],
+      "transparent": true,
+      "sourceSHA256": "019530a36c6eb1a41eeab2d8021d7fa171697d9c41856d650380d3d606052055",
+      "generator": "built-in image_gen.imagegen",
+      "inspection": "Generated output visually inspected for canonical identity, game-compatible pixel clusters, scene continuity, and no baked dialogue.",
+      "runtimeFiles": [
+        {
+          "path": "assets/portraits/jay/disgust.webp",
+          "width": 256,
+          "height": 256,
+          "bytes": 42276,
+          "SHA256": "65861171697eba07cf02c21be7fe873f7799b06df6c8dd266608ffc06cd4c0a7",
+          "alphaBinary": true
+        }
+      ],
+      "normalization": "Nearest-neighbor conversion from generated pixel-art clusters to native runtime grid; binary alpha for transparent assets; exact-RGBA lossless WebP. No high-resolution painted-art pixelation used.",
+      "provenanceScope": "Canonical anchor names, generation method, native dimensions, derivations and runtime checksums. Private production prompts retained separately."
+    },
+    {
+      "id": "franklin-cartwheel-run",
+      "path": "assets/generated/franklin-cartwheel",
+      "correction_prompt": "Use case: identity-preserve. Edit the six-frame Franklin cartwheel sheet in image1. Image2 is the exact accepted in-game Franklin scale/proportions. Preserve all SIX distinct cartwheel poses, 3column\u00d72row grid, inversion in frame3, exact brown-haired Franklin identity, tan square glasses, red1937sash, offwhite belted shorts and bare feet.\nMake only these two fixes:\n1. Remove ALL bright red/magenta fringe residue and halo around sprite silhouettes, replacing that residue with actual transparency. Keep the red sash itself intact; preserve pale pink skin and dark plum sprite outlines. Sharp clean transparent outer edges, no glow, no haze, no neon fringe.\n2. Match image2's slender elderly body and head/body proportions. Existing generated heads are slightly oversized; reduce heads about20percent uniformly in all sixframes, keeping same face, glasses and brownhair. Body and limb lengths stay consistent and unchanged. The head/body ratio is the same across allposes, and everyframe belongs to the same character at identical sprite scale.\nDo not repaint into high-res style. Actual native32-bit pixelclusters and crisp dark stepped edges, limited palette. Fixed camera; logical sheet960\u00d7512 with3 equal320\u00d7256cells perrow, ground230 center160. No lettering added, no background, no gridlines or labels. Genuine transparency.",
+      "references": [
+        "franklin-icon.png",
+        "anchor.png"
+      ],
+      "transparent": true,
+      "sourceSHA256": "e598c0e2bb7d9923cfe661bc5556ac492b2cd3c2be217cec194c1850c0e8f0b5",
+      "generator": "built-in image_gen.imagegen",
+      "inspection": "Generated output visually inspected for canonical identity, game-compatible pixel clusters, scene continuity, and no baked dialogue.",
+      "runtimeFiles": [
+        {
+          "path": "assets/generated/franklin-cartwheel/cartwheel-run_000.webp",
+          "width": 320,
+          "height": 256,
+          "bytes": 30504,
+          "SHA256": "5a937f2ec551d24803e24198503649e44389452021eac5d2c707536a4f4fecbc",
+          "alphaBinary": true
+        },
+        {
+          "path": "assets/generated/franklin-cartwheel/cartwheel-run_001.webp",
+          "width": 320,
+          "height": 256,
+          "bytes": 29726,
+          "SHA256": "e020e5747cb293ecbbdf64fe75cf07e13cb4465ef78fb5dc6913e00bd8cb270f",
+          "alphaBinary": true
+        },
+        {
+          "path": "assets/generated/franklin-cartwheel/cartwheel-run_002.webp",
+          "width": 320,
+          "height": 256,
+          "bytes": 31742,
+          "SHA256": "421aaa730dc7a88336f846cb90b08c913948ad1651d9cc13f785e704602926e1",
+          "alphaBinary": true
+        },
+        {
+          "path": "assets/generated/franklin-cartwheel/cartwheel-run_003.webp",
+          "width": 320,
+          "height": 256,
+          "bytes": 31360,
+          "SHA256": "51187e70bb0e1de714caadf28b023637b1c039b698947ac346aaf94531df06c0",
+          "alphaBinary": true
+        },
+        {
+          "path": "assets/generated/franklin-cartwheel/cartwheel-run_004.webp",
+          "width": 320,
+          "height": 256,
+          "bytes": 29682,
+          "SHA256": "35dffa93b799a7c80c0785f010d7589aedadb73a34bb0456621c93e0570846e1",
+          "alphaBinary": true
+        },
+        {
+          "path": "assets/generated/franklin-cartwheel/cartwheel-run_005.webp",
+          "width": 320,
+          "height": 256,
+          "bytes": 27016,
+          "SHA256": "8b5253028e84e48796291ab1ed77b31a1179bf64f95b026ea3a98da9051eab43",
+          "alphaBinary": true
+        }
+      ],
+      "registration": {
+        "fixedCanvas": [
+          320,
+          256
+        ],
+        "pivotX": 160,
+        "groundY": 230,
+        "globalSheetGrid": [
+          3,
+          2
+        ],
+        "perFrameScaleChanges": false,
+        "nativeSourceFilesPreserved": true,
+        "action": "cartwheel-run",
+        "poses": [
+          "anticipation",
+          "palmplant",
+          "inverted split active",
+          "rotation active",
+          "touchdown",
+          "recovery"
+        ]
+      },
+      "audit": "Current Franklin bank has33retained states including spin-kick/leap-slam but no cartwheel; new supplied Franklin ZIP contains4talk portraits only. No separate Flow prompt or source cartwheel clip supplied. Six generated keyposes fill this single missing performance. Narrow outer red fringe was detected and passed to asset-import pipeline; generator correction alone did not remove it completely.",
+      "integration": "Atlas and runtime metadata owned by asset-intake agent; that pipeline removed14/21/6/6/34/20 distinctive edge pixels while preserving skin/sash/interior palette, and confirmed grounded6frame sequence and195px recovery silhouette against197px accepted old idle.",
+      "provenanceScope": "Canonical anchor names, generation method, native dimensions, derivations and runtime checksums. Private production prompts retained separately."
+    }
+  ]
+}

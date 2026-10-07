@@ -8,7 +8,7 @@ from playwright.sync_api import sync_playwright
 from load_helper import load_html
 from browser_support import source_site, launch_options, standalone_path
 R=Path(__file__).resolve().parents[1]
-ap=argparse.ArgumentParser();ap.add_argument('--engine',default='chromium',choices=['chromium','firefox','webkit']);ap.add_argument('--url');args=ap.parse_args()
+ap=argparse.ArgumentParser();ap.add_argument('--engine',default='chromium',choices=['chromium','firefox','webkit']);ap.add_argument('--url');ap.add_argument('--output',type=Path);ap.add_argument('--screenshots',type=Path);args=ap.parse_args()
 results=[];errors=[]
 def check(name,ok,detail=None):
  results.append({'name':name,'passed':bool(ok),'details':detail});print('PASS' if ok else 'FAIL',name,detail or '',flush=True)
@@ -24,12 +24,12 @@ with source_site(args.url) as site_url, sync_playwright() as pw:
  if args.url:
   p.add_init_script(fixtures);p.goto(site_url);p.wait_for_function('window.__brawler?.ready()',timeout=60000)
  else:load_html(p,html)
- check('Controller module and all existing atlases load',p.evaluate('BRAWLER_CONFIG.version==="6.0.0"&&__brawler.renderer().images.length>=13'))
+ check('Controller and current-stage dependencies load without full-gallery preload',p.evaluate('BRAWLER_CONFIG.version==="7.0.0"&&__brawler.meta().pages.length>=13&&__brawler.renderer().images.some(im=>im?.naturalWidth>0)'))
  check('Controller defaults off without hiding touch controls',p.evaluate('!__brawler.controller.enabled'))
  p.locator('#movesButton').click();p.locator('#controllerEnabled').check();p.evaluate('__pads=[__makePad()]');p.wait_for_function('__brawler.controller.mappingOrigin==="standard"&&document.getElementById("controllerDevice").textContent.includes("Logitech-style")',timeout=10000)
  check('Browser-reported standard layout is recognized',p.evaluate('__brawler.controller.mappingOrigin==="standard"'))
  check('Controller status identifies the connected device', 'Logitech-style' in p.locator('#controllerDevice').evaluate('el=>el.selectedOptions[0].textContent'))
- p.screenshot(path=str(R/'tests/controller-settings-desktop.png'))
+ shotdir=args.screenshots or R/'tests';shotdir.mkdir(parents=True,exist_ok=True);p.screenshot(path=str(shotdir/f'controller-settings-desktop-{args.engine}.png'))
  p.locator('#titleButton').click();p.wait_for_timeout(80)
  def btn(n,on=True):p.evaluate('([n,on])=>__pads[0].buttons[n]={pressed:on,value:on?1:0}',[n,on])
  def wait_observed(expression,timeout=10):
@@ -47,7 +47,8 @@ with source_site(args.url) as site_url, sync_playwright() as pw:
   p.wait_for_timeout(ms);btn(n,False)
   wait_observed('!__brawler.controller.blocked&&!Object.values(__brawler.controller.state.held).some(Boolean)')
   p.wait_for_timeout(100)
- tap(9);check('Controller Start opens the approved story from title',p.evaluate('__brawler.game.mode==="cutscene"&&__brawler.scenes().state().id==="opening"'))
+ tap(9);wait_observed('__brawler.game.mode==="cutscene"&&__brawler.scenes().state().id==="opening"&&!__brawler.scenes().loading',timeout=60);check('Controller Start opens the approved story from title',p.evaluate('__brawler.game.mode==="cutscene"&&__brawler.scenes().state().id==="opening"'))
+ wait_observed('__brawler.scenes().time>=(__brawler.scenes().shot.minTime??.2)')
  tap(0);check('Controller Confirm advances a story beat',p.evaluate('__brawler.scenes().index===1'))
  tap(9);sceneTime=p.evaluate('__brawler.scenes().time');p.wait_for_timeout(160);check('Controller Start pauses the scene and freezes its clock',p.evaluate('__brawler.scenes().paused&&__brawler.scenes().time')==sceneTime)
  tap(9);check('Controller Start resumes the cutscene',p.evaluate('!__brawler.scenes().paused'))
@@ -110,10 +111,10 @@ with source_site(args.url) as site_url, sync_playwright() as pw:
  # Portrait controller UI remains scrollable and inside the panel.
  p.locator('#pauseBtn').click();p.set_viewport_size({'width':412,'height':915});p.locator('#controllerSettings').scroll_into_view_if_needed();p.wait_for_timeout(180)
  check('Controller panel fits portrait width',p.locator('#controllerDevice').bounding_box()['width']<412 and p.evaluate('document.documentElement.scrollWidth<=innerWidth'))
- p.screenshot(path=str(R/'tests/controller-settings-portrait.png'))
+ p.screenshot(path=str(shotdir/f'controller-settings-portrait-{args.engine}.png'))
  # Keyboard editing on a native field must not create gameplay edges.
  p.locator('#controllerDeadzone').focus();p.keyboard.press('ArrowRight');check('Keyboard can adjust native settings without game movement',p.evaluate('__brawler.input.keys.size===0'))
  check('No uncaught JavaScript errors during controller integration',not errors,errors)
  report={'engine':args.engine,'browserVersion':b.version,'tests':results,'passed':sum(x['passed'] for x in results),'failed':sum(not x['passed'] for x in results),'boundary':'Real browser rendering and event loop; injected standard and nonstandard Gamepad API fixtures. No physical Logitech device. '+('Actual multi-file authoring source served on same-process localhost.' if args.url=='local' else 'Hosted multi-file URL.' if args.url else 'Exact standalone loaded through bounded parser writes; storage explicitly emulated.')}
- (R/'tests'/f'gamepad-{args.engine}-results.json').write_text(json.dumps(report,indent=2));b.close()
+ output=args.output or R/'tests'/f'gamepad-{args.engine}-results.json';output.parent.mkdir(parents=True,exist_ok=True);output.write_text(json.dumps(report,indent=2));b.close()
 if report['failed']:raise SystemExit(1)

@@ -11,7 +11,7 @@ def standalone_path():
     override = os.environ.get('CRITIC_HTML')
     if override:
         return Path(override)
-    for name in ['The-Critic-Coming-Attractions-v6.html', 'The-Critic-City-Brawler-v5.html']:
+    for name in ['The-Critic-Coming-Attractions-v7.html', 'The-Critic-Coming-Attractions-v6.html', 'The-Critic-City-Brawler-v5.html']:
         path = ROOT / name
         if path.exists():
             return path
@@ -47,3 +47,19 @@ def source_site(url='local'):
     finally:
         server.shutdown()
         server.server_close()
+
+
+def wait_scene(page):
+    """Observe an actually decoded scene, including async app preparation."""
+    page.wait_for_function('__brawler.scenes().active&&!__brawler.scenes().loading', timeout=60000, polling=50)
+
+
+def skip_story(page):
+    """Skip through the actual queue/callbacks without bypassing story effects."""
+    for _ in range(120):
+        if page.evaluate('__brawler.scenes().active'):
+            page.evaluate('__brawler.scenes().skip()')
+        elif page.evaluate('__brawler.game.mode!=="loading"&&__brawler.game.mode!=="cutscene"'):
+            return
+        page.wait_for_timeout(50)
+    raise AssertionError('Story queue did not settle after safe skipping')
