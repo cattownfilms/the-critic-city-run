@@ -2,11 +2,22 @@
 
 ## Delivered verification boundary
 
-Chromium **144.0.7559.96** was exercised with the exact standalone release, real rendering and events, genuine multi-touch through CDP, and standard/nonstandard Gamepad API fixtures. Sizes include desktop, small landscape, and Android-sized portrait. Gamepad objects are injected test data, **not a hardware Logitech test**.
+The v6 release was exercised locally with Playwright 1.57.0 in Chromium **153.0.8010.0**, Firefox **144.0.2**, and WebKit **26.0**. Actual multi-file authoring source was served by an HTTP server inside each test process and opened in the browser. This includes genuine origin-local storage and reloads. The offline HTML was additionally loaded with bounded parser writes in Chromium; that harness explicitly emulates storage and restores serialized fixture values when recreating the page.
 
-The managed environment blocks browser URL navigation. The standalone release is therefore loaded through bounded parser writes. Browser-storage persistence is explicitly simulated in round-trip tests; denied storage is tested separately. The local HTTP/launcher tests do serve and verify actual bytes over loopback, but that is not a hosted browser navigation test.
+| Browser / edition | Controller integration | Campaign and scenes |
+|---|---:|---:|
+| Chromium source | 39 passed | 26 passed |
+| Firefox source | 39 passed | 26 passed |
+| WebKit source | 39 passed | 26 passed |
+| Chromium offline | Source controller checks above | 26 passed |
 
-Firefox and WebKit could not be installed in this environment because browser download DNS failed. They are **not locally verified**. The GitHub Actions browser matrix is prepared to run real hosted multi-file checks in all three engines after publishing. CI results must be read after the jobs actually run. Desktop Safari is not identical to Playwright WebKit, and neither represents a physical iPhone or Android phone.
+The controller checks use injected standard and nonstandard Gamepad API objects and the real browser event loop. They cover radial movement, D-pad, combat, remapping, menus, scene advance/pause/skip, held-input suppression, disconnect/reconnect, and focus handling. They are **not a physical Logitech hardware test**. Polling assertions wait for actual pad readiness and observed state changes. The tap helper observes state with driver-side reads so hiding a focused native field cannot starve the browser-owned assertion timer; the device label is checked through the selected option's text because native select text extraction differs among engines.
+
+The campaign driver runs both Jay and unlocked Franklin through all seven stages with normal movement and combat inputs, including the projection circuits and the final broadcast encounter. It accelerates the engine's fixed updates through the actual app event handlers. It does not edit positions, health, enemies, score, or story flags during either route. It invokes the real stage-clear transition without waiting for celebration delays. Explicit legacy-save and unlocked-profile fixtures are identified in the report. Separate real keyboard and touch events verify story input, gameplay input, and mobile layouts.
+
+The exact offline build also passed **33 mobile/rendering/touch checks**, **19 soundtrack/presentation checks**, **8 optional-API fallback checks**, and **3 denied-storage checks** in Chromium. Multi-touch is delivered through CDP, including independent movement/jump/attack ownership and cancellation. All cutscene art dependencies decode in each tested source engine. See [Validation](VALIDATION.md) and the generated test reports for exact coverage.
+
+These results do not represent physical Android, a physical gamepad, desktop Safari, or iPhone testing. Playwright WebKit is a compatibility engine, not a claim of testing every Safari or Apple hardware configuration. Local source and offline results are distinct from public GitHub Pages deployment verification; hosted verification is recorded separately after publication. A configured CI job alone is not a passing CI result.
 
 ## Intended browser targets and fallbacks
 

@@ -1,8 +1,12 @@
-# Asset usage / v4 motion and district score
+# THE CRITIC: COMING ATTRACTIONS / asset usage
+
+Current runtime: 14 banks, 189 animation states, 2,811 frame references, 2,626 unique packed rectangles and 22 atlas pages, as recorded in `assets/sprites.json`. Nine original banks retain all 153 states and 2,306 frame references. Five supplied-media banks add 36 states and 505 references. The cinema circuit defender aliases the existing Shermometer v3 bank; the final broadcast machine uses authored renderer geometry rather than another sprite bank.
+
+The campaign has seven districts, 21 ordinary encounters, 66 ordinary spawns and four boss encounters. Shermometers provide 53 ordinary spawns. The first four districts retain the established 39 spawns. See [docs/CONTENT.md](docs/CONTENT.md) and [docs/STORY-CANON.md](docs/STORY-CANON.md).
 
 The original v3 action libraries are retained. The baseline mapping is preserved in production/v3-Asset-Usage-BASELINE.md as historical documentation; new gameplay mappings below supersede its old jump/air-kick, entry and ending triggers. Original-source review flags remain visible rather than silently reclassifying every old pose as clean.
 
-## New animation selections
+## Retained v4 animation selections
 
 | Bank | New state | Frames | Source | Registration |
 |---|---|---:|---|---|
@@ -26,26 +30,55 @@ Franklin: 34 runtime crop rectangles receive a constrained saturated-magenta neg
 
 Original non-Franklin crop pixels, track durations, source frame order and original offsets are preserved. Contact metadata is appended, not baked a second time. Settled death support and shadow corrections happen at rendering. New video crops use one fixed scale per take and lossless alpha/RGB atlas encoding after initial resizing.
 
-## Counts
+## Current runtime counts
 
-| Bank | Runtime states | Frame references |
-|---|---:|---:|
-| hero | 59 | 1028 |
-| bear | 10 | 138 |
-| hippo | 8 | 123 |
-| sherm-punch | 9 | 129 |
-| sherm-shove | 7 | 101 |
-| sherm-slam | 9 | 145 |
-| striped | 9 | 121 |
-| raptor | 9 | 143 |
-| franklin | 33 | 378 |
+| Canonical name / bank | Runtime states | Frame references | Use |
+|---|---:|---:|---|
+| Jay Sherman / `hero` | 59 | 1028 | Starting player, personality, reactions and celebrations |
+| Accordion Bear / `bear` | 10 | 138 | Occasional ordinary opponent |
+| Green Hippo / `hippo` | 8 | 123 | Occasional heavy opponent |
+| Shermometer v1 / `sherm-punch` | 9 | 129 | Recurring ordinary opponent |
+| Shermometer v2 / `sherm-shove` | 7 | 101 | Recurring ordinary opponent |
+| Shermometer v3 / `sherm-slam` | 9 | 145 | Ordinary opponent, Franklin-route stage-4 finale, cinema defender alias |
+| Fred K / `striped` | 9 | 121 | Occasional guest opponent |
+| JP Raptor Esq / `raptor` | 9 | 143 | Occasional reach-pressure opponent |
+| Franklin / `franklin` | 33 | 378 | Brown-haired stage-4 boss and unlockable player |
+| Pizzeria Headliner / `pizzeria-boss` | 8 | 105 | Supplied cream-scarf male boss; temporary proper name |
+| Marty Sherman / `marty` | 11 | 187 | Story/rescue context only; unique supplied Red Pullover performances retained |
+| Duke Phillips / `duke` | 10 | 156 | Antagonist context only; supplied Blue Polo performances retained |
+| Turkey Dinner / `turkey-dinner` | 3 | 17 | Immediate large health pickup; additional source states retained |
+| Trash Can / `trash-can` | 4 | 40 | Breakable prop with dent and break performances |
 
-Total: 153 states, 2,306 frame references, 2,143 packed rectangles, 13 atlas pages. The hero retains 50 original source tracks / 943 source entries plus original and new derivatives. All 13 existing combat cues and the original title/portrait/theme bytes remain unchanged.
+Total: 189 states, 2,811 frame references, 2,626 packed rectangles, 22 atlas pages. Original pages 00–12 remain intact; added pages 13–21 hold the supplied new banks. The hero retains 50 original source tracks / 943 source entries plus original and new derivatives. All 13 existing combat cues and the original title/portrait/theme bytes remain unchanged. Counts describe retained runtime availability, not a requirement to force every performance into ordinary combat.
+
+## Added supplied performances and identity checks
+
+`production/new-assets.json` records source archive names, hashes, source entity IDs, fixed bank scale, retained actions and limitations. The Pizzeria Headliner uses Cream Scarf material and the matching supplied male video. Its `attack`, `opposite-strike` and `guard-reset` poses supply the authored one-two, rush, counter and telegraphs. `opposite-strike` has `canonicalFacing: -1`, so its original leftward motion renders consistently with the gameplay attack direction. No independent hurt performance was supplied; its short reaction falls back to idle.
+
+Red Pullover was verified as Marty Sherman and Blue Polo as Duke Phillips. Their original action libraries are retained for context and gallery use, but neither is spawned as an ordinary enemy or physical boss. Marty appears in the final protected rescue space. Duke operates the final machine; the game does not turn him into a monster. `booth-enforcer` is an internal set-piece ID mapped to the already retained `sherm-slam` artwork and named Shermometer v3 in play.
+
+Turkey Dinner and Trash Can are imported from the supplied Sprite Forge archives. Turkey Dinner restores up to 46 health immediately; Coffee retains its 18-health behavior. Trash Can replaces the external Bin name while old `bin` references remain compatible. New crop processing uses one scale per bank, grounded registration and constrained removal of chroma-background edges. Existing source review labels and interesting unassigned actions remain available.
 
 ## Music
 
-Title/results use recording (3); Broadway uses (1), subway (5), rooftop (2), theater (4). Recordings retain their full source bytes and vocals. Level changes use 0.9-second crossfades. See assets/music-map.json for complete names, hashes, lengths and runtime files.
+| Context | Supplied arrangement | Runtime recording |
+|---|---|---|
+| Title / final results | (3) | `theme.mp3` |
+| Broadway Blocks / Little Italy | (1) | `music-broadway.mp3` |
+| Last Train Uptown | (5) | `music-uptown.mp3` |
+| Above the Avenue / Broadcast Tower | (2) | `music-rooftops.mp3` |
+| Theater District / Palace Cinema | (4) | `music-theater.mp3` |
+
+Recordings retain their full source bytes and vocals. No new music or voice recording is claimed. Level changes use 0.9-second crossfades. Separate music/effects levels, hit ducking, mute and pause remain. See `assets/music-map.json` for complete names, hashes, lengths and runtime files.
+
+## Scene and environment art
+
+Six generated 16:9 compositions fill actual production gaps: studio confrontation, broadcast rupture, rescue aftermath, Palace Cinema, pizzeria streetscape and broadcast interior. Optimized files are in `assets/cutscenes/` and `assets/environments/`; `data/cutscenes.js` assembles opening, district, boss and ending beats with dialogue rendered by the game. `production/cutscene-art.json` records generation prompts and provenance. The projection woman’s shadow/clear portraits and the male boss portrait in `assets/story/` derive from supplied references rather than new character redesigns.
+
+Interactive circuits, floor warnings, moving projectiles, breakables, pickups and the final machine remain independently rendered elements. Theater seating frames the fight aisle instead of covering the combat lane. Duke and Marty use their contextual banks above the final arena. Missing optional environment art leaves authored geometry visible, while required atlas loading holds gameplay on a recoverable loading screen.
 
 ## Rendering and staging
 
-Source clips provide poses only; game physics supplies world height and travel. Late enemy landing/ready poses are used after off-screen entry or masked sewer emergence. Franklin walks in, points and enters guard. Franklin-player final boss is the existing Slam Shermometer; Jay's boss and no-death Stage 4 unlock condition stay Franklin. Existing dances are exposed in the stage-clear and ending canvases. No VHS prop interaction or new voice recording is invented.
+Source clips provide poses only; game physics supplies world height and travel. Late enemy landing/ready poses are used after off-screen entry or masked sewer emergence. Franklin walks in, points and enters guard. Playable Franklin’s stage-4 opponent is Shermometer v3; Jay faces Franklin and can earn the established no-death stage-4 unlock. Both routes continue through the cinema, male boss and final broadcast confrontation. Existing dances are exposed in the stage-clear and ending canvases.
+
+The loader preserves the shared original atlas pages and loads added player/stage/prop/boss dependencies before play; new optional gallery banks load when selected. Unique performances are retained rather than discarded to reduce the initial load. Source archives and raw videos are not required in the published runtime.

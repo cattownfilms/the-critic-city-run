@@ -1,94 +1,71 @@
-# The Critic: City Run
+# THE CRITIC: COMING ATTRACTIONS
 
-**v5.0.0: optional controller support and a public-web publishing package.** A fan-made, four-district belt-scrolling browser brawler. Touch, keyboard, and physical controllers share the same combat engine. No account, server-side game code, analytics, API key, or paid service is needed to play.
+A complete seven-stage, mobile-first arcade brawler. Duke demands a glowing review, kidnaps Marty, and turns his experimental broadcasting system on. The Coming Attractions spill into New York. Jay goes after his son.
 
-This archive is ready to publish, but delivering the archive does not create a live GitHub repository. The publishing script reports the actual repository and site status. See [Publishing](docs/PUBLISHING.md).
+**[Play the game](https://cattownfilms.github.io/the-critic-city-run/)** · v6.0.0 · Touch, keyboard, optional remappable controller · No account or runtime service required.
 
-## Play
+## Play locally
 
-For the hosted edition, open the GitHub Pages URL printed by the publisher. Do not send friends a raw GitHub HTML/blob URL: send the Pages address. Wait for the cast to load, then press **PRESS START**. Tap/click once if the browser requests permission to start audio. Landscape provides the largest combat view; portrait also remains usable.
+Run `python3 -m http.server 8788 --bind 127.0.0.1` in this folder and open `http://127.0.0.1:8788/`. Keep this origin to retain existing local saves. Direct `file://index.html` is unsupported; use the generated standalone file for direct offline play.
 
-For local development, run this from the repository root, then open the printed localhost address:
+The release bundle includes the complete standalone `The-Critic-Coming-Attractions-v6.html` and Termux launcher `The-Critic-Coming-Attractions-v6-Play.sh`. In Termux, install Python, then run `bash The-Critic-Coming-Attractions-v6-Play.sh`. It keeps the existing localhost:8788 origin and installation directory, backs up the old HTML, and never clears browser saves. The browser and Termux must remain open for reloads.
 
-```sh
-python -m http.server 8788 --bind 127.0.0.1
-```
+## Controls
 
-A separately delivered standalone HTML bundles everything for offline play. A separately delivered Termux launcher embeds that same HTML. Neither is necessary for friends visiting the public site. The unpacked edition needs HTTP(S), not direct `file://index.html` loading, because it fetches individual assets.
+| Input | Movement | HIT | JUMP | GUARD | REVIEW | Pause |
+|---|---|---|---|---|---|---|
+| Touch | Radial analog pad | HIT | JUMP | GUARD | REVIEW | Pause icon |
+| Keyboard | WASD / arrows | J / X | Space / Z | K / C | L / V | Esc / P |
+| Standard browser gamepad | Left stick / D-pad | West / X | South / A | East / B or LB | North / Y | Start |
 
-## Optional physical controller
+Small stick deflection walks; full deflection runs. Standing HIT chains jab, cross, front kick, palm. JUMP + HIT kicks in the air; RUN + HIT rushes. Hold GUARD for frontal block, time GUARD to parry, MOVE + GUARD slips, then HIT counters. Full REVIEW meter fires the established finisher.
 
-Open **Controls** on the title screen, or **Pause** during play. Scroll to **Controller**, enable **Enable physical controller**, then press a controller button while this page is focused. Support is off by default and never removes your touch buttons or keyboard controls.
+Controllers remain optional and off by default. Enable one in Controls/Pause; nonstandard devices require the existing eleven-step remapping wizard. Standard mapping is accepted only when the browser reports it, including Logitech-style devices. Disconnect/focus loss clears held controls and pauses. Hardware has not been tested physically.
 
-The game uses the standard mapping **only when the browser reports `mapping: "standard"`**. Brand recognition alone does not determine the mapping. Your exact Logitech model is not assumed.
+Scenes: touch CONTINUE/SKIP, Enter/Space/J to advance, Esc/Backspace to skip, P to pause. Controller Confirm/HIT advances, Back skips, Start pauses. Release controls between scene and play. Skipping awards exactly the same progression as watching.
 
-| Physical input (standard browser layout) | Action |
-|---|---|
-| Left stick or D-pad | Move horizontally or between street depth lanes |
-| Small / large stick deflection | Walk / run |
-| West face button, usually X | HIT / combo |
-| South face button, usually A | JUMP |
-| East face button, usually B, or left bumper | GUARD / parry; move + guard to dodge |
-| North face button, usually Y | REVIEW |
-| Start / Menu | Pause / resume; start from title |
-| Stick / D-pad in menus | Navigate controls |
-| South / East face buttons in menus | Confirm / back |
+## Campaign
 
-Jump, then HIT for the airborne kick. Running then HIT retains the existing rush punch. Timing, damage, hit windows, enemy behavior, four stages, unlock rules, animation library, and soundtrack are unchanged from v4.
+| Stage | Location | Main authored encounter |
+|---|---|---|
+| 1 | Broadway Blocks | The first Coming Attractions enter New York |
+| 2 | Last Train Uptown | Follow Duke’s trail beneath the city |
+| 3 | Above the Avenue | Trace the transmission across the rooftops |
+| 4 | Theater District | Franklin; Shermometer v3 on Franklin’s route |
+| 5 | Palace Cinema | Projection-window attacker, circuit shutdown, Shermometer v3 defender |
+| 6 | Little Italy | Supplied cream-scarf male boss outside the pizzeria |
+| 7 | Broadcast Tower | Duke’s transmitter; rescue Marty and stop the broadcast |
 
-**Nonstandard layouts:** choose **Map controller**. Center the sticks and release all buttons, choose **Ready to map**, then follow the eleven movement/action/menu prompts. Release after each prompt. The game saves the completed profile for that controller identity in this browser. An incomplete or cancelled mapping never overwrites the last usable profile. Switching a hardware X/D mode may expose a different identity and require mapping again. Only use a mode switch if your actual model has it.
+Shermometers v1/v2/v3 remain the ordinary roster’s backbone. Accordion Bear, Green Hippo, Fred K and JP Raptor Esq appear selectively. Coffee heals 18; Turkey Dinner heals 46. Trash Can and Box break immediately for pickups; legacy Bin IDs remain compatible.
 
-Adjust **Stick dead zone** if a centered stick drifts. Disconnecting the active controller or leaving the page pauses gameplay and clears its input. After reconnect/resume, release controls before moving again. Multiple detected devices are selectable, but this remains one-player gameplay.
+Franklin remains brown-haired and unlocks when Jay defeats him and exits Stage 4 without dying during that attempt. The campaign continues after that unlock. Franklin never fights himself; later results never announce him as newly unlocked again.
 
-Some browsers only expose gamepads after a physical button is pressed. Use the direct HTTPS page or localhost, not a restricted embedded preview. See [Browser and hardware test boundaries](docs/COMPATIBILITY.md). Physical Logitech hardware has not been tested in this environment.
+## Saves and content
 
-## Other controls
+Existing save/profile/settings/controller keys remain unchanged. Schema 4 migrates v2/v3 checkpoints and retained unlocks; a completed old four-stage save resumes at Palace Cinema. Settings remain browser-local. Localhost and Pages are separate origins and do not automatically share saves. Denied localStorage permits play without persistence.
 
-- **Touch:** radial analog pad; HIT, JUMP, GUARD, REVIEW. Multiple fingers remain independent.
-- **Keyboard:** WASD/arrows move, J attacks, Space jumps, K guards, L uses Review, Escape pauses. Native settings fields keep normal keyboard behavior.
-- Existing music/effects volume, reduced camera shake, touch vibration, fullscreen, Animation Room, and character selection remain.
+`data/campaign.js` authors stages, enemy definitions, bosses, props and items. `data/cutscenes.js` contains the exact approved opening and concise scene definitions. `cutscenes.js` is the reusable player. Player combat constants and the original nine animation banks remain unchanged. New assets append to the existing atlas manifest. Shared original atlases load once; new banks load when their stage or gallery needs them. Music keeps the supplied five recordings, separate volume controls and crossfades; no new recordings are claimed.
 
-## What is preserved
+See [Story and canon](docs/STORY-CANON.md), [Content definitions](docs/CONTENT.md), [Validation](docs/VALIDATION.md), [Known limitations](docs/KNOWN-LIMITATIONS.md), [Changelog](CHANGELOG.md), and [NOTICE](NOTICE.md).
 
-All **153 runtime animation states, 2,306 frame references, 13 atlas pages, nine character banks, five music tracks and 13 combat cues** remain. Every file in `assets/`, along with `engine.js` and `render.js`, is byte-for-byte unchanged from the v4 source archive. The original hero's 50 source tracks and 943 entries remain available. This update adds input/browser integration, not another combat redesign.
+## Build and verify
 
-Jay still faces Franklin at the end of Stage 4. Defeat Franklin and finish Stage 4 without dying in that attempt to unlock him. Franklin's replay route keeps the Slam Shermometer finale. New jumps, physical enemy entrances, ground-contact corrections, cleanup, and stage-clear celebrations from v4 remain intact.
-
-Soundtrack: Broadway Mix in stage 1, Uptown Mix in stage 2, Rooftop Mix in stage 3, Premiere Mix in stage 4, Original Theme for title/results. Existing 0.9-second crossfades and combat cues remain.
-
-## Saves and privacy
-
-Existing v3/v4 progress, profile, and audio settings keys are unchanged. Controller preferences use a separate `cattown.critic.brawler.v5.gamepad` key. They stay in browser storage; the game does not transmit controller IDs, progress, or input data.
-
-**Localhost and GitHub Pages are different storage origins.** Existing local saves and Franklin unlocks are not automatically copied to a new public URL. Keep using the same browser and localhost address for local continuity. Do not clear site storage to update. Denied storage does not block play, but persistence is unavailable.
-
-The public package excludes raw generation videos, original oversized Sprite Forge archives, conversation/prompt logs, personal email addresses, local saves, credentials, generated HTML/launcher duplicates, and stale patch scripts. Included assets are the complete runtime derivatives required to play, not an incomplete source-only skeleton.
-
-## Build and test
-
-Python 3.10+ and Node 22+ are suitable for the supplied tooling. No npm installation is required for the game or engine tests.
+Python 3.10+ and Node 22+; gameplay itself has no package dependencies.
 
 ```sh
-python tools/build_standalone.py
-python tools/build_launcher.py The-Critic-City-Brawler-v5.html The-Critic-Brawler-v5-Play.sh
+python3 tools/build_standalone.py
+python3 tools/build_launcher.py The-Critic-Coming-Attractions-v6.html The-Critic-Coming-Attractions-v6-Play.sh
 node tests/engine.test.js
 node tests/franklin.test.js
 node tests/v4-engine.test.js
+node tests/campaign-engine.test.js
 node tests/gamepad.test.js
-python tests/publish.test.py
-python tests/site.test.py
+python3 tests/site.test.py
+python3 tests/production-assets.test.py
+python3 tests/publish.test.py
+python3 tests/launcher.test.py
 ```
 
-Browser testing additionally requires Playwright and installed browser engines:
+Browser tests require `pip install -r requirements-test.txt` and installed Playwright browser engines. `python3 tests/gamepad-browser.test.py --engine chromium --url local` exercises the real source site. `python3 tests/campaign-browser.test.py` covers scenes, touch, migration and campaign integration. CI runs Chromium/Firefox/WebKit and reports actual failures; configuration alone is not evidence of a passing run.
 
-```sh
-python -m pip install -r requirements-test.txt
-python -m playwright install chromium firefox webkit
-python tests/gamepad-browser.test.py --engine chromium
-```
-
-Use `--url http://127.0.0.1:8788/` to exercise the actual multi-file site on a running local server. The shipped GitHub Actions matrix runs this hosted route in Chromium, Firefox, and WebKit after publication. It uses injected API fixtures for controller input, not a physical pad. Local delivered verification is recorded in `Validation-Report.json`; browser engines not run are explicitly identified. A configured CI job is not a claim that it has run.
-
-## Rights and provenance
-
-This is an unofficial fan-made game, not an official release of the referenced show or game inspirations. See [NOTICE](NOTICE.md). No blanket open-source license is applied to third-party media. The supplied artwork and recordings retain their provenance; public repository visibility does not newly license those assets.
+The historical first-publish tool remains for provenance and safety tests. Updates to this existing repository use a branch and reviewed merge, preserving the Pages path and history. `PUBLIC-FILES.json` fingerprints the reviewed release allowlist; prompt logs, saves, credentials, raw source media and duplicate builds are excluded from the repository.

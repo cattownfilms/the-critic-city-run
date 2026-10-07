@@ -29,3 +29,6 @@ tests/screenshots*/
 .DS_Store
 Thumbs.db
 .publisher-payload.sha256
+
+The-Critic-Coming-Attractions*.html
+release/
