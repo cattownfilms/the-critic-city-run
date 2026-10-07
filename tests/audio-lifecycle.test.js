@@ -83,6 +83,14 @@ async function check(name, fn) {
     audio.gesture();await new Promise(setImmediate);assert.equal(audio.lastBlocked,null);assert.match(audio.lastPrimeError,/prime rejected/);
     audio.lastBlocked='stale earlier failure';audio.toggle();assert.equal(audio.muted,true);assert.equal(audio.music.paused,true);
   });
+  await check('Pointer down/up/click share one pending prime and pause stops every prepared player',async()=>{
+    const {audio}=fixture();await audio.playMusic('title');audio.gesture();await new Promise(setImmediate);
+    const node=audio.musicNodes.get('cinema');audio.primed.delete(node);let calls=0,finish;
+    node.play=()=>{calls++;node.paused=false;return new Promise(r=>{finish=r;});};
+    audio.gesture();audio.gesture();audio.gesture();assert.equal(calls,1);
+    audio.pause();assert([...audio.musicNodes.values()].every(n=>n.paused));
+    finish();await new Promise(setImmediate);assert.equal(node.paused,true);assert.equal(audio.priming.size,0);
+  });
   const report = { tests: results, passed: results.filter(x => x.passed).length, failed: results.filter(x => !x.passed).length, boundary: 'Actual AudioSystem class; synthetic native media/promise fixtures. Native browser validation remains required.' };
   fs.writeFileSync(path.join(__dirname, 'audio-lifecycle-results.json'), JSON.stringify(report, null, 2) + '\n');
   process.exitCode = report.failed ? 1 : 0;

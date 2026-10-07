@@ -67,9 +67,10 @@ class AudioSystem{
    if(!node){node=new Audio(src(item.file));node.loop=true;node.preload='auto';this.musicNodes.set(key,node);}
    if(!node.getAttribute('src'))node.src=src(item.file);
    if(node===this.music)continue;
-   if(this.primed?.has(node))continue;
+   if(this.primed?.has(node)||this.priming?.has(node))continue;
+   (this.priming||(this.priming=new Set())).add(node);
    node.volume=0;
-   try{const pending=node.play();Promise.resolve(pending).then(()=>{(this.primed||(this.primed=new Set())).add(node);if(node!==this.music&&node!==this.outgoing)node.pause();},e=>{this.lastPrimeError=String(e);});}catch(e){this.lastPrimeError=String(e);}
+   try{const pending=node.play();Promise.resolve(pending).then(()=>{this.priming.delete(node);(this.primed||(this.primed=new Set())).add(node);if(!this.wantMusic||this.muted||(node!==this.music&&node!==this.outgoing))node.pause();},e=>{this.priming.delete(node);this.lastPrimeError=String(e);});}catch(e){this.priming.delete(node);this.lastPrimeError=String(e);}
   }
   if(this.wantMusic&&this.music.paused)this.playMusic(this.trackKey);
  }
@@ -89,7 +90,7 @@ class AudioSystem{
   if(e.type==='ko'&&performance.now()/1000-this.lastVoice>.9){this.lastVoice=performance.now()/1000;this.sample(this.buffers[e.kind+'-hit']?e.kind+'-hit':e.kind==='franklin'?'elder-hit':'hit',.42,1);}
   if(e.type==='encounter'){this.sample('bear-call',.28,1.0);}if(e.type==='special'){this.sample('backhand',.60,.70);this.duck=.5;}
  }
- pause(){this.wantMusic=false;this.musicSerial++;this.music.pause();if(this.outgoing)this.outgoing.pause();for(const n of this.active){try{n.stop();}catch(_){}}this.active.clear();}
+ pause(){this.wantMusic=false;this.musicSerial++;for(const node of this.musicNodes.values())node.pause();for(const n of this.active){try{n.stop();}catch(_){}}this.active.clear();}
  update(dt){
   this.duck=Math.max(0,this.duck-dt);if(this.wantMusic&&!this.music.paused)this.fade=Math.min(1,this.fade+dt/.9);
   const level=this.muted?0:settings.music*(this.duck>0?.62:1);this.music.volume=level*Math.sin(this.fade*Math.PI/2);
@@ -135,6 +136,7 @@ $('fullBtn').onclick=async()=>{try{if(document.fullscreenElement)await document.
 for(const id of ['musicVolume','sfxVolume','reducedMotion','vibration'])$(id).oninput=()=>{settings.music=+$('musicVolume').value/100;settings.sfx=+$('sfxVolume').value/100;settings.reducedMotion=$('reducedMotion').checked;settings.vibration=$('vibration').checked;store(conf.settingsKey,settings);if(settings.music>0&&!audio.muted&&audio.music.paused&&['play','stageclear','complete'].includes(game.mode))audio.playMusic(game.mode==='complete'?'title':undefined);};
 window.addEventListener('blur',()=>{input.clear();input.physicalKeys.clear();input.blockedKeys.clear();if(scenes?.active){scenes.togglePause(true);return;}if(game.mode==='play')pause();else if(['stageclear','complete','title'].includes(game.mode)){presentationPaused=true;audio.pause();}});
 window.addEventListener('focus',()=>{if(presentationPaused&&!document.hidden){presentationPaused=false;if(['stageclear','complete'].includes(game.mode))audio.playMusic(game.mode==='complete'?'title':undefined);}});
+window.addEventListener('pagehide',()=>audio.pause());
 document.addEventListener('visibilitychange',()=>{if(document.hidden){input.clear();input.physicalKeys.clear();input.blockedKeys.clear();if(scenes?.active){scenes.togglePause(true);return;}if(game.mode==='play')pause();else{presentationPaused=true;audio.pause();}}else if(presentationPaused){presentationPaused=false;if(['stageclear','complete'].includes(game.mode))audio.playMusic(game.mode==='complete'?'title':undefined);}});
 window.addEventListener('resize',()=>{input.clear();if(renderer)game.viewWidth=renderer.resize().w;});window.addEventListener('contextmenu',e=>e.preventDefault());
 // A single bounded startup download owns all current runtime dependencies. Optional
