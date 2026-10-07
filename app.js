@@ -254,15 +254,15 @@ function drawWorldScene(s){
    const key=s.index+':'+a.id;
    if(!s.worldActors.has(key))s.worldActors.set(key,{x:body.x,y:body.y});
    const origin=s.worldActors.get(key),m=a.motion;
-   if(m){const u=Brawler.clamp((s.time-(m.start||0))/(m.duration||1),0,1);const dx=(m.toX??a.x)-(m.fromX??a.x);body.x=origin.x+dx*u;body.face=dx<0?-1:1;body.anim=u<1?'walk':'idle';}
+   if(m){const u=Brawler.clamp((s.time-(m.start||0))/(m.duration||1),0,1);const dx=(m.toX??a.x)-(m.fromX??a.x);body.x=origin.x+dx*u;body.face=dx<0?-1:1;body.anim=u<1?(a.animation||'walk'):'idle';}
    else{body.anim=a.animation==='death'?'death':a.animation||'idle';if(a.face)body.face=a.face;}
    body.animT=body.anim==='death'?1.7:s.time;body.animDuration=body.anim==='death'?1.7:0;
   }
   s.actorStates.push({id:a.id,character:who,x:body.x,y:body.y,animation:body.anim,visible:true,resolvedFace:body.face,faceReason:'world-continuity'});
  }
- game.storyActors=game.storyActors.filter(a=>active.has(a.id));
+ game.storyActors=game.storyActors.filter(a=>active.has(a.id));const boy=game.storyActors.find(a=>a.kind==='marty');game.storyCage=s.shot.cage&&boy?{x:boy.x,y:boy.y,open:!!s.shot.cage.open}:null;
 }
-scenes=window.CriticScenePlayer?new CriticScenePlayer({beginWorldScene,drawWorldScene,resolve:src,character:()=>game.playerKind,renderer:()=>renderer,meta:()=>meta,settings:()=>settings,clearInput:()=>input.clear(),sound:name=>audio.sample(name,.45),music:key=>audio.playMusic(key),onOpen:()=>{assetScreen.hidden=true;game.mode='cutscene';input.clear();screen('cutscene');if(document.hidden)scenes.togglePause(true);},onPause:on=>{if(on)audio.pause();else audio.playMusic(scenes?.scene?.music||stageMusic());},onIdle:()=>{if(sceneQueue.length){pumpScenes();return;}if(scenePreparing)return;if(assetPending){showAssetLoading();return;}game.storyActors=[];if(game.stage===4&&!game.projection.active){game.projection.visible=false;game.projection.phase='waiting';game.projection.timer=0;}game.mode=sceneReturnMode;input.clear();screen(game.mode==='play'?null:game.mode);audio.playMusic(game.mode==='complete'?'title':stageMusic());}}):null;
+scenes=window.CriticScenePlayer?new CriticScenePlayer({beginWorldScene,drawWorldScene,resolve:src,character:()=>game.playerKind,renderer:()=>renderer,meta:()=>meta,settings:()=>settings,clearInput:()=>input.clear(),sound:name=>audio.sample(name,.45),music:key=>audio.playMusic(key),onOpen:()=>{assetScreen.hidden=true;game.mode='cutscene';input.clear();screen('cutscene');if(document.hidden)scenes.togglePause(true);},onPause:on=>{if(on)audio.pause();else audio.playMusic(scenes?.scene?.music||stageMusic());},onIdle:()=>{if(sceneQueue.length){pumpScenes();return;}if(scenePreparing)return;if(assetPending){showAssetLoading();return;}game.storyActors=[];game.storyCage=null;if(game.stage===4&&!game.projection.active){game.projection.visible=false;game.projection.phase='waiting';game.projection.timer=0;}game.mode=sceneReturnMode;input.clear();screen(game.mode==='play'?null:game.mode);audio.playMusic(game.mode==='complete'?'title':stageMusic());}}):null;
 const controllerUI=CriticControllerUI({hub:pad,game,input,ready:()=>ready,pause,resume,title,start:()=>start(false),closeGallery,continueDistrict});
 function gestureAudio(){audio.gesture();if(ready&&game.mode==='title'&&!audio.wantMusic)audio.playMusic('title');if(audio.wantMusic&&audio.music.paused&&!audio.muted&&settings.music>0)audio.playMusic(audio.trackKey);}
 document.addEventListener('pointerdown',gestureAudio,{capture:true,passive:true});

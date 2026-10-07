@@ -245,6 +245,7 @@ class Renderer{
   const portrait=this.artwork('story/projection-woman-pixel.webp')||this.artwork('portraits/projectionist/talk-00.webp');
   // Wall, aperture and actor all use exactly wx-camera. Each booth stays on its wall.
   for(let i=0;i<xs.length;i++){const wx=xs[i],x=wx-g.camera;if(x<-85||x>this.rect.w+85)continue;const id=a.booths?.[i]?.circuitId??(i%3),circuit=a.circuits?.[id],on=!a.disabled&&(circuit?circuit.active:true),col=circuit?.color||colors[id],visible=on&&a.visible&&a.window===i;
+   c.save();if(wx>=1930){c.translate(0,-5);c.scale(1,.3);}
    rect(c,x-67,top-20,134,157,'#293650');rect(c,x-64,top-17,128,151,'#36445e');line(c,x-67,top-22,x+67,top-22,'#65768d',4);
    rect(c,x-57,top-4,114,124,'#182539');rect(c,x-54,top-2,108,120,'#6c7e92');rect(c,x-48,top,96,112,'#080f22');
    if(visible){c.save();c.beginPath();c.rect(x-48,top,96,112);c.clip();c.imageSmoothingEnabled=false;
@@ -261,13 +262,13 @@ class Renderer{
    if(!on){text(c,'OFF',x,top+64,17,'#6b7b90','center',900);line(c,x-36,top+15,x+36,top+96,'#283d53',3);}
    if(visible&&a.phase!=='recover'){c.strokeStyle=col;c.lineWidth=3;c.strokeRect(x-49,top-1,98,114);}
    // The group cable visibly repeats along the fixed back wall.
-   const busY=286+id*5;line(c,x,top+144,x,busY,on?col:'#415368',2);line(c,x-110,busY,x+110,busY,on?col:'#415368',2);
+   const busY=286+id*5;line(c,x,top+144,x,busY,on?col:'#415368',2);line(c,x-110,busY,x+110,busY,on?col:'#415368',2);c.restore();
   }
   const circuits=g.props.filter(o=>o.kind==='circuit');for(const o of circuits){const id=o.circuitId??o.window??0,x=o.x-g.camera,col=o.hp>0?(o.color||colors[id]):'#415368',turnY=286+id*5;
    line(c,x,turnY,x,o.y-76,'#0b192b',6);line(c,x,turnY,x,o.y-76,col,2);
   }
-  if(circuits.length){const done=3-(a.circuits?.filter(q=>q.active).length??circuits.filter(q=>q.hp>0).length),x=this.rect.w/2;
-   rect(c,x-209,469,418,30,'#101b2deb');text(c,a.disabled?'PROJECTION BOOTH DISABLED':'DISABLE THE 3 PROJECTION CIRCUITS',x,482,13,a.disabled?'#a6efd5':'#eadac0','center',900);
+  if(a.active||a.disabled){const done=3-(a.circuits?.filter(q=>q.active).length??circuits.filter(q=>q.hp>0).length),x=this.rect.w/2;
+   rect(c,x-209,469,418,30,'#101b2deb');text(c,a.disabled?'PROJECTION BOOTH DISABLED':a.phase==='remote'?'SMASH THE REMOTE':`DODGE REELS: ${Math.min(3,a.shots||0)} / 3`,x,482,13,a.disabled?'#a6efd5':'#eadac0','center',900);
    text(c,`${done} / 3 CIRCUITS OFF`,x,495,12,'#b4c5d6','center',800);
   }
  }
@@ -311,6 +312,7 @@ class Renderer{
   if(attack&&!dead){c.globalAlpha=.35;c.strokeStyle='#c4ffe6';c.lineWidth=3;c.beginPath();c.ellipse(0,-25,91,24,0,0,Math.PI*2);c.stroke();}c.restore();
  }
  bossWarnings(c,g){for(const e of g.enemies){if(e.hp<=0||!e.telegraph&&!['windup','attack'].includes(e.state))continue;const preview=['pizzeria-boss','spike','duke','booth-enforcer'].includes(e.kind)&&e.move?{kind:e.move.all?'spot':'lane',x:e.x,y:e.y,face:e.face,range:e.move.reach,lane:e.move.lane,radius:e.move.reach}:null,a=e.telegraph||preview;if(!a)continue;const t=e.state==='attack'?1:clamp(e.timer/(e.move?.wind||.8),0,1),x=a.x-g.camera;if(a.kind==='spot'){this.dangerMarker(c,x,a.y,a.radius||60,this.time,'#e0b7ff',t);}else{const reach=a.range||170,lane=a.lane||32,x2=x+(a.face||e.face)*reach;c.save();c.globalAlpha=.12+t*.13;c.fillStyle=e.kind==='broadcast-rig'?'#d8acff':'#ffc28b';c.fillRect(Math.min(x,x2),a.y-lane,reach,lane*2);c.globalAlpha=.85;c.strokeStyle='#f0cfaa';c.lineWidth=2;c.strokeRect(Math.min(x,x2),a.y-lane,reach,lane*2);c.restore();}}for(const o of g.projectiles||[])if(o.kind==='signal')this.dangerMarker(c,o.targetX-g.camera,o.targetY,o.radius||44,this.time,'#a8ffe3',(o.age||0)/(o.duration||.7));}
+ worldCage(c,g,front){const a=g.storyCage,x=a.x-g.camera,y=a.y,w=100,h=160;if(!front){rect(c,x-w/2-5,y-h-5,w+10,h+8,'#203245');rect(c,x-w/2,y-h,w,h,'#0a1627');return;}line(c,x-w/2,y-h,x+w/2,y-h,'#b5c3c8',5);line(c,x-w/2,y,x+w/2,y,'#b5c3c8',5);if(!a.open)for(let n=-50;n<=50;n+=20)line(c,x+n,y-h,x+n,y,'#90a5b4',4);else{line(c,x+55,y-h,x+75,y-h,'#90a5b4',4);line(c,x+75,y-h,x+75,y,'#90a5b4',4);}}
  draw(g,dt){this.time+=dt;this.signalFlashT=Math.max(0,this.signalFlashT-dt);this.signalOffT=Math.max(0,this.signalOffT-dt);const c=this.ctx;const r=this.rect;if(this.area!==g.stage)this.makeCity(g.stage);c.setTransform(this.dpr,0,0,this.dpr,0,0);c.fillStyle='#080e1d';c.fillRect(0,0,innerWidth,innerHeight);c.save();c.translate(r.x,r.y);c.scale(r.scale,r.scale);c.beginPath();c.rect(0,0,r.w,540);c.clip();const shake=(settings.reducedMotion?0:g.shake);if(shake>0.15)c.translate(Math.sin(this.time*115)*shake,Math.cos(this.time*89)*shake*.35);this.scene(c,g,r.w,this.time);
   if(g.stage===6&&g.bossSpawned){const core=g.enemies.find(e=>e.kind==='broadcast-rig'),x=2450-g.camera,on=core?.hp>0,vulnerable=g.broadcastSummons?.phase==='vulnerable';
    rect(c,x-85,206,170,118,'#122a3d');rect(c,x-72,215,144,80,on?(vulnerable?'#75edc0':'#6b699a'):'#202d3d');text(c,on?(vulnerable?'CORE EXPOSED':'SHIELDED'):'SIGNAL LOST',x,242,14,'#071422','center',900);
@@ -320,6 +322,7 @@ class Renderer{
    const x=e.x-g.camera,y=e.y;c.save();c.fillStyle='#0a1421';c.beginPath();c.ellipse(x,y+1,54,13,0,0,Math.PI*2);c.fill();c.strokeStyle='#96aca4';c.lineWidth=3;c.stroke();
    const lidOffset=e.entry.phase==='waiting'?0:68;c.fillStyle='#334756';c.beginPath();c.ellipse(x+lidOffset,y-3,50,12,0,0,Math.PI*2);c.fill();c.strokeStyle='#879b9f';c.lineWidth=2;c.stroke();for(let j=-35;j<=35;j+=10)line(c,x+lidOffset+j,y-10,x+lidOffset+j+7,y+4,'#788d94',2);c.restore();
   }}
+  if(g.storyCage)this.worldCage(c,g,false);
   const actors=[];for(const e of g.enemies){if(e.kind==='broadcast-rig'||e.hidden||e.hp<=0&&e.timer>2.4)continue;actors.push({type:'enemy',e,y:e.y});}for(const o of g.props)actors.push({type:'prop',o,y:o.y});for(const o of g.pickups)actors.push({type:'pickup',o,y:o.y});actors.push({type:'hero',y:g.p.y});actors.sort((a,b)=>a.y-b.y||(a.type==='hero'?1:-1));
   for(const a of actors){
    if(a.type==='prop'){this.prop(c,a.o,a.o.x-g.camera,a.o.y-(a.o.z||0));continue;}
@@ -342,6 +345,7 @@ class Renderer{
    }
   }
   for(const a of g.storyActors||[]){if(this.available(a.kind,a.anim))this.sprite(c,a.kind,a.anim,a.x-g.camera,a.y,a.face,a.animT,a.animDuration,{scale:a.renderScale||1});}
+  if(g.storyCage)this.worldCage(c,g,true);
   this.projectionWarnings(c,g);
   for(const o of g.projectiles||[]){const x=o.x-g.camera,y=o.y-(o.z||0);c.save();c.translate(x,y-(o.kind==='trash-can'?30:0));if(o.kind==='trash-can'){if(!settings.reducedMotion)c.rotate((o.age||0)*9*(o.face||1));this.sprite(c,'trash-can','thrown',0,30,o.face||1,o.age||0,0,{scale:o.renderScale||1.08,loop:true});}else if(o.kind==='signal'){c.fillStyle='#defff1';c.beginPath();c.arc(0,0,11,0,Math.PI*2);c.fill();c.strokeStyle='#94ffe1';c.lineWidth=3;c.beginPath();c.arc(0,0,17,0,Math.PI*2);c.stroke();for(let n=0;n<4;n++){const a=n*Math.PI/2;line(c,Math.cos(a)*19,Math.sin(a)*19,Math.cos(a)*25,Math.sin(a)*25,'#d7bbff',2);}}else{if(!settings.reducedMotion)c.rotate((o.age||0)*14);this.reel(c,0,0,21,o.color||'#ffca83');}c.restore();}
   for(const f of this.fx){f.t+=dt;const q=f.t/f.life,x=f.x-g.camera,y=f.y;c.save();c.globalAlpha=1-q;if(f.type==='hit'||f.type==='parry'||f.type==='block'){

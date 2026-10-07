@@ -7,7 +7,7 @@ const source = fs.readFileSync(process.env.CRITIC_AUDIO_SOURCE || path.join(__di
 const start = source.indexOf('class AudioSystem{');
 const code = source.slice(start, source.indexOf('\nconst game=', start));
 const results = [];
-function fixture() {
+function fixture(windowOverride={}) {
   const nodes = [];
   class Audio {
     constructor(src) { this.src = src || ''; this.paused = true; this.volume = 1; this.currentTime = 0; this.resets = 0; this.clears = 0; nodes.push(this); }
@@ -19,7 +19,7 @@ function fixture() {
   }
   const music = Object.fromEntries(['title', 'broadway', 'subway', 'cinema', 'final'].map(k => [k, { file: k + '.mp3' }]));
   const settings = { music: .5, sfx: .7 };
-  const ctx = { Audio, settings, conf: { music }, cachedURLs: new Map(Object.values(music).map(x => [x.file, 'blob:' + x.file])), src: n => 'blob:' + n, window: {}, stageMusic: () => 'broadway', toast() {}, performance: { now: () => 1000 } };
+  const ctx = { Audio, settings, conf: { music }, cachedURLs: new Map(Object.values(music).map(x => [x.file, 'blob:' + x.file])), src: n => 'blob:' + n, window: windowOverride, stageMusic: () => 'broadway', toast() {}, performance: { now: () => 1000 } };
   const System = vm.runInNewContext(code + '\nAudioSystem', ctx);
   return { audio: new System(), nodes, settings, keys: Object.keys(music) };
 }
@@ -65,6 +65,17 @@ async function check(name, fn) {
     title.deferNext = true; const pending = audio.playMusic('title'); await Promise.resolve();
     audio.pause(); title.finishPlay(); await pending;
     assert.equal(title.paused, true);
+  });
+  await check('Native music play is called in the gesture turn without waiting for context resume',async()=>{
+    let resolveResume,resumes=0;
+    class Context {constructor(){this.state='suspended';}createGain(){return {gain:{value:0},connect(){}};}createDynamicsCompressor(){return {threshold:{},knee:{},ratio:{},connect(){}};}resume(){resumes++;return new Promise(r=>{resolveResume=()=>{this.state='running';r();};});}}
+    const {audio}=fixture({AudioContext:Context});const pending=audio.playMusic('title');
+    assert.equal(audio.music.paused,false);assert.equal(audio.ctx.state,'suspended');audio.unlock();assert.equal(resumes,1);
+    resolveResume();await pending;assert.equal(audio.ctx.state,'running');
+  });
+  await check('Trusted gesture primes all configured players and retries a blocked current player',async()=>{
+    const {audio,nodes,keys}=fixture();await audio.playMusic('title');audio.music.pause();audio.gesture();await Promise.resolve();
+    assert.equal(audio.music.paused,false);assert.equal(nodes.length,keys.length);assert(nodes.filter(n=>n!==audio.music).every(n=>n.volume===0));
   });
   const report = { tests: results, passed: results.filter(x => x.passed).length, failed: results.filter(x => !x.passed).length, boundary: 'Actual AudioSystem class; synthetic native media/promise fixtures. Native browser validation remains required.' };
   fs.writeFileSync(path.join(__dirname, 'audio-lifecycle-results.json'), JSON.stringify(report, null, 2) + '\n');

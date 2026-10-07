@@ -76,6 +76,17 @@ jobs:
           python -m pip install -r requirements-test.txt
       - name: Match temporary runner home ownership to the container user
         run: chown "$(id -u):$(id -g)" "$HOME"
+      - name: Provide a real virtual audio sink for Firefox in the headless runner
+        if: matrix.browser == 'firefox'
+        run: |
+          if ! command -v pulseaudio >/dev/null; then
+            timeout 120 apt-get update -o Acquire::Retries=2 -o Acquire::http::Timeout=20
+            timeout 120 apt-get install -y --no-install-recommends pulseaudio pulseaudio-utils
+          fi
+          pulseaudio --daemonize=yes --exit-idle-time=-1 --log-target=file:/tmp/critic-pulse.log
+          pactl load-module module-null-sink sink_name=critic_ci
+          pactl set-default-sink critic_ci
+          pactl info
       - name: Build standalone parity edition
         run: python tools/build_standalone.py
       - name: Test actual multi-file site in browser engine
