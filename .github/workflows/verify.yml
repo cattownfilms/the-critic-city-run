@@ -33,6 +33,8 @@ jobs:
           node tests/v4-engine.test.js
           node tests/gamepad.test.js
           node tests/campaign-engine.test.js
+          node tests/v7-engine.test.js
+          node tests/cutscenes-v7.test.js
           python tests/publish.test.py
           python tests/site.test.py
           python tests/production-assets.test.py
@@ -70,6 +72,8 @@ jobs:
           python -c "import time,urllib.request; time.sleep(1); urllib.request.urlopen('http://127.0.0.1:8788/').read(100)"
           python tests/gamepad-browser.test.py --engine ${{ matrix.browser }} --url local
           python tests/campaign-browser.test.py --engine ${{ matrix.browser }}
+          python tests/v7-loading-browser.test.py --engine ${{ matrix.browser }}
+          python tests/v7-scenes-browser.test.py --engine ${{ matrix.browser }}
       - uses: actions/upload-artifact@v7
         if: always()
         with:
@@ -77,4 +81,5 @@ jobs:
           path: |
             tests/gamepad-*-results.json
             tests/campaign-*-results.json
+            tests/v7-*-results.json
             tests/controller-*.png

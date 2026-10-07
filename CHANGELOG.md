@@ -1,5 +1,19 @@
 # THE CRITIC: COMING ATTRACTIONS — Changelog
 
+## 7.0.0
+
+- Applied the complete annotated playtest presentation pass while preserving the accepted standing combo, air kick, guard, parry, dodge, Review and ordinary enemy combat.
+- Split sprite loading into gameplay, scene and complete animation-library dependencies. Start, Continue and every Animation Room entry wait for required assets; options remain available during startup.
+- Assigned Jay’s existing Belly Bash to RUN + HIT, with controlled screen-crossing launch. Franklin has a separate cartwheel running attack.
+- Rebuilt opening continuity on the Coming Attractions set: seated Jay, approaching Duke, delayed Marty cage reveal, actual enemies emerging from screens, and a physical launch into Broadway.
+- Added pixel-art dialogue portraits, fixed scene/dialogue allocations, moving actors and concise route-aware transitions. Franklin remains Jay’s ally and uses his own gameplay lines.
+- Gave the original four districts distinct studio-street, subway, rooftop and premiere environments; enlarged breakable street props consistently.
+- Rebuilt the Palace’s aligned, masked projection windows, three matching circuits and readable single-window reel attacks.
+- Enlarged the pizzeria boss consistently and staged his entrance through the restaurant door.
+- Preserved the final broadcast arena and results, and added a required grounded Duke boss after the transmitter fails. Marty’s rescue follows Duke’s defeat.
+- Migrated checkpoints to save schema5 while retaining unlocks, settings, controller mappings and the existing browser storage origins.
+- Retained every existing animation’s decoded pixels, registration and timing through atlas repacking; added semantic asset-preservation checks.
+
 ## 6.0.0
 
 - Renamed the public game while preserving repository and Pages continuity.

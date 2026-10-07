@@ -1,6 +1,6 @@
 # THE CRITIC: COMING ATTRACTIONS release workflow
 
-The existing public repository is [cattownfilms/the-critic-city-run](https://github.com/cattownfilms/the-critic-city-run). Its Pages address remains [cattownfilms.github.io/the-critic-city-run](https://cattownfilms.github.io/the-critic-city-run/). Keep that repository, its history, and the Pages origin when releasing v6. The public game title is **THE CRITIC: COMING ATTRACTIONS**.
+The existing public repository is [cattownfilms/the-critic-city-run](https://github.com/cattownfilms/the-critic-city-run). Its Pages address remains [cattownfilms.github.io/the-critic-city-run](https://cattownfilms.github.io/the-critic-city-run/). Keep that repository, its history, and the Pages origin when releasing v7. The public game title is **THE CRITIC: COMING ATTRACTIONS**.
 
 A successful push is not proof that Pages has deployed. Record the released commit and verify the live HTTPS build before reporting publication as complete. The release validation report records what was actually tested and any blocked publication steps.
 
@@ -12,7 +12,7 @@ Use a branch in the existing clone:
 
 ```sh
 git fetch origin
-git switch -c production/coming-attractions-v6
+git switch -c production/playtest-presentation-v7
 python -m pip install -r requirements-test.txt
 python -m playwright install --with-deps chromium firefox webkit
 node tests/engine.test.js
@@ -45,11 +45,11 @@ The legacy `tools/publish.py` and `The-Critic-Publish-GitHub-v5.sh` workflow wer
 From the repository root, build the single-file game and self-contained launcher:
 
 ```sh
-python tools/build_standalone.py --output The-Critic-Coming-Attractions-v6.html
-python tools/build_launcher.py The-Critic-Coming-Attractions-v6.html The-Critic-Coming-Attractions-v6-Play.sh
+python tools/build_standalone.py --output The-Critic-Coming-Attractions-v7.html
+python tools/build_launcher.py The-Critic-Coming-Attractions-v7.html The-Critic-Coming-Attractions-v7-Play.sh
 ```
 
-The standalone builder embeds the runtime artwork, audio, sprite metadata, styles, authored campaign data, scene definitions, and JavaScript. It does not need a CDN or the original source videos. The launcher embeds this exact HTML and verifies its SHA-256 digest before installing it.
+The standalone build requires Python and Node.js. The standalone builder embeds the runtime artwork, audio, sprite metadata, styles, authored campaign data, scene definitions, and JavaScript. It does not need a CDN or the original source videos. The launcher embeds this exact HTML and verifies its SHA-256 digest before installing it.
 
 Run the local launcher tests serially because they intentionally use the fixed save origin at port 8788:
 
@@ -58,22 +58,22 @@ python tests/launcher.test.py
 python tests/upgrade-launcher.test.py
 ```
 
-The upgrade test rebuilds the reviewed v5 baseline from Git automatically. It runs that launcher's original Python bootstrap and HTTP handler in a same-process server, applies the real v6 launcher twice, and checks the served HTML, install directory, original backup, and retained files. `CRITIC_V5_LAUNCHER`, `CRITIC_HTML`, and `CRITIC_LAUNCHER` can override test artifact locations. Browser save migration is covered separately.
+The upgrade test rebuilds the reviewed v6 baseline from Git automatically. It runs that launcher's original Python bootstrap and HTTP handler in a same-process server, applies the real v7 launcher twice, and checks the served HTML, install directory, original backup, and retained files. `CRITIC_V6_LAUNCHER`, `CRITIC_HTML`, and `CRITIC_LAUNCHER` can override test artifact locations. Browser save migration is covered separately.
 
 Deliver the offline HTML, launcher, and source package together with the story/canon document, asset provenance, changelog, validation report, and known limitations. Generated delivery files are ignored by Git and should be distributed as release artifacts, not added to the Pages runtime.
 
 ## Android / Termux launch and update
 
-Install Python in Termux, then run the downloaded v6 launcher:
+Install Python in Termux, then run the downloaded v7 launcher:
 
 ```sh
 pkg install python
-bash ~/storage/downloads/The-Critic-Coming-Attractions-v6-Play.sh
+bash ~/storage/downloads/The-Critic-Coming-Attractions-v7-Play.sh
 ```
 
 If Termux cannot access Downloads, run `termux-setup-storage` once and grant the requested storage access. The launcher opens `http://127.0.0.1:8788/` and installs the embedded game at `~/.local/share/cattown/critic-brawler/index.html`. Leave that Termux session running for browser reloads. `Ctrl+C` stops its local server.
 
-For an update, run the new launcher at the same path. It preserves the port, hostname, and installation directory, backs up the previous HTML once as `index-before-v6.html`, and reuses a recognised running v2–v6 server. Reload the browser tab to receive the updated game. It does not clear browser storage or delete other installed files. If an unrelated application occupies port 8788, it reports the conflict instead of killing that process.
+For an update, run the new launcher at the same path. It preserves the port, hostname, and installation directory, backs up the previous HTML once as `index-before-v7.html`, and reuses a recognised running v2–v7 server. Reload the browser tab to receive the updated game. It does not clear browser storage or delete other installed files. If an unrelated application occupies port 8788, it reports the conflict instead of killing that process.
 
 Browser progress remains tied to the exact origin. The local launcher and HTTPS Pages site have separate saves. Avoid changing `127.0.0.1` to `localhost` or changing the port if retaining an existing local browser save. The game retains its established storage keys and migrates supported old save versions; it does not require uninstalling the app or clearing browser data.
 

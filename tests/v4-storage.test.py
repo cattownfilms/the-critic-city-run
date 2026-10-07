@@ -3,13 +3,13 @@ from pathlib import Path
 import json
 from playwright.sync_api import sync_playwright
 from load_helper import load_html
-from browser_support import standalone_path, launch_options
+from browser_support import standalone_path, launch_options, wait_scene, skip_story
 R=Path(__file__).resolve().parents[1];res=[];err=[]
 with sync_playwright() as pw:
  b=pw.chromium.launch(**launch_options());p=b.new_page(viewport={'width':960,'height':480},has_touch=True,is_mobile=True);p.on('pageerror',lambda e:err.append(str(e)))
  load_html(p,standalone_path().read_text(),storage=False)
  res.append({'name':'Exact final build loads when browser storage is denied','passed':p.evaluate('__brawler.ready()')})
- p.locator('#startButton').tap();p.wait_for_timeout(150);p.locator('#sceneSkip').tap();p.wait_for_timeout(1300)
+ p.locator('#startButton').tap();wait_scene(p);p.locator('#sceneSkip').tap();p.wait_for_timeout(1300)
  res.append({'name':'Denied-storage fallback remains playable with district music','passed':p.evaluate('__brawler.game.mode==="play"&&!__brawler.audio.music.paused&&__brawler.audio.trackKey==="broadway"')})
  p.evaluate('()=>{const g=__brawler.game;g.enemies=[];g.nextGate=3;g.activeGate=-1;g.p.x=2810;g.p.z=0;g.p.hp=100;}');p.wait_for_timeout(600)
  res.append({'name':'Failed checkpoint persistence is nonfatal and surfaced to the player','passed':not err and p.evaluate('__brawler.game.mode==="stageclear"') and 'storage unavailable' in p.locator('#saveNote').inner_text().lower()})

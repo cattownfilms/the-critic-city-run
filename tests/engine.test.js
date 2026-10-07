@@ -35,7 +35,7 @@ test('Zero health causes life loss then checkpoint recovery, not a stuck corpse'
 test('Last life reaches game-over and retry restores three lives',()=>{let g=new B.Game();g.start();g.p.lives=1;g.p.hp=0;tick(g,285);assert.equal(g.mode,'gameover');g.retry(true);assert.equal(g.mode,'play');assert.equal(g.p.lives,3);});
 // Full run uses normal input through all gates. No position/health editing once started.
 test('A normal-input driver clears the seven-stage campaign and reaches the resolved finale',()=>{const g=new B.Game();g.start();let tickN=0,visits=new Set(),retries=0;const anims=new Set();for(;tickN<120*1500&&g.mode!=='complete';tickN++){
- if(g.mode==='gameover'){retries++;g.retry(true);}
+ if(g.mode==='confrontation')g.finishDukeConfrontation();if(g.mode==='gameover'){retries++;g.retry(true);}
  if(g.mode==='stageclear')g.finishStageClear();
  if(g.mode!=='play')continue;visits.add(g.stage);anims.add(g.p.anim);
  const p=g.p,live=g.enemies.filter(e=>e.hp>0).concat(g.props.filter(o=>o.kind==='circuit'&&o.hp>0)).sort((a,b)=>Math.hypot(a.x-p.x,(a.y-p.y)*2)-Math.hypot(b.x-p.x,(b.y-p.y)*2));let input={};

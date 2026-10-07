@@ -6,7 +6,7 @@ from playwright.sync_api import sync_playwright
 from pathlib import Path
 import json,time,math
 from load_helper import load_html
-from browser_support import standalone_path, launch_options
+from browser_support import standalone_path, launch_options, wait_scene, skip_story
 ROOT=Path(__file__).resolve().parents[1];OUT=ROOT/'tests/screenshots-v4-regression';OUT.mkdir(exist_ok=True);RESULTS=[];ERRORS=[]
 HTML=standalone_path().read_text()
 def check(name,ok,details=None):
@@ -27,12 +27,12 @@ with sync_playwright() as p:
  browser=p.chromium.launch(**launch_options())
  context=browser.new_context(viewport={'width':915,'height':412},device_scale_factor=1,has_touch=True,is_mobile=True)
  page=context.new_page();page.on('pageerror',lambda e:ERRORS.append(str(e)));load_html(page,HTML)
- check('Exact standalone HTML loads all atlas pages',page.evaluate('__brawler.renderer().images.every(i=>i.complete&&i.naturalWidth>0)'))
+ check('Exact standalone decodes required startup actions while deferring the full gallery',page.evaluate("()=>{const m=__brawler.meta(),im=__brawler.renderer().images;return im.filter(i=>i?.naturalWidth>0).length>0&&im.filter(i=>i?.naturalWidth>0).length<m.pages.length&&['idle','walk','run','jab','cross','front-kick','palm','jump','guard'].every(k=>!m.characters.hero[k]||m.characters.hero[k].frames.every(f=>im[f.p]?.naturalWidth>0));}"))
  check('All 50 original hero tracks are retained',page.evaluate('Object.values(__brawler.meta().characters.hero).filter(a=>a.original).length')==50)
  check('All 943 source hero frame entries are retained',page.evaluate('Object.values(__brawler.meta().characters.hero).filter(a=>a.original).reduce((n,a)=>n+a.frames.length,0)')==943)
  check('Original nine character banks and added production bank load',page.evaluate('Object.keys(__brawler.meta().characters).length')>=9)
  page.screenshot(path=str(OUT/'01-title-landscape.png'))
- page.locator('#startButton').tap();page.wait_for_timeout(150);page.locator('#sceneSkip').tap();page.wait_for_timeout(600)
+ page.locator('#startButton').tap();wait_scene(page);page.locator('#sceneSkip').tap();page.wait_for_timeout(600)
  check('Press Start begins gameplay',page.evaluate('__brawler.game.mode')=='play')
  page.wait_for_function('__brawler.audio.loaded',timeout=15000)
  check('All 13 extracted audio clips decode',page.evaluate('Object.keys(__brawler.audio.buffers).length')==13)
@@ -60,31 +60,38 @@ with sync_playwright() as p:
  page.locator('#resumeButton').tap();page.wait_for_timeout(200);check('Resume restores gameplay and music',page.evaluate('__brawler.game.mode==="play"&&!__brawler.audio.music.paused'))
  page.evaluate('window.dispatchEvent(new Event("blur"))');page.wait_for_timeout(30);check('Focus loss pauses and releases every input',page.evaluate('__brawler.game.mode==="pause"&&__brawler.input.pointers.size===0'))
  page.locator('#resumeButton').tap();page.wait_for_timeout(60)
- # Render all actions and their last frame; this does not pretend each is a gameplay trigger.
- coverage=page.evaluate('''()=>{const r=__brawler.renderer(),c=document.createElement('canvas').getContext('2d');c.canvas.width=800;c.canvas.height=500;let count=0;for(const [who,aa] of Object.entries(__brawler.meta().characters)){for(const [name,a] of Object.entries(aa)){r.sprite(c,who,name,400,460,1,0,0,{loop:false});r.sprite(c,who,name,400,460,-1,a.ms/1000,0,{loop:false});count++;}}return count;}''')
- check('Every runtime animation draws at both facing directions',coverage>=153,{'animationStates':coverage})
- page.locator('#pauseBtn').tap();page.locator('#pauseGallery').tap();page.wait_for_timeout(100);check('Animation room lists all original and derived hero clips',page.locator('#animSelect option').count()==59)
- page.select_option('#animSelect','front-kick');page.wait_for_timeout(200);page.screenshot(path=str(OUT/'03-animation-room.png'));check('Animation viewer selects full source tracks', '32 frames' in page.locator('#galleryInfo').inner_text())
+ # Load every complete bank through the actual gallery UI before frame coverage.
+ page.locator('#pauseBtn').tap();page.locator('#pauseGallery').tap()
+ page.wait_for_function('__brawler.game.mode==="gallery"&&!document.getElementById("characterSelect").disabled',timeout=60000,polling=50)
+ for who in page.evaluate('Object.keys(__brawler.meta().characters)'):
+  page.select_option('#characterSelect',who)
+  page.wait_for_function('!document.getElementById("characterSelect").disabled&&!document.getElementById("galleryCanvas").hidden',timeout=60000,polling=50)
+ check('Every gallery bank decodes completely before showing its animation',page.evaluate('()=>{const im=__brawler.renderer().images;return Object.values(__brawler.meta().characters).every(bank=>Object.values(bank).every(a=>a.frames.every(f=>im[f.p]?.naturalWidth>0)));}'))
+ coverage=page.evaluate("""()=>{const r=__brawler.renderer(),c=document.createElement('canvas').getContext('2d');c.canvas.width=800;c.canvas.height=500;let count=0;for(const [who,aa] of Object.entries(__brawler.meta().characters)){for(const [name,a] of Object.entries(aa)){r.sprite(c,who,name,400,460,1,0,0,{loop:false});r.sprite(c,who,name,400,460,-1,a.ms/1000,0,{loop:false});count++;}}return count;}""")
+ check('Every decoded runtime animation draws at both facing directions',coverage>=189,{'animationStates':coverage})
+ page.select_option('#characterSelect','hero');page.wait_for_function('!document.getElementById("animSelect").disabled',timeout=60000,polling=50)
+ check('Animation room lists all retained hero clips',page.locator('#animSelect option').count()==page.evaluate('Object.keys(__brawler.meta().characters.hero).length'))
+ page.select_option('#animSelect','front-kick');page.wait_for_timeout(200);page.screenshot(path=str(OUT/'03-animation-room.png'));check('Animation viewer selects full source tracks','32 frames' in page.locator('#galleryInfo').inner_text())
  page.locator('#closeGallery').tap();page.locator('#resumeButton').tap()
  # Browser save serialization, with Storage emulation rather than a claimed persistent origin test.
- page.evaluate('()=>{__brawler.game.nextGate=1;__brawler.game.checkpointSave()}');page.wait_for_timeout(100);check('Checkpoint save serializes the current brawler format',page.evaluate('JSON.parse(window.__testStore[BRAWLER_CONFIG.saveKey]).version===4'))
+ page.evaluate('()=>{__brawler.game.nextGate=1;__brawler.game.checkpointSave()}');page.wait_for_timeout(100);check('Checkpoint save serializes the current brawler format',page.evaluate('JSON.parse(window.__testStore[BRAWLER_CONFIG.saveKey]).version===5'))
  page.locator('#pauseBtn').tap();page.locator('#titleButton').tap();page.wait_for_timeout(50);check('Continue appears when a checkpoint exists',page.locator('#continueButton').is_visible());page.locator('#continueButton').tap();page.wait_for_timeout(100);check('Continue resumes after the cleared block',page.evaluate('__brawler.game.nextGate')==1)
  # Independent source-derived sample channels can overlap safely.
  page.evaluate('()=>{for(const k of Object.keys(__brawler.audio.buffers).slice(0,8))__brawler.audio.sample(k,.1)}');page.wait_for_timeout(40);check('Sample engine supports overlapping combat effects',page.evaluate('Object.keys(__brawler.audio.played).length')>=8)
  # Representative close framing with true enemy assets and an actual strike pose.
  resetArena(page);page.evaluate('''()=>{const g=__brawler.game;g.stage=0;g.p.x=480;g.p.y=405;g.camera=80;g.spawnFight(0);g.stageBanner=0;g.bannerT=0;g.enemies[0].x=565;g.enemies[0].y=403;g.enemies[1].x=716;g.enemies[1].y=438;g.p.inv=2;g.p.meter=100;}''')
  page.locator('#attack').dispatch_event('pointerdown',{'pointerId':21,'clientX':870,'clientY':360,'pressure':.5});page.wait_for_timeout(180);page.screenshot(path=str(OUT/'04-combat-mobile.png'));page.evaluate('__brawler.input.clear()')
- # Render all four complete city treatments.
+ # Render seven campaign environments as explicit presentation fixtures.
  for stage in range(7):
   page.evaluate('''stage=>{const g=__brawler.game;g.stage=stage;g.p.x=560;g.p.y=402;g.p.hp=100;g.p.inv=5;g.p.action=null;g.p.anim='guard';g.p.animT=.1;g.p.animDuration=0;g.camera=100;g.stageBanner=0;g.bannerT=0;g.enemies=[];g.nextGate=3;g.activeGate=-1;g.mode='pause';}''',stage)
   page.wait_for_timeout(80);page.screenshot(path=str(OUT/f'05-scene-{stage}.png'))
  check('Seven campaign scenes render without code errors',len(ERRORS)==0)
  # Completion UI generated through actual app event handling.
- page.evaluate('''()=>{const g=__brawler.game;g.stage=Brawler.STAGES.length-1;g.nextGate=3;g.bossDefeated=true;g.activeGate=-1;g.enemies=[];g.p.x=2800;g.p.hp=100;g.mode='play';}''');page.wait_for_timeout(100);page.evaluate('()=>{while(__brawler.scenes().active)__brawler.scenes().skip()}');page.wait_for_timeout(100)
+ page.evaluate('''()=>{const g=__brawler.game;g.stage=Brawler.STAGES.length-1;g.nextGate=3;g.bossDefeated=g.machineDefeated=g.dukeDefeated=true;g.finalPhase="resolved";g.activeGate=-1;g.enemies=[];g.p.x=2800;g.p.hp=100;g.mode='play';}''');page.wait_for_timeout(100);skip_story(page);page.wait_for_timeout(100)
  check('Final exit shows an actual completion screen',page.locator('#complete').is_visible() and page.evaluate('__brawler.game.mode')=='complete')
  page.screenshot(path=str(OUT/'06-complete.png'))
  # Native portrait layout without horizontal overflow or unreachable controls.
- page.locator('#againButton').tap();page.locator('#sceneSkip').tap();page.set_viewport_size({'width':412,'height':915});page.wait_for_timeout(150);page.screenshot(path=str(OUT/'07-portrait.png'))
+ page.locator('#againButton').tap();wait_scene(page);page.locator('#sceneSkip').tap();page.set_viewport_size({'width':412,'height':915});page.wait_for_timeout(150);page.screenshot(path=str(OUT/'07-portrait.png'))
  ok=page.evaluate('''()=>['stick','attack','jump','guard','special'].every(id=>{const b=document.getElementById(id).getBoundingClientRect();return b.left>=0&&b.top>=0&&b.right<=innerWidth+1&&b.bottom<=innerHeight+1})''')
  check('Portrait keeps every touch control on screen',ok)
  check('No horizontal document overflow',page.evaluate('document.documentElement.scrollWidth<=innerWidth'))
