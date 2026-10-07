@@ -23,8 +23,6 @@ def launch_options(engine='chromium', audio=False):
         binary = os.environ.get('CRITIC_CHROMIUM')
         if binary:
             options['executable_path'] = binary
-        elif Path('/usr/bin/chromium').exists():
-            options['executable_path'] = '/usr/bin/chromium'
         options['args'] = ['--no-sandbox', '--disable-dev-shm-usage']
         if audio:
             options['args'].append('--autoplay-policy=no-user-gesture-required')
