@@ -5,7 +5,7 @@
   "sha256": {
     ".critic-project.json": "38da4110a12edb5aa32291de327206bef2525f747e95c72de04bc4a5b904267e",
     ".github/ISSUE_TEMPLATE/browser-controller.md": "39fbb1a1fa7f340d9563af9354ebcfe5e8bc544e65eeefc00caaf0cd43be4878",
-    ".github/workflows/verify.yml": "a74a1845e3b9d5eb4a6d5be2b117bbd1fae2f7689cbe4bcb17d3b53f591d1723",
+    ".github/workflows/verify.yml": "de63e7e23348469afaa1b5b5ce687a08ff50502985b3eeaeb989b4c33f07163a",
     ".gitignore": "95d8afd96e1454a9a3a9b1709579a01716175ea3708e5e883cee667b7ebee2a1",
     ".nojekyll": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
     "Asset-Usage.md": "3df77d391d5c9be17d63c2239df1917d9dfb74678ea1f305b49be51d89483e52",
