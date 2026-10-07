@@ -80,8 +80,16 @@ jobs:
         if: matrix.browser == 'firefox'
         run: |
           if ! command -v pulseaudio >/dev/null; then
-            timeout 120 apt-get update -o Acquire::Retries=2 -o Acquire::http::Timeout=20
-            timeout 120 apt-get install -y --no-install-recommends pulseaudio pulseaudio-utils
+            python - <<'PYAPT'
+          from pathlib import Path
+          import re
+          for path in Path('/etc/apt/sources.list.d').glob('*.sources'):
+              text = path.read_text().replace('http://archive.ubuntu.com/', 'https://archive.ubuntu.com/').replace('http://security.ubuntu.com/', 'https://security.ubuntu.com/')
+              text = re.sub(r'^Components:.*$', 'Components: main universe', text, flags=re.M)
+              path.write_text(text)
+          PYAPT
+            timeout 240 apt-get update -o Acquire::Retries=2 -o Acquire::https::Timeout=25
+            timeout 180 apt-get install -y --no-install-recommends pulseaudio pulseaudio-utils
           fi
           pulseaudio --daemonize=yes --exit-idle-time=-1 --log-target=file:/tmp/critic-pulse.log
           pactl load-module module-null-sink sink_name=critic_ci

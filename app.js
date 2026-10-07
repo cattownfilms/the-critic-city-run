@@ -96,7 +96,7 @@ class AudioSystem{
   if(this.outgoing){this.outgoing.volume=level*Math.cos(this.fade*Math.PI/2);if(this.fade>=1){this.outgoing.pause();this.outgoing=null;}}
   if(this.bus)this.bus.gain.value=this.muted?0:settings.sfx;
  }
- toggle(){this.muted=!this.muted;if(this.muted){this.music.pause();if(this.outgoing)this.outgoing.pause();}else if(['play','stageclear','complete','title','cutscene'].includes(game.mode))this.playMusic(game.mode==='cutscene'?scenes?.scene?.music||stageMusic():['title','complete'].includes(game.mode)?'title':undefined);toast(this.muted?'Audio muted':'Audio on');}
+ toggle(){if(this.lastBlocked&&!this.muted){this.gesture();this.playMusic(this.trackKey);toast('Retrying audio');return;}this.muted=!this.muted;if(this.muted){this.music.pause();if(this.outgoing)this.outgoing.pause();}else if(['play','stageclear','complete','title','cutscene'].includes(game.mode))this.playMusic(game.mode==='cutscene'?scenes?.scene?.music||stageMusic():['title','complete'].includes(game.mode)?'title':undefined);toast(this.muted?'Audio muted':'Audio on');}
 
 }
 const game=new Brawler.Game(),audio=new AudioSystem(),input=new Input();game.franklinUnlocked=profile.franklinUnlocked;let renderer,meta,ready=false,last=performance.now(),acc=0,fromGallery='title',galleryTime=0,galleryPlaying=true,completeTime=0,tipTime=0,clearTime=0,presentationPaused=false,openingArrival=null;

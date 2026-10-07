@@ -115,7 +115,7 @@ class Game{
   this.story(spec.intro);return true;
  }
  finishDukeConfrontation(announce=true){
-  if(this.stage!==STAGES.length-1||!this.machineDefeated||this.dukeDefeated||this.enemies.some(e=>e.kind==='duke'&&e.hp>0))return false;
+  if(this.stage!==STAGES.length-1||!this.machineDefeated||this.dukeDefeated||this.enemies.some(e=>e.hp>0&&e.kind!=='broadcast-rig'))return false;
   const spec=STAGES[this.stage].finalBoss,kind=spec.kind,k=EINFO[kind];this.finalPhase='duke';this.mode='play';this.activeGate=this.nextGate=2;this.bossSpawned=true;this.bossDefeated=false;this.waveWait=0;this.projectiles=[];
   const e={id:++this.enemyId,kind,name:k.name,boss:true,elite:false,x:2630,y:324,z:0,face:-1,hp:spec.hp,maxHp:spec.hp,speed:k.speed,renderScale:k.renderScale||1,state:'entry',timer:0,cooldown:.65,anim:'walk',animT:0,animDuration:0,hit:false,kb:0,side:1,variant:0,flashes:0,moveIndex:0,move:null,hitIndex:0,telegraph:null};
   if(this.dukeStaged){e.x=this.dukeStaged.x;e.y=this.dukeStaged.y;e.face=this.dukeStaged.face;e.entry=null;e.state='seek';e.hidden=false;e.targetable=true;this.dukeStaged=null;}else this.setupEntry(e,0,1,true);this.enemies=[e];this.target=e;this.targetT=3;this.p.action=null;this.p.attackBuffer=this.p.jumpBuffer=0;this.p.guard=false;this.p.vx=this.p.vy=0;
@@ -267,7 +267,7 @@ class Game{
  chooseBossMove(e,moves){const p=this.p,dx=Math.abs(p.x-e.x),dy=Math.abs(p.y-e.y),phase=this.bossPhase(e);
   const choices=moves.map((m,i)=>{let w=1;if(m.name===e.lastMove)w*=.12;
    if(m.rush)w*=dx>130&&dy<38?3:dx<80?.35:1;
-   if(m.all)w*=p.guard?2.5:1.2;
+   if(m.all)w*=p.guard?2.5:1.2;if(p.guard&&m.damage>=18)w*=2;if(p.z>43&&m.wind<.65)w*=.5;
    if(m.hits.length>1)w*=p.action?1.7:1;
    if(m.area==='trash-can'){w*=dx>150&&p.z<15?2.5:.4;if(this.projectiles.some(q=>q.kind==='trash-can'&&!q.done))w=0;}
    if(!m.area&&!m.rush&&dx>(m.reach||120)+50)w*=.15;
@@ -275,7 +275,7 @@ class Game{
    if(e.x<1870&&e.face<0||e.x>2700&&e.face>0)if(m.rush)w*=.1;
    if(phase&&m.hits.length>1)w*=1.4;
    return {m,w};});let pick=this.rng()*choices.reduce((n,c)=>n+c.w,0),chosen=choices[choices.length-1].m;
-  for(const c of choices){pick-=c.w;if(pick<=0){chosen=c.m;break;}}e.lastMove=chosen.name;e.moveIndex++;return chosen;
+  for(const c of choices){pick-=c.w;if(pick<=0){chosen=c.m;break;}}e.lastMove=chosen.name;e.moveIndex++;if(e.kind==='duke'&&phase>0&&chosen.name==='LEAD JAB')return {...chosen,name:'LEAD JAB',duration:.62,hits:[.18,.4],recovery:.8};return chosen;
  }
  updateBoss(e,dt){
   const p=this.p,def=BOSS_DEFINITIONS[e.kind];if(!def){this.updateFranklin(e,dt);return;}if(def.stationary){this.updateMachine(e,dt);return;}
