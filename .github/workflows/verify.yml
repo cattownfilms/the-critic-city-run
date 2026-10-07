@@ -50,6 +50,10 @@ jobs:
   browsers:
     runs-on: ubuntu-latest
     timeout-minutes: 15
+    # Match requirements-test.txt without installing a changing host media stack.
+    container:
+      image: mcr.microsoft.com/playwright/python:v1.58.0-noble@sha256:678457c4c323b981d8b4befc57b95366bb1bb6aa30057b1269f6b171e8d9975a
+      options: --ipc=host
     strategy:
       fail-fast: false
       matrix:
@@ -61,16 +65,13 @@ jobs:
       - uses: actions/setup-python@v7
         with:
           python-version: '3.13'
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+          package-manager-cache: false
       - name: Install browser test tools
         run: |
-          # The runner's Azure HTTP mirror stalled until the release job timeout.
-          # Use the same Ubuntu packages through the official HTTPS mirror.
-          if [ -f /etc/apt/sources.list.d/ubuntu.sources ]; then
-            sudo sed -i 's|http://azure.archive.ubuntu.com/ubuntu|https://archive.ubuntu.com/ubuntu|g' /etc/apt/sources.list.d/ubuntu.sources
-          fi
-          echo 'Acquire::http::Timeout "30"; Acquire::https::Timeout "30"; Acquire::Retries "1";' | sudo tee /etc/apt/apt.conf.d/99critic-timeouts > /dev/null
           python -m pip install -r requirements-test.txt
-          python -m playwright install --with-deps ${{ matrix.browser }}
       - name: Build standalone parity edition
         run: python tools/build_standalone.py
       - name: Test actual multi-file site in browser engine
@@ -81,11 +82,16 @@ jobs:
           python -c "import time,urllib.request; time.sleep(1); urllib.request.urlopen('http://127.0.0.1:8788/').read(100)"
           python tests/gamepad-browser.test.py --engine ${{ matrix.browser }} --url local
           if [ "${{ matrix.browser }}" = webkit ]; then
-            CRITIC_TRACE_AUDIO=1 timeout 5m python tests/campaign-browser.test.py --engine webkit
+            # Independent clean runs for the intermittent native media stall.
+            # Fail immediately; these are repetitions, never retries on failure.
+            for validation_pass in 1 2 3; do
+              CRITIC_TRACE_AUDIO=1 timeout 5m python tests/campaign-browser.test.py --engine webkit --output "tests/campaign-webkit-pass-$validation_pass-results.json"
+              CRITIC_TRACE_AUDIO=1 timeout 5m python tests/v8-loading-facing-browser.test.py --engine webkit --output "tests/v8-loading-facing-webkit-pass-$validation_pass-results.json"
+            done
           else
             python tests/campaign-browser.test.py --engine ${{ matrix.browser }}
+            CRITIC_TRACE_AUDIO=1 timeout 5m python tests/v8-loading-facing-browser.test.py --engine ${{ matrix.browser }} --output tests/v8-loading-facing-${{ matrix.browser }}-results.json
           fi
-          CRITIC_TRACE_AUDIO=1 timeout 5m python tests/v8-loading-facing-browser.test.py --engine ${{ matrix.browser }} --output tests/v8-loading-facing-${{ matrix.browser }}-results.json
           python tests/v8-gameplay-browser.test.py --engine ${{ matrix.browser }}
           python tests/v8-archive-facing-browser.test.py --engine ${{ matrix.browser }}
           python tests/v7-scenes-browser.test.py --engine ${{ matrix.browser }}
