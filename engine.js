@@ -262,7 +262,7 @@ class Game{
    const m=e.move;e.anim=m.secondAnim&&e.timer>=m.switchAt?m.secondAnim:m.anim;e.animT=m.secondAnim&&e.timer>=m.switchAt?e.timer-m.switchAt:e.timer;e.animDuration=m.secondAnim?(e.timer>=m.switchAt?m.duration-m.switchAt:m.switchAt):m.duration;if(m.sourceImpact!==undefined){const contact=m.hits[0],u=e.timer<=contact?m.sourceImpact*e.timer/contact:m.sourceImpact+(1-m.sourceImpact)*(e.timer-contact)/(m.duration-contact);e.animT=clamp(u,0,1)*m.duration;}if(m.rush&&e.timer<.55)e.x=clamp(e.x+e.face*m.rush*dt,1825,2750);
    while(e.hitIndex<m.hits.length&&e.timer>=m.hits[e.hitIndex]){
     e.hitIndex++;e.attackDamage=m.damage;
-    if(m.area==='trash-can')this.launchProjectile('trash-can',e.x+e.face*120,e.y-125,e.telegraph.x,e.telegraph.y,m.damage,m.radius,m.flight,null,{ownerKind:'spike',low:!!m.low});
+    if(m.area==='trash-can'){const scale=e.renderScale||1;this.launchProjectile('trash-can',e.x+e.face*121.8397212543554*scale,e.y-126.37630662020906*scale,e.telegraph.x,e.telegraph.y,m.damage,m.radius,m.flight,null,{ownerKind:'spike',renderScale:scale,low:!!m.low});}
     else if(m.area==='projectile')this.launchProjectile('signal',e.x,e.y-190,e.telegraph.x,e.telegraph.y,m.damage,m.radius,.7);
     else if(m.area==='spot'){if(Math.abs(p.x-e.telegraph.x)<m.radius&&Math.abs(p.y-e.telegraph.y)<32)this.damagePlayer(e);this.emit('slam',{x:e.telegraph.x,y:e.telegraph.y});}
     else if(m.area==='lane'){const dx=p.x-e.x;if(Math.abs(p.y-e.telegraph.y)<m.lane&&dx*e.face>-22&&dx*e.face<m.reach)this.damagePlayer(e);this.emit('signalSweep',{x:e.x,y:e.telegraph.y,face:e.face});}

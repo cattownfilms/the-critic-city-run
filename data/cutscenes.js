@@ -50,8 +50,8 @@ const scenes={
   route('Three circuits. At least this theater has an off switch.','Lights first. Then the exit.',{actors:[hero(260)],booth:{phase:'lit',active:1},circuits:3,objective:'DISABLE THE 3 PROJECTION CIRCUITS',expression:'focused'})
  ]},
  'boss-projection-defeat':{id:'boss-projection-defeat',title:'END OF REEL',environment:'cinema',shots:[
-  {id:'booth-shutdown',auto:1.2,minTime:1,actors:[hero(260)],booth:{phase:'off'},circuits:0,sound:'slam',destination:'SERVICE EXIT / OPEN'},
-  route('There. A mercifully short feature.','The booth’s dark. Door’s open.',{actors:[hero(260,{animation:'walk',motion:move(260,530,1.2)})],booth:{phase:'off'},circuits:0,destination:'SERVICE EXIT / OPEN'})
+  {id:'booth-shutdown',auto:1.2,minTime:1,actors:[hero(260)],booth:{phase:'off'},circuits:0,sound:'slam',destination:'BOOTH POWER / OFF'},
+  route('There. A mercifully short feature.','The booth’s dark.',{actors:[hero(260,{animation:'walk',motion:move(260,530,1.2)})],booth:{phase:'off'},circuits:0,destination:'BOOTH POWER / OFF'})
  ]},
  'stage-06-intro':chase('stage-06-intro','LITTLE ITALY','pizzeria','BROADCAST TOWER','A hostage, a private premiere, and now a detour.','The tower’s behind this block.'),
  'boss-cinema-intro':{id:'boss-cinema-intro',title:'THE MAIN ATTRACTION',environment:'cinema',shots:[

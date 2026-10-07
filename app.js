@@ -14,7 +14,8 @@ let profile=readStore(conf.profileKey)||{};if(typeof profile!=='object')profile=
 $('continueButton').hidden=!save;$('musicVolume').value=Math.round(settings.music*100);$('sfxVolume').value=Math.round(settings.sfx*100);$('reducedMotion').checked=settings.reducedMotion;$('vibration').checked=settings.vibration;
 function toast(s){$('toast').textContent=s;$('toast').hidden=false;clearTimeout(toast.timer);toast.timer=setTimeout(()=>$('toast').hidden=true,3500);}
 function fatal(s){$('fatal').textContent='The game could not finish loading. '+s+' Reload after the download has finished, or use the included local launcher.';$('fatal').hidden=false;}
-const src=name=>inline?inline.files[name]:(conf.assetBase+name);
+const cachedURLs=new Map(),rawSrc=name=>inline?inline.files[name]:(conf.assetBase+name+'?v='+encodeURIComponent(conf.version));
+const src=name=>cachedURLs.get(name)||rawSrc(name);
 $('titleArt').src=src('title.png');$('portrait').src=src('icon.png');
 class Input{
  constructor(){this.pointers=new Map();this.keys=new Set();this.physicalKeys=new Set();this.blockedKeys=new Set();this.down={attack:false,jump:false,guard:false,special:false};this.edges={attack:false,jump:false,guard:false,special:false};this.mx=0;this.my=0;this.stickId=null;this.pressure=null;
@@ -42,17 +43,19 @@ class Input{
   const o={mx,my,attackPressed:this.edges.attack||!!gp?.pressed.attack,jumpPressed:this.edges.jump||!!gp?.pressed.jump,guardPressed:this.edges.guard||!!gp?.pressed.guard,specialPressed:this.edges.special||!!gp?.pressed.special,attackHeld:this.down.attack||!!gp?.held.attack||k.has('KeyJ')||k.has('KeyX'),guardHeld:this.down.guard||!!gp?.held.guard||k.has('KeyK')||k.has('KeyC')};if(consume)Object.keys(this.edges).forEach(k=>this.edges[k]=false);return o;}
 }
 class AudioSystem{
- constructor(){this.music=new Audio(src('theme.mp3'));this.music.loop=true;this.music.preload='none';this.music.volume=settings.music;this.trackKey='title';this.outgoing=null;this.fade=1;this.wantMusic=false;this.musicSerial=0;this.ctx=null;this.buffers={};this.active=new Set();this.loaded=false;this.ready=null;this.muted=false;this.lastVoice=-9;this.duck=0;this.played={};this.errors=[];this.cueNames=['swish','backhand','bear-call','bear-hit','hit','heavy','hippo-hit','slam','step1','step2','elder-strike','elder-hit','fall'];}
+ constructor(){this.music=new Audio();this.music.loop=true;this.music.preload='none';this.music.volume=settings.music;this.trackKey='title';this.outgoing=null;this.fade=1;this.wantMusic=false;this.musicSerial=0;this.ctx=null;this.buffers={};this.bytes=new Map();this.active=new Set();this.loaded=false;this.ready=null;this.muted=false;this.lastVoice=-9;this.duck=0;this.played={};this.errors=[];this.cueNames=['swish','backhand','bear-call','bear-hit','hit','heavy','hippo-hit','slam','step1','step2','elder-strike','elder-hit','fall'];}
  async unlock(){if(!window.AudioContext&&!window.webkitAudioContext)return;try{if(!this.ctx){this.ctx=new (window.AudioContext||window.webkitAudioContext)();this.bus=this.ctx.createGain();this.bus.gain.value=settings.sfx;const comp=this.ctx.createDynamicsCompressor();comp.threshold.value=-14;comp.knee.value=20;comp.ratio.value=4;this.bus.connect(comp);comp.connect(this.ctx.destination);this.ready=this.decode();}if(this.ctx.state==='suspended'||this.ctx.state==='interrupted')await this.ctx.resume();}catch(e){this.errors.push(String(e));}}
- async decode(){const load=async name=>{try{let data;if(inline){const val=inline.files[name+'.wav'].split(',')[1];const str=atob(val),bytes=new Uint8Array(str.length);for(let i=0;i<str.length;i++)bytes[i]=str.charCodeAt(i);data=bytes.buffer;}else data=await(await fetch(src(name+'.wav'))).arrayBuffer();this.buffers[name]=await this.ctx.decodeAudioData(data);}catch(e){this.errors.push(name+': '+e);}};await Promise.all(this.cueNames.map(load));this.loaded=Object.keys(this.buffers).length===this.cueNames.length;}
+ async decode(){const load=async name=>{const data=this.bytes.get(name+'.wav');if(!data||this.buffers[name])return;try{this.buffers[name]=await this.ctx.decodeAudioData(data.slice(0));}catch(e){this.errors.push(name+': '+e);}};await Promise.all(this.cueNames.map(load));this.loaded=Object.keys(this.buffers).length===this.cueNames.length;}
  chooseTrack(key){
-  const item=conf.music[key]||conf.music.title;if(key===this.trackKey)return;
+  const item=conf.music[key]||conf.music.title;if(key===this.trackKey){if(!this.music.getAttribute('src')&&cachedURLs.has(item.file))this.music.src=src(item.file);return;}
+  if(!cachedURLs.has(item.file))return;
   if(this.outgoing){this.outgoing.pause();this.outgoing.removeAttribute('src');this.outgoing.load();}
   this.outgoing=this.music;this.music=new Audio(src(item.file));this.music.loop=true;this.music.preload='none';this.music.volume=0;this.fade=0;this.trackKey=key;
  }
  async playMusic(key){
   key=key||stageMusic();this.chooseTrack(key);this.wantMusic=true;const serial=++this.musicSerial,node=this.music;await this.unlock();
   if(!this.wantMusic||serial!==this.musicSerial||this.muted||settings.music<=0)return;
+  if(!node.getAttribute('src'))return;
   try{await node.play();if(!this.wantMusic||serial!==this.musicSerial||this.muted)node.pause();}
   catch(e){if(this.wantMusic&&serial===this.musicSerial){this.errors.push('music: '+e);toast('Tap the sound button to enable audio.');}}
  }
@@ -90,23 +93,9 @@ function restartStage4(){if(!game.restartStage4())return;input.clear();screen(nu
 $('playerSelect').onchange=()=>{selected=$('playerSelect').value==='franklin'&&profile.franklinUnlocked?'franklin':'hero';profile.selected=selected;store(conf.profileKey,profile);updateRoster();prepareSelectedRoute();};
 $('restartStage4').onclick=restartStage4;$('retryStage4Reward').onclick=restartStage4;$('playFranklin').onclick=()=>{if(!profile.franklinUnlocked)return;selected='franklin';profile.selected=selected;store(conf.profileKey,profile);updateRoster();start(false);};
 updateRoster();
-async function openGallery(){
- if(!meta||!ready||destinationBusy||scenes?.active)return;
- destinationBusy=true;updateDestinationButtons();fromGallery=game.mode;if(game.mode==='play'){game.pause();fromGallery='pause';}
- input.clear();audio.pause();game.mode='loading';screen('loading');assetScreen.hidden=false;
- try{await loadPages(pageIdsForBank($('characterSelect').value),(n,total)=>contentProgress('Animation Room',n,total));galleryReady=true;assetScreen.hidden=true;game.mode='gallery';screen('gallery');await fillAnimations();}
- catch(e){assetScreen.hidden=true;game.mode=fromGallery;screen(fromGallery==='pause'?'pause':fromGallery==='complete'?'complete':'title');toast('Animation Room download failed. Your progress is safe. Try again.');}
- finally{destinationBusy=false;updateDestinationButtons();}
-}
-async function fillAnimations(){
- if(!meta)return;const who=$('characterSelect').value,serial=++gallerySerial;
- galleryReady=false;$('galleryCanvas').hidden=true;$('galleryInfo').textContent='Loading this character’s complete animation library…';
- for(const id of ['characterSelect','animSelect','prevAnim','nextAnim','playAnim'])$(id).disabled=true;
- try{await loadPages(pageIdsForBank(who),(n,total)=>{$('galleryInfo').textContent='Loading animation library · '+Math.round(n/total*100)+'%';});if(serial!==gallerySerial)return;
- const a=meta.characters[who];$('animSelect').replaceChildren();for(const [key,an] of Object.entries(a)){const o=document.createElement('option');o.value=key;o.textContent=canonicalText(an.label);$('animSelect').appendChild(o);}galleryTime=0;galleryReady=true;$('galleryCanvas').hidden=false;galleryInfo();
- }catch(e){if(serial===gallerySerial)$('galleryInfo').textContent='Animation download failed. Close the room and try again.';}
- finally{if(serial===gallerySerial)for(const id of ['characterSelect','animSelect','prevAnim','nextAnim','playAnim'])$(id).disabled=!galleryReady;}
-}
+async function openGallery(){if(!meta||!ready||destinationBusy||scenes?.active)return;fromGallery=game.mode;if(game.mode==='play'){game.pause();fromGallery='pause';}input.clear();audio.pause();game.mode='gallery';screen('gallery');fillAnimations();}
+function fillAnimations(){if(!meta||!ready)return;const who=$('characterSelect').value,a=meta.characters[who];if(!a)return;gallerySerial++;$('animSelect').replaceChildren();for(const [key,an] of Object.entries(a)){const o=document.createElement('option');o.value=key;o.textContent=canonicalText(an.label);$('animSelect').appendChild(o);}galleryTime=0;galleryReady=true;$('galleryCanvas').hidden=false;for(const id of ['characterSelect','animSelect','prevAnim','nextAnim','playAnim'])$(id).disabled=false;galleryInfo();}
+
 function galleryInfo(){const who=$('characterSelect').value,an=meta.characters[who][$('animSelect').value];$('galleryInfo').textContent=`${an.frames.length} frames · ${(an.ms/1000).toFixed(2)}s source duration · ${an.loop?'Loop':'One-shot'}${an.sourceDescription?' · '+canonicalText(an.sourceDescription):''}`;}
 function closeGallery(){gallerySerial++;galleryReady=false;input.clear();game.mode=fromGallery;screen(fromGallery==='pause'?'pause':fromGallery==='complete'?'complete':'title');if(fromGallery==='complete'||fromGallery==='title')audio.playMusic('title');}
 $('startButton').onclick=()=>start(false);$('continueButton').onclick=()=>start(true);$('movesButton').onclick=()=>{input.clear();screen('pause');$('resumeButton').hidden=true;$('restartStage4').hidden=true;};$('pauseBtn').onclick=pause;$('resumeButton').onclick=resume;$('titleButton').onclick=title;$('overTitle').onclick=title;$('completeTitle').onclick=title;$('againButton').onclick=()=>start(false);
@@ -119,50 +108,33 @@ window.addEventListener('blur',()=>{input.clear();input.physicalKeys.clear();inp
 window.addEventListener('focus',()=>{if(presentationPaused&&!document.hidden){presentationPaused=false;if(['stageclear','complete'].includes(game.mode))audio.playMusic(game.mode==='complete'?'title':undefined);}});
 document.addEventListener('visibilitychange',()=>{if(document.hidden){input.clear();input.physicalKeys.clear();input.blockedKeys.clear();if(scenes?.active){scenes.togglePause(true);return;}if(game.mode==='play')pause();else{presentationPaused=true;audio.pause();}}else if(presentationPaused){presentationPaused=false;if(['stageclear','complete'].includes(game.mode))audio.playMusic(game.mode==='complete'?'title':undefined);}});
 window.addEventListener('resize',()=>{input.clear();if(renderer)game.viewWidth=renderer.resize().w;});window.addEventListener('contextmenu',e=>e.preventDefault());
-let assetImages=[],assetJobs=new Map(),assetPending=false,assetError='',assetLoadSerial=0,stageAssetsPromise=Promise.resolve(),destinationBusy=false,galleryReady=false,gallerySerial=0,scenePreparing=false,continueLoadFailed=false;const sceneQueue=[];
-const assetScreen=document.createElement('section');assetScreen.id='contentLoading';assetScreen.className='screen';assetScreen.hidden=true;assetScreen.innerHTML='<div class="panel"><p class="eyebrow">COMING ATTRACTIONS</p><h2>Preparing the next scene.</h2><p id="contentLoadStatus" role="status">Loading stage artwork…</p><button id="contentLoadRetry" class="primary full" hidden>RETRY DOWNLOAD</button></div>';document.body.appendChild(assetScreen);
+// A single bounded startup download owns all current runtime dependencies. Optional
+// source performances remain available, but no destination opens on partial data.
+let assetImages=[],assetPending=false,assetError='',stageAssetsPromise=Promise.resolve(),destinationBusy=false,galleryReady=false,gallerySerial=0,scenePreparing=false;
+const sceneQueue=[],imageCache=new Map(),fileJobs=new Map(),completedFiles=new Set();
+const bulk={policy:'all-runtime-at-startup',phase:'metadata',totalFiles:1,completedFiles:0,downloadedBytes:0,decodedImages:0,activeWorkers:0,failures:[],error:'',ready:false};
+let bulkRunning=false,bulkPlan=[];
+const assetScreen=document.createElement('section');assetScreen.id='contentLoading';assetScreen.className='screen';assetScreen.hidden=true;assetScreen.innerHTML='<div class="panel"><p class="eyebrow">COMING ATTRACTIONS</p><h2>Preparing the game.</h2><p id="contentLoadStatus" role="status">Loading required artwork…</p><button id="contentLoadRetry" class="primary full" hidden>RETRY DOWNLOAD</button></div>';document.body.appendChild(assetScreen);
+const initialRetry=document.createElement('button');initialRetry.id='initialLoadRetry';initialRetry.className='full';initialRetry.textContent='RETRY DOWNLOAD';initialRetry.hidden=true;$('loadtext').insertAdjacentElement('afterend',initialRetry);
+const optionsProgress=document.createElement('p');optionsProgress.id='bulkLoadStatusOptions';optionsProgress.className='small';optionsProgress.setAttribute('role','status');$('saveNote').insertAdjacentElement('afterend',optionsProgress);
+const optionsRetry=document.createElement('button');optionsRetry.id='bulkLoadRetryOptions';optionsRetry.className='full';optionsRetry.textContent='RETRY DOWNLOAD';optionsRetry.hidden=true;optionsProgress.insertAdjacentElement('afterend',optionsRetry);
 function pageIdsForBank(who,scope='all'){const bank=meta?.characters?.[who];if(scope==='gameplay'&&meta?.loading?.gameplay?.[who])return meta.loading.gameplay[who];return bank?[...new Set(Object.values(bank).flatMap(a=>a.frames.map(f=>f.p)))]:[];}
 function pageIdsForAnimation(who,name){return [...new Set((meta?.characters?.[who]?.[name]?.frames||[]).map(f=>f.p))];}
 function stagePageIds(stageIndex,who){const stage=Brawler.STAGES[stageIndex]||Brawler.STAGES[0],banks=[who,...stage.waves.flat(),stage.boss?.kind,'trash-can',...(stageIndex>=4?['turkey-dinner']:[])];if(stageIndex===6)banks.push('duke','marty');return [...new Set(banks.filter(Boolean).flatMap(bank=>pageIdsForBank(bank,'gameplay')))];}
-function contentProgress(label,n,total){$('contentLoadStatus').textContent=label+' · '+Math.round(n/Math.max(1,total)*100)+'%';}
-function updateDestinationButtons(){
- const blocked=!ready||destinationBusy||scenePreparing,startReady=ready&&stagePageIds(0,selected).every(id=>assetImages[id]),continueReady=ready&&!!save&&stagePageIds(save.stage||0,save.playerKind||selected).every(id=>assetImages[id]);
- $('startButton').disabled=blocked||!startReady;$('continueButton').disabled=blocked||!continueReady&&!continueLoadFailed;for(const id of ['againButton','playFranklin'])$(id).disabled=blocked;
- for(const id of ['galleryButton','pauseGallery','completeGallery']){$(id).disabled=blocked;$(id).title=blocked?'Required files are loading.':'';}
- $('startButton').textContent=blocked||!startReady?'LOADING…':'PRESS START';$('continueButton').textContent=save&&!continueReady?continueLoadFailed?'Continue · retry download':'Continue · loading':'Continue';
-}
-async function prepareSelectedRoute(){if(!meta)return;updateDestinationButtons();try{await loadPages(stagePageIds(0,selected),(n,total)=>{$('loadtext').textContent='Preparing selected character · '+Math.round(n/Math.max(1,total)*100)+'%';});$('loadtext').textContent='Ready. Later scenes load when needed.';}catch(e){toast('Character download failed. Choose the character again to retry.');}updateDestinationButtons();}
-async function start(cont){
- if(!ready||destinationBusy||scenes?.active||scenePreparing)return;
- destinationBusy=true;if(cont)continueLoadFailed=false;updateDestinationButtons();input.clear();const previous=game.mode,who=cont&&save?.playerKind?save.playerKind:selected,stageIndex=cont?save?.stage||0:0;
- game.mode='loading';screen('loading');assetScreen.hidden=false;
- try{await loadPages(stagePageIds(stageIndex,who),(n,total)=>contentProgress('Preparing '+Brawler.STAGES[stageIndex].name,n,total));assetScreen.hidden=true;beginGame(cont);}
- catch(e){if(cont)continueLoadFailed=true;assetScreen.hidden=true;game.mode=previous;screen(previous==='complete'?'complete':'title');toast('Required game files could not load. Your save is safe. Try again.');}
- finally{destinationBusy=false;updateDestinationButtons();}
-}
-async function loadPages(ids,progress){
- let done=0,cursor=0;const unique=[...new Set(ids)].filter(id=>!assetImages[id]);if(progress)progress(0,unique.length);
- const worker=async()=>{while(cursor<unique.length){const id=unique[cursor++];let job=assetJobs.get(id);if(!job){job=new Promise((resolve,reject)=>{const im=new Image();im.onload=async()=>{try{if(typeof im.decode==='function')await im.decode();assetImages[id]=im;resolve(im);}catch(e){assetJobs.delete(id);reject(e);}};im.onerror=()=>{assetJobs.delete(id);reject(new Error(meta.pages[id].file));};im.src=src(meta.pages[id].file);});assetJobs.set(id,job);}await job;done++;if(progress)progress(done,unique.length);}};
- await Promise.all([worker(),worker()]);
-}
-function showAssetLoading(){if(scenes?.active)return;game.mode='loading';input.clear();screen('loading');assetScreen.hidden=false;$('contentLoadStatus').textContent=assetError?'The stage download failed: '+assetError+'. Your checkpoint is safe. Retry when the connection is ready.':'Loading the next stage’s cast…';$('contentLoadRetry').hidden=!assetError;}
-function ensureStageAssets(){
- if(!meta)return Promise.resolve();const ids=stagePageIds(game.stage,game.playerKind);if(ids.every(id=>assetImages[id]))return Promise.resolve();
- assetPending=true;assetError='';const serial=++assetLoadSerial;showAssetLoading();
- stageAssetsPromise=loadPages(ids,(n,total)=>contentProgress('Loading stage artwork',n,total)).then(()=>{if(serial!==assetLoadSerial)return;assetPending=false;if(!scenes?.active&&!scenePreparing&&!destinationBusy){assetScreen.hidden=true;game.mode='play';input.clear();screen(null);audio.playMusic();}}).catch(e=>{if(serial!==assetLoadSerial)return;assetError=String(e);showAssetLoading();throw e;});
- stageAssetsPromise.catch(()=>{});return stageAssetsPromise;
-}
-$('contentLoadRetry').onclick=()=>{assetError='';if(assetPending)ensureStageAssets();if(sceneQueue.length)pumpScenes();else if(!assetPending)ensureStageAssets();};
-async function load(){try{
- updateDestinationButtons();$('loadtext').textContent='Preparing the game…';
- if(!window.fetch&&!inline)throw new Error('This browser does not support asset loading.');meta=inline?inline.sprites:await(await fetch(src('sprites.json')+'?v='+encodeURIComponent(conf.version))).json();
- renderer=new CityRenderer($('game'),meta,assetImages);renderer.onMissingAnimation=(who,name)=>{loadPages(pageIdsForAnimation(who,name)).catch(()=>{});};game.viewWidth=renderer.rect.w;requestAnimationFrame(loop);
- // Only current gameplay is decoded first. Complete source libraries wait for the Animation Room.
- const ids=stagePageIds(0,selected);
- await loadPages(ids,(loaded,total)=>{$('loadbar').firstElementChild.style.width=(loaded/Math.max(1,total)*100)+'%';$('loadtext').textContent=`Preparing Stage 1 · ${Math.round(loaded/Math.max(1,total)*100)}%`;});
- ready=true;updateDestinationButtons();$('loadtext').textContent='Ready. Later scenes load when needed.';$('loadbar').hidden=true;
- if(save)loadPages(stagePageIds(save.stage||0,save.playerKind||selected)).then(()=>{continueLoadFailed=false;updateDestinationButtons();}).catch(()=>{continueLoadFailed=true;updateDestinationButtons();});
-}catch(e){fatal(String(e));}}
+function loadingState(){return {...bulk,failures:[...bulk.failures],totalAtlasPages:meta?.pages.length||0,decodedAtlasPages:assetImages.filter(Boolean).length,cachedAudioFiles:audio.bytes.size,cachedMusicFiles:new Set(Object.values(conf.music).map(item=>item.file).filter(file=>cachedURLs.has(file))).size,cachedImages:imageCache.size};}
+window.__brawler.loading=loadingState;
+function progress(){bulk.completedFiles=completedFiles.size;const percentage=Math.floor(100*bulk.completedFiles/Math.max(1,bulk.totalFiles));$('loadbar').firstElementChild.style.width=percentage+'%';$('loadtext').textContent=bulk.error?'Download paused. '+bulk.completedFiles+' / '+bulk.totalFiles+' files ready. Retry to finish.':ready?'All game files ready. No scene downloads.':'Loading all game files · '+bulk.completedFiles+' / '+bulk.totalFiles+' · '+percentage+'% · '+(bulk.downloadedBytes/1048576).toFixed(1)+' MB · '+bulk.decodedImages+' images decoded';optionsProgress.textContent=$('loadtext').textContent;optionsRetry.hidden=!bulk.error;}
+function updateDestinationButtons(){const blocked=!ready||destinationBusy||scenePreparing;$('startButton').disabled=blocked;$('continueButton').disabled=blocked||!save;for(const id of ['againButton','playFranklin'])$(id).disabled=blocked;for(const id of ['galleryButton','pauseGallery','completeGallery']){$(id).disabled=blocked;$(id).title=blocked?'All required game files are loading.':'';}$('startButton').textContent=!ready?'LOADING ALL FILES…':'PRESS START';$('continueButton').textContent=!ready?'Continue · loading':'Continue';}
+function prepareSelectedRoute(){updateDestinationButtons();}
+async function start(cont){if(!ready||destinationBusy||scenes?.active||scenePreparing||cont&&!save)return;input.clear();beginGame(cont);}
+async function readBytes(name){if(inline){const value=inline.files[name];if(!value)throw new Error('Missing bundled file: '+name);const comma=value.indexOf(','),str=atob(value.slice(comma+1)),data=new Uint8Array(str.length);for(let i=0;i<str.length;i++)data[i]=str.charCodeAt(i);return {data:data.buffer,type:value.slice(5,value.indexOf(';'))};}const response=await fetch(rawSrc(name));if(!response.ok)throw new Error(name+' (HTTP '+response.status+')');return {data:await response.arrayBuffer(),type:response.headers.get('content-type')||'application/octet-stream'};}
+async function loadFile(job){if(completedFiles.has(job.name))return;let promise=fileJobs.get(job.name);if(!promise){promise=(async()=>{const bytes=await readBytes(job.name);bulk.downloadedBytes+=bytes.data.byteLength;progress();if(job.kind==='wav'){audio.bytes.set(job.name,bytes.data);}else{const url=URL.createObjectURL(new Blob([bytes.data],{type:bytes.type}));cachedURLs.set(job.name,url);if(job.kind==='image'){const image=new Image();try{await new Promise((resolve,reject)=>{image.onload=resolve;image.onerror=()=>reject(new Error('Invalid image: '+job.name));image.src=url;});if(typeof image.decode==='function')await image.decode();if(!image.naturalWidth)throw new Error('Empty image: '+job.name);imageCache.set(job.name,image);if(job.page!==undefined)assetImages[job.page]=image;renderer.art.set(job.name,image);scenes?.imageCache.set(job.name,image);scenes?.imageJobs.set(job.name,Promise.resolve(image));bulk.decodedImages++;}catch(error){URL.revokeObjectURL(url);cachedURLs.delete(job.name);throw error;}}}completedFiles.add(job.name);progress();})();fileJobs.set(job.name,promise);}try{await promise;}catch(error){fileJobs.delete(job.name);throw error;}}
+async function loadPages(ids){for(const id of new Set(ids)){if(!assetImages[id])throw new Error('Required atlas is not ready: '+meta.pages[id]?.file);}}
+function ensureStageAssets(){return ready?Promise.resolve():Promise.reject(new Error('Startup files are still loading.'));}
+function showAssetLoading(){assetScreen.hidden=false;$('contentLoadStatus').textContent='Required game files are loading. Return to the title to retry.';}
+function makePlan(){const jobs=new Map(),add=(name,kind='image',page)=>{if(name&&!jobs.has(name))jobs.set(name,{name,kind,page});};meta.pages.forEach((page,index)=>add(page.file,'image',index));for(const speaker of Object.values(meta.portraits?.speakers||{}))for(const expression of Object.values(speaker.expressions||{}))for(const frame of expression.frames||[])add(String(frame.image||frame.file||'').replace(/^assets\//,''));for(const id of Object.keys(CriticCutscenes.scenes))for(const route of ['hero','franklin'])for(const name of CriticCutscenes.dependencies(id,route,meta).images)add(name);for(const name of ['title.png','icon.png','franklin-icon.png','environments/pizzeria.webp','environments/broadcast.webp','environments/cinema.webp','story/projection-woman-pixel.webp'])add(name);for(const item of Object.values(conf.music))add(item.file,'music');for(const name of audio.cueNames)add(name+'.wav','wav');return [...jobs.values()];}
+async function load(){if(bulkRunning||ready)return;bulkRunning=true;bulk.error='';bulk.failures=[];initialRetry.hidden=true;updateDestinationButtons();progress();try{if(!meta){if(!window.fetch&&!inline)throw new Error('This browser does not support asset loading.');if(inline)meta=inline.sprites;else{const response=await fetch(rawSrc('sprites.json'));if(!response.ok)throw new Error('Sprite manifest (HTTP '+response.status+')');const bytes=await response.arrayBuffer();bulk.downloadedBytes+=bytes.byteLength;meta=JSON.parse(new TextDecoder().decode(bytes));}completedFiles.add('sprites.json');renderer=new CityRenderer($('game'),meta,assetImages);renderer.onMissingAnimation=(who,name)=>{const ids=pageIdsForAnimation(who,name);if(ids.some(id=>!assetImages[id]))console.error('Required atlas missing after startup:',who,name);};game.viewWidth=renderer.rect.w;requestAnimationFrame(loop);bulkPlan=makePlan();bulk.totalFiles=bulkPlan.length+1;}bulk.phase='bulk';progress();const pending=bulkPlan.filter(job=>!completedFiles.has(job.name));let cursor=0;const failures=[];const worker=async()=>{bulk.activeWorkers++;try{while(cursor<pending.length){const job=pending[cursor++];try{await loadFile(job);}catch(error){failures.push({file:job.name,error:String(error)});}}}finally{bulk.activeWorkers--;}};await Promise.all(Array.from({length:Math.min(4,pending.length)},worker));if(failures.length){bulk.failures=failures;throw new Error(failures.length+' file'+(failures.length===1?'':'s')+' could not load.');}ready=true;bulk.ready=true;bulk.phase='ready';bulk.error='';$('titleArt').src=src('title.png');updatePortrait();audio.chooseTrack('title');if(audio.ctx)audio.ready=audio.decode();initialRetry.hidden=true;$('loadbar').hidden=true;progress();updateDestinationButtons();if(audio.wantMusic)audio.playMusic(audio.trackKey);}catch(error){bulk.error=String(error);bulk.phase='error';initialRetry.hidden=false;progress();updateDestinationButtons();}finally{bulkRunning=false;}}
+initialRetry.onclick=load;optionsRetry.onclick=load;$('contentLoadRetry').onclick=load;
 
 function handle(e){if(renderer)renderer.emit(e);audio.event(e);if(settings.vibration&&navigator.vibrate&&['hit','parry','playerHit'].includes(e.type))navigator.vibrate(e.type==='hit'?12:22);
  if(e.type==='save'){save=e.save;store(conf.saveKey,e.save);}
@@ -176,13 +148,15 @@ function handle(e){if(renderer)renderer.emit(e);audio.event(e);if(settings.vibra
  if(e.type==='complete'){prepareResults();if(scenes?.active||scenePreparing)sceneReturnMode='complete';playScene(e.ending||'ending','complete');}
  if(e.type==='clear'){tipTime=2.8;$('tip').textContent=game.stage===3&&game.bossDefeated?'Boss defeated. Head right to the exit.':game.nextGate===3?'Block clear. Head right to the next district.':'Block clear. Health restored. Keep moving right.';show('tip',true);}
  if(e.type==='retry'){screen(null);tipTime=3;$('tip').textContent='Back on your feet. This block is your checkpoint.';}
+ if(e.type==='runBlocked'){audio.sample('heavy',.48,.83);tipTime=1.8;$('tip').textContent='RUN ATTACK BLOCKED · USE PUNCHES / KICKS';show('tip',true);}
  if(e.type==='parry'){tipTime=1.2;$('tip').textContent='PARRY! HIT now for a two-palm counter.';show('tip',true);}
 }
 function hud(){const p=game.p,boss=game.enemies.find(e=>e.boss&&e.hp>0&&!e.hidden&&(!e.entry||e.entry.phase==='settle'));const circuitFight=game.stage===4&&game.props.some(o=>o.kind==='circuit')&&!game.projection.disabled,off=game.projection.circuits.filter(c=>!c.active).length;show('bossHud',game.mode==='play'&&(!!boss||circuitFight));if(boss){$('bossName').textContent=boss.name.toUpperCase();$('bossFill').style.width=100*boss.hp/boss.maxHp+'%';$('bossMove').textContent=boss.state==='windup'?boss.move?.name||'READY':'FINAL BILL';$('unlockStatus').textContent=circuitFight?'DISABLE THE 3 PROJECTION CIRCUITS · '+off+'/3 OFF':game.stage!==3?'RESCUE MARTY / STOP THE BROADCAST':game.playerKind==='franklin'?'STAGE 4 CHALLENGE':profile.franklinUnlocked?'FRANKLIN ALREADY UNLOCKED':game.stage4Eligible&&game.deathsByStage[3]===0?'UNLOCK RUN: NO DEATHS IN STAGE 4':'UNLOCK RUN MISSED / RESTART STAGE 4 TO RETRY';}else if(circuitFight){$('bossName').textContent='PROJECTION BOOTH';$('bossMove').textContent=off+'/3 CIRCUITS OFF';const circuits=game.props.filter(o=>o.kind==='circuit');$('bossFill').style.width=100*circuits.reduce((sum,o)=>sum+Math.max(0,o.hp),0)/(circuits.length*45)+'%';$('unlockStatus').textContent='DISABLE THE 3 PROJECTION CIRCUITS';}$('healthFill').style.width=p.hp+'%';$('meterFill').style.width=p.meter+'%';$('lives').textContent=p.lives+' '+(p.lives===1?'LIFE':'LIVES');$('score').textContent=String(game.score||0).padStart(6,'0');$('stageName').textContent=`${game.stage+1}/${Brawler.STAGES.length} · ${Brawler.STAGES[game.stage].name}`;$('specialValue').textContent=p.meter>=100?'READY':Math.floor(p.meter)+'%';$('special').classList.toggle('ready',p.meter>=100);show('comboHud',game.mode==='play'&&p.combo>1);$('comboNum').textContent=p.combo;$('comboText').textContent=p.combo>=10?'CRITICAL ACCLAIM':'HIT COMBO';const t=game.target;show('targetHud',game.mode==='play'&&!boss&&!!t&&t.hp>0&&game.targetT>0&&p.z<35);if(t){$('targetName').textContent=t.name.toUpperCase();$('targetFill').style.width=100*t.hp/t.maxHp+'%';}}
 function drawGallery(dt){
  if(galleryPlaying)galleryTime+=dt;const c=$('galleryCanvas'),w=c.clientWidth,h=c.clientHeight;if(c.width!==w||c.height!==h){c.width=w;c.height=h;}
  const ctx=c.getContext('2d');ctx.clearRect(0,0,w,h);const who=$('characterSelect').value,name=$('animSelect').value,a=meta.characters[who][name];
- const minY=Math.min(...a.frames.map(f=>f.oy)),maxY=Math.max(0,...a.frames.map(f=>f.oy+f.h)),minX=Math.min(...a.frames.map(f=>f.ox)),maxX=Math.max(...a.frames.map(f=>f.ox+f.w));
+ const nativeFace=f=>f.canonicalFacing??a.canonicalFacing??1;
+ const minY=Math.min(...a.frames.map(f=>f.oy)),maxY=Math.max(0,...a.frames.map(f=>f.oy+f.h)),minX=Math.min(...a.frames.map(f=>nativeFace(f)===-1?-f.ox-f.w:f.ox)),maxX=Math.max(...a.frames.map(f=>nativeFace(f)===-1?-f.ox:f.ox+f.w));
  const sc=Math.min(1.08,(h-38)/(maxY-minY),(w-35)/(maxX-minX)),t=galleryTime%(a.ms/1000+.65),x=w/2-(minX+maxX)*sc/2,y=h-22-Math.max(0,maxY)*sc;
  renderer.shadow(ctx,who,name,x,y,1,t,0,sc,0,.38);renderer.sprite(ctx,who,name,x,y,1,t,0,{scale:sc,loop:false});
 }
@@ -210,11 +184,11 @@ function playScene(id,returnMode){
 }
 async function pumpScenes(){
  if(scenePreparing||scenes?.active||!sceneQueue.length)return;scenePreparing=true;updateDestinationButtons();
- const task=sceneQueue.shift();sceneReturnMode=task.returnMode;game.mode='loading';input.clear();screen('loading');assetScreen.hidden=false;
+ const task=sceneQueue.shift();sceneReturnMode=task.returnMode;game.mode='cutscene';input.clear();screen('cutscene');
  try{
  const deps=window.CriticCutscenes.dependencies?.(task.id,game.playerKind,meta)||{banks:[]},ids=[...(deps.banks||[]).filter(who=>!deps.animations?.[who]).flatMap(who=>meta?.loading?.scenes?.[who]||pageIdsForBank(who,'gameplay'))];
  for(const [who,names] of Object.entries(deps.animations||{}))for(const name of names)ids.push(...pageIdsForAnimation(who,name));
- await Promise.all([stageAssetsPromise,loadPages(ids,(n,total)=>contentProgress('Loading story cast',n,total)),scenes.prepare?.(task.scene)||Promise.resolve()]);
+ await Promise.all([stageAssetsPromise,loadPages(ids),scenes.prepare?.(task.scene)||Promise.resolve()]);
  scenePreparing=false;updateDestinationButtons();assetScreen.hidden=true;
  scenes.play(task.scene,()=>{
  game.storyFlags=game.storyFlags||{};game.storyFlags[task.id]=true;
