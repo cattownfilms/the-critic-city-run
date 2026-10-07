@@ -113,7 +113,7 @@ def publish(owner: str, repo: str, *, yes: bool = False, root: Path = ROOT, wait
     if head.returncode:
         # Explicit paths only. Never use git add . on a user folder.
         for i in range(0, len(files), 50): run(['git', 'add', '--', *files[i:i + 50]], root=root)
-        run(['git', 'commit', '-m', 'Publish The Critic City Run v5 with optional controller support'], root=root)
+        run(['git', 'commit', '-m', 'Publish THE CRITIC: COMING ATTRACTIONS v6'], root=root)
     if meta is None:
         run(['gh', 'repo', 'create', target, '--public', '--description', 'Fan-made browser brawler with touch, keyboard and optional controller support.'], root=root)
         meta = api('repos/' + target, root=root); check_remote(meta, owner, repo)
@@ -150,7 +150,7 @@ def publish(owner: str, repo: str, *, yes: bool = False, root: Path = ROOT, wait
         latest = api(endpoint + '/builds/latest', optional=True, root=root)
         if latest and latest.get('status') == 'errored': raise PublishError('Repository is uploaded, but Pages build failed: ' + str(latest.get('error')))
         built = bool(latest and latest.get('status') == 'built')
-    state = {'published': True, 'repository': meta['html_url'], 'site': site, 'pagesBuild': 'built' if built else 'pending', 'version': '5.0.0'}
+    state = {'published': True, 'repository': meta['html_url'], 'site': site, 'pagesBuild': 'built' if built else 'pending', 'version': '6.0.0'}
     (root / '.publish-state.json').write_text(json.dumps(state, indent=2), encoding='utf-8')
     print(('Pages reports the build complete. Share: ' if built else 'Pages is still building. Share this address once Settings > Pages reports success: ') + site)
     return state

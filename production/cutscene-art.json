@@ -1,0 +1,114 @@
+{
+  "title": "The Critic: Coming Attractions",
+  "generation_mode": "built-in image_gen.imagegen",
+  "production_date": "2026-10-07",
+  "runtime_optimization": "1600x900 RGB WebP quality88 method6; Lanczos resize from original generated PNG; no generated text",
+  "identity_validation": "Duke matched supplied Blue Polo canonical animation anchor and inspected episode still; Marty matched supplied Red Pullover canonical animation anchor and inspected character-family reference; Jay matched existing assets/icon.png. Rejected initial generic Duke/Marty draft is not a runtime or published asset.",
+  "assets": [
+    {
+      "id": "cinema",
+      "path": "assets/environments/cinema.webp",
+      "prompt": "Create one finished production background for the arcade brawler The Critic: Coming Attractions. 16:9 landscape composition. Hand-drawn 1990s American cartoon cel illustration, crisp dark contours, bold large flat colors, restrained stepped shadows, compatible with existing pixel-art arcade characters. Empty environment: absolutely no people or animals, no dialogue, no logo, no watermark. Readable belt-scrolling combat ground spans entire lower third; it should be mostly clear, unobstructed, nearly horizontal and consistent in depth.\nThe environment is a distinctive movie theater auditorium at night. Muted burgundy and purple seat rows occupy the midground above the combat plane, with a few low foreground seat edges at the very bottom corners only. A wide clear horizontal aisle is the combat plane across the lower third, carpeted deep red and lit so character feet remain readable. Deep blue back wall, two clearly separated rectangular projection booth windows high on the upper wall, empty dark interiors. One window may emit a cool projector beam upward/right into haze, but leave windows clear for runtime character overlays. A soft reflected screen glow on the right, simple theater sconces and side doors. Cinematic violet/blue lighting, warm seats, strong foreground/midground separation. Reference image is ONLY theater mood, seat color and projection window geometry, not a composition to copy. Do not include the woman or any figure.",
+      "tool": "built-in image_gen.imagegen",
+      "references": [
+        "upload/01-1000085752.jpg"
+      ],
+      "status": "generated-and-visually-reviewed",
+      "inspection": "16:9 cel-illustration environment; clear combat floor; no characters or baked dialogue.",
+      "generated_source_sha256": "76da14077f640e20e3e17a8dbed89435a232eef6dd74fd0c6cfbb71fff05d1d0",
+      "generator_output": "exec-9dc36ded-6d90-469f-95e0-86b35e000dad.png",
+      "width": 1600,
+      "height": 900,
+      "runtime_sha256": "c484819349df11f79ddd569e9a8eaeb3ee13fa971dd1fe4cff8def6459d257ef",
+      "runtime_bytes": 78304
+    },
+    {
+      "id": "pizzeria",
+      "path": "assets/environments/pizzeria.webp",
+      "prompt": "Create one finished production background for the arcade brawler The Critic: Coming Attractions. 16:9 landscape composition. Hand-drawn 1990s American cartoon cel illustration, crisp dark contours, bold large flat colors, restrained stepped shadows, compatible with existing pixel-art arcade characters. Empty environment: absolutely no people or animals, no dialogue, no logo, no watermark. Readable belt-scrolling combat ground spans entire lower third; it should be mostly clear, unobstructed, nearly horizontal and consistent in depth.\nA New York City neighborhood pizzeria storefront at twilight, as seen straight-on across a broad sidewalk. Red brick building, striped red-and-cream awning, large warm illuminated windows showing simple empty tables and pizza oven, modest adjacent storefront architecture, upper fire escape, muted plum-blue sky. Include a round blank pizza emblem above the door without text. Distinct local pizzeria identity and warm welcoming facade, providing a location for an eccentric storefront boss. No character, no boss, no vehicle in combat plane. Lower third is broad open sidewalk with sparse cracks and curb edge at bottom; leave room for large characters and scattered interactive props that the engine will add later. Side-on arcade perspective, readable horizontal walk space.",
+      "tool": "built-in image_gen.imagegen",
+      "references": [],
+      "status": "generated-and-visually-reviewed",
+      "inspection": "16:9 cel-illustration environment; clear combat floor; no characters or baked dialogue.",
+      "generated_source_sha256": "24b52d11c2310ad91fb7a3370ca12db09c5f1f15c6e368ba5b62b89df2f149fd",
+      "generator_output": "exec-65ae84b3-7e24-4e54-8477-0f2b9f330399.png",
+      "width": 1600,
+      "height": 900,
+      "runtime_sha256": "6b7f8790c607a9b07a7c18e4761443ab1b070c1a9dfedb7599df5c4e864858b9",
+      "runtime_bytes": 200152
+    },
+    {
+      "id": "broadcast",
+      "path": "assets/environments/broadcast.webp",
+      "prompt": "Create one finished production background for the arcade brawler The Critic: Coming Attractions. 16:9 landscape composition. Hand-drawn 1990s American cartoon cel illustration, crisp dark contours, bold large flat colors, restrained stepped shadows, compatible with existing pixel-art arcade characters. Empty environment: absolutely no people or animals, no dialogue, no logo, no watermark. Readable belt-scrolling combat ground spans entire lower third; it should be mostly clear, unobstructed, nearly horizontal and consistent in depth.\nA gigantic experimental television broadcasting control room, the late-game source of a citywide media catastrophe. Huge CRT monitor wall in the upper half, oversized central circular emitter with broken violet and teal energy radiating inside the device, consoles arranged along the back wall, cables and machinery contained in the background. Strong retro broadcast identity, not generic spaceship. Large colorful abstract movie silhouettes only on the monitors, never floating in the combat plane. Deep plum structure with teal lights and violet electrical accents. Lower third is a broad open studio floor, readable level ground without protruding equipment or pits. Empty and authored, ominous but playful cartoon atmosphere.",
+      "tool": "built-in image_gen.imagegen",
+      "references": [],
+      "status": "generated-and-visually-reviewed",
+      "inspection": "16:9 cel-illustration environment; clear combat floor; no characters or baked dialogue.",
+      "generated_source_sha256": "f9039cc3747528c7f34dc931cff720b70157da305a634ec917eb2428f4e36fa5",
+      "generator_output": "exec-d8cf0d65-6f75-4194-92c2-9ca226061208.png",
+      "width": 1600,
+      "height": 900,
+      "runtime_sha256": "a1e21fec4752add391ce447ed3e134c91afc9e235d02a4c841a9d5246a1060e4",
+      "runtime_bytes": 218646
+    },
+    {
+      "id": "studio",
+      "path": "assets/cutscenes/studio.webp",
+      "prompt": "Use case: identity-preserve. Asset type: finished 16:9 arcade-game opening illustration.\nEdit only the two incorrect character depictions in image 1 and position characters a little higher, retaining the enormous retro CRT broadcasting room, circular emitter, camera, Jay at left, console button, all environment architecture, cel cartoon style, amber and blue lighting, and empty lower dialogue band.\nImage 2 is the EXACT canonical Duke Phillips model, replace the gray-suited character at right with Duke: older tall broad blond man, short swept blond hair, BLOND MOUSTACHE, square chin, blue short-sleeve polo shirt, pale yellow trousers, white belt, gold wristwatch and white sneakers. No suit, no tie, no clean-shaven jaw. Smug imperious face, hand poised at large red button, clear arm shape. He stands at x72 percent, face about y34 percent.\nImage 3 is the EXACT canonical Marty Sherman model, replace the thin blue-jacket teen at far right with Marty: short PUDGY youthful boy, CURLY BLACK HAIR, long oval Sherman nose, red long-sleeve pullover sweater, white/cream shirt collar, olive-brown trousers, dark brown shoes. Worried sincere face. Marty is noticeably smaller than Jay, around x86 percent face y43 percent, visibly unharmed behind Duke.\nImage 4 locks Jay Sherman identity: preserve Jay's stocky body, thinning dark hair, long nose, argyle vest mint shirt and burgundy trousers, standing at x22 percent face y40 percent. No other characters, no bald Franklin, no text, no speech bubbles, no labels, no watermark.\nRespect the supplied references' exact identities and clothing. Illustrate as polished 1990s American cel animation with crisp outlines and large flat colors, not photorealism. Use 16:9 wide full composition; lower 22 percent remains uncluttered floor for dialogue UI.",
+      "tool": "built-in image_gen.imagegen",
+      "references": [
+        "assets/icon.png",
+        "Enemy-Batch-03-Collection-v01/anchors/blue-polo-reference.png",
+        "Enemy-Batch-03-Collection-v01/anchors/red-pullover-reference.png",
+        "Generated studio room composition draft (corrected identities before integration)"
+      ],
+      "status": "generated-and-visually-reviewed",
+      "inspection": "Jay at left, blond-moustached blue polo Duke at right console, short pudgy curly-black-haired red pullover Marty at far right. No baked text. Exact supplied character anchors inspected and used.",
+      "generated_source_sha256": "f75f6a938729f2e49ad20aa2b98fc2e9393b40682ae2c074cb0c3bf203c97ce8",
+      "generator_output": "exec-5a34be13-4c29-409c-823c-88847440fad1.png",
+      "width": 1600,
+      "height": 900,
+      "runtime_sha256": "d6241929413bc57a96cee9039b12dc898525ce77787324cf918120e93c4677dc",
+      "runtime_bytes": 236672
+    },
+    {
+      "id": "rupture",
+      "path": "assets/cutscenes/rupture.webp",
+      "prompt": "Use case: illustration-story. Asset type: finished 16:9 narrative game illustration continuing supplied image 1.\nMatch the EXACT characters, clothing, face shapes, age, hair, body proportions and room architecture from image 1, and canonical Duke/Marty identity from images 2 and 3. Jay Sherman short stocky thinning dark hair, long oval nose, mustard argyle vest mint green shirt burgundy trousers; Duke Phillips tall broad blond with blond moustache in blue short-sleeve polo, pale yellow trousers white belt white shoes gold watch; Marty youthful short pudgy curly BLACK hair, red sweater cream collar olive-brown trousers dark brown shoes. Never gray suit, never thin blue-jacket teenager.\nPolished 1990s American cartoon cel illustration, crisp dark outlines, large flat colors, restrained stepped shadows. Same wide 16:9 camera and circular broadcast emitter at center, banks of CRT monitors and consoles. No text, no speech bubbles, no logo, no watermark. Keep lower22% simple dark floor for dialogue UI.\nStory beat: Duke has just pressed the red button. The circular broadcasting machine erupts with brilliant violet/teal energy, CRT screens distort into glowing abstract genre silhouettes, and colorful Coming Attractions begin materializing above the consoles: a bear silhouette, a sharp-toothed hippo-like silhouette and small reptilian movie figure, only loose energy apparition shapes, no unrelated detailed characters. Do not obscure our three characters.\nJay stays at left around x20%, recoiling in astonishment with wide eyes, open mouth and one hand raised. Duke stays right at console x72%, one hand on red button and other arm raised in grandiose triumph. Marty remains behind Duke at far right x89%, worried startled sincere expression. Preserve character side placement, same outfits, no injuries, clear faces. Violet light illuminates existing amber/blue room without changing architecture.",
+      "tool": "built-in image_gen.imagegen",
+      "references": [
+        "assets/cutscenes/studio.webp",
+        "Enemy-Batch-03-Collection-v01/anchors/blue-polo-reference.png",
+        "Enemy-Batch-03-Collection-v01/anchors/red-pullover-reference.png"
+      ],
+      "status": "generated-and-visually-reviewed",
+      "inspection": "Same room and cast identities. Jay reacts left, Duke at console, Marty behind right. Abstract Coming Attractions energy apparition silhouettes in upper band. Clear lower dialogue floor.",
+      "generated_source_sha256": "1f1a86512dfea245c8a586fc8519a97466572758547265da3bb73d631b7816a4",
+      "generator_output": "exec-4c49c61a-322c-45a9-9090-70119f5dec4a.png",
+      "width": 1600,
+      "height": 900,
+      "runtime_sha256": "8669e2e3f74a62a6d2fdecb44ef829800ad6a749de4a0a9bd1ad2b7553b0074e",
+      "runtime_bytes": 293058
+    },
+    {
+      "id": "rescue",
+      "path": "assets/cutscenes/rescue.webp",
+      "prompt": "Use case: illustration-story. Asset type: finished 16:9 narrative game illustration continuing supplied image 1.\nMatch the EXACT characters, clothing, face shapes, age, hair, body proportions and room architecture from image 1, and canonical Duke/Marty identity from images 2 and 3. Jay Sherman short stocky thinning dark hair, long oval nose, mustard argyle vest mint green shirt burgundy trousers; Duke Phillips tall broad blond with blond moustache in blue short-sleeve polo, pale yellow trousers white belt white shoes gold watch; Marty youthful short pudgy curly BLACK hair, red sweater cream collar olive-brown trousers dark brown shoes. Never gray suit, never thin blue-jacket teenager.\nPolished 1990s American cartoon cel illustration, crisp dark outlines, large flat colors, restrained stepped shadows. Same wide 16:9 camera and circular broadcast emitter at center, banks of CRT monitors and consoles. No text, no speech bubbles, no logo, no watermark. Keep lower22% simple dark floor for dialogue UI.\nStory beat: ending after the system is shut down. Central emitter is dark with a faint cooling glow, CRT monitors mostly powered down and a few show benign blue idle screens. Calm warm amber lighting replaces violent energy.\nJay and Marty are reunited at left-center around x30-35%. Jay crouches a little beside his shorter son, one supportive arm across Marty's shoulders, both relieved and happy, they look at one another. Marty exactly pudgy youthful curly black hair, red sweater cream collar, olive-brown trousers and dark shoes, no jeans or jacket. Duke at far right around x78% looks chagrined, shoulders dropped, blue polo yellow trousers blond moustache, arms crossed or lowered, visibly defeated without injury or grotesque transformation. No ropes or threatening objects. Keep characters in middle band above empty lower dialogue floor, same room composition, real emotional father/son payoff.",
+      "tool": "built-in image_gen.imagegen",
+      "references": [
+        "assets/cutscenes/studio.webp",
+        "Enemy-Batch-03-Collection-v01/anchors/blue-polo-reference.png",
+        "Enemy-Batch-03-Collection-v01/anchors/red-pullover-reference.png"
+      ],
+      "status": "generated-and-visually-reviewed",
+      "inspection": "Same powered-down room and cast identities. Jay/Marty father-son reunion at left-center; Duke chagrined at right. No text. Clear lower dialogue floor.",
+      "generated_source_sha256": "7f510e01785c0339abdb072b4ede534711938d0f16100b9151362ac8c2cdd84a",
+      "generator_output": "exec-28f3b74f-3a42-48a2-9012-23c428573d8c.png",
+      "width": 1600,
+      "height": 900,
+      "runtime_sha256": "b04491bc85121184131a3e2564c02fc2deed103a6419e92af23c9020e935980e",
+      "runtime_bytes": 210914
+    }
+  ]
+}

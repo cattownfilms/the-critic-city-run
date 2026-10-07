@@ -8,4 +8,6 @@ No blanket MIT, Creative Commons, public-domain or other redistribution license 
 
 The code and its release packaging were developed for this project. No unsolicited open-source license has been selected on the project owner's behalf. Future licensing should distinguish original code from media held by other parties.
 
-The public runtime does not include original videos, private prompts/chats, credentials, user save data, private email addresses, or personal-context logs. The title and existing game content are preserved rather than silently replaced by different art or music.
+The public runtime does not include original videos, private prompts/chats, credentials, user save data, private email addresses, or personal-context logs. The accepted combat and established stages are preserved; v6 extends them under the canonical title THE CRITIC: COMING ATTRACTIONS.
+
+New supplied-media derivatives and identity mapping are documented in `production/new-assets.json`. Generated scene/environment art, exact production prompts and generation provenance are documented in `production/cutscene-art.json`. Duke and Marty were checked against supplied character performances and show art; Marty is the rescue objective and never an enemy.

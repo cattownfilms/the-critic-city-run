@@ -3,46 +3,67 @@ Default reads the exact single-file build through bounded parser writes in this 
 Use --url http://127.0.0.1:8788/ in unrestricted environments to test the multi-file site.
 """
 from pathlib import Path
-import argparse,json,os,sys
+import argparse,json,os,sys,time
 from playwright.sync_api import sync_playwright
 from load_helper import load_html
+from browser_support import source_site, launch_options, standalone_path
 R=Path(__file__).resolve().parents[1]
 ap=argparse.ArgumentParser();ap.add_argument('--engine',default='chromium',choices=['chromium','firefox','webkit']);ap.add_argument('--url');args=ap.parse_args()
 results=[];errors=[]
 def check(name,ok,detail=None):
  results.append({'name':name,'passed':bool(ok),'details':detail});print('PASS' if ok else 'FAIL',name,detail or '',flush=True)
 fixtures='''window.__pads=[];Object.defineProperty(navigator,'getGamepads',{configurable:true,value:()=>window.__pads});window.__makePad=(index=0,mapping='standard')=>({id:'Logitech-style API fixture / NOT physical hardware',index,connected:true,mapping,axes:[0,0,0,0],buttons:Array.from({length:17},()=>({pressed:false,value:0}))});'''
-html=(R/'The-Critic-City-Brawler-v5.html').read_text().replace('<head>','<head><script>'+fixtures+'</script>')
-with sync_playwright() as pw:
- launch={'headless':True}
- if args.engine=='chromium':
-  if Path('/usr/bin/chromium').exists():launch['executable_path']='/usr/bin/chromium'
-  launch['args']=['--no-sandbox','--disable-dev-shm-usage']
+html=standalone_path().read_text().replace('<head>','<head><script>'+fixtures+'</script>') if not args.url else None
+with source_site(args.url) as site_url, sync_playwright() as pw:
+ launch=launch_options(args.engine)
  try:b=getattr(pw,args.engine).launch(**launch)
  except Exception as e:
   (R/'tests'/f'gamepad-{args.engine}-results.json').write_text(json.dumps({'passed':0,'failed':0,'notRun':True,'reason':str(e),'tests':[]},indent=2));raise SystemExit(2)
  context=b.new_context(viewport={'width':1280,'height':720},has_touch=True)
- p=context.new_page();p.on('pageerror',lambda e:errors.append(str(e)))
+ p=context.new_page();p.on('pageerror',lambda e:(errors.append(str(e)),print('BROWSER ERROR',str(e),getattr(e,'stack',''),flush=True)))
  if args.url:
-  p.add_init_script(fixtures);p.goto(args.url);p.wait_for_function('window.__brawler?.ready()',timeout=60000)
+  p.add_init_script(fixtures);p.goto(site_url);p.wait_for_function('window.__brawler?.ready()',timeout=60000)
  else:load_html(p,html)
- check('Controller module and all existing atlases load',p.evaluate('BRAWLER_CONFIG.version==="5.0.0"&&__brawler.renderer().images.length===13'))
+ check('Controller module and all existing atlases load',p.evaluate('BRAWLER_CONFIG.version==="6.0.0"&&__brawler.renderer().images.length>=13'))
  check('Controller defaults off without hiding touch controls',p.evaluate('!__brawler.controller.enabled'))
- p.locator('#movesButton').click();p.locator('#controllerEnabled').check();p.evaluate('__pads=[__makePad()]');p.wait_for_timeout(200)
+ p.locator('#movesButton').click();p.locator('#controllerEnabled').check();p.evaluate('__pads=[__makePad()]');p.wait_for_function('__brawler.controller.mappingOrigin==="standard"&&document.getElementById("controllerDevice").textContent.includes("Logitech-style")',timeout=10000)
  check('Browser-reported standard layout is recognized',p.evaluate('__brawler.controller.mappingOrigin==="standard"'))
- check('Controller status identifies the connected device', 'Logitech-style' in p.locator('#controllerDevice').inner_text())
+ check('Controller status identifies the connected device', 'Logitech-style' in p.locator('#controllerDevice').evaluate('el=>el.selectedOptions[0].textContent'))
  p.screenshot(path=str(R/'tests/controller-settings-desktop.png'))
  p.locator('#titleButton').click();p.wait_for_timeout(80)
  def btn(n,on=True):p.evaluate('([n,on])=>__pads[0].buttons[n]={pressed:on,value:on?1:0}',[n,on])
- def tap(n,ms=60):btn(n);p.wait_for_timeout(ms);btn(n,False);p.wait_for_timeout(100)
- tap(9);check('Controller Start begins the game from title',p.evaluate('__brawler.game.mode==="play"'))
+ def wait_observed(expression,timeout=10):
+  # Driver-side reads keep the observer independent of WebKit's page timer/RAF
+  # suspension when a focused native menu field is hidden by a transition.
+  deadline=time.monotonic()+timeout
+  while time.monotonic()<deadline:
+   if p.evaluate(expression):return
+   p.wait_for_timeout(50)
+  raise AssertionError('Browser state was not observed: '+expression)
+ def tap(n,ms=60):
+  wait_observed('!__brawler.controller.blocked')
+  before=p.evaluate('__brawler.controller.lastActivity');btn(n)
+  wait_observed('__brawler.controller.lastActivity>'+str(before))
+  p.wait_for_timeout(ms);btn(n,False)
+  wait_observed('!__brawler.controller.blocked&&!Object.values(__brawler.controller.state.held).some(Boolean)')
+  p.wait_for_timeout(100)
+ tap(9);check('Controller Start opens the approved story from title',p.evaluate('__brawler.game.mode==="cutscene"&&__brawler.scenes().state().id==="opening"'))
+ tap(0);check('Controller Confirm advances a story beat',p.evaluate('__brawler.scenes().index===1'))
+ tap(9);sceneTime=p.evaluate('__brawler.scenes().time');p.wait_for_timeout(160);check('Controller Start pauses the scene and freezes its clock',p.evaluate('__brawler.scenes().paused&&__brawler.scenes().time')==sceneTime)
+ tap(9);check('Controller Start resumes the cutscene',p.evaluate('!__brawler.scenes().paused'))
+ p.evaluate('__pads[0].buttons[2]={pressed:true,value:1};__pads[0].buttons[1]={pressed:true,value:1}');p.wait_for_function('__brawler.game.mode==="play"',timeout=10000)
+ check('Controller Back skips the opening into gameplay',p.evaluate('__brawler.game.mode==="play"'))
+ btn(1,False);p.wait_for_timeout(160);check('Held controller HIT does not leak through scene skip',p.evaluate('!__brawler.getInput().attackHeld&&!__brawler.game.p.action'))
+ btn(2,False);p.wait_for_function('!__brawler.controller.blocked',timeout=10000);btn(2);p.wait_for_function('__brawler.game.p.action?.name==="jab"',timeout=10000)
+ check('Controller neutral plus a fresh HIT restores combat',p.evaluate('__brawler.game.p.action?.name==="jab"'));btn(2,False);p.wait_for_function('__brawler.game.p.action===null',timeout=10000)
+
  check('Start does not also jump or attack',p.evaluate('__brawler.game.p.z===0&&__brawler.game.p.action===null'))
  def arena():p.evaluate('''()=>{const g=__brawler.game;g.enemies=[];g.props=[];g.nextGate=3;g.activeGate=-1;g.p.x=700;g.p.y=400;g.p.z=g.p.vz=g.p.vx=g.p.vy=0;g.p.hp=100;g.p.inv=0;g.p.action=null;g.p.guard=false;g.p.run=false;g.p.cosmetic=null;g.p.landTimer=0;g.p.airUsed=false;g.p.attackBuffer=g.p.jumpBuffer=g.p.exertion=g.p.counter=g.hitstop=0;g.mode='play';}''')
- arena();p.evaluate('__pads[0].axes[0]=.48');p.wait_for_timeout(200);small=p.evaluate('__brawler.getInput().mx');p.evaluate('__pads[0].axes[0]=1');p.wait_for_timeout(250)
+ arena();p.evaluate('__pads[0].axes[0]=.48');p.wait_for_function('__brawler.getInput().mx>0&&__brawler.getInput().mx<.6',timeout=10000);small=p.evaluate('__brawler.getInput().mx');p.evaluate('__pads[0].axes[0]=1');p.wait_for_function('__brawler.getInput().mx>.99&&__brawler.game.p.run',timeout=10000)
  check('Stick has graduated walk/run response',0<small<.6 and p.evaluate('__brawler.getInput().mx>.99&&__brawler.game.p.run'),{'partial':small})
  p.evaluate('__pads[0].axes[0]=0');p.wait_for_timeout(160);check('Stick release returns to zero',p.evaluate('__brawler.getInput().mx===0'))
  p.evaluate('__pads[0].axes[0]=.08');p.wait_for_timeout(60);check('Centered stick noise is rejected',p.evaluate('__brawler.getInput().mx===0'));p.evaluate('__pads[0].axes[0]=0')
- arena();tap(12,120);check('D-pad moves along street depth',p.evaluate('__brawler.game.p.y<400'))
+ arena();tap(12,180);p.wait_for_function('__brawler.game.p.y<400',timeout=10000);check('D-pad moves along street depth',p.evaluate('__brawler.game.p.y<400'))
  arena();btn(2);p.wait_for_timeout(50);check('West face button enters jab',p.evaluate('__brawler.game.p.action?.name==="jab"'))
  p.wait_for_timeout(280);check('Held attack advances combo without repeated edges',p.evaluate('["cross","kick"].includes(__brawler.game.p.action?.name)'))
  btn(2,False);p.wait_for_timeout(1300)
@@ -85,7 +106,7 @@ with sync_playwright() as pw:
  # Native menu navigation and confirm/back sharing.
  tap(9);p.locator('#resumeButton').focus();p.evaluate('__pads[0].axes[1]=1');p.wait_for_timeout(70);p.evaluate('__pads[0].axes[1]=0');p.wait_for_timeout(60)
  check('Stick navigates focus through the current menu',p.evaluate('document.activeElement.id!=="resumeButton"&&document.activeElement.closest("#pause")!==null'))
- tap(7);check('Custom Menu Back resumes paused gameplay',p.evaluate('__brawler.game.mode==="play"'))
+ tap(7);p.keyboard.down('ArrowRight');p.wait_for_function('__brawler.getInput().mx===1',timeout=10000,polling=50);check('Custom Menu Back resumes gameplay and returns keyboard focus',p.evaluate('__brawler.game.mode==="play"&&document.activeElement.closest("#pause")===null&&__brawler.getInput().mx===1'));p.keyboard.up('ArrowRight')
  # Portrait controller UI remains scrollable and inside the panel.
  p.locator('#pauseBtn').click();p.set_viewport_size({'width':412,'height':915});p.locator('#controllerSettings').scroll_into_view_if_needed();p.wait_for_timeout(180)
  check('Controller panel fits portrait width',p.locator('#controllerDevice').bounding_box()['width']<412 and p.evaluate('document.documentElement.scrollWidth<=innerWidth'))
@@ -93,6 +114,6 @@ with sync_playwright() as pw:
  # Keyboard editing on a native field must not create gameplay edges.
  p.locator('#controllerDeadzone').focus();p.keyboard.press('ArrowRight');check('Keyboard can adjust native settings without game movement',p.evaluate('__brawler.input.keys.size===0'))
  check('No uncaught JavaScript errors during controller integration',not errors,errors)
- report={'engine':args.engine,'browserVersion':b.version,'tests':results,'passed':sum(x['passed'] for x in results),'failed':sum(not x['passed'] for x in results),'boundary':'Real browser rendering and event loop; injected standard and nonstandard Gamepad API fixtures. No physical Logitech device. '+('Hosted multi-file URL.' if args.url else 'Exact standalone loaded through bounded parser writes; storage explicitly emulated.')}
+ report={'engine':args.engine,'browserVersion':b.version,'tests':results,'passed':sum(x['passed'] for x in results),'failed':sum(not x['passed'] for x in results),'boundary':'Real browser rendering and event loop; injected standard and nonstandard Gamepad API fixtures. No physical Logitech device. '+('Actual multi-file authoring source served on same-process localhost.' if args.url=='local' else 'Hosted multi-file URL.' if args.url else 'Exact standalone loaded through bounded parser writes; storage explicitly emulated.')}
  (R/'tests'/f'gamepad-{args.engine}-results.json').write_text(json.dumps(report,indent=2));b.close()
 if report['failed']:raise SystemExit(1)

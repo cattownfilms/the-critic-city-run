@@ -34,17 +34,17 @@ test('Checkpoint snapshots restore stage and cleared encounter only',()=>{let g=
 test('Zero health causes life loss then checkpoint recovery, not a stuck corpse',()=>{let g=new B.Game();g.start();g.p.hp=0;tick(g,285);assert.equal(g.p.lives,2);assert.equal(g.p.hp,100);assert.equal(g.mode,'play');});
 test('Last life reaches game-over and retry restores three lives',()=>{let g=new B.Game();g.start();g.p.lives=1;g.p.hp=0;tick(g,285);assert.equal(g.mode,'gameover');g.retry(true);assert.equal(g.mode,'play');assert.equal(g.p.lives,3);});
 // Full run uses normal input through all gates. No position/health editing once started.
-test('A normal-input driver clears all 12 fights plus Franklin and reaches the finale',()=>{const g=new B.Game();g.start();let tickN=0,visits=new Set(),retries=0;const anims=new Set();for(;tickN<120*1500&&g.mode!=='complete';tickN++){
+test('A normal-input driver clears the seven-stage campaign and reaches the resolved finale',()=>{const g=new B.Game();g.start();let tickN=0,visits=new Set(),retries=0;const anims=new Set();for(;tickN<120*1500&&g.mode!=='complete';tickN++){
  if(g.mode==='gameover'){retries++;g.retry(true);}
  if(g.mode==='stageclear')g.finishStageClear();
  if(g.mode!=='play')continue;visits.add(g.stage);anims.add(g.p.anim);
- const p=g.p,live=g.enemies.filter(e=>e.hp>0).sort((a,b)=>Math.hypot(a.x-p.x,(a.y-p.y)*2)-Math.hypot(b.x-p.x,(b.y-p.y)*2));let input={};
+ const p=g.p,live=g.enemies.filter(e=>e.hp>0).concat(g.props.filter(o=>o.kind==='circuit'&&o.hp>0)).sort((a,b)=>Math.hypot(a.x-p.x,(a.y-p.y)*2)-Math.hypot(b.x-p.x,(b.y-p.y)*2));let input={};
  if(live.length){const e=live[0],dx=e.x-p.x,dy=e.y-p.y;input.mx=Math.abs(dx)>62?Math.sign(dx)*(Math.abs(dx)>150?1:.4):0;input.my=Math.abs(dy)>8?Math.sign(dy)*.55:0;
   input.attackPressed=Math.abs(dx)<122&&Math.abs(dy)<25&&tickN%12===0;input.attackHeld=Math.abs(dx)<116&&Math.abs(dy)<27;
   if(p.meter>=100&&live.length>1&&!p.action)input.specialPressed=true;
  }else input.mx=1;
  g.step(1/120,input);g.drain();
  }
- assert.equal(g.mode,'complete');assert.equal(visits.size,4);assert(g.stats.kos>=35);assert(retries<5);return {seconds:g.t,ticks:tickN,retries,stages:[...visits],kos:g.stats.kos,bestCombo:g.stats.maxCombo,animations:[...anims]};});
+ assert.equal(g.mode,'complete');assert.equal(visits.size,7);assert(g.stats.kos>=35);assert(retries<5);return {seconds:g.t,ticks:tickN,retries,stages:[...visits],kos:g.stats.kos,bestCombo:g.stats.maxCombo,animations:[...anims]};});
 test('Jump-kick active contact retimes to the extended-foot source pose',()=>{const g=sandbox();g.p.z=80;g.setAction('air');g.p.action.t=B.HITS.air.hit;g.chooseAnimation(0,0);assert.equal(g.p.anim,'held-front-kick');const sourceFraction=g.p.animT/g.p.animDuration;assert(sourceFraction>.56&&sourceFraction<.60);return {sourceFraction};});
 fs.writeFileSync(path.join(__dirname,'engine-results.json'),JSON.stringify({tests:results,passed:results.filter(r=>r.passed).length,failed:results.filter(r=>!r.passed).length},null,2));if(results.some(r=>!r.passed))process.exitCode=1;

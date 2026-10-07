@@ -1,0 +1,229 @@
+{
+  "title": "THE CRITIC: COMING ATTRACTIONS",
+  "banks": [
+    {
+      "bank": "pizzeria-boss",
+      "label": "Pizzeria Boss (temporary name)",
+      "sourceArchive": "Cream-Scarf-Character-IMPORT-v01.zip",
+      "sourceSHA256": "77427e3b104e407ea78ac585d19d4075a9b4d5d4213a50de4e98c2d23799a0a9",
+      "canonicalSourceName": "Cream Scarf",
+      "sourceEntityId": "enemy-cream-scarf-7c980c5e",
+      "runtimeNeutralHeight": 182,
+      "retainedActions": [
+        "idle",
+        "walk",
+        "run",
+        "attack",
+        "opposite-strike",
+        "guard-reset",
+        "land",
+        "death"
+      ],
+      "registration": "One scale per bank. Grounded poses aligned to combat floor; locomotion centered. Attack root motion retained within each authored performance. Jump source motion retained.",
+      "limitations": "No independent hurt performance supplied; idle is used for brief hit reaction."
+    },
+    {
+      "bank": "marty",
+      "label": "Marty Sherman",
+      "sourceArchive": "Red-Pullover-Character-IMPORT-v01.zip",
+      "sourceSHA256": "d647e8977d2c0ea5bf8d6c411dfe9f41bb64873335005c59820463a549345792",
+      "canonicalSourceName": "Red Pullover",
+      "sourceEntityId": "enemy-red-pullover-1a6abf8b",
+      "runtimeNeutralHeight": 135,
+      "retainedActions": [
+        "idle",
+        "walk",
+        "run",
+        "jump",
+        "rebound-jump",
+        "attack",
+        "lead-straight",
+        "cross-finisher",
+        "finger-point",
+        "death",
+        "death-alt"
+      ],
+      "registration": "One scale per bank. Grounded poses aligned to combat floor; locomotion centered. Attack root motion retained within each authored performance. Jump source motion retained.",
+      "limitations": "Contextual story character only; never an ordinary enemy."
+    },
+    {
+      "bank": "duke",
+      "label": "Duke Phillips",
+      "sourceArchive": "Blue-Polo-Character-IMPORT-v01.zip",
+      "sourceSHA256": "0afd3d3ce9624b02f5ae769159537f18490bfde3dcca813a18741709bf614809",
+      "canonicalSourceName": "Blue Polo",
+      "sourceEntityId": "enemy-blue-polo-caeac1f2",
+      "runtimeNeutralHeight": 186,
+      "retainedActions": [
+        "idle",
+        "folded-idle",
+        "walk",
+        "run",
+        "jump",
+        "attack",
+        "lead-jab",
+        "hurt",
+        "death",
+        "death-alt"
+      ],
+      "registration": "One scale per bank. Grounded poses aligned to combat floor; locomotion centered. Attack root motion retained within each authored performance. Jump source motion retained.",
+      "limitations": "Contextual story character only; never an ordinary enemy."
+    },
+    {
+      "bank": "turkey-dinner",
+      "label": "Turkey Dinner",
+      "sourceArchive": "Turkey Dinner-Sprite Forge.zip",
+      "sourceSHA256": "c19ba809e5fd852a2a289e7cfb9623deff5c3714d4fe3f3669707b9a55fba404",
+      "canonicalSourceName": "Turkey Dinner",
+      "sourceEntityId": "item-52a25201-08be-43a2-bff9-69bf4a78f291",
+      "runtimeNeutralHeight": 52,
+      "retainedActions": [
+        "idle",
+        "collect",
+        "disappear"
+      ],
+      "registration": "One scale per bank. Grounded poses aligned to combat floor; locomotion centered. Attack root motion retained within each authored performance. Jump source motion retained.",
+      "limitations": ""
+    },
+    {
+      "bank": "trash-can",
+      "label": "Trash Can",
+      "sourceArchive": "Trash Can-Sprite Forge.zip",
+      "sourceSHA256": "080ed61a2535f1057c513c61b890cf08372502e403fe9720639ef4b14a167f89",
+      "canonicalSourceName": "Trash Can",
+      "sourceEntityId": "item-e5399768-f7dc-43de-9dc3-0f0e6e47b774",
+      "runtimeNeutralHeight": 72,
+      "retainedActions": [
+        "idle",
+        "custom-dent-and-explode"
+      ],
+      "registration": "One scale per bank. Grounded poses aligned to combat floor; locomotion centered. Attack root motion retained within each authored performance. Jump source motion retained.",
+      "limitations": ""
+    }
+  ],
+  "baselineBanksPreserved": [
+    "hero",
+    "bear",
+    "hippo",
+    "sherm-punch",
+    "sherm-shove",
+    "sherm-slam",
+    "striped",
+    "raptor",
+    "franklin"
+  ],
+  "baselinePagesPreserved": 13,
+  "appendedPages": 9,
+  "baselineBankSHA256": {
+    "hero": "0ec1f9176215829cb84475bcc6b50e7c4e21a645c1ddd45ad5e768815ae6d539",
+    "bear": "caf1c90bc6954de9e352375030128fa492bbc4e394d684db732dc3bde01d8cd0",
+    "hippo": "0670f00a3026e29dc2e57c2465b0388ee326ae539cc0f0cfb1529d2cb3833045",
+    "sherm-punch": "27856df4b07d855cfba91c1285759c40bd6ee76fb03ae04ad2669b61bb44c97c",
+    "sherm-shove": "aafb90cfc6f8ebb6508131ace673b0d6579ec0ece8f561ba46df247edb9b5a2c",
+    "sherm-slam": "efb4d6813377dbdf4e2ce08b51594af40f5f90668ff33f2a9d97313b9d064e57",
+    "striped": "ca357f8816a57a8c2698ddb1a4ee09f7f0140192f77f08a4597c0b80286b6bc3",
+    "raptor": "bfaf0a2cddce6709b48338ebfd3162f70f5787695a1b1379a2ab9a3d5ba0286b",
+    "franklin": "e60e3e3963327cc08b37debd335fd9fc11f6d271cefaa74b3ee68b32ae8bbf1e"
+  },
+  "baselinePageSHA256": {
+    "atlas-00.webp": "b57f36e2de45ff3614299e3d7c7c64a0cbe1284910fc78caae0e12bdef241bf0",
+    "atlas-01.webp": "ebad460f0a6f85c984f6c9052bd8944302ccc2760f9fba8b5adc5131a08ce160",
+    "atlas-02.webp": "a67778181d34a7e4474a5f80420c8cae77e7b36a58d4c804bb39ec1ad3b39be5",
+    "atlas-03.webp": "61bf401b175a3917e55e948924c5ae064ceddc610716cc098e8b0d899817bd8b",
+    "atlas-04.webp": "829a587c80fb469a357fc698ec7d49298ffe2124f00e9f06afbaf26356428ca8",
+    "atlas-05.webp": "7c3177a6b0f5a3adb0f16466858e3632cfa9bcf94bdd85e421d866a1e50d14bc",
+    "atlas-06.webp": "f2e833450876f0c19e97cf231a6a26aed06d1df00123d0104e948e4b02515323",
+    "atlas-07.webp": "67d607b5c0f4e0ca0cf53a04ef60e5d541065dcc4236f71067fc18b469da093e",
+    "atlas-08.webp": "9bb20a55c915b067bd8f5f2b71080a71a56acd99b94db19b280f05b74bca70eb",
+    "atlas-09.webp": "a5dad5c49f493633c1e2e2f18281fd0436eb5761078fcea41f985f42d169eec7",
+    "atlas-10.webp": "adf2a02b95d9adde62c679a051bf23f4bb744b0f9e1d0c44580dec6b3c49dacf",
+    "atlas-11.webp": "e930d655db66f2ca60d7a5d4570ce944b629d103a37f694a055e149394648205",
+    "atlas-12.webp": "f25f8e037f8ed3334be50b2f26bf2ae2c18dac13a3b971d7eb9954e1cbb6294c"
+  },
+  "optimization": "New production pages only: WebP quality 95 with lossless alpha, 1024px sheets. Baseline atlases are byte-for-byte untouched. Boss green-key color spill suppressed without changing alpha.",
+  "suppliedSourceInventory": [
+    {
+      "file": "01-1000085752.jpg",
+      "bytes": 325517,
+      "sha256": "ea15eac66276c14a5f08ec622a80765a4884b7d4a8e7733015e481021b4009a0"
+    },
+    {
+      "file": "02-1000085739.jpg",
+      "bytes": 44641,
+      "sha256": "3a10c1ac48d488f1de72bfa96f8a07d1ed94027df012521e773c0d25cebaa3ec"
+    },
+    {
+      "file": "0e86bd1e-a6a2-40a2-b0bb-5a9d0309c042.mp4",
+      "bytes": 2705590,
+      "sha256": "37de5176970ab3eb16e960e7531f368df616372f6066267002868bedf1678af3"
+    },
+    {
+      "file": "Enemy-Batch-03-Collection-v01.zip",
+      "bytes": 126880058,
+      "sha256": "3abf2aa7ef12b26f20dd905c903be6dbb9050f0d206a82454b5fa6fad85ae249"
+    },
+    {
+      "file": "Trash Can-Sprite Forge.zip",
+      "bytes": 1732233,
+      "sha256": "080ed61a2535f1057c513c61b890cf08372502e403fe9720639ef4b14a167f89"
+    },
+    {
+      "file": "Turkey Dinner-Sprite Forge.zip",
+      "bytes": 4039518,
+      "sha256": "c19ba809e5fd852a2a289e7cfb9623deff5c3714d4fe3f3669707b9a55fba404"
+    },
+    {
+      "file": "output (6).mp4",
+      "bytes": 10627315,
+      "sha256": "e0240d0cc41ace961d9286cb4fe88a15879fbe4d4fec07a7dcef2d7214e10663"
+    }
+  ],
+  "referenceArt": [
+    {
+      "file": "assets/story/projection-woman.webp",
+      "source": "01-1000085752.jpg",
+      "sourceSHA256": "ea15eac66276c14a5f08ec622a80765a4884b7d4a8e7733015e481021b4009a0",
+      "crop": [
+        772,
+        110,
+        1000,
+        328
+      ],
+      "role": "Canonical projection-window woman face; supplied screenshot crop, no redesign"
+    },
+    {
+      "file": "assets/story/projection-shadow.webp",
+      "source": "02-1000085739.jpg",
+      "sourceSHA256": "3a10c1ac48d488f1de72bfa96f8a07d1ed94027df012521e773c0d25cebaa3ec",
+      "crop": [
+        298,
+        0,
+        1238,
+        716
+      ],
+      "role": "Supplied eyes-in-shadow first reveal"
+    }
+  ],
+  "identityVerification": "Red Pullover visually verified as Marty Sherman against The Critic family reference; Blue Polo visually verified as Duke Phillips against official episode still. Neither is assigned ordinary enemy AI. Cream Scarf matches the supplied output (6).mp4 male boss identity and is the temporary-named Pizzeria Boss. Booth Enforcer uses existing Shermometer v3 artwork, not Marty or Duke.",
+  "omissions": "Teal Cap remains in the supplied source collection, which is preserved outside the public runtime. No roster slot is added merely for quantity. Raw media, private prompt logs, and import manifests are not published.",
+  "inspectedExtraVideo": {
+    "output (6).mp4": "Cream Scarf guard, hand gesture, lunging cross, double-punch performance, matches Pizzeria Boss visual identity",
+    "0e86bd1e-a6a2-40a2-b0bb-5a9d0309c042.mp4": "Duke Phillips (Blue Polo source label) idle, point, guard and rising-fist jump; retained source only"
+  },
+  "runtimeSHA256": {
+    "assets/atlas-production-13.webp": "f1da11976b117bc0bbdb95147ab81aa8082f2c8e591c38b17e154e0ea5fd307d",
+    "assets/atlas-production-14.webp": "210b97b5b816f62cfe56b4e66c0bdcbf83bdfd04ea097224b6f93535a377a6b8",
+    "assets/atlas-production-15.webp": "f5fc1394fc94979c327fe0b3fb711a8fab5f15d48264b93e93f42135c7d39ea8",
+    "assets/atlas-production-16.webp": "d41d240592659e8066a3e6d8a182d33d927d28b5cf2c7a5cfbf98291c3657797",
+    "assets/atlas-production-17.webp": "e4c456e0c21bedbbfb7d4c375da08c710392916dc1fa05dd15ad13afb8f02529",
+    "assets/atlas-production-18.webp": "02a6fce5471b8c5f0f1fb2098dcdb2b1df22320d678adea90efc562b76d4e5f0",
+    "assets/atlas-production-19.webp": "2612180fe435bcae616917e50f93028cda0b357c4d38acdeebca69dbf3a90e37",
+    "assets/atlas-production-20.webp": "102264410bceff9f4b6a5e370d0fad1a3f58c0e6b84acdef939fdc073e52298d",
+    "assets/atlas-production-21.webp": "75d3e5c0f185629345764ffe75a5c6ba3ab35427affbf602d7457d75173296d3",
+    "assets/story/pizzeria-boss.webp": "2c6e16ef32dcdfd450dafb0ed72100014738b70ef0a28d22ef37b83a4c6af75c",
+    "assets/story/marty.webp": "a87ef37621df5a152f6d9c90462fb3b38eecfcaef57f144992d9ba6e471d0474",
+    "assets/story/duke.webp": "0169990066c10b4a58413e0410b3519cc583b0a38ebd31e97f409999820d81ba",
+    "assets/story/projection-woman.webp": "751d06579c031443114bb98461d0336bb3b82fe33d609e682e17a24156c625a0",
+    "assets/story/projection-shadow.webp": "4314e7a966e57b8f6aa08667bf80cfe18ebbee04b9276e8f58dc5b7182b8868e"
+  }
+}

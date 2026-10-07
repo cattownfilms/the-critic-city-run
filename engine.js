@@ -1,12 +1,9 @@
-/* The Critic: City Run / Brawler Edition. Deterministic, renderer-independent combat. */
+/* The Critic: Coming Attractions. Deterministic, renderer-independent combat. */
 (function(root){'use strict';
 const clamp=(v,a,b)=>Math.max(a,Math.min(b,v)), lerp=(a,b,t)=>a+(b-a)*t, sign=v=>v<0?-1:1;
-const STAGES=[
- {name:'Broadway Blocks',sub:'AFTER HOURS',scene:'broadway',exit:'UPTOWN',waves:[['sherm-punch','sherm-punch'],['sherm-punch','sherm-shove','bear'],['sherm-punch','sherm-shove','striped']]},
- {name:'Last Train Uptown',sub:'UNDER THE AVENUE',scene:'subway',exit:'ROOFTOPS',waves:[['sherm-punch','sherm-shove','sherm-slam'],['sherm-shove','sherm-punch','raptor'],['sherm-slam','sherm-punch','hippo','sherm-shove']]},
- {name:'Above the Avenue',sub:'THE ROOFTOP CIRCUIT',scene:'rooftop',exit:'THE PREMIERE',waves:[['sherm-punch','sherm-shove','striped'],['sherm-slam','sherm-punch','bear'],['sherm-shove','sherm-slam','raptor','sherm-punch']]},
- {name:'Theater District',sub:'FRANKLIN / THE FINAL BILL',scene:'theater',exit:'THE CRITIC',waves:[['sherm-punch','sherm-slam','hippo'],['sherm-shove','sherm-punch','striped','sherm-slam'],['sherm-punch','sherm-shove','raptor','sherm-slam']]}
-];
+const Campaign=typeof module!=='undefined'?require('./data/campaign.js'):root.CriticCampaign;
+if(!Campaign)throw new Error('Campaign definitions must load before the combat engine.');
+const {STAGES,EINFO,BOSS_DEFINITIONS,ITEMS,PROPS}=Campaign;
 const GATES=[520,1380,2280],LENGTH=2860,YMIN=350,YMAX=465;
 const HITS={
  jab:{anim:'jab',dur:.25,hit:.095,end:.20,damage:10,range:84,kb:18,sound:'hit',label:'JAB'},
@@ -24,16 +21,6 @@ const HITS={
 };
 const CHAIN=['jab','cross','kick','palm'];
 const IDLES=['anxious-fidget','vest-adjust','heel-toe-shuffle','toe-tap','head-scratch','shoulder-roll','knee-bounce','lean-peek','shiver','balance-wobble','double-take'];
-const EINFO={
- bear:{hp:56,speed:95,damage:11,range:104,wind:.53,attack:.52,hit:.23,radius:32,name:'Accordion Bear',score:140},
- hippo:{hp:102,speed:74,damage:17,range:117,wind:.68,attack:.58,hit:.24,radius:43,name:'Green Hippo',score:220},
- 'sherm-punch':{hp:45,speed:136,damage:9,range:86,wind:.45,attack:.41,hit:.17,radius:27,name:'Shermometer / Punch',score:120},
- 'sherm-shove':{hp:56,speed:99,damage:11,range:104,wind:.56,attack:.52,hit:.23,radius:29,name:'Shermometer / Shove',score:140},
- 'sherm-slam':{hp:94,speed:76,damage:16,range:117,wind:.70,attack:.58,hit:.24,radius:34,name:'Shermometer / Slam',score:200},
- striped:{hp:56,speed:134,damage:11,range:95,wind:.48,attack:.47,hit:.20,radius:28,name:'Striped Claw',score:160},
- raptor:{hp:72,speed:103,damage:13,range:116,wind:.61,attack:.55,hit:.24,radius:35,name:'Snooty Pipe Raptor',score:180},
- franklin:{hp:420,speed:124,damage:14,range:110,wind:.65,attack:.65,hit:.25,radius:30,name:'Franklin',score:1200}
-};
 const BOSS_MOVES=[
  {name:'ONE-TWO',anim:'attack',wind:.65,duration:.66,hits:[.27,.49],reach:110,lane:31,damage:13},
  {name:'FRONT KICK',anim:'front-kick',wind:.60,duration:.65,hits:[.29],reach:122,lane:33,damage:15},
@@ -63,27 +50,34 @@ function enemyAttackAnimation(e){
 }
 
 class Game{
- constructor(){this.playerKind='hero';this.franklinUnlocked=false;this.deathsByStage=[0,0,0,0];this.stage4Eligible=true;this.mode='title';this.events=[];this.seed=317;this.viewWidth=1000;this.stage=0;this.best=0;this.t=0;this.stats={};this.makePlayer();this.resetWorld();}
+ constructor(){this.playerKind='hero';this.franklinUnlocked=false;this.deathsByStage=STAGES.map(()=>0);this.stage4Eligible=true;this.mode='title';this.events=[];this.seed=317;this.viewWidth=1000;this.stage=0;this.storyFlags={};this.best=0;this.t=0;this.stats={};this.makePlayer();this.resetWorld();}
  rng(){this.seed=(Math.imul(this.seed,1664525)+1013904223)>>>0;return this.seed/4294967296;}
  emit(type,data={}){this.events.push({type,...data});}
+ story(id){if(!id||this.storyFlags[id])return false;this.storyFlags[id]=true;this.emit('story',{id,stage:this.stage});return true;}
+ storyCompleted(id){if(id)this.storyFlags[id]=true;}
  drain(){const a=this.events;this.events=[];return a;}
  makePlayer(){this.p={x:170,y:407,z:0,vx:0,vy:0,vz:0,face:1,hp:100,lives:3,meter:35,inv:0,action:null,anim:'idle',animT:0,animDuration:0,idleT:0,cosmetic:null,cosmeticT:0,combo:0,comboClock:0,chainIndex:0,attackBuffer:0,jumpBuffer:0,guard:false,guardAge:10,guardMeter:100,counter:0,run:false,airUsed:false,landTimer:0,deadT:0,lastHit:0,footT:0,exertion:0};}
- resetWorld(){this.bossSpawned=false;this.bossDefeated=false;this.lastUnlockEarned=false;this.stageClearT=0;this.entranceId=0;this.enemies=[];this.corpses=[];this.effects=[];this.pickups=[];this.props=[{id:1,x:900,y:445,hp:20,kind:'bin'},{id:2,x:1810,y:445,hp:24,kind:'box'},{id:3,x:2540,y:354,hp:20,kind:'box'}];this.nextGate=0;this.activeGate=-1;this.cleared=0;this.camera=0;this.waveWait=0;this.shake=0;this.hitstop=0;this.stageBanner=3;this.banner='';this.bannerT=0;this.target=null;this.targetT=0;this.enemyId=0;this.attackTicketT=0;}
+ resetWorld(){this.bossSpawned=false;this.bossDefeated=false;this.lastUnlockEarned=false;this.stageClearT=0;this.entranceId=0;this.enemies=[];this.corpses=[];this.effects=[];this.pickups=[];this.props=Campaign.propsFor(this.stage);this.projectiles=[];this.projectileId=0;this.projection={active:false,disabled:false,visible:false,phase:'waiting',window:0,timer:0,windowXs:[],windowY:158,telegraph:null};this.nextGate=0;this.activeGate=-1;this.cleared=0;this.camera=0;this.waveWait=0;this.shake=0;this.hitstop=0;this.stageBanner=3;this.banner='';this.bannerT=0;this.target=null;this.targetT=0;this.enemyId=0;this.attackTicketT=0;}
  start(save=null,character=save?.playerKind||this.playerKind||'hero'){
+  this.franklinUnlocked=this.franklinUnlocked||save?.franklinUnlocked===true;
   this.playerKind=(character==='franklin'&&this.franklinUnlocked)?'franklin':'hero';
-  this.makePlayer();this.resetWorld();this.mode='play';this.stage=0;this.t=0;this.score=0;this.deathsByStage=[0,0,0,0];this.stage4Eligible=true;
+  this.stage=0;this.makePlayer();this.resetWorld();this.mode='play';this.t=0;this.score=0;this.deathsByStage=STAGES.map(()=>0);this.stage4Eligible=true;this.storyFlags={};
   this.stats={hits:0,maxCombo:0,kos:0,parries:0,damage:0,attackStarts:0,used:{}};
-  if(save&&(save.version===2||save.version===3)){
-   this.stage=clamp(Math.floor(+save.stage||0),0,3);this.nextGate=clamp(Math.floor(+save.nextGate||0),0,3);
+  if(save&&[2,3,4].includes(save.version)){
+   this.stage=clamp(Math.floor(+save.stage||0),0,save.version<4?3:STAGES.length-1);this.nextGate=clamp(Math.floor(+save.nextGate||0),0,3);
    this.score=clamp(+save.score||0,0,99999999);this.p.lives=clamp(+save.lives||3,1,3);this.p.meter=clamp(Number.isFinite(+save.meter)?+save.meter:35,0,100);this.stats.maxCombo=clamp(+save.maxCombo||0,0,9999);this.t=Math.max(0,+save.time||0);
-   if(save.version===3){this.deathsByStage=[0,1,2,3].map(i=>Math.max(0,Math.floor(+save.deathsByStage?.[i]||0)));this.stage4Eligible=save.stage4Eligible!==false;this.bossDefeated=!!save.bossDefeated&&this.stage===3;this.bossSpawned=this.bossDefeated;}
+   if(save.version>=3){this.deathsByStage=STAGES.map((_,i)=>Math.max(0,Math.floor(+save.deathsByStage?.[i]||0)));this.stage4Eligible=save.stage4Eligible!==false;this.bossDefeated=!!save.bossDefeated&&!!STAGES[this.stage].boss;this.bossSpawned=this.bossDefeated;this.storyFlags=save.storyFlags&&typeof save.storyFlags==='object'&&!Array.isArray(save.storyFlags)?{...save.storyFlags}:{};}
    else if(this.stage===3){this.stage4Eligible=false;}
-   if(this.stage===3&&this.nextGate===3&&!this.bossDefeated)this.nextGate=2;
+   // A completed four-district save resumes the expanded campaign at the cinema.
+   if(save.version<4&&save.complete&&this.stage===3){this.stage=4;this.nextGate=0;this.bossDefeated=this.bossSpawned=false;this.storyFlags['stage4-clear']=true;}
+   if(STAGES[this.stage].boss&&this.nextGate===3&&!this.bossDefeated)this.nextGate=2;
+   this.props=Campaign.propsFor(this.stage);this.projection.disabled=!!save.projectionDisabled&&this.stage===4;
+   if(STAGES[this.stage].projection&&this.nextGate===3&&!this.projection.disabled)this.nextGate=2;
    this.cleared=this.nextGate;this.p.x=this.nextGate?GATES[this.nextGate-1]+440:170;this.p.x=Math.min(this.p.x,LENGTH-140);this.camera=clamp(this.p.x-this.viewWidth*.36,0,LENGTH-this.viewWidth);
   }
   this.checkpoint=this.snapshot();this.emit('start');this.emit('music');this.cosmetic('vest-adjust',.65);
  }
- snapshot(){return {version:3,buildVersion:4,finalBossKind:this.playerKind==='franklin'?'sherm-slam':'franklin',stage:this.stage,nextGate:this.nextGate,score:this.score,lives:this.p.lives,meter:this.p.meter,maxCombo:this.stats.maxCombo||0,time:this.t,playerKind:this.playerKind,deathsByStage:[...this.deathsByStage],stage4Eligible:this.stage4Eligible,bossDefeated:this.bossDefeated};}
+ snapshot(){return {version:4,buildVersion:6,finalBossKind:'broadcast-rig',stage:this.stage,nextGate:this.nextGate,score:this.score,lives:this.p.lives,meter:this.p.meter,maxCombo:this.stats.maxCombo||0,time:this.t,playerKind:this.playerKind,franklinUnlocked:this.franklinUnlocked,deathsByStage:[...this.deathsByStage],stage4Eligible:this.stage4Eligible,bossDefeated:this.bossDefeated,projectionDisabled:this.projection.disabled,storyFlags:{...this.storyFlags}};}
  checkpointSave(){this.checkpoint=this.snapshot();this.emit('save',{save:this.checkpoint});}
  recordDeath(){if(this.p.deathCounted)return;this.p.deathCounted=true;this.deathsByStage[this.stage]++;if(this.stage===3)this.stage4Eligible=false;
   // Persist failure immediately, without moving the checkpoint forward. Reload cannot erase a death.
@@ -95,6 +89,44 @@ class Game{
   const kind=this.playerKind==='franklin'?'sherm-slam':'franklin',k=EINFO[kind];
   const e={id:++this.enemyId,kind,name:k.name,boss:true,elite:false,x:0,y:409,z:0,face:-1,hp:420,maxHp:420,speed:k.speed,state:'entry',timer:0,cooldown:.4,anim:'walk',animT:0,animDuration:0,hit:false,kb:0,side:1,variant:0,flashes:0,moveIndex:0,move:null,hitIndex:0};
   this.setupEntry(e,0,1,true);this.enemies=[e];this.target=e;this.targetT=3;
+ }
+ spawnBoss(){
+  const spec=STAGES[this.stage].boss;if(!spec||this.bossSpawned)return false;
+  if(this.stage===3){this.spawnFranklin();return true;}
+  this.bossSpawned=true;this.waveWait=0;const kind=spec.kind,k=EINFO[kind];
+  const e={id:++this.enemyId,kind,name:k.name,boss:true,elite:false,x:0,y:409,z:0,face:-1,hp:spec.hp,maxHp:spec.hp,speed:k.speed,state:'entry',timer:0,cooldown:.6,anim:'walk',animT:0,animDuration:0,hit:false,kb:0,side:1,variant:0,flashes:0,moveIndex:0,move:null,hitIndex:0,telegraph:null};
+  this.setupEntry(e,0,1,true);this.enemies=[e];this.target=e;this.targetT=3;
+  if(STAGES[this.stage].projection&&!this.projection.disabled)this.spawnBoothCircuits();
+  this.story(spec.intro);return true;
+ }
+ spawnBoothCircuits(){
+  if(this.projection.disabled||this.props.some(o=>o.kind==='circuit'))return false;
+  for(const [i,x,y] of [[0,2110,354],[1,2310,414],[2,2530,452]])this.props.push({id:50+i,kind:'circuit',x,y,hp:45,maxHp:45,drop:null});
+  this.banner='BREAK THE THREE BOOTH CIRCUITS';this.bannerT=3;this.emit('boothCircuits');return true;
+ }
+ configureProjection(){
+  if(!STAGES[this.stage].projection||this.projection.disabled)return;
+  const a=this.projection,center=GATES[Math.max(0,this.activeGate)];a.active=true;a.visible=false;a.phase='waiting';a.timer=0;a.windowXs=[center-170,center+55,center+270];a.telegraph=null;
+ }
+ launchProjectile(kind,sourceX,sourceY,targetX,targetY,damage=9,radius=32,duration=.65){
+  this.projectiles.push({id:++this.projectileId,kind,sourceX,sourceY,targetX,targetY,x:sourceX,y:targetY,z:targetY-sourceY,age:0,duration,damage,radius});this.emit('projectile',{kind,x:sourceX,y:sourceY});
+ }
+ updateProjectiles(dt){
+  for(const q of this.projectiles){q.age+=dt;const u=clamp(q.age/q.duration,0,1);q.x=lerp(q.sourceX,q.targetX,u);q.y=q.targetY;q.z=(q.targetY-q.sourceY)*(1-u)+55*Math.sin(Math.PI*u);
+   if(q.age>=q.duration&&!q.done){q.done=true;const p=this.p;if(Math.abs(p.x-q.targetX)<q.radius&&Math.abs(p.y-q.targetY)<26)this.damagePlayer({kind:'projection-woman',x:q.sourceX,y:q.targetY,face:sign(p.x-q.sourceX),attackDamage:q.damage});this.emit('projectileImpact',{kind:q.kind,x:q.targetX,y:q.targetY});}
+  }
+  this.projectiles=this.projectiles.filter(q=>!q.done);
+ }
+ updateProjection(dt){
+  const a=this.projection;if(!a.active||a.disabled||this.activeGate<0||this.p.hp<=0){a.visible=false;return;}
+  a.timer+=dt;
+  if(a.phase==='waiting'&&a.timer>=2.6){a.window=(a.window+1)%3;a.visible=true;a.phase='telegraph';a.timer=0;a.telegraph={x:this.p.x,y:this.p.y,t:0,duration:1.1,radius:32};this.emit('projectionTell',{x:a.telegraph.x,y:a.telegraph.y,window:a.window});}
+  else if(a.phase==='telegraph'){a.telegraph.t=a.timer;if(a.timer>=a.telegraph.duration){this.launchProjectile('reel',a.windowXs[a.window],a.windowY,a.telegraph.x,a.telegraph.y);a.phase='throw';a.timer=0;}}
+  else if(a.phase==='throw'&&a.timer>=.65){a.phase='recover';a.timer=0;a.telegraph=null;}
+  else if(a.phase==='recover'&&a.timer>=.7){a.phase='waiting';a.timer=0;a.visible=false;}
+ }
+ disableProjection(){
+  if(this.projection.disabled)return false;this.projection.disabled=true;this.projection.active=this.projection.visible=false;this.projection.telegraph=null;this.projectiles=this.projectiles.filter(q=>q.kind!=='reel');this.banner='PROJECTION BOOTH DISABLED';this.bannerT=2.3;this.emit('projectionDisabled');this.story('boss-projection-defeat');return true;
  }
  setupEntry(e,index,side,boss=false){
   const sewer=!boss&&e.kind.startsWith('sherm-')&&((index+this.stage+this.activeGate)%2===0)&&this.stage!==2;
@@ -118,7 +150,7 @@ class Game{
    const u=clamp(a.elapsed/.8,0,1);e.entryDepth=210*(1-u*u*(3-2*u));e.anim='arrival-v4';e.animDuration=0;e.animT=0;e.face=sign(this.p.x-e.x);e.targetable=u>=.88;
    if(u>=1){a.phase='settle';a.elapsed=0;e.animT=0;e.entryDepth=0;this.emit('entryLand',{kind:e.kind,x:e.x,y:e.y});}
   }else if(a.phase==='settle'){
-   const dur=a.boss?.85:(e.kind==='striped'?.42:.34);e.anim=a.boss?(e.kind==='franklin'?'taunt':'arrival-v4'):'arrival-v4';e.animT=a.elapsed;e.animDuration=dur;e.targetable=true;
+   const dur=a.boss?.85:(e.kind==='striped'?.42:.34);e.anim=a.boss?(e.kind==='franklin'?'taunt':e.kind.startsWith('sherm-')?'arrival-v4':'idle'):'arrival-v4';e.animT=a.elapsed;e.animDuration=dur;e.targetable=true;
    if(a.boss&&!a.announced){a.announced=true;this.banner=e.name.toUpperCase();this.bannerT=1.6;this.emit('bossEnter',{kind:e.kind,name:e.name});}
    if(a.elapsed>=dur){e.state='seek';e.timer=e.animT=0;e.entry=null;e.entryDepth=0;e.hidden=false;e.targetable=true;e.cooldown=Math.max(e.cooldown,.3);}
   }
@@ -140,6 +172,41 @@ class Game{
   if(Math.abs(dx)<94&&Math.abs(dy)<26&&e.cooldown<=0){e.move=e.kind==='franklin'?BOSS_MOVES[e.moveIndex++%BOSS_MOVES.length]:[{name:'SLAM',anim:'attack',wind:.70,duration:.65,hits:[.27],reach:117,lane:45,damage:16},{name:'OVERHEAD SLAM',anim:'slam-overhead-alt',wind:.82,duration:.72,hits:[.32],reach:117,lane:45,damage:16}][e.moveIndex++%2];e.state='windup';e.timer=e.animT=0;this.emit('tell',{kind:e.kind,x:e.x,y:e.y});return;}
   const tx=p.x-e.face*77,ddx=tx-e.x,ddy=p.y-e.y,d=Math.hypot(ddx,ddy/.6);if(d>7){const speed=e.speed*Math.min(1,d/34);e.x+=ddx/d*speed*dt;e.y+=ddy/d*speed*dt;e.anim=Math.abs(dx)>220?'run':'walk';e.animDuration=0;}else{e.anim=e.kind==='franklin'?'guard':'idle';e.animDuration=0;}
  }
+ updateBoss(e,dt){
+  const p=this.p,def=BOSS_DEFINITIONS[e.kind];if(!def){this.updateFranklin(e,dt);return;}
+  e.timer+=dt;e.animT+=dt;e.flashes=Math.max(0,e.flashes-dt);e.cooldown=Math.max(0,e.cooldown-dt);
+  if(e.hp<=0){e.state='dead';e.anim='death';e.animDuration=1.7;e.telegraph=null;return;}
+  if(e.state==='entry'&&e.entry){this.updateEntry(e,dt);return;}
+  if(def.stationary){e.x=2450;e.y=409;e.kb=0;}else{if(Math.abs(e.kb)>1){e.x+=e.kb*dt;e.kb*=Math.exp(-8*dt);}e.x=clamp(e.x,1825,2750);e.y=clamp(e.y,YMIN+3,YMAX-3);}
+  if(e.state==='hurt'){e.anim='hurt';e.animDuration=.48;e.telegraph=null;if(e.timer>.48){e.state='seek';e.timer=0;e.cooldown=.55;}return;}
+  if(p.hp<=0){e.anim='idle';return;}
+  if(e.state==='windup'){
+   e.anim=e.move.windAnim||'idle';e.animDuration=e.move.wind;
+   if(!def.stationary&&!e.move.rush)e.face=sign(p.x-e.x);
+   if(e.timer>=e.move.wind){e.state='attack';e.timer=e.animT=0;e.hitIndex=0;e.anim=e.move.anim;e.animDuration=e.move.duration;this.emit('enemySwing',{kind:e.kind});}return;
+  }
+  if(e.state==='attack'){
+   const m=e.move;e.anim=m.secondAnim&&e.timer>=m.switchAt?m.secondAnim:m.anim;e.animT=m.secondAnim&&e.timer>=m.switchAt?e.timer-m.switchAt:e.timer;e.animDuration=m.secondAnim?(e.timer>=m.switchAt?m.duration-m.switchAt:m.switchAt):m.duration;if(m.rush&&e.timer<.55)e.x=clamp(e.x+e.face*m.rush*dt,1825,2750);
+   while(e.hitIndex<m.hits.length&&e.timer>=m.hits[e.hitIndex]){
+    e.hitIndex++;e.attackDamage=m.damage;
+    if(m.area==='projectile')this.launchProjectile('signal',e.x,e.y-190,e.telegraph.x,e.telegraph.y,m.damage,m.radius,.7);
+    else if(m.area==='spot'){if(Math.abs(p.x-e.telegraph.x)<m.radius&&Math.abs(p.y-e.telegraph.y)<32)this.damagePlayer(e);this.emit('slam',{x:e.telegraph.x,y:e.telegraph.y});}
+    else if(m.area==='lane'){const dx=p.x-e.x;if(Math.abs(p.y-e.telegraph.y)<m.lane&&dx*e.face>-22&&dx*e.face<m.reach)this.damagePlayer(e);this.emit('signalSweep',{x:e.x,y:e.telegraph.y,face:e.face});}
+    else{const dx=p.x-e.x;if(Math.abs(p.y-e.y)<m.lane&&(m.all?Math.abs(dx)<m.reach:dx*e.face>-22&&dx*e.face<m.reach))this.damagePlayer(e);if(m.all)this.emit('slam',{x:e.x,y:e.y});}
+   }
+   if(e.timer>=m.duration){e.state='recover';e.timer=e.animT=0;e.anim='idle';e.animDuration=m.recovery||def.recovery;e.telegraph=null;}return;
+  }
+  if(e.state==='recover'){e.anim='idle';if(e.timer>(e.move?.recovery||def.recovery)){e.state='seek';e.timer=0;e.cooldown=e.hp<e.maxHp*.5?.55:.8;}return;}
+  e.face=sign(p.x-e.x);const dx=p.x-e.x,dy=p.y-e.y;
+  if(e.cooldown<=0&&(def.stationary||Math.abs(dx)<98&&Math.abs(dy)<28)){
+   e.move=def.moves[e.moveIndex++%def.moves.length];e.state='windup';e.timer=e.animT=0;const m=e.move;
+   e.telegraph=m.area?{kind:m.area==='lane'?'lane':'spot',x:m.area==='lane'?e.x:p.x,y:p.y,face:e.face,range:m.reach||0,lane:m.lane||0,radius:m.radius||0}:null;
+   this.emit('tell',{kind:e.kind,x:e.x,y:e.y});return;
+  }
+  if(def.stationary){e.anim='idle';return;}
+  const tx=p.x-e.face*77,vx=tx-e.x,vy=p.y-e.y,d=Math.hypot(vx,vy/.6);
+  if(d>7){const speed=e.speed*Math.min(1,d/34);e.x+=vx/d*speed*dt;e.y+=vy/d*speed*dt;e.anim=Math.abs(dx)>220?'run':'walk';e.animDuration=0;}else{e.anim='idle';e.animDuration=0;}
+ }
  pause(){if(this.mode==='play'){this.mode='pause';this.p.vx=this.p.vy=0;this.p.guard=false;this.p.attackBuffer=0;this.emit('pause');}}
  resume(){if(this.mode==='pause'){this.mode='play';this.emit('resume');}}
  cosmetic(name,dur=1){this.p.cosmetic={name,dur};this.p.cosmeticT=0;}
@@ -158,16 +225,19 @@ class Game{
  spawnFight(i){this.activeGate=i;this.nextGate=i;const wave=STAGES[this.stage].waves[i],p=this.p;const center=GATES[i];this.enemies=[];
   wave.forEach((text,j)=>{const [kind,elite]=text.split(':');const k=EINFO[kind],side=j===wave.length-1&&wave.length>2?-1:1;const ex=side>0?Math.max(p.x+260,center+150)+j*62:Math.min(p.x-225,center-285);
    this.enemies.push({id:++this.enemyId,kind,name:elite?'Headliner':k.name,elite:!!elite,x:clamp(ex,40,LENGTH-40),y:358+(j%3)*40,z:0,face:-side,hp:k.hp*(elite?1.75:1),maxHp:k.hp*(elite?1.75:1),speed:k.speed*(elite?1.08:1),state:'entry',timer:0,cooldown:.5+j*.35,anim:'idle',animT:0,animDuration:0,hit:false,kb:0,side,variant:0,flashes:0});
-  });this.enemies.forEach((e,j)=>this.setupEntry(e,j,e.side));this.banner=`${i===2?'LAST CALL':'STREET FIGHT'}  ${i+1} / 3`;this.bannerT=1.6;this.emit('encounter',{wave:i+1});if(this.nearby(180).length===0)this.cosmetic(wave.some(s=>s.includes('elite'))?'startled-hop':'double-take',.65);}
- registerHit(e,s){const p=this.p;if(e.entry){e.entry=null;e.entryDepth=0;e.hidden=false;e.targetable=true;}e.hp=Math.max(0,e.hp-s.damage);e.state=e.hp<=0?'dead':'hurt';e.timer=0;e.animT=0;e.kb=(s.all?sign(e.x-p.x):p.face)*s.kb;e.cooldown=.4+(s.kb>90?.35:0);e.flashes=.1;
+  });this.enemies.forEach((e,j)=>this.setupEntry(e,j,e.side));this.configureProjection();this.banner=`${i===2?'LAST CALL':'STREET FIGHT'}  ${i+1} / 3`;this.bannerT=1.6;if(i===2&&STAGES[this.stage].projection&&this.bossDefeated)this.spawnBoothCircuits();this.emit('encounter',{wave:i+1});if(this.nearby(180).length===0)this.cosmetic(wave.some(s=>s.includes('elite'))?'startled-hop':'double-take',.65);}
+ registerHit(e,s){const p=this.p;if(e.entry){e.entry=null;e.entryDepth=0;e.hidden=false;e.targetable=true;}
+  const machine=e.kind==='broadcast-rig',committed=BOSS_DEFINITIONS[e.kind]&&['windup','attack'].includes(e.state),oldState=e.state;
+  if(machine&&committed||e.move?.guarded&&e.state==='windup'&&(p.x-e.x)*e.face>=0&&s.kb<80)s={...s,damage:Math.max(2,Math.round(s.damage*(machine?.35:.55)))};
+  e.hp=Math.max(0,e.hp-s.damage);e.state=e.hp<=0?'dead':committed&&(machine||s.kb<80)?oldState:'hurt';if(e.state!==oldState||e.state==='hurt'){e.timer=0;e.animT=0;}e.kb=machine?0:(s.all?sign(e.x-p.x):p.face)*s.kb;e.cooldown=.4+(s.kb>90?.35:0);e.flashes=.1;
   p.combo++;p.comboClock=2.0;p.meter=clamp(p.meter+(s.all?2:6),0,100);this.score+=Math.round(s.damage*(1+Math.min(p.combo,20)*.04));this.stats.hits++;this.stats.maxCombo=Math.max(this.stats.maxCombo,p.combo);this.hitstop=Math.max(this.hitstop,s.kb>80?.068:.04);this.shake=Math.max(this.shake,s.kb>80?6:2.5);this.target=e;this.targetT=3;
   this.emit('hit',{x:e.x,y:e.y-88,z:e.z||0,damage:s.damage,heavy:s.kb>80,sound:s.sound||'hit',kind:e.kind,combo:p.combo});
-  if(e.hp<=0){if(s.kb>80){e.deathAnim=({'sherm-punch':'fall-alt','sherm-slam':'spill-collapse-alt',raptor:'death-alt'})[e.kind]||'death';}if(e.boss){this.bossDefeated=true;this.emit('bossDefeated');}this.score+=EINFO[e.kind].score*(e.elite?3:1);this.stats.kos++;this.emit('ko',{kind:e.kind,x:e.x,y:e.y});if(e.kind==='hippo'||e.kind==='sherm-slam')this.pickups.push({x:e.x,y:e.y,kind:'coffee',age:0});}
+  if(e.hp<=0){if(s.kb>80){e.deathAnim=({'sherm-punch':'fall-alt','sherm-slam':'spill-collapse-alt',raptor:'death-alt'})[e.kind]||'death';}if(e.boss){this.bossDefeated=true;this.emit('bossDefeated',{kind:e.kind});if(e.kind==='pizzeria-boss')this.story('boss-pizzeria-defeat');if(machine){this.projectiles=[];this.story('boss-duke-defeat');}}this.score+=EINFO[e.kind].score*(e.elite?3:1);this.stats.kos++;this.emit('ko',{kind:e.kind,x:e.x,y:e.y});if(e.kind==='hippo'||e.kind==='sherm-slam')this.pickups.push({x:e.x,y:e.y,kind:'coffee',age:0});}
  }
  hitTest(s,a){const p=this.p;if(p.hp<=0)return;for(const e of this.enemies){if(e.hp<=0||e.hidden||e.targetable===false||a.hits.includes(e.id))continue;const dx=e.x-p.x,dy=Math.abs(e.y-p.y);if(dy>(s.all?60:33))continue;if(!s.all&&(dx*p.face<-20||dx*p.face>s.range+EINFO[e.kind].radius*.55))continue;if(s.all&&Math.abs(dx)>s.range+18)continue;if(a.name==='air'&&(p.z>125||p.z<7))continue;
    a.hits.push(e.id);a.confirmed=true;this.registerHit(e,s);
   }
-  for(const o of this.props){if(o.hp<=0||a.hits.includes('o'+o.id))continue;const dx=o.x-p.x;if(Math.abs(o.y-p.y)>42||(!s.all&&(dx*p.face<-14||dx*p.face>s.range))||(s.all&&Math.abs(dx)>s.range))continue;o.hp-=s.damage;a.hits.push('o'+o.id);this.emit('break',{x:o.x,y:o.y,broken:o.hp<=0});if(o.hp<=0){this.pickups.push({x:o.x,y:o.y,kind:'coffee',age:0});this.score+=40;}}
+  for(const o of this.props){if(o.hp<=0||a.hits.includes('o'+o.id))continue;const dx=o.x-p.x;if(Math.abs(o.y-p.y)>42||(!s.all&&(dx*p.face<-14||dx*p.face>s.range))||(s.all&&Math.abs(dx)>s.range))continue;o.hp-=s.damage;a.hits.push('o'+o.id);this.emit('break',{x:o.x,y:o.y,broken:o.hp<=0,kind:o.kind});if(o.hp<=0){const drop=o.drop===undefined?'coffee':o.drop;if(drop)this.pickups.push({x:o.x,y:o.y,kind:drop,age:0});this.score+=40;if(o.kind==='circuit'&&this.props.filter(x=>x.kind==='circuit').every(x=>x.hp<=0)){this.disableProjection();this.checkpointSave();}}}
  }
  damagePlayer(e){const p=this.p,k=EINFO[e.kind];if(p.hp<=0||p.inv>0||p.z>43||p.action?.name==='dodge')return false;let dmg=(e.attackDamage||k.damage)*(e.elite?1.2:1);
    const facing=(e.x-p.x)*p.face>-8;
@@ -195,7 +265,7 @@ class Game{
    }
  }
  updateEnemies(dt){const p=this.p;let attackers=this.enemies.filter(e=>e.hp>0&&(e.state==='windup'||e.state==='attack')).length;const maxAttackers=this.stage>=2?2:1;
-   for(const e of this.enemies){if(e.boss||e.kind==='franklin'){this.updateFranklin(e,dt);continue;}const k=EINFO[e.kind];e.timer+=dt;e.animT+=dt;if(e.state==='entry'&&e.hp>0&&e.entry){this.updateEntry(e,dt);continue;}e.flashes=Math.max(0,e.flashes-dt);e.cooldown=Math.max(0,e.cooldown-dt);if(Math.abs(e.kb)>1){e.x+=e.kb*dt;e.kb*=Math.exp(-8*dt);}e.x=clamp(e.x,30,LENGTH-30);e.y=clamp(e.y,YMIN+3,YMAX-3);
+   for(const e of this.enemies){if(e.boss||e.kind==='franklin'){this.updateBoss(e,dt);continue;}const k=EINFO[e.kind];e.timer+=dt;e.animT+=dt;if(e.state==='entry'&&e.hp>0&&e.entry){this.updateEntry(e,dt);continue;}e.flashes=Math.max(0,e.flashes-dt);e.cooldown=Math.max(0,e.cooldown-dt);if(Math.abs(e.kb)>1){e.x+=e.kb*dt;e.kb*=Math.exp(-8*dt);}e.x=clamp(e.x,30,LENGTH-30);e.y=clamp(e.y,YMIN+3,YMAX-3);
     if(e.hp<=0){e.state='dead';e.anim=e.deathAnim||'death';e.animDuration=1.7;continue;}
     if(e.state==='entry'){e.anim='idle';e.animDuration=.5;if(e.timer>.55){e.state='seek';e.timer=0;}continue;}
     if(e.state==='hurt'){e.anim='hurt';e.animDuration=.48;if(e.timer>.5+e.cooldown*.25){e.state='seek';e.timer=0;e.cooldown=.26;}continue;}
@@ -266,11 +336,11 @@ class Game{
   if(!p.action&&p.z===0&&p.idleT>3.2&&!p.cosmetic&&this.nearby(400).length===0){
    let an=IDLES[Math.floor(this.rng()*IDLES.length)];if(p.hp<25)an=this.rng()<.5?'panic-settle':'sigh';else if(this.stage===1)an=['disgust-grimace','nose-pinch','wave-off','shiver'][Math.floor(this.rng()*4)];this.cosmetic(an,1.25);p.idleT=0;
   }
-  this.updateEnemies(dt);
-  for(const c of this.pickups){c.age+=dt;if(!c.got&&Math.abs(c.x-p.x)<42&&Math.abs(c.y-p.y)<30&&p.z<16){c.got=true;p.hp=Math.min(100,p.hp+18);p.meter=Math.min(100,p.meter+8);this.score+=25;this.emit('pickup',{x:c.x,y:c.y});}}
+  this.updateEnemies(dt);this.updateProjection(dt);this.updateProjectiles(dt);
+  for(const c of this.pickups){c.age+=dt;if(!c.got&&Math.abs(c.x-p.x)<42&&Math.abs(c.y-p.y)<30&&p.z<16){const item=ITEMS[c.kind]||ITEMS.coffee;c.got=true;p.hp=Math.min(100,p.hp+item.health);p.meter=Math.min(100,p.meter+item.meter);this.score+=item.score;this.emit('pickup',{x:c.x,y:c.y,kind:c.kind,heal:item.health});}}
   this.pickups=this.pickups.filter(c=>!c.got);
   if(this.activeGate>=0&&this.enemies.every(e=>e.hp<=0)){
-   this.waveWait+=dt;if(this.waveWait>.75&&this.stage===3&&this.activeGate===2&&!this.bossSpawned){this.spawnFranklin();}else if(this.waveWait>.75){this.cleared=this.activeGate+1;this.nextGate=this.cleared;this.activeGate=-1;this.waveWait=0;this.banner='BLOCK CLEAR';this.bannerT=1.8;p.hp=Math.min(100,p.hp+10);this.cosmetic(this.cleared===3?'wave-off':'vest-adjust',.9);this.checkpointSave();this.emit('clear',{last:this.cleared===3});}
+   this.waveWait+=dt;if(this.waveWait>.75&&STAGES[this.stage].boss&&this.activeGate===2&&!this.bossSpawned){this.spawnBoss();}else if(this.waveWait>.75&&!(STAGES[this.stage].projection&&this.activeGate===2&&!this.projection.disabled)){this.cleared=this.activeGate+1;this.nextGate=this.cleared;this.activeGate=-1;this.waveWait=0;this.projection.active=this.projection.visible=false;this.projection.telegraph=null;this.projectiles=[];this.banner='BLOCK CLEAR';this.bannerT=1.8;p.hp=Math.min(100,p.hp+10);this.cosmetic(this.cleared===3?'wave-off':'vest-adjust',.9);this.checkpointSave();this.emit('clear',{last:this.cleared===3});}
   }else this.waveWait=0;
   if(this.activeGate<0&&this.nextGate<3&&p.x>GATES[this.nextGate]-280)this.spawnFight(this.nextGate);
   if(this.activeGate<0&&this.nextGate===3&&p.x>LENGTH-150){this.advanceStage();}
@@ -279,12 +349,16 @@ class Game{
  }
  advanceStage(){
   if(this.mode!=='play')return;
+  if(STAGES[this.stage].boss&&!this.bossDefeated)return;
+  if(STAGES[this.stage].projection&&!this.projection.disabled)return;
   if(this.stage===3){
-   if(!this.bossDefeated)return;
    const eligible=this.playerKind!=='franklin'&&this.stage4Eligible&&this.deathsByStage[3]===0;
    this.lastUnlockEarned=eligible&&!this.franklinUnlocked;
    if(this.lastUnlockEarned){this.franklinUnlocked=true;this.emit('unlock',{character:'franklin'});}
-   this.mode='complete';this.p.anim='dance-enter';this.p.animT=0;this.score+=1000;this.emit('complete',{score:this.score,boss:this.playerKind==='franklin'?'sherm-slam':'franklin'});this.emit('save',{save:{...this.snapshot(),complete:true}});return;
+   this.story('stage4-clear');
+  }
+  if(this.stage===STAGES.length-1){
+   this.storyFlags.martyRescued=true;this.storyFlags.broadcastStopped=true;this.mode='complete';this.p.action=null;this.p.vx=this.p.vy=this.p.vz=this.p.z=0;this.p.attackBuffer=this.p.jumpBuffer=0;this.p.guard=false;this.p.anim='dance-enter';this.p.animT=0;this.score+=1000;this.emit('complete',{score:this.score,boss:'broadcast-rig',ending:'ending',playerKind:this.playerKind});this.emit('save',{save:{...this.snapshot(),complete:true}});return;
   }
   this.mode='stageclear';this.stageClearT=0;this.p.action=null;this.p.vx=this.p.vy=this.p.vz=this.p.z=0;this.p.attackBuffer=this.p.jumpBuffer=0;this.p.guard=false;this.checkpointSave();this.emit('stageClear',{stage:this.stage,next:this.stage+1});
  }
@@ -292,9 +366,9 @@ class Game{
   if(this.mode!=='stageclear')return false;
   const hp=this.p.hp,lives=this.p.lives,meter=this.p.meter;this.stage++;this.resetWorld();this.makePlayer();this.mode='play';
   if(this.stage===3){this.stage4Eligible=true;this.deathsByStage[3]=0;}
-  this.p.hp=Math.min(100,hp+25);this.p.lives=lives;this.p.meter=meter;this.checkpointSave();this.emit('stage',{stage:this.stage});this.cosmetic(this.stage===1?'nose-pinch':'shoulder-roll',.8);return true;
+  this.p.hp=Math.min(100,hp+25);this.p.lives=lives;this.p.meter=meter;this.emit('stage',{stage:this.stage});this.story(STAGES[this.stage].intro);this.checkpointSave();this.cosmetic(this.stage===1?'nose-pinch':'shoulder-roll',.8);return true;
  }
  retry(resetLives=true){const lives=resetLives?3:this.p.lives,save={...this.checkpoint,lives},stats=this.stats;this.start(save);this.stats=stats;this.p.lives=lives;this.p.inv=2;this.stageBanner=1;this.emit('retry');}
 }
-const API={Game,STAGES,HITS,CHAIN,GATES,LENGTH,YMIN,YMAX,clamp,lerp,EINFO,BOSS_MOVES,playerAnimation};if(typeof module!=='undefined')module.exports=API;else root.Brawler=API;
+const API={Game,STAGES,HITS,CHAIN,GATES,LENGTH,YMIN,YMAX,clamp,lerp,EINFO,BOSS_MOVES,BOSS_DEFINITIONS,ITEMS,PROPS,playerAnimation};if(typeof module!=='undefined')module.exports=API;else root.Brawler=API;
 })(typeof window!=='undefined'?window:globalThis);

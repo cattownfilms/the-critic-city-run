@@ -1,0 +1,107 @@
+{
+  "commit": "03fe0af9d1857874edeb64e2f430dd1989576c64",
+  "characters": {
+    "hero": "0ec1f9176215829cb84475bcc6b50e7c4e21a645c1ddd45ad5e768815ae6d539",
+    "bear": "caf1c90bc6954de9e352375030128fa492bbc4e394d684db732dc3bde01d8cd0",
+    "hippo": "0670f00a3026e29dc2e57c2465b0388ee326ae539cc0f0cfb1529d2cb3833045",
+    "sherm-punch": "27856df4b07d855cfba91c1285759c40bd6ee76fb03ae04ad2669b61bb44c97c",
+    "sherm-shove": "aafb90cfc6f8ebb6508131ace673b0d6579ec0ece8f561ba46df247edb9b5a2c",
+    "sherm-slam": "efb4d6813377dbdf4e2ce08b51594af40f5f90668ff33f2a9d97313b9d064e57",
+    "striped": "ca357f8816a57a8c2698ddb1a4ee09f7f0140192f77f08a4597c0b80286b6bc3",
+    "raptor": "bfaf0a2cddce6709b48338ebfd3162f70f5787695a1b1379a2ab9a3d5ba0286b",
+    "franklin": "e60e3e3963327cc08b37debd335fd9fc11f6d271cefaa74b3ee68b32ae8bbf1e"
+  },
+  "pages": [
+    {
+      "file": "atlas-00.webp",
+      "width": 2048,
+      "height": 1963,
+      "bytes": 5009444,
+      "encoding": "lossless (preserves v2 decoded pixels)"
+    },
+    {
+      "file": "atlas-01.webp",
+      "width": 2048,
+      "height": 1907,
+      "bytes": 5367166,
+      "encoding": "lossless (preserves v2 decoded pixels)"
+    },
+    {
+      "file": "atlas-02.webp",
+      "width": 2048,
+      "height": 1893,
+      "bytes": 5523760,
+      "encoding": "lossless (preserves v2 decoded pixels)"
+    },
+    {
+      "file": "atlas-03.webp",
+      "width": 2048,
+      "height": 1880,
+      "bytes": 5233266,
+      "encoding": "lossless (preserves v2 decoded pixels)"
+    },
+    {
+      "file": "atlas-04.webp",
+      "width": 2048,
+      "height": 2042,
+      "bytes": 5343190,
+      "encoding": "lossless (preserves v2 decoded pixels)"
+    },
+    {
+      "file": "atlas-05.webp",
+      "width": 2048,
+      "height": 2002,
+      "bytes": 5196060,
+      "encoding": "lossless (preserves v2 decoded pixels)"
+    },
+    {
+      "file": "atlas-06.webp",
+      "width": 2048,
+      "height": 1404,
+      "bytes": 3238128,
+      "encoding": "lossless (preserves v2 decoded pixels)"
+    },
+    {
+      "file": "atlas-07.webp",
+      "width": 2048,
+      "height": 2014,
+      "bytes": 4004402,
+      "encoding": "lossless; targeted Franklin negative-space cleanup"
+    },
+    {
+      "file": "atlas-08.webp",
+      "width": 2048,
+      "height": 1941,
+      "bytes": 3986862,
+      "encoding": "lossless; targeted Franklin negative-space cleanup"
+    },
+    {
+      "file": "atlas-09.webp",
+      "width": 2048,
+      "height": 1876,
+      "bytes": 3578712,
+      "encoding": "lossless; targeted Franklin negative-space cleanup"
+    },
+    {
+      "file": "atlas-10.webp",
+      "width": 2048,
+      "height": 1953,
+      "bytes": 3859894,
+      "encoding": "lossless; targeted Franklin negative-space cleanup"
+    },
+    {
+      "file": "atlas-11.webp",
+      "width": 2048,
+      "height": 1784,
+      "bytes": 1382600,
+      "encoding": "quality 93, lossless alpha"
+    },
+    {
+      "file": "atlas-12.webp",
+      "width": 2048,
+      "height": 1964,
+      "bytes": 3374112,
+      "encoding": "lossless new video crops"
+    }
+  ]
+}

@@ -1,57 +1,76 @@
-# Publish the complete playable site
+# THE CRITIC: COMING ATTRACTIONS release workflow
 
-## Current status
+The existing public repository is [cattownfilms/the-critic-city-run](https://github.com/cattownfilms/the-critic-city-run). Its Pages address remains [cattownfilms.github.io/the-critic-city-run](https://cattownfilms.github.io/the-critic-city-run/). Keep that repository, its history, and the Pages origin when releasing v6. The public game title is **THE CRITIC: COMING ATTRACTIONS**.
 
-The prepared release has **not** been published from this chat. The connected GitHub integration can edit existing repositories but does not expose repository creation or Pages administration. The supplied publisher performs those actions only when run under your own authenticated GitHub CLI.
+A successful push is not proof that Pages has deployed. Record the released commit and verify the live HTTPS build before reporting publication as complete. The release validation report records what was actually tested and any blocked publication steps.
 
-Default destination: `cattownfilms/the-critic-city-run`, **public**. The script checks the active account, verifies the allowlisted file hashes, asks you to type `PUBLISH`, creates a new public repository, pushes its initial `main` commit, and configures GitHub Pages from `main` and `/` (root). It prints the repository URL and the site address returned by GitHub, and distinguishes a completed build from a pending build. Internet access is required to publish.
+## Source and hosted build
 
-It never prints or embeds a token, makes an existing private repository public, overwrites another repository's history, adds arbitrary files from your Downloads folder, or force-pushes. Review `NOTICE.md` before publication. This version includes supplied title art, music and sound effects.
+Edit `app.js`, `engine.js`, `render.js`, the authored definitions in `data/`, and source assets. `index.html` is the hosted entry point. Its runtime dependencies include `cutscenes.js`, `cutscenes.css`, the scene definitions, atlases, cutscene images, story portraits, music, and effects. The offline HTML and launcher are generated outputs; rebuild them after source changes.
 
-## Android / Termux: self-contained publisher
-
-Download `The-Critic-Publish-GitHub-v5.sh`. It contains the entire prepared repository, not merely an internet download link. Install these prerequisites explicitly, then authenticate using GitHub's browser/device flow:
+Use a branch in the existing clone:
 
 ```sh
-pkg install git gh python
-gh auth login --hostname github.com --git-protocol https --web --scopes workflow
-bash ~/storage/downloads/The-Critic-Publish-GitHub-v5.sh
+git fetch origin
+git switch -c production/coming-attractions-v6
+python -m pip install -r requirements-test.txt
+node tests/engine.test.js
+node tests/v4-engine.test.js
+node tests/franklin.test.js
+node tests/gamepad.test.js
+node tests/campaign-engine.test.js
+python tests/production-assets.test.py
 ```
 
-Use the `cattownfilms` account when GitHub asks. Never paste a token into ChatGPT. If Downloads is not accessible, grant Termux storage access with `termux-setup-storage` first. The script extracts into a version-specific folder under your home directory, verifies the payload, and launches the first-publish tool. Re-running preserves that folder and its Git metadata so an interrupted upload can resume. It does not touch the local game installation at port 8788.
+Review the source, asset provenance, save migration, and the validation report. Run the browser checks with available Playwright browsers and record unavailable engines honestly. `tests/campaign-browser.test.py` supports source-HTTP testing; the standalone regression scripts require the generated HTML below. Keep test reports out of the published runtime.
 
-## Desktop / extracted source alternative
+After validation, commit the reviewed changes and push the branch to the existing repository. Merge through the repository's normal review workflow. Preserve its current Pages configuration and deployment continuity. Do not force-push or create a replacement repository for this update.
 
-Install Git, GitHub CLI and Python 3.10+, extract the public-ready source ZIP, and run from its `the-critic-city-run` folder:
+The legacy `tools/publish.py` and `The-Critic-Publish-GitHub-v5.sh` workflow were intended for first publication of a prepared v5 snapshot. Their hash allowlist is not a development or upgrade mechanism. Use ordinary reviewed Git commits for this established repository; do not use the old publisher to recreate it or overwrite newer work.
+
+## Complete offline release
+
+From the repository root, build the single-file game and self-contained launcher:
 
 ```sh
-gh auth login --hostname github.com --git-protocol https --web --scopes workflow
-python tools/publish.py
+python tools/build_standalone.py --output The-Critic-Coming-Attractions-v6.html
+python tools/build_launcher.py The-Critic-Coming-Attractions-v6.html The-Critic-Coming-Attractions-v6-Play.sh
 ```
 
-On Windows, `py tools/publish.py` is also suitable. `python tools/publish.py --check-only` verifies the reviewed files without accessing an account or publishing anything.
+The standalone builder embeds the runtime artwork, audio, sprite metadata, styles, authored campaign data, scene definitions, and JavaScript. It does not need a CDN or the original source videos. The launcher embeds this exact HTML and verifies its SHA-256 digest before installing it.
 
-For a different **new** name: `python tools/publish.py --repo the-critic-city-run-demo`. The owner defaults to `cattownfilms` and must match the authenticated account. Existing nonempty unrelated repositories are intentionally rejected rather than overwritten.
+Run the local launcher tests serially because they intentionally use the fixed save origin at port 8788:
 
-## Sharing
+```sh
+python tests/launcher.test.py
+python tests/upgrade-launcher.test.py
+```
 
-After GitHub reports a completed Pages build, send friends the **HTTPS Pages URL**, not the GitHub code page and not a raw HTML link. They open the page directly and play with touch, keyboard or an enabled/mapped controller. They do not need Termux, a GitHub account, or the original asset ZIPs. The first load downloads the game assets; the hosted version does not claim offline caching or a service worker.
+The upgrade test rebuilds the reviewed v5 baseline from Git automatically. It runs that launcher's original Python bootstrap and HTTP handler in a same-process server, applies the real v6 launcher twice, and checks the served HTML, install directory, original backup, and retained files. `CRITIC_V5_LAUNCHER`, `CRITIC_HTML`, and `CRITIC_LAUNCHER` can override test artifact locations. Browser save migration is covered separately.
 
-The multi-file layout lets browsers request individual already-compressed images and songs rather than one enormous base64 HTML file. All runtime assets are present; no CDN or third-party asset server is required. Do not add the standalone HTML, launcher, generation videos or original character ZIPs to Git just to make the site work.
+Deliver the offline HTML, launcher, and source package together with the story/canon document, asset provenance, changelog, validation report, and known limitations. Generated delivery files are ignored by Git and should be distributed as release artifacts, not added to the Pages runtime.
 
-## Recovery
+## Android / Termux launch and update
 
-If upload fails, re-run the same publisher from the same extraction directory. It can resume an empty repository or finish Pages setup when the remote commit exactly matches the local release. If the remote branch has been changed elsewhere, it stops. Use normal `git fetch`/review rather than forcing the initial publisher over a changed repository.
+Install Python in Termux, then run the downloaded v6 launcher:
 
-A rejected workflow permission may require `gh auth refresh --hostname github.com --scopes repo,workflow`, then the same publish command. If repository upload succeeds but Pages administration is denied, open repository **Settings > Pages**, select **Deploy from a branch**, **main**, **/ (root)**, and save. Wait for GitHub to report the build status. Never infer successful hosting merely from a successful push.
+```sh
+pkg install python
+bash ~/storage/downloads/The-Critic-Coming-Attractions-v6-Play.sh
+```
 
-## Future updates
+If Termux cannot access Downloads, run `termux-setup-storage` once and grant the requested storage access. The launcher opens `http://127.0.0.1:8788/` and installs the embedded game at `~/.local/share/cattown/critic-brawler/index.html`. Leave that Termux session running for browser reloads. `Ctrl+C` stops its local server.
 
-After first publication, edit your clone normally, run the tests, inspect `git diff`, then commit and push. The first-publish hash allowlist intentionally blocks silent edits to the prepared release; it is not a replacement for normal development. New runtime versions can keep the same Pages origin and storage keys to preserve saves.
+For an update, run the new launcher at the same path. It preserves the port, hostname, and installation directory, backs up the previous HTML once as `index-before-v6.html`, and reuses a recognised running v2–v6 server. Reload the browser tab to receive the updated game. It does not clear browser storage or delete other installed files. If an unrelated application occupies port 8788, it reports the conflict instead of killing that process.
 
-## Documentation checked
+Browser progress remains tied to the exact origin. The local launcher and HTTPS Pages site have separate saves. Avoid changing `127.0.0.1` to `localhost` or changing the port if retaining an existing local browser save. The game retains its established storage keys and migrates supported old save versions; it does not require uninstalling the app or clearing browser data.
 
-- GitHub CLI repository creation: https://cli.github.com/manual/gh_repo_create
-- GitHub CLI authentication: https://cli.github.com/manual/gh_auth_login
-- GitHub Pages REST API: https://docs.github.com/en/rest/pages/pages
-- GitHub Pages limits: https://docs.github.com/en/pages/getting-started-with-github-pages/github-pages-limits
+These instructions describe the supported launcher workflow. Automated Linux loopback tests do not constitute physical Android, Termux, or controller hardware testing.
+
+## Hosted verification
+
+After Pages reports a completed deployment, open the actual HTTPS game and verify the release title, JavaScript, sprite pages, music, cutscene images, new stages, scene skipping, and controller settings. Check responsive layouts and the browser console. Record the live commit/build identity and asset responses in the release validation report.
+
+Publish only the intended source and runtime dependencies. Keep credentials, browser saves, prompt logs, raw videos, temporary generation folders, and generated standalone/launcher duplicates out of the hosted tree. Retain `NOTICE.md` and the asset provenance documentation.
+
+Share the HTTPS Pages URL with players. They can use touch, keyboard, or an enabled/remapped controller without Termux or a GitHub account. The hosted multi-file build downloads its assets normally and does not promise offline caching or a service worker.
