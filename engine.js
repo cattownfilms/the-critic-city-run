@@ -208,7 +208,7 @@ class Game{
   if(a.phase==='vulnerable'&&a.timer>9){a.phase='rising';a.wave--;a.timer=0;core.targetable=false;}
  }
  updateMachine(e,dt){const a=this.broadcastSummons;e.anim='idle';e.kb=0;e.timer+=dt;
-  if(e.hp<=0){e.state='dead';e.telegraph=null;a.defeatTime=(a.defeatTime||0)+dt;e.z=Math.max(0,(e.z||0)-100*dt);return;}
+  if(e.hp<=0){e.state='dead';e.telegraph=null;const before=a.defeatTime||0;a.defeatTime=before+dt;for(const beat of [.8,2.3])if(before<beat&&a.defeatTime>=beat){this.emit('slam',{x:e.x,y:e.y});this.shake=beat>2?5:3;}e.z=Math.max(0,(e.z||0)-100*dt);return;}
   e.state='seek';e.y=407;
   if(a.phase==='rising'){e.z=Math.min(185,(e.z||0)+150*dt);if(e.z>=185){a.waveStarted=false;a.phase='relocating';}return;}
   if(a.phase==='relocating'){
@@ -422,7 +422,7 @@ class Game{
    if(d>8){const step=Math.min(d,210*dt);e.x+=dx/d*step;e.y+=dy/d*step;}
    if(d<=8||e.timer>2.2){e.state='raptor-tell';e.timer=0;e.face=sign(p.x-e.x);e.chargeFace=e.face;e.chargeLane=p.y;e.anim='idle';this.emit('tell',{kind:e.kind,x:e.x,y:e.y});}
   }else if(e.state==='raptor-tell'){
-   e.anim='idle';if(e.timer>=.65){e.state='raptor-charge';e.timer=e.animT=0;e.hit=false;}
+   e.anim=enemyAttackAnimation(e);e.animDuration=1;e.animT=.05;if(e.timer>=.65){e.state='raptor-charge';e.timer=e.animT=0;e.hit=false;}
   }else if(e.state==='raptor-charge'){
    e.face=e.chargeFace;e.anim='attack';e.animDuration=.85;e.x=clamp(e.x+e.face*510*dt,35,LENGTH-35);
    if(!e.hit&&Math.abs(p.x-e.x)<65&&Math.abs(p.y-e.y)<27){e.hit=true;e.attackDamage=18;this.damagePlayer(e);}
@@ -487,6 +487,7 @@ class Game{
  }
  step(dt,input={}){
   dt=Math.min(.034,Math.max(0,dt));if(this.mode!=='play')return;const p=this.p;
+  if(this.stage===6&&(this.dukeDefeated||this.machineDefeated&&!this.enemies.some(e=>e.hp>0))){input={};p.attackBuffer=p.jumpBuffer=0;p.action=null;p.vx=p.vy=0;const fallen=this.enemies.find(e=>e.kind==='duke')||this.enemies.find(e=>e.kind==='broadcast-rig');if(fallen)p.face=sign(fallen.x-p.x);}
   // Buffers are ingested even during hitstop, so a tap cannot disappear in a freeze.
   if(input.attackPressed)p.attackBuffer=.30;if(input.jumpPressed)p.jumpBuffer=.16;
   if(input.specialPressed)this.special();

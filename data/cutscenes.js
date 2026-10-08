@@ -30,8 +30,8 @@ const scenes={
   dialogue('DUKE','I thought you might say that... Allow me to give you a little motivation...',{id:'motivation',portrait:'duke',expression:'smug',actors:openingBase,chair:true}),
   dialogue('MARTY','Dad!',{id:'marty-reveal',portrait:'marty',expression:'worried',actors:revealed,cage:cage(),curtainReveal:1,minTime:1}),
   dialogue('JAY','Marty!',{id:'father-reaction',portrait:'jay',expression:'worried',actors:revealed,cage:cage()}),
-  dialogue('DUKE',"If television can't bring the audience to us, perhaps we'll just bring the television to the audience!",{id:'activation',redButton:true,minTime:1.1,portrait:'duke',expression:'smug',actors:[revealed[0],duke(615,{animation:'v10-button'}),revealed[2],revealed[3]],cage:cage(),powered:true,sound:'swish'}),
-  {id:'second-press',redButton:true,auto:1.2,minTime:.9,actors:[revealed[0],duke(615,{animation:'v10-button'}),revealed[2],revealed[3]],cage:cage(),powered:true,sound:'heavy',flash:.14},
+  dialogue('DUKE',"If television can't bring the audience to us, perhaps we'll just bring the television to the audience!",{id:'activation',redButton:true,powerAt:.35,minTime:1.1,portrait:'duke',expression:'smug',actors:[revealed[0],duke(615,{animation:'v10-button'}),revealed[2],revealed[3]],cage:cage(),powered:true,sound:'swish'}),
+  {id:'second-press',redButton:true,soundAt:.35,flashAt:.35,auto:1.2,minTime:.9,actors:[revealed[0],duke(615,{animation:'v10-button'}),revealed[2],revealed[3]],cage:cage(),powered:true,sound:'heavy',flash:.14},
   {id:'screen-emergence',auto:4.1,minTime:3.8,actors:revealed,cage:cage(),powered:true,emissions:openingEmissions,emissionGroup:'opening-attractions',alarm:true,sound:'slam',flash:.14},
   dialogue('JAY','Hatchi Matchi!!!',{id:'hatchi-matchi',portrait:'jay',expression:'shocked',actors:[actor('jay','hero',260,318,{animation:'jump'}),duke(),boy(),revealed[3]],cage:cage(),powered:true,emissions:openingEmissions,emissionGroup:'opening-attractions'}),
   {id:'window-launch',auto:1.9,minTime:1.8,actors:[actor('jay','hero',260,318,{animation:'hurt',motion:move(260,-95,1,.35,{fromY:318,toY:135,arc:55}),rotate:-22}),actor('ally','franklin',145,318,{routes:['franklin'],animation:'jump',motion:move(145,-70,.85,.85,{fromY:318,toY:145,arc:55})}),duke(610,{animation:'walk',motion:move(610,1090,1.8)}),boy(822,{motion:move(822,1302,1.8)})],cage:cage(822,{motion:move(822,1302,1.8)}),powered:true,emissions:openingEmissions,emissionGroup:'opening-attractions',emissionActions:{'*':{advance:38,duration:1.8,animation:'walk'},'attraction-0':{advance:22,duration:.28,animation:'walk',after:.22,afterAnimation:'attack'}},brokenWindow:true,glass:true,sound:'heavy',shake:.35},
@@ -111,6 +111,8 @@ const scenes={
 const cinemaPursuit=chase('cinema-pursuit','','cinema','SERVICE EXIT / LITTLE ITALY','','');
 scenes['stage-05-intro'].shots.splice(0,1,...cinemaPursuit.shots.slice(0,2));
 scenes['stage-07-intro'].shots.push({id:'duke-to-controls',auto:1.6,minTime:1.5,actors:[hero(265,{face:1}),duke(638,{animation:'walk',motion:move(638,850,1.5)}),boy(792)],cage:cage(792),powered:true});
+for(const shot of scenes['boss-broadcast-intro'].shots)for(const a of shot.actors||[])if(a.character==='duke')a.worldY=324;
+for(const a of scenes['stage-07-intro'].shots.at(-1).actors)if(a.character==='duke')a.worldY=324;
 for(const scene of Object.values(scenes))if(scene.id!=='opening')scene.worldStage=true;
 // Expressions supplied in the revised campaign script.
 scenes['stage-02-intro'].shots[2].routeDialogue.hero.expression='smug';

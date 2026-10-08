@@ -53,7 +53,7 @@ try:server=Server((HOST,PORT),Handler)
 except OSError:
     try:
         with urllib.request.urlopen(URL+'version.json',timeout=2) as r:existing=json.load(r)
-        if existing.get('app') in (TAG,'cattown-critic-brawler-v7','cattown-critic-brawler-v6','cattown-critic-brawler-v5','cattown-critic-brawler-v2','cattown-critic-brawler-v3','cattown-critic-brawler-v4'):
+        if existing.get('app') in (TAG,'cattown-critic-brawler-v9','cattown-critic-brawler-v8','cattown-critic-brawler-v7','cattown-critic-brawler-v6','cattown-critic-brawler-v5','cattown-critic-brawler-v2','cattown-critic-brawler-v3','cattown-critic-brawler-v4'):
             print('Coming Attractions is already running. Opening the updated game.');open_browser();raise SystemExit(0)
     except (OSError,ValueError):pass
     raise SystemExit('Port 8788 is occupied by another app. Stop that app, then run again. No files or saves were deleted.')

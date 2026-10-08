@@ -22,7 +22,7 @@ with source_site(a.url) as url,sync_playwright() as pw:
    wait(page,'__brawler.scenes().active&&!__brawler.scenes().loading')
    check(route+': intro overlays actual loaded subway stage',page.evaluate("__brawler.game.stage===1&&document.querySelector('#cutscene').classList.contains('world-stage')&&getComputedStyle(document.querySelector('#cutscene')).backgroundColor==='rgba(0, 0, 0, 0)'"))
    page.wait_for_timeout(300);page.screenshot(path=str(photos/(a.engine+'-'+route+'-stage-intro.png')))
-   page.evaluate("const s=__brawler.scenes();s.index=s.shots.length-1;s._shot();");page.wait_for_timeout(300);before=page.evaluate('({x:__brawler.game.p.x,y:__brawler.game.p.y,camera:__brawler.game.camera})');page.evaluate('__brawler.scenes().advance()')
+   page.wait_for_function("!!__brawler.scenes().shot.dialogue",timeout=10000);page.wait_for_timeout(300);before=page.evaluate('({x:__brawler.game.p.x,y:__brawler.game.p.y,camera:__brawler.game.camera})');page.evaluate('__brawler.scenes().advance()')
    after=page.evaluate('({x:__brawler.game.p.x,y:__brawler.game.p.y,camera:__brawler.game.camera})')
    check(route+': dismissing dialogue does not reset player or camera',abs(after['x']-before['x'])<15 and after['y']==before['y'] and abs(after['camera']-before['camera'])<15,dict(before=before,after=after))
   page.evaluate("""()=>{const g=__brawler.game;g.stage=4;g.resetWorld();g.mode='pause';g.p.x=2100;g.camera=1820;g.activeGate=2;g.projection.disabled=true;g.spawnBoss();g.drain();const e=g.enemies[0];for(let i=0;i<400&&e.entry;i++)g.updateEntry(e,1/120);__brawler.renderer().draw(g,0);}""")

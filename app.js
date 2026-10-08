@@ -277,13 +277,14 @@ function drawWorldScene(s){
    if(m){const u=Brawler.clamp((s.time-(m.start||0))/(m.duration||1),0,1),eased=1-Math.pow(1-u,2);const wanted=start.x+(target-start.x)*eased,dx=wanted-body.x;
     body.x+=Math.sign(dx)*Math.min(Math.abs(dx),340*dt);moving=Math.abs(target-body.x)>3&&u>0;if(moving)body.face=target<body.x?-1:1;
    }else if((body.hp>0||!isBoss)&&!(isPlayer&&(s.shot.dialogue||s.shot.routeDialogue))){const dx=target-body.x;moving=Math.abs(dx)>4;if(moving){body.x+=Math.sign(dx)*Math.min(Math.abs(dx),220*dt);body.face=dx<0?-1:1;}}
+   const targetY=a.worldY??407,dy=targetY-body.y;if(Math.abs(dy)>2&&(!isBoss||body.hp>0)){body.y+=Math.sign(dy)*Math.min(Math.abs(dy),85*dt);moving=true;}
    if(moving)body.anim=who==='spike'?'v10-walk':who==='marty'?'run':isPlayer&&s.shot.id==='pursuit-entry'?'v10-run-in':m?.duration<1.6?'run':'walk';
    else{body.anim=a.animation||'idle';if(m)body.anim=isPlayer?'v10-stop':'idle';if(a.face)body.face=a.face;else if(isPlayer)body.face=1;else if(['duke','spike','pizzeria-boss','marty'].includes(who))body.face=game.p.x<body.x?-1:1;}
    if(isBoss&&body.hp<=0)body.anim=who==='duke'?'v10-defeat':'death';
    const held=['death','v10-defeat'].includes(body.anim);body.animT=held?10:s.time;body.animDuration=held?(who==='duke'?3:1.7):moving&&body.anim==='v10-run-in'?(m?.duration||1.5):0;
    if(isPlayer){body.vx=body.vy=0;body.action=null;}
   }
-  s.actorStates.push({id:a.id,character:who,x:body.x,y:body.y,animation:body.anim,visible:true,resolvedFace:body.face,faceReason:'physical-world-staging'});
+  s.actorStates.push({id:a.id,character:who,x:body.x,y:body.y,animation:body.anim,visible:true,resolvedFace:body.face,faceReason:a.motion?'motion':a.face?'explicit':a.lookAt?'lookAt':'world-continuity'});
  }
  game.storyActors=game.storyActors.filter(a=>active.has(a.id)||game.stage===6&&['marty','duke','jay'].includes(a.kind));
  const boy=game.storyActors.find(a=>a.kind==='marty');

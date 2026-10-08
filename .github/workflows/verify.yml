@@ -145,6 +145,7 @@ jobs:
             tests/v7-*-results.json
             tests/v8-*-results.json
             tests/v9-*-results.json
+            tests/v10-*-results.json
             tests/controller-*.png
             tests/screenshots-v9/
             tests/screenshots-v10/
