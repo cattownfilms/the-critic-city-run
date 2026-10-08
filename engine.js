@@ -523,7 +523,7 @@ class Game{
   const targetX=allow?nx*speed:0,targetY=allow?ny*speed*.62:0,acc=1-Math.exp(-(p.z>0?8:18)*dt);
   if(!['hurt','run-stun','knockdown'].includes(p.action?.name)){p.vx=lerp(p.vx,targetX,acc);p.vy=lerp(p.vy,targetY,acc);}p.x+=p.vx*dt;p.y+=p.vy*dt;
   this.updateJump(dt);
-  const lo=this.activeGate>=0?Math.max(35,GATES[this.activeGate]-485):35,hi=this.activeGate>=0?Math.min(LENGTH-40,GATES[this.activeGate]+495):LENGTH-45;
+  const lo=this.stage===4&&this.projection.active&&this.activeGate===2?GATES[2]-280:this.activeGate>=0?Math.max(35,GATES[this.activeGate]-485):35,hi=this.activeGate>=0?Math.min(LENGTH-40,GATES[this.activeGate]+495):LENGTH-45;
   p.x=clamp(p.x,lo,hi);p.y=clamp(p.y,YMIN,YMAX);
   if(mag>.2&&p.z===0&&!p.action){p.footT+=dt*speed/170;if(p.footT>.31){p.footT=0;this.emit('footstep');}}
   if(!p.action&&p.z===0&&p.idleT>3.2&&!p.cosmetic&&this.nearby(400).length===0){
@@ -540,7 +540,8 @@ class Game{
   if(this.activeGate<0&&this.nextGate<3&&p.x>GATES[this.nextGate]-280)this.spawnFight(this.nextGate);
   if(this.activeGate<0&&this.nextGate===3&&(p.x>LENGTH-150||STAGES[this.stage].boss&&this.bossDefeated)){this.advanceStage();}
   this.chooseAnimation(dt,mag);
-  const aim=clamp(p.x-this.viewWidth*.43+p.face*45,0,Math.max(0,LENGTH-this.viewWidth));this.camera=lerp(this.camera,aim,1-Math.exp(-5*dt));
+  const cameraMin=this.stage===4&&this.projection.active&&this.activeGate===2?Math.min(GATES[2]-315,Math.max(0,LENGTH-this.viewWidth)):0;
+  const aim=clamp(p.x-this.viewWidth*.43+p.face*45,cameraMin,Math.max(0,LENGTH-this.viewWidth));this.camera=Math.max(cameraMin,lerp(this.camera,aim,1-Math.exp(-5*dt)));
  }
  advanceStage(){
   if(this.mode!=='play'||this.settlingBoss)return;
