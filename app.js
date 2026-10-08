@@ -14,7 +14,7 @@ let profile=readStore(conf.profileKey)||{};if(typeof profile!=='object')profile=
 $('continueButton').hidden=!save;$('musicVolume').value=Math.round(settings.music*100);$('sfxVolume').value=Math.round(settings.sfx*100);$('reducedMotion').checked=settings.reducedMotion;$('vibration').checked=settings.vibration;
 function toast(s){$('toast').textContent=s;$('toast').hidden=false;clearTimeout(toast.timer);toast.timer=setTimeout(()=>$('toast').hidden=true,3500);}
 function fatal(s){$('fatal').textContent='The game could not finish loading. '+s+' Reload after the download has finished, or use the included local launcher.';$('fatal').hidden=false;}
-const cachedURLs=new Map(),rawSrc=name=>inline?inline.files[name]:(conf.assetBase+name+'?v='+encodeURIComponent(conf.version));
+const cachedURLs=new Map(),rawSrc=name=>inline?inline.files[name]:(conf.assetBase+name+'?v='+encodeURIComponent(name==='sprites.json'?(conf.build||conf.version):conf.version));
 const src=name=>cachedURLs.get(name)||rawSrc(name);
 $('titleArt').src=src('title.png');$('portrait').src=src('icon.png');
 class Input{

@@ -5,6 +5,7 @@ function cinema(){const g=new B.Game();g.start();g.stage=4;g.events=[];g.enemies
  const g=cinema();for(let phase=0;phase<3;phase++){
   g.p.x=[520,1380,2280][phase];g.camera=[200,1065,1900][phase];g.spawnFight(phase);assert.equal(g.projection.window,phase);assert.equal(g.projection.booths[phase].x,[640,1500,2450][phase]);
   g.p.x=0;g.step(.01);assert(g.p.x>=[240,1100,2000][phase]);assert(g.camera>=[205,1065,1900][phase]);
+  g.p.x=9999;for(let i=0;i<240;i++)g.step(1/120,{mx:1});assert(g.projection.booths[phase].x-g.camera>=149.99,'active booth stays visible at forward boundary');
   const score=g.score,support=g.enemies.find(e=>e.projectionSupport);assert(support);
   g.disableCircuit(phase);assert.equal(g.score,score);assert.equal(g.disableCircuit(phase),false);
   if(phase<2){assert.equal(g.activeGate,-1);assert(!g.projection.active);assert.equal(g.nextGate,phase+1);const save=g.snapshot(),h=new B.Game();h.start(save);assert.equal(h.nextGate,phase+1);assert.equal(h.projection.circuits[phase].active,false);}
@@ -29,3 +30,5 @@ for(const route of ['hero','franklin']){
  assert(running);assert.equal(g.mode,'confrontation');assert.equal(g.p.hp,100);assert.equal(g.drain().filter(e=>e.type==='story'&&e.id==='boss-broadcast-defeat').length,1);g.dukeStaged={x:2450,y:407,face:-1};g.finishDukeConfrontation();assert.equal(g.enemies[0].x,2450);assert.equal(g.enemies[0].y,407);assert(!g.storyFlags.martyRescued);assert.equal(g.snapshot().version,5);
  console.log('PASS '+route+' physical leftward run during destruction, one Duke handoff, captive Marty, schema 5');
 }
+
+{const g=cinema();g.activeGate=g.nextGate=0;g.camera=205;g.p.x=520;g.p.inv=999;g.configureProjection();for(let i=0;i<6000&&g.projection.phase!=='remote';i++){g.step(1/120,{mx:1});g.drain();}assert.equal(g.projection.phase,'remote');const remote=g.props.find(o=>o.kind==='remote'&&o.hp>0);assert(remote.flight.tx<=955);console.log('PASS holding forward cannot hide booth or place radio outside reachable arena');}

@@ -127,7 +127,7 @@ class Game{
  }
  spawnBoothCircuits(){if(this.projection.disabled)return false;this.configureProjection();return true;}
  dropRemote(circuitId){if(this.props.some(o=>o.kind==='remote'&&o.hp>0))return false;
-  const a=this.projection,c=a.circuits[circuitId],booth=a.booths[a.window]||a.booths.find(b=>b.circuitId===circuitId),x=booth.x+(a.face||1)*26,y=a.windowY-6,tx=clamp(this.p.x+85,this.camera+70,this.camera+this.viewWidth-70);this.props.push({id:50+circuitId,kind:'remote',circuitId,color:c.color,x,y:this.p.y,hp:20,maxHp:20,z:this.p.y-y,vz:0,flight:{x,y,tx,ty:this.p.y,age:0},drop:null});
+  const a=this.projection,c=a.circuits[circuitId],booth=a.booths[a.window]||a.booths.find(b=>b.circuitId===circuitId),x=booth.x+(a.face||1)*26,y=a.windowY-6,tx=clamp(this.p.x+85,Math.max(this.camera+70,GATES[Math.max(0,this.activeGate)]-220),Math.min(this.camera+this.viewWidth-70,GATES[Math.max(0,this.activeGate)]+435));this.props.push({id:50+circuitId,kind:'remote',circuitId,color:c.color,x,y:this.p.y,hp:20,maxHp:20,z:this.p.y-y,vz:0,flight:{x,y,tx,ty:this.p.y,age:0},drop:null});
   this.projection.phase='remote';this.projection.telegraph=null;this.banner='SMASH THE REMOTE';this.bannerT=3;this.emit('remoteDrop',{circuitId});return true;
  }
  configureProjection(){
@@ -543,7 +543,8 @@ class Game{
   if(this.activeGate<0&&this.nextGate===3&&(p.x>LENGTH-150||STAGES[this.stage].boss&&this.bossDefeated)){this.advanceStage();}
   this.chooseAnimation(dt,machineExit&&p.run?1:mag);
   const cameraMin=this.stage===4&&this.projection.active&&this.activeGate>=0?Math.min(Math.max(0,GATES[this.activeGate]-315),Math.max(0,LENGTH-this.viewWidth)):0;
-  const aim=clamp(p.x-this.viewWidth*.43+p.face*45,cameraMin,Math.max(0,LENGTH-this.viewWidth));this.camera=Math.max(cameraMin,lerp(this.camera,aim,1-Math.exp(-5*dt)));
+  const cameraMax=this.stage===4&&this.projection.active?Math.min(Math.max(0,LENGTH-this.viewWidth),this.projection.booths[this.activeGate].x-150):Math.max(0,LENGTH-this.viewWidth);
+  const aim=clamp(machineExit?1900:p.x-this.viewWidth*.43+p.face*45,cameraMin,cameraMax);this.camera=clamp(lerp(this.camera,aim,1-Math.exp(-5*dt)),cameraMin,cameraMax);
  }
  advanceStage(){
   if(this.mode!=='play'||this.settlingBoss)return;
