@@ -192,9 +192,9 @@ def blocks(model: dict) -> list[tuple[str, str]]:
             purpose += " Franklin’s route faces Shermometer v3 here."
         out.append(("body", f"{number}. {stage['name']}. {purpose}"))
     out.append(("body", "Final sequence: broadcast system defeated, Duke fight, Duke defeated, Marty rescued, selected player reaction, results."))
-    scenes = sorted([s for s in model["scenes"] if s["raw"]["id"] != "boss-projection-intro"],
+    scenes = sorted(model["scenes"],
                     key=lambda s: SCENE_ORDER.index(s["raw"]["id"]) if s["raw"]["id"] in SCENE_ORDER else len(SCENE_ORDER))
-    optional = [s for s in model["scenes"] if s["raw"]["id"] == "boss-projection-intro"]
+    optional = []
     for scene in scenes + optional:
         raw = scene["raw"]
         if raw["id"] == "boss-projection-intro":

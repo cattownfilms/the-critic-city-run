@@ -598,8 +598,6 @@ boss-spike-intro/jump-demonstration | Automatic advance after 30s; earliest adva
 
 No spoken dialogue.
 
-Objective: ROLLS LOW — JUMP OVER IT
-
 ## THE SERVICE ROUTE
 
 Scene boss-spike-defeat | Onscreen title: THE SERVICE ROUTE
@@ -794,9 +792,17 @@ Before the Duke fight in Stage 7, Broadcast Tower.
 
 Setting: Broadcast Tower | Music: current stage
 
-### Beat 01
+### Beat 01 face off marks
 
-boss-duke-intro/beat-01 | Player advances; earliest advance 0.8s.
+boss-duke-intro/face-off-marks | Automatic advance after 1.2s; earliest advance 1.1s.
+
+*Selected player: idle, moving in place over 1.1s; Duke: idle, moving right over 1.1s; Marty: v11 captive idle; Marty is confined in the cage.*
+
+No spoken dialogue.
+
+### Beat 02
+
+boss-duke-intro/beat-02 | Player advances; earliest advance 0.8s.
 
 *Selected player: idle; Duke: lead jab, moving left over 0.8s; Marty: v11 captive idle; Marty is confined in the cage.*
 
@@ -806,9 +812,9 @@ I own this network!
 
 Portrait: duke | Expression: angry
 
-### Beat 02
+### Beat 03
 
-boss-duke-intro/beat-02 | Player advances; earliest advance 0.22s.
+boss-duke-intro/beat-03 | Player advances; earliest advance 0.22s.
 
 *Selected player: guard; Duke: idle; Marty: v11 captive idle; Marty is confined in the cage.*
 
@@ -1094,4 +1100,4 @@ Story lines and staging are authored in data/cutscenes.js. Stage and boss trigge
 
 Use the scene and beat identifiers when returning revisions. Replace the spoken line under the appropriate route; shared lines affect both characters. The seven approved opening lines are preserved exactly.
 
-Source fingerprint: b0ef76def5163e4e
+Source fingerprint: 15ff4b701684253a

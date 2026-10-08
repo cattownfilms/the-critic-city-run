@@ -146,7 +146,7 @@ class Game{
   if(t.time>m.wind+m.duration)e.anim='idle';
   if(t.released&&q.done&&t.jumped&&this.p.z===0){t.complete=true;this.emit('spikeTutorialComplete',{character:this.playerKind});}
  }
- finishSpikeTutorial(){this.projectiles=this.projectiles.filter(q=>!q.tutorial);const t=this.spikeTutorial;if(t){t.boss.state='seek';t.boss.timer=0;t.boss.cooldown=1;t.boss.anim='idle';t.boss.animT=0;}this.spikeTutorial=null;const p=this.p;p.z=p.vz=p.vx=p.vy=p.attackBuffer=p.jumpBuffer=0;p.action=null;p.anim='idle';}
+ finishSpikeTutorial(){this.projectiles=this.projectiles.filter(q=>!q.tutorial);const t=this.spikeTutorial,e=t?.boss||this.enemies.find(e=>e.kind==='spike'&&e.hp>0);if(e){e.state='seek';e.timer=0;e.cooldown=1;e.anim='idle';e.animT=0;e.face=sign(this.p.x-e.x);this.p.face=-e.face;}this.spikeTutorial=null;const p=this.p;p.z=p.vz=p.vx=p.vy=p.attackBuffer=p.jumpBuffer=0;p.action=null;p.anim='idle';}
  launchProjectile(kind,sourceX,sourceY,targetX,targetY,damage=9,radius=32,duration=.7,circuitId=null,options={}){
   const q={id:++this.projectileId,kind,circuitId,color:circuitId===null?null:this.projection.circuits[circuitId]?.color,sourceX,sourceY,targetX,targetY,x:sourceX,y:targetY,z:targetY-sourceY,age:0,duration,damage,radius,face:sign(targetX-sourceX),bounces:0,bounce:0,phase:'flight',contacted:false,...options};this.projectiles.push(q);this.emit('projectile',{kind,circuitId,x:sourceX,y:sourceY});return q;
  }

@@ -108,7 +108,8 @@ const scenes={
   route('Now let’s find something good to watch.',"Has anyone seen the remote control?",{actors:[...endingParty(),boy(350,{animation:'idle',y:318})],caption:'MARTY IS SAFE. THE BROADCAST IS OFF. NEW YORK GETS ITS REALITY BACK.'})
  ]}
 };
-scenes['boss-spike-intro'].shots.push({id:'jump-demonstration',spikeTutorial:true,auto:30,minTime:30,objective:'ROLLS LOW — JUMP OVER IT',actors:[hero(260,{face:1}),actor('spike','spike',660,318,{face:-1,scale:1.08})]});
+scenes['boss-duke-intro'].shots.unshift({id:'face-off-marks',auto:1.2,minTime:1.1,actors:[hero(280,{motion:move(280,280,1.1),face:1}),duke(550,{motion:move(515,550,1.1),face:-1}),boy(792)],cage:cage(792)});
+scenes['boss-spike-intro'].shots.push({id:'jump-demonstration',spikeTutorial:true,auto:30,minTime:30,tutorialHint:'ROLLS LOW — JUMP OVER IT',actors:[hero(260,{face:1}),actor('spike','spike',660,318,{face:-1,scale:1.08})]});
 for(const scene of Object.values(scenes))for(const shot of scene.shots){
  if(shot.cage&&!shot.cage.open){const d=shot.actors?.find(a=>a.character==='duke'),m=shot.actors?.find(a=>a.character==='marty');if(d&&m&&(d.motion&&m.motion||scene.id==='stage-07-intro')){shot.cartCoupled=true;d.animation=d.motion?'v11-cart-push':'v11-cart-stop';m.animation='v11-captive-idle';}}
  if(scene.id==='ending')shot.reunionLayers=true;

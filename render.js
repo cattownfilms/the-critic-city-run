@@ -233,7 +233,7 @@ class Renderer{
   const x=2450-g.camera,w=660,h=150,y=175;if(x+w/2<0||x-w/2>this.rect.w)return;
   rect(c,x-w/2-18,y-15,w+36,h+28,'#572e46');rect(c,x-w/2-7,y-6,w+14,h+12,'#10192d');rect(c,x-w/2,y,w,h,'#aebccd');
   const boss=g.enemies.find(e=>e.kind==='pizzeria-boss');
-  if((!boss||boss.entry?.route==='screen'&&boss.entry.phase==='waiting')&&!g.bossDefeated){c.save();c.beginPath();c.rect(x-w/2,y,w,h);c.clip();this.sprite(c,'pizzeria-boss','screen-taunt',x,y+h+50,-1,time,0,{scale:1,loop:true,alpha:.65});c.restore();}
+  if((!boss||boss.entry?.route==='screen'&&boss.entry.phase==='waiting')&&!g.bossDefeated){c.save();c.beginPath();c.rect(x-w/2,y,w,h);c.clip();this.sprite(c,'pizzeria-boss','screen-taunt',x,y+h+8,-1,time,0,{scale:.7,loop:true,alpha:.65});c.restore();}
   if(boss?.entry?.phase==='emerge'){for(let n=0;n<14;n++){const yy=y+n*16;line(c,x-w/2,yy,x+w/2,yy,'#d8eef4',1+Math.sin(time*19+n));}}
   text(c,'PALACE CINEMA',x,y-22,16,'#eed8bc','center',800);
  }
@@ -246,7 +246,7 @@ class Renderer{
   const a=g.projection;if(!a)return;const xs=a.windowXs?.length?a.windowXs:CINEMA_BOOTHS,top=(a.windowY||92)-72,colors=['#ffc36b','#73e3e4','#c2a0ff'];
   const portrait=this.artwork('story/projection-woman-pixel.webp')||this.artwork('portraits/projectionist/talk-00.webp');
   // Wall, aperture and actor all use exactly wx-camera. Each booth stays on its wall.
-  for(let i=0;i<xs.length;i++){const wx=xs[i],x=wx-g.camera;if(a.disabled&&wx>2120&&wx<2780)continue;if(x<-85||x>this.rect.w+85)continue;const id=a.booths?.[i]?.circuitId??(i%3),circuit=a.circuits?.[id],on=!a.disabled&&(circuit?circuit.active:true),col=circuit?.color||colors[id],visible=on&&a.visible&&a.window===i;
+  for(let i=0;i<xs.length;i++){const wx=xs[i],x=wx-g.camera;if(x<-85||x>this.rect.w+85)continue;const id=a.booths?.[i]?.circuitId??(i%3),circuit=a.circuits?.[id],on=!a.disabled&&(circuit?circuit.active:true),col=circuit?.color||colors[id],visible=on&&a.visible&&a.window===i;
    c.save();
    rect(c,x-67,top-20,134,157,'#293650');rect(c,x-64,top-17,128,151,'#36445e');line(c,x-67,top-22,x+67,top-22,'#65768d',4);
    rect(c,x-57,top-4,114,124,'#182539');rect(c,x-54,top-2,108,120,'#6c7e92');rect(c,x-48,top,96,112,'#080f22');
@@ -336,7 +336,7 @@ class Renderer{
   for(const a of actors){
    if(a.type==='prop'){this.prop(c,a.o,a.o.x-g.camera,a.o.y-(a.o.z||0));continue;}
    if(a.type==='pickup'){const x=a.o.x-g.camera,y=a.o.y;const bob=settings.reducedMotion?0:Math.sin(this.time*5)*3;c.fillStyle='#192536';c.beginPath();c.ellipse(x,y+2,a.o.kind==='turkey-dinner'?24:16,5,0,0,7);c.fill();if(a.o.kind==='turkey-dinner'&&this.available('turkey-dinner','idle')){this.sprite(c,'turkey-dinner','idle',x,y+bob,1,this.time,0);text(c,'+',x,y-61+bob,16,'#a1ffd6','center');}else{rect(c,x-9,y-28+bob,18,23,'#ecceb1');rect(c,x-11,y-30+bob,22,4,'#fff0d8');rect(c,x-8,y-21+bob,16,6,'#a54e53');text(c,'+',x,y-40+bob,16,'#a1ffd6','center');}continue;}
-   const e=a.type==='hero'?g.p:a.e,x=e.x-g.camera;if(x<-220||x>r.w+220)continue;const baseSc=a.type==='hero'?1.05:(e.renderScale||Brawler.EINFO[e.kind]?.renderScale||(e.elite?1.15:1)),emerging=e.entry&&['screen','broadcast'].includes(e.entry.route)&&e.entry.phase==='emerge',entryProgress=emerging?clamp(e.entry.elapsed/(e.entry.duration||1.15),0,1):1,sc=baseSc*(emerging?(e.entryScale??(.28+.72*entryProgress)):1);let alpha=e.kind==='duke'?1:e.hp<=0?Math.max(0,1-Math.max(0,(a.type==='hero'?e.deadT:e.timer)-1.7)/.7):1;
+   const e=a.type==='hero'?g.p:a.e,x=e.x-g.camera;if(x<-220||x>r.w+220)continue;const baseSc=a.type==='hero'?1.05:(e.renderScale||Brawler.EINFO[e.kind]?.renderScale||(e.elite?1.15:1)),emerging=e.entry&&['screen','broadcast'].includes(e.entry.route)&&e.entry.phase==='emerge',entryProgress=emerging?clamp(e.entry.elapsed/(e.entry.duration||1.15),0,1):1,sc=baseSc*(emerging?(e.entryScale??(.28+.72*entryProgress)):1);let alpha=e.boss?1:e.hp<=0?Math.max(0,1-Math.max(0,(a.type==='hero'?e.deadT:e.timer)-1.7)/.7):1;
    if(e.state==='fred-tell')alpha=.35+.65*Math.abs(Math.cos(e.timer*22));
    const kind=a.type==='hero'?(g.playerKind||'hero'):e.kind,drawName=a.type==='hero'?Brawler.playerAnimation(g.playerKind,e.anim):e.anim;
    if((!e.entry||e.entry.route!=='sewer')&&!emerging)this.shadow(c,kind,drawName,x,e.y,e.face,a.type==='hero'?e.animT:e.state==='dead'?e.timer:e.animT,e.animDuration,sc,e.z||0,alpha*(a.type==='hero'?.42:.32));
@@ -358,6 +358,7 @@ class Renderer{
   if(g.storyCage)this.worldCage(c,g,true);
   this.projectionWarnings(c,g);
   for(const o of g.projectiles||[]){const x=o.x-g.camera,y=o.y-(o.z||0);c.save();c.translate(x,y-(o.kind==='trash-can'?30:0));if(o.kind==='trash-can'){if(!settings.reducedMotion)c.rotate((o.age||0)*9*(o.face||1));this.sprite(c,'trash-can','thrown',0,30,o.face||1,o.age||0,0,{scale:o.renderScale||1.08,loop:true});}else if(o.kind==='signal'){c.fillStyle='#defff1';c.beginPath();c.arc(0,0,11,0,Math.PI*2);c.fill();c.strokeStyle='#94ffe1';c.lineWidth=3;c.beginPath();c.arc(0,0,17,0,Math.PI*2);c.stroke();for(let n=0;n<4;n++){const a=n*Math.PI/2;line(c,Math.cos(a)*19,Math.sin(a)*19,Math.cos(a)*25,Math.sin(a)*25,'#d7bbff',2);}}else{if(!settings.reducedMotion)c.rotate((o.age||0)*14);this.reel(c,0,0,21,o.color||'#ffca83');}c.restore();}
+  if(g.spikeTutorial){rect(c,r.w/2-185,68,370,32,'#10223de8');text(c,'ROLLS LOW — JUMP OVER IT',r.w/2,90,17,'#f4e1b6','center',900);}
   for(const f of this.fx){f.t+=dt;const q=f.t/f.life,x=f.x-g.camera,y=f.y;c.save();c.globalAlpha=1-q;if(f.type==='hit'||f.type==='parry'||f.type==='block'){
     const rr=(f.heavy?18:11)*(1+q*1.8);c.translate(x,y);c.strokeStyle=f.color;c.lineWidth=f.heavy?4:2;for(let j=0;j<7;j++){const a=j/7*Math.PI*2;c.beginPath();c.moveTo(Math.cos(a)*rr*.5,Math.sin(a)*rr*.5);c.lineTo(Math.cos(a)*rr,Math.sin(a)*rr);c.stroke();}if(f.type==='parry')text(c,'PARRY',0,-40-q*10,14,f.color,'center',900);
    }else if(f.type==='slam'||f.type==='projectileImpact'){c.strokeStyle=f.type==='projectileImpact'?(f.kind==='reel'?'#ffcf89':'#bcf9e1'):'#ead3b7';c.lineWidth=3;c.beginPath();c.ellipse(x,y,20+q*50,4+q*8,0,0,7);c.stroke();}
