@@ -42,7 +42,7 @@ const scenes={
  'stage-04-intro':chase('stage-04-intro','THEATER DISTRICT','theater','PALACE CINEMA',"Isn't this where we saw Cats? Not the play... It was the cast eating out of the garbage.","I can say my name backward. Nilknarf!"),
  'stage4-clear':{id:'stage4-clear',title:'THE PREMIERE CONTINUES',environment:'theater',shots:[
   dialogue('FRANKLIN',"Nilknarf!",{routes:['hero'],portrait:'franklin',actors:[hero(270),actor('franklin','franklin',565)]}),
-  route("Ah the theater, where nothing is sharper than my rapier wit!","I'm not wearing pants.",{actors:[hero(270,{animation:'walk',motion:move(270,470,1.1)})]})
+  dialogue('FRANKLIN',"I'm not wearing pants.",{routes:['franklin'],portrait:'franklin',actors:[hero(270,{animation:'walk',motion:move(270,470,1.1)})]})
  ]},
  'stage-05-intro':{id:'stage-05-intro',title:'PALACE CINEMA',environment:'cinema',shots:[
   {id:'transport',auto:2,minTime:1.8,screenForeshadow:true,actors:[duke(250,{animation:'walk',motion:move(250,690,2)}),boy(360,{motion:move(360,800,2)}),hero(80,{animation:'run',motion:move(-90,185,1,.8)})],cage:cage(360,{carried:true,motion:move(360,800,2)}),destination:'SERVICE EXIT / LITTLE ITALY'},
@@ -119,6 +119,7 @@ const cinemaPursuit=chase('cinema-pursuit','','cinema','SERVICE EXIT / LITTLE IT
 // Move the existing route reaction to the screen-area encounter; retain its dialogue.
 scenes['boss-projection-intro'].shots.splice(2,0,scenes['stage-05-intro'].shots.at(-1));
 scenes['stage-05-intro'].shots=cinemaPursuit.shots.slice(0,2);
+scenes['stage-05-intro'].shots.push(dialogue('JAY','Ah the theater, where nothing is sharper than my rapier wit!',{routes:['hero'],portrait:'jay',actors:[hero(265)]}));
 scenes['stage-07-intro'].shots.push({id:'cart-release',auto:1.2,minTime:1.1,actors:[hero(265,{face:1}),duke(638,{animation:'v11-cart-release',face:1}),boy(768,{animation:'v11-worried-look'})],cage:cage(768)});
 scenes['stage-07-intro'].shots.push({id:'duke-to-controls',auto:1.6,minTime:1.5,actors:[hero(265,{face:1}),duke(638,{animation:'walk',motion:move(638,850,1.5)}),boy(792)],cage:cage(792),powered:true});
 for(const shot of scenes['boss-broadcast-intro'].shots)for(const a of shot.actors||[])if(a.character==='duke')a.worldY=324;

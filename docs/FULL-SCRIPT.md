@@ -336,17 +336,11 @@ Portrait: franklin | Expression: neutral
 
 ### Beat 02
 
-stage4-clear/beat-02 | Player advances; earliest advance 0.22s.
+stage4-clear/beat-02 | Player advances; earliest advance 0.22s. | Franklin route only
 
 *Selected player: walk, moving right over 1.1s.*
 
-**JAY / Jay route**
-
-Ah the theater, where nothing is sharper than my rapier wit!
-
-Portrait: jay | Expression: neutral
-
-**FRANKLIN / Franklin route**
+**FRANKLIN**
 
 I'm not wearing pants.
 
@@ -377,6 +371,18 @@ stage-05-intro/pursuit-entry | Automatic advance after 1.55s; earliest advance 1
 *Selected player: v10 run in, moving right over 1.5s, then v10 stop after 1.35s.*
 
 No spoken dialogue.
+
+### Beat 03
+
+stage-05-intro/beat-03 | Player advances; earliest advance 0.22s. | Jay route only
+
+*Selected player: idle.*
+
+**JAY**
+
+Ah the theater, where nothing is sharper than my rapier wit!
+
+Portrait: jay | Expression: neutral
 
 ## Projection booth encounter introduction
 
@@ -1128,4 +1134,4 @@ Story lines and staging are authored in data/cutscenes.js. Stage and boss trigge
 
 Use the scene and beat identifiers when returning revisions. Replace the spoken line under the appropriate route; shared lines affect both characters. The seven approved opening lines are preserved exactly.
 
-Source fingerprint: 674c9c4788439716
+Source fingerprint: 6b158c54edf1ab63

@@ -19,7 +19,7 @@ function fixture(windowOverride={}) {
   }
   const music = Object.fromEntries(['title', 'broadway', 'subway', 'cinema', 'final'].map(k => [k, { file: k + '.mp3' }]));
   const settings = { music: .5, sfx: .7 };
-  const ctx = { Audio, settings, conf: { music }, cachedURLs: new Map(Object.values(music).map(x => [x.file, 'blob:' + x.file])), src: n => 'blob:' + n, window: windowOverride, stageMusic: () => 'broadway', toast() {}, performance: { now: () => 1000 } };
+  const ctx = { setTimeout, clearTimeout, Audio, settings, conf: { music }, cachedURLs: new Map(Object.values(music).map(x => [x.file, 'blob:' + x.file])), src: n => 'blob:' + n, window: windowOverride, stageMusic: () => 'broadway', toast() {}, performance: { now: () => 1000 } };
   const System = vm.runInNewContext(code + '\nAudioSystem', ctx);
   return { audio: new System(), nodes, settings, keys: Object.keys(music) };
 }
@@ -96,6 +96,24 @@ async function check(name, fn) {
     failed.error={code:4};failed.pause();audio.lastBlocked='NotSupportedError';audio.gesture();await new Promise(setImmediate);
     assert.notEqual(audio.music,failed);assert.equal(audio.music.src,'blob:title.mp3');assert.equal(audio.music.paused,false);
     const recovered=audio.music;audio.music.readyState=0;audio.lastBlocked='still preparing';audio.toggle();assert.equal(audio.muted,false);audio.gesture();await new Promise(setImmediate);assert.equal(audio.music,recovered);
+  });
+  await check('Early unlock, delayed WAV arrival and failed decode recover all thirteen buffers without duplicate jobs',async()=>{
+    let calls=0,starts=0,fail=true;class Context {
+      constructor(){this.state='suspended';this.destination={};}
+      createGain(){return {gain:{value:0},connect(){},disconnect(){}};}
+      createDynamicsCompressor(){return {threshold:{},knee:{},ratio:{},connect(){}};}
+      resume(){this.state='running';return Promise.resolve();}
+      decodeAudioData(){calls++;if(fail){fail=false;return Promise.reject(new Error('temporary decoder interruption'));}return Promise.resolve({duration:1});}
+      createBufferSource(){return {playbackRate:{},connect(){},disconnect(){},start(){starts++;},stop(){this.onended?.();}};}
+    }
+    const {audio,settings}=fixture({AudioContext:Context});await audio.unlock();await audio.ready;assert(!audio.loaded);assert.equal(audio.lastSfx.reason,'bytes-not-ready');
+    for(const name of audio.cueNames)audio.bytes.set(name+'.wav',new ArrayBuffer(8));
+    await audio.unlock();await audio.ready;assert.equal(Object.keys(audio.buffers).length,12);await audio.unlock();await audio.ready;assert(audio.loaded);assert.equal(calls,14);
+    audio.gesture();audio.gesture();await audio.ready;assert.equal(calls,14);
+    for(const name of audio.cueNames){audio.active.clear();assert(audio.sample(name));}assert.equal(starts,13);
+    audio.ctx.state='interrupted';await audio.unlock();assert.equal(audio.ctx.state,'running');audio.active.clear();assert(audio.sample('hit'));
+    settings.sfx=0;assert(!audio.sample('hit'));assert.equal(audio.lastSfx.reason,'effects-volume-zero');settings.sfx=.7;audio.muted=true;assert(!audio.sample('hit'));assert.equal(audio.lastSfx.reason,'muted');audio.muted=false;
+    audio.pause();assert.equal(audio.active.size,0);assert(audio.sample('step1'));assert(!audio.sample('unknown'));assert.equal(audio.lastSfx.reason,'unknown-cue');
   });
   const report = { tests: results, passed: results.filter(x => x.passed).length, failed: results.filter(x => !x.passed).length, boundary: 'Actual AudioSystem class; synthetic native media/promise fixtures. Native browser validation remains required.' };
   fs.writeFileSync(path.join(__dirname, 'audio-lifecycle-results.json'), JSON.stringify(report, null, 2) + '\n');

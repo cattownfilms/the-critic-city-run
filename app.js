@@ -44,8 +44,33 @@ class Input{
 }
 class AudioSystem{
  constructor(){this.music=new Audio();this.music.loop=true;this.music.preload='none';this.music.volume=settings.music;this.trackKey='title';this.musicNodes=new Map([['title',this.music]]);this.outgoing=null;this.fade=1;this.wantMusic=false;this.musicSerial=0;this.ctx=null;this.buffers={};this.bytes=new Map();this.active=new Set();this.loaded=false;this.ready=null;this.muted=false;this.lastVoice=-9;this.duck=0;this.played={};this.errors=[];this.cueNames=['swish','backhand','bear-call','bear-hit','hit','heavy','hippo-hit','slam','step1','step2','elder-strike','elder-hit','fall'];}
- async unlock(){if(!window.AudioContext&&!window.webkitAudioContext)return;try{if(!this.ctx){this.ctx=new (window.AudioContext||window.webkitAudioContext)();this.bus=this.ctx.createGain();this.bus.gain.value=settings.sfx;const comp=this.ctx.createDynamicsCompressor();comp.threshold.value=-14;comp.knee.value=20;comp.ratio.value=4;this.bus.connect(comp);comp.connect(this.ctx.destination);this.ready=this.decode();}if(this.ctx.state==='suspended'||this.ctx.state==='interrupted'){if(!this.resuming)this.resuming=this.ctx.resume();const pending=this.resuming;try{await pending;}finally{if(this.resuming===pending)this.resuming=null;}}}catch(e){this.errors.push(String(e));}}
- async decode(){const load=async name=>{const data=this.bytes.get(name+'.wav');if(!data||this.buffers[name])return;try{this.buffers[name]=await this.ctx.decodeAudioData(data.slice(0));}catch(e){this.errors.push(name+': '+e);}};await Promise.all(this.cueNames.map(load));this.loaded=Object.keys(this.buffers).length===this.cueNames.length;}
+ sfxStatus(reason,cue){this.lastSfx={reason,cue:cue||null,context:this.ctx?.state||'absent',decoded:Object.keys(this.buffers).length,total:this.cueNames.length};return false;}
+ async unlock(){
+  if(!window.AudioContext&&!window.webkitAudioContext)return this.sfxStatus('web-audio-unavailable');
+  try{
+   if(!this.ctx||this.ctx.state==='closed'){
+    this.ctx=new (window.AudioContext||window.webkitAudioContext)();this.bus=this.ctx.createGain();this.bus.gain.value=this.muted?0:settings.sfx;
+    this.compressor=this.ctx.createDynamicsCompressor();this.compressor.threshold.value=-14;this.compressor.knee.value=20;this.compressor.ratio.value=4;this.bus.connect(this.compressor);this.compressor.connect(this.ctx.destination);
+    this.resuming=null;this.decoding=new Map();this.ctx.onstatechange=()=>{if(this.ctx.state!=='running')this.sfxStatus('context-'+this.ctx.state);};
+   }
+   // Resume in the trusted event, before any await or deferred decode work.
+   if(['suspended','interrupted'].includes(this.ctx.state)&&(!this.resuming||performance.now()-this.resumeAt>1500)){
+    this.resumeAt=performance.now();const pending=this.ctx.resume();this.resuming=pending;
+    Promise.resolve(pending).catch(e=>{this.errors.push('SFX resume: '+e);this.sfxStatus('resume-rejected');}).finally(()=>{if(this.resuming===pending)this.resuming=null;});
+   }
+   this.ready=this.decode();
+  }catch(e){this.errors.push('SFX context: '+e);this.sfxStatus('context-error');}
+ }
+ async decode(){
+  const ctx=this.ctx;if(!ctx||ctx.state==='closed')return false;this.decoding=this.decoding||new Map();
+  const load=name=>{
+   if(this.buffers[name])return;const data=this.bytes.get(name+'.wav');if(!data){this.sfxStatus('bytes-not-ready',name);return;}
+   if(this.decoding.has(name))return this.decoding.get(name);
+   let timeout;const job=Promise.race([Promise.resolve().then(()=>ctx.decodeAudioData(data.slice(0))),new Promise((_,reject)=>{timeout=setTimeout(()=>reject(new Error('decode timeout')),6000);})]).then(buffer=>{if(this.ctx===ctx)this.buffers[name]=buffer;}).catch(e=>{this.errors.push(name+': '+e);this.errors=this.errors.slice(-20);this.sfxStatus('decode-failed',name);}).finally(()=>{clearTimeout(timeout);if(this.decoding.get(name)===job)this.decoding.delete(name);});
+   this.decoding.set(name,job);return job;
+  };
+  await Promise.all(this.cueNames.map(load));this.loaded=this.cueNames.every(name=>!!this.buffers[name]);if(this.loaded)this.sfxStatus('ready');return this.loaded;
+ }
  chooseTrack(key){
   key=conf.music[key]?key:'title';const item=conf.music[key];if(key===this.trackKey){if(!this.music.getAttribute('src')&&cachedURLs.has(item.file))this.music.src=src(item.file);return;}
   if(!cachedURLs.has(item.file))return;
@@ -89,7 +114,16 @@ class AudioSystem{
   try{const pending=node.play();await pending;this.lastBlocked=null;if(!this.wantMusic||node!==this.music||this.muted)node.pause();}
   catch(e){if(this.wantMusic&&serial===this.musicSerial){this.lastBlocked=String(e);this.errors.push('music: '+e);toast('Tap the sound button to enable audio.');}}
  }
- sample(name,vol=.65,rate=1){if(this.muted||!this.ctx||this.ctx.state!=='running'||!this.buffers[name]||this.active.size>=10)return;const b=this.ctx.createBufferSource(),g=this.ctx.createGain();b.buffer=this.buffers[name];b.playbackRate.value=rate;g.gain.value=vol;b.connect(g);g.connect(this.bus);this.bus.gain.value=settings.sfx;b.start();this.active.add(b);this.played[name]=(this.played[name]||0)+1;b.onended=()=>{this.active.delete(b);b.disconnect();g.disconnect();};}
+ sample(name,vol=.65,rate=1){
+  if(this.muted)return this.sfxStatus('muted',name);if(settings.sfx<=0)return this.sfxStatus('effects-volume-zero',name);
+  if(!this.ctx||this.ctx.state!=='running'){this.unlock();return this.sfxStatus('context-not-running',name);}
+  if(!this.cueNames.includes(name))return this.sfxStatus('unknown-cue',name);
+  if(!this.buffers[name]){this.ready=this.decode();return this.sfxStatus('buffer-not-ready',name);}
+  if(this.active.size>=10)return this.sfxStatus('voice-limit',name);
+  try{const b=this.ctx.createBufferSource(),g=this.ctx.createGain();b.buffer=this.buffers[name];b.playbackRate.value=rate;g.gain.value=vol;b.connect(g);g.connect(this.bus);this.bus.gain.value=settings.sfx;
+   b.onended=()=>{this.active.delete(b);b.disconnect();g.disconnect();};b.start();this.active.add(b);this.played[name]=(this.played[name]||0)+1;this.sfxStatus('playing',name);return true;
+  }catch(e){this.errors.push('SFX play: '+e);return this.sfxStatus('source-start-failed',name);}
+ }
  event(e){if(e.type==='swing')this.sample(e.sound,.22,1.05);if(e.type==='hit'){this.sample(e.sound,.72,.94+Math.random()*.12);this.duck=.18;}
   if(e.type==='footstep')this.sample(Math.random()<.5?'step1':'step2',.13,.95+Math.random()*.12);if(e.type==='land'||e.type==='entryLand')this.sample('step2',.23,.9);if(e.type==='jump')this.sample('swish',.10,1.3);
   if(e.type==='enemySwing'){this.sample(e.kind==='franklin'?'elder-strike':'backhand',.23,1);}
