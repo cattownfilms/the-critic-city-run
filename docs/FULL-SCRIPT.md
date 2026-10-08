@@ -180,9 +180,9 @@ Setting: Last Train Uptown | Music: current stage
 
 ### Beat 01 transport
 
-stage-02-intro/transport | Automatic advance after 2.4s; earliest advance 2.3s.
+stage-02-intro/transport | Automatic advance after 3.6s; earliest advance 3.5s.
 
-*Duke: walk, moving right over 2.3s; Marty: scared idle, moving right over 2.3s; Duke transports Marty’s closed cage.*
+*Duke: walk, moving right over 3.5s; Marty: scared idle, moving right over 3.5s; Duke transports Marty’s closed cage.*
 
 No spoken dialogue.
 
@@ -228,9 +228,9 @@ Setting: Above the Avenue | Music: current stage
 
 ### Beat 01 transport
 
-stage-03-intro/transport | Automatic advance after 2.4s; earliest advance 2.3s.
+stage-03-intro/transport | Automatic advance after 3.6s; earliest advance 3.5s.
 
-*Duke: walk, moving right over 2.3s; Marty: scared idle, moving right over 2.3s; Duke transports Marty’s closed cage.*
+*Duke: walk, moving right over 3.5s; Marty: scared idle, moving right over 3.5s; Duke transports Marty’s closed cage.*
 
 No spoken dialogue.
 
@@ -276,9 +276,9 @@ Setting: Theater District | Music: current stage
 
 ### Beat 01 transport
 
-stage-04-intro/transport | Automatic advance after 2.4s; earliest advance 2.3s.
+stage-04-intro/transport | Automatic advance after 3.6s; earliest advance 3.5s.
 
-*Duke: walk, moving right over 2.3s; Marty: scared idle, moving right over 2.3s; Duke transports Marty’s closed cage.*
+*Duke: walk, moving right over 3.5s; Marty: scared idle, moving right over 3.5s; Duke transports Marty’s closed cage.*
 
 No spoken dialogue.
 
@@ -362,9 +362,9 @@ Setting: Palace Cinema | Music: current stage
 
 ### Beat 01 transport
 
-stage-05-intro/transport | Automatic advance after 2.4s; earliest advance 2.3s.
+stage-05-intro/transport | Automatic advance after 3.6s; earliest advance 3.5s.
 
-*Duke: walk, moving right over 2.3s; Marty: scared idle, moving right over 2.3s; Duke transports Marty’s closed cage.*
+*Duke: walk, moving right over 3.5s; Marty: scared idle, moving right over 3.5s; Duke transports Marty’s closed cage.*
 
 No spoken dialogue.
 
@@ -546,9 +546,9 @@ Setting: Little Italy pizzeria | Music: current stage
 
 ### Beat 01 transport
 
-stage-06-intro/transport | Automatic advance after 2.4s; earliest advance 2.3s.
+stage-06-intro/transport | Automatic advance after 3.6s; earliest advance 3.5s.
 
-*Duke: walk, moving right over 2.3s; Marty: scared idle, moving right over 2.3s; Duke transports Marty’s closed cage.*
+*Duke: walk, moving right over 3.5s; Marty: scared idle, moving right over 3.5s; Duke transports Marty’s closed cage.*
 
 No spoken dialogue.
 
@@ -1116,4 +1116,4 @@ Story lines and staging are authored in data/cutscenes.js. Stage and boss trigge
 
 Use the scene and beat identifiers when returning revisions. Replace the spoken line under the appropriate route; shared lines affect both characters. The seven approved opening lines are preserved exactly.
 
-Source fingerprint: 09440a0985f6d47f
+Source fingerprint: 2f3d4c0c0c795b46

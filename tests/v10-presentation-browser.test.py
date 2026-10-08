@@ -38,6 +38,8 @@ with source_site(a.url) as url,sync_playwright() as pw:
   for route in ['hero','franklin']:
    page.evaluate("""route=>{const g=__brawler.game;g.franklinUnlocked=true;g.start(null,route);g.stage=0;g.nextGate=3;g.activeGate=-1;g.advanceStage();g.finishStageClear();for(const e of g.drain())__brawler.handleEvent(e);}""",route)
    page.wait_for_function('__brawler.scenes().active&&!__brawler.scenes().loading',timeout=60000)
+   departed=page.evaluate("""async()=>{let last=null;while(__brawler.scenes().shot.id==='transport'){const s=__brawler.scenes(),d=s.actorStates.find(a=>a.id==='duke');if(d)last={x:d.x,camera:__brawler.game.camera,width:__brawler.renderer().rect.w};await new Promise(r=>setTimeout(r,80));}return last;}""")
+   check(route+': Duke leaves the visible stage before pursuit begins',departed and departed['x']>departed['camera']+departed['width']+50,departed)
    page.wait_for_function("__brawler.scenes().shot.id==='pursuit-entry'",timeout=10000)
    positions=[]
    for _ in range(12):positions.append(page.evaluate('__brawler.game.p.x'));page.wait_for_timeout(120)
@@ -62,7 +64,8 @@ with source_site(a.url) as url,sync_playwright() as pw:
   for route in ['hero','franklin']:
    page.evaluate("""route=>{const g=__brawler.game;g.playerKind=route;g.stage=6;g.resetWorld();g.p.x=2220;g.p.y=407;g.camera=1820;g.storyCage={x:2620,y:407,open:false};g.storyActors=[{id:'marty',kind:'marty',x:2620,y:407,face:-1,anim:'trapped',animT:0,renderScale:.92}];__brawler.scenes().play(CriticCutscenes.scenes.ending,()=>{});}""",route)
    page.wait_for_function('__brawler.scenes().active&&!__brawler.scenes().loading',timeout=60000)
-   page.wait_for_timeout(2300)
+   travel=page.evaluate("""async()=>{const xs=[];for(let i=0;i<46;i++){xs.push(__brawler.game.storyActors.find(a=>a.kind==='marty').x);await new Promise(r=>setTimeout(r,50));}return xs;}""")
+   check(route+': rescue never overshoots or reverses away from the reunion mark',all(y<=x+.75 for x,y in zip(travel,travel[1:])),travel)
    value=page.evaluate("""()=>{const g=__brawler.game,m=g.storyActors.find(a=>a.kind==='marty'),father=g.playerKind==='hero'?g.p:g.storyActors.find(a=>a.id==='jay');return {distance:m.x-father.x,martyFace:m.face,fatherFace:father.face,cage:g.storyCage.x,marty:m.x};}""")
    check(route+': Marty stops beside Jay while the opened cart remains at its known position',abs(value['distance']-70)<5 and value['martyFace']==-1 and value['fatherFace']==1 and value['cage']==2620,value)
    page.screenshot(path=str(photos/f'{a.engine}-{route}-rescue.png'));skip_story(page)

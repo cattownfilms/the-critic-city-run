@@ -19,7 +19,7 @@ const openingEmissions=cast.map((character,i)=>{const f=openingFormation[i];retu
 const openingBase=[actor('jay','hero',260,318,{image:'cutscenes/jay-seated.webp',imageHeight:224,imagePivot:{x:128,y:208}}),duke(610),actor('ally','franklin',145,318,{routes:['franklin'],face:1,scale:.96})];
 const revealed=[actor('jay','hero',270,318,{animation:'hurt'}),duke(610),boy(822,{lookAt:'jay'}),actor('ally','franklin',145,318,{routes:['franklin'],face:1,scale:.96})];
 const chase=(id,title,environment,destination,jay,franklin)=>({id,title,environment,destination,shots:[
- {id:'transport',auto:2.4,minTime:2.3,actors:[duke(250,{animation:'walk',motion:move(250,1080,2.3)}),boy(360,{motion:move(360,1190,2.3)})],cage:cage(360,{carried:true,motion:move(360,1190,2.3)}),destination},
+ {id:'transport',auto:3.6,minTime:3.5,actors:[duke(250,{animation:'walk',motion:move(250,1080,3.5)}),boy(360,{motion:move(360,1190,3.5)})],cage:cage(360,{carried:true,motion:move(360,1190,3.5)}),destination},
  {id:'pursuit-entry',auto:1.55,minTime:1.5,actors:[hero(-110,{animation:'v10-run-in',motion:move(-110,285,1.5),afterAnimation:'v10-stop',after:1.35})]},
  route(jay,franklin,{actors:[hero(285,{animation:'v10-point',face:1})]})
  ]});

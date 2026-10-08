@@ -243,7 +243,7 @@ async function pumpScenes(){
 function beginWorldScene(scene){
  if(!scene.worldStage)return;
  game.storyActors=game.storyActors||[];game.sceneClock=0;
- scene.worldOrigin=game.camera;scene.worldScale=Math.min(1,renderer.rect.w/960);
+ scene.worldOrigin=game.camera;scene.worldScale=renderer.rect.w/960;
  if(scene.id.startsWith('stage-')){game.p.x=scene.worldOrigin-110;game.p.vx=game.p.vy=0;game.p.action=null;}
 }
 function finishWorldScene(scene,skipped){
@@ -272,9 +272,9 @@ function drawWorldScene(s){
    const start=s.worldActors.get(key),m=a.motion;let target=map(m?.toX??a.x),moving=false;
    // Marty’s rescue destination is the actual father, never a delta from a reset pose.
    if(who==='marty'&&s.scene.id==='ending'){
-    const father=game.playerKind==='hero'?game.p:game.storyActors.find(e=>e.id==='jay');if(father)target=father.x+70;
+    const father=game.playerKind==='hero'?game.p:game.storyActors.find(e=>e.id==='jay'),mark=s.shot.actors?.find(q=>q.id===(game.playerKind==='hero'?'player':'jay'));if(father)target=(m&&mark?map(mark.motion?.toX??mark.x):father.x)+70;
    }
-   if(m){const u=Brawler.clamp((s.time-(m.start||0))/(m.duration||1),0,1),eased=1-Math.pow(1-u,2);const wanted=start.x+(target-start.x)*eased,dx=wanted-body.x;
+   if(m){const u=Brawler.clamp((s.time-(m.start||0))/(m.duration||1),0,1),eased=isPlayer||who==='marty'&&s.scene.id==='ending'?1-Math.pow(1-u,2):u;const wanted=start.x+(target-start.x)*eased,dx=wanted-body.x;
     body.x+=Math.sign(dx)*Math.min(Math.abs(dx),340*dt);moving=Math.abs(target-body.x)>3&&u>0;if(moving)body.face=target<body.x?-1:1;
    }else if((body.hp>0||!isBoss)&&!(isPlayer&&(s.shot.dialogue||s.shot.routeDialogue))){const dx=target-body.x;moving=Math.abs(dx)>4;if(moving){body.x+=Math.sign(dx)*Math.min(Math.abs(dx),220*dt);body.face=dx<0?-1:1;}}
    const targetY=a.worldY??407,dy=targetY-body.y;if(Math.abs(dy)>2&&(!isBoss||body.hp>0)){body.y+=Math.sign(dy)*Math.min(Math.abs(dy),85*dt);moving=true;}
