@@ -3,7 +3,7 @@ from pathlib import Path
 import base64,gzip,hashlib,sys
 html=Path(sys.argv[1]).read_bytes();out=Path(sys.argv[2]);sha=hashlib.sha256(html).hexdigest()
 header='''#!/usr/bin/env bash
-# THE CRITIC: COMING ATTRACTIONS v9.0. Offline game, local browser launcher.
+# THE CRITIC: COMING ATTRACTIONS v10.0. Offline game, local browser launcher.
 # The embedded game is extracted only when you run this script.
 set -euo pipefail
 PYTHON="$(command -v python3 || command -v python || true)"
@@ -14,7 +14,7 @@ fi
 "$PYTHON" - "$0" <<'PYGAME'
 from pathlib import Path
 import base64,gzip,hashlib,http.server,json,os,subprocess,sys,urllib.request
-MARKER=b"\\n__CRITIC_EMBEDDED_BRAWLER_V9__\\n"
+MARKER=b"\\n__CRITIC_EMBEDDED_BRAWLER_V10__\\n"
 raw=Path(sys.argv[1]).read_bytes().split(MARKER,1)[1]
 html=gzip.decompress(base64.b64decode(raw))
 EXPECTED="__SHA256__"
@@ -23,10 +23,10 @@ if hashlib.sha256(html).hexdigest()!=EXPECTED:
 app=Path.home()/'.local/share/cattown/critic-brawler';app.mkdir(parents=True,exist_ok=True)
 f=app/'index.html';tmp=app/'index.html.tmp'
 if f.exists() and f.read_bytes()!=html:
-    backup=app/'index-before-v9.html'
+    backup=app/'index-before-v10.html'
     if not backup.exists():backup.write_bytes(f.read_bytes())
 tmp.write_bytes(html);tmp.replace(f)
-HOST='127.0.0.1';PORT=8788;URL=f'http://{HOST}:{PORT}/';TAG='cattown-critic-brawler-v9'
+HOST='127.0.0.1';PORT=8788;URL=f'http://{HOST}:{PORT}/';TAG='cattown-critic-brawler-v10'
 def open_browser():
     if os.environ.get('CRITIC_NO_BROWSER')=='1':return
     for cmd in (['termux-open-url',URL],['am','start','-a','android.intent.action.VIEW','-d',URL],['xdg-open',URL]):
@@ -41,7 +41,7 @@ class Handler(http.server.BaseHTTPRequestHandler):
         if path in ('/','/index.html'):
             data=f.read_bytes();mime='text/html; charset=utf-8'
         elif path=='/version.json':
-            data=json.dumps({'app':TAG,'version':'8.0','sha256':hashlib.sha256(f.read_bytes()).hexdigest()}).encode();mime='application/json'
+            data=json.dumps({'app':TAG,'version':'10.0.0','sha256':hashlib.sha256(f.read_bytes()).hexdigest()}).encode();mime='application/json'
         elif path=='/favicon.ico':
             self.send_response(204);self.end_headers();return
         else:
@@ -53,7 +53,7 @@ try:server=Server((HOST,PORT),Handler)
 except OSError:
     try:
         with urllib.request.urlopen(URL+'version.json',timeout=2) as r:existing=json.load(r)
-        if existing.get('app') in (TAG,'cattown-critic-brawler-v7','cattown-critic-brawler-v6','cattown-critic-brawler-v5','cattown-critic-brawler-v2','cattown-critic-brawler-v3','cattown-critic-brawler-v4'):
+        if existing.get('app') in (TAG,'cattown-critic-brawler-v9','cattown-critic-brawler-v8','cattown-critic-brawler-v7','cattown-critic-brawler-v6','cattown-critic-brawler-v5','cattown-critic-brawler-v2','cattown-critic-brawler-v3','cattown-critic-brawler-v4'):
             print('Coming Attractions is already running. Opening the updated game.');open_browser();raise SystemExit(0)
     except (OSError,ValueError):pass
     raise SystemExit('Port 8788 is occupied by another app. Stop that app, then run again. No files or saves were deleted.')
@@ -68,6 +68,6 @@ except KeyboardInterrupt:print('\\nComing Attractions launcher stopped. Your bro
 finally:server.server_close()
 PYGAME
 exit 0
-__CRITIC_EMBEDDED_BRAWLER_V9__
+__CRITIC_EMBEDDED_BRAWLER_V10__
 '''.replace('__SHA256__',sha)
 encoded=base64.encodebytes(gzip.compress(html,compresslevel=9)).decode();out.write_text(header+encoded);out.chmod(0o755);print(out,out.stat().st_size)

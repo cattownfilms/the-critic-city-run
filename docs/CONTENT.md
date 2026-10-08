@@ -77,3 +77,8 @@ Runtime atlases retain their dependency-group organization for provenance, but t
 ## v9 mechanics
 
 Projection: three reels then one remote per surviving circuit; legacy circuit flags retain their meaning. Broadcast: waves of 2, 3 and 4, then a seven-second exposed core window per round. Core damage is capped at one-third per round; a missed window repeats that round. Existing living enemies never disappear on shutdown. Boss health is unchanged except the environmental core is 300; pressure comes from contextual decisions and recovery, not health inflation.
+
+
+## V10 encounter definitions
+
+Raptor: physical flank, .65-second tell, committed charge, miss recovery, one simultaneous signature charge. Fred K alone teleports: .65-second tell, .5-second absent state, safe 135-unit offset, .6-second reappearance tell, claw and .85-second recovery. Projection: 1.15-second eyes, 3/4/5 reels, visible radio arc, two supports rising to three. Broadcast: rail travel → shielded wave/locked laser → 1.1-second crash → nine-second vulnerability or one-third HP budget → rise; three rounds; four-second final failure. Duke pools expand at 65%/35%, seven physical moves, dedicated 3.5-second defeat gate. Save schema remains 5.

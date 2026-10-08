@@ -1,3 +1,14 @@
+# v10.0.0 — post-v9 production pass
+
+- Appended 25 reviewed source performances; existing animation libraries and all audio remain intact.
+- Raptor flank/charge and Fred K teleport identities.
+- Projectionist facing, eyes timing, booth spacing, escalating reels, visible thrown radios and bounded support.
+- Physical pursuit/staging, wheeled cage, responsive dialogue and direct father-targeted rescue.
+- Mobile rail transmitter, locked laser, crash/vulnerability rounds and four-second destruction.
+- Expanded phased Duke attacks, physical retreat and dedicated defeat.
+- Save schema 5 and stable browser/localhost storage keys retained.
+- Verified native audio, both routes, responsive dialogue and v9-to-v10 launcher reuse; exact source CI and phone-testing boundaries are in docs/VALIDATION.md.
+
 # v9.0.0 — gameplay and playtest correction pass
 
 - Trusted-gesture music/SFX unlock, per-element preparation and partial-settings defaults.

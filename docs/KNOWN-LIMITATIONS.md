@@ -1,3 +1,13 @@
+# V10 verification boundaries
+
+- Core and all three browser engines passed [the source validation run](https://github.com/cattownfilms/the-critic-city-run/actions/runs/37710897264); public deployment is a separate post-merge gate recorded in the external receipt.
+- Physical Android audio, multitouch and Logitech hardware are not automatically verified.
+- Supplemental Duke source was found as `df8d7ed2-e798-410c-bdfb-ba0966676917.mp4`, not the prompt’s `...b917.mp4`; provenance preserves the actual name/hash. No original was renamed.
+- Source performance review cannot establish subjective combat feel; use the release’s phone smoke checklist.
+- All supplied songs/SFX and old banks are preserved; v10 adds lossless supplemental atlases and retains the large-library startup model.
+
+## Historical v9 boundaries
+
 # V9 verification boundaries
 
 - Core, Chromium, Firefox and WebKit passed the documented source run. Native playback clocks and the SFX signal are verified, not audible physical Android output. A Firefox/WebKit virtual audio sink is CI infrastructure only.

@@ -1,3 +1,19 @@
+# V10 validation
+
+Version **10.0.0**, continued from released v9 `ba087d21a1699ffec1fd923d17a18b796ae37ab6`. Eleven local JavaScript suites pass, including both seven-stage routes through normal combat inputs, source audio lifecycle, controller contracts, saves and v10 encounter state machines. Core, Chromium, Firefox and WebKit passed [source run](https://github.com/cattownfilms/the-critic-city-run/actions/runs/37710897264) at `28c22162e361efe0384014687f9669e6f923c71a`. WebKit includes three independent campaign/loading repetitions; Chromium also tests the offline edition. Post-merge hosted verification is recorded separately in the external release receipt.
+
+Supplemental intake: all four actual files, 10.005 seconds / 1280×720 / 24 fps / 240 frames each, were hashed and reviewed in full chronological sheets. The requested Duke filename ends `b917`; the actual matching Duke file ends `6917`. The discrepancy, exact hashes, selections, cleanup, scales, pivots and flips are recorded in `production/v10-assets.json`. Raw MP4s remain outside the repository.
+
+New tests: `node tests/v10-engine.test.js`, `python tests/v10-assets.test.py`, `python tests/v10-presentation-browser.test.py --engine <chromium|firefox|webkit> --url local`. Existing native browser audio and full-campaign suites remain required. The remote browser matrix supplies real engines; no desktop browser is installed into Termux.
+
+Local commands also passed: `python tests/site.test.py`, `python tests/production-assets.test.py`, `python tests/v10-assets.test.py`, `python tests/publish.test.py`, `python tools/export_script.py --check`, `python tools/publish.py --check-only`, `python tests/launcher.test.py` (8), and `python tests/upgrade-launcher.test.py` (10). The latter uses an isolated actual v9 installation, preserves the old HTML and file sentinels, and reuses its port-8788 server. Standalone parity covers eleven scripts/styles and 184 embedded runtime files.
+
+All 142 authored dialogue/layout cases pass at each of 915×412, 360×800, 1280×720 and 640×360. Runtime screenshots were inspected for opening, pursuit, cinema, radio throw, Broadcast and both-route rescue. Supplemental review covers all 960 original frames and the final extracted action sheets.
+
+Physical Android speaker output, touch/controller feel and subjective difficulty remain unverified until the phone smoke test.
+
+## Historical v9 evidence
+
 # V9 validation
 
 Version **9.0.0**, based on released v8 `51f1131163edbccc28390d00d766bb348327da30`.

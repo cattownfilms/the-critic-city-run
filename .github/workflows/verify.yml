@@ -39,9 +39,11 @@ jobs:
           node tests/cutscenes-v7.test.js
           node tests/audio-lifecycle.test.js
           node tests/v9-engine.test.js
+          node tests/v10-engine.test.js
           python tests/publish.test.py
           python tests/site.test.py
           python tests/production-assets.test.py
+          python tests/v10-assets.test.py
           python tools/export_script.py --check
           python -c "from tools.publish import inventory; print('Verified public files:', len(inventory()))"
       - uses: actions/upload-artifact@v7
@@ -104,6 +106,7 @@ jobs:
           trap 'kill "$server" 2>/dev/null || true' EXIT
           python -c "import time,urllib.request; time.sleep(1); urllib.request.urlopen('http://127.0.0.1:8788/').read(100)"
           python tests/v9-presentation-browser.test.py --engine ${{ matrix.browser }} --url local
+          python tests/v10-presentation-browser.test.py --engine ${{ matrix.browser }} --url local
           GST_DEBUG=2 DEBUG=pw:browser python tests/v9-audio-browser.test.py --engine ${{ matrix.browser }} --url local
           python tests/gamepad-browser.test.py --engine ${{ matrix.browser }} --url local
           if [ "${{ matrix.browser }}" = webkit ]; then
@@ -130,7 +133,7 @@ jobs:
           server=$!
           trap 'kill "$server" 2>/dev/null || true' EXIT
           python -c "import time,urllib.request; time.sleep(1); urllib.request.urlopen('http://127.0.0.1:8788/').read(100)"
-          python tests/v9-audio-browser.test.py --engine chromium --url http://127.0.0.1:8788/The-Critic-Coming-Attractions-v9.html
+          python tests/v9-audio-browser.test.py --engine chromium --url http://127.0.0.1:8788/The-Critic-Coming-Attractions-v10.html
           mv tests/v9-audio-chromium-results.json tests/v9-audio-chromium-offline-results.json
       - uses: actions/upload-artifact@v7
         if: always()
@@ -142,5 +145,7 @@ jobs:
             tests/v7-*-results.json
             tests/v8-*-results.json
             tests/v9-*-results.json
+            tests/v10-*-results.json
             tests/controller-*.png
             tests/screenshots-v9/
+            tests/screenshots-v10/

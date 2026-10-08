@@ -1,6 +1,6 @@
 # THE CRITIC: COMING ATTRACTIONS
 
-Full campaign script v9.0.0
+Full campaign script v10.0.0
 
 Edit the dialogue under each speaker. Scene and beat identifiers connect every line to its place in the game. Shared exchanges appear once; Jay and Franklin alternatives are shown together.
 
@@ -104,9 +104,9 @@ Portrait: jay | Expression: worried
 
 ### Beat 06 activation
 
-opening/activation | Player advances; earliest advance 0.22s.
+opening/activation | Player advances; earliest advance 1.1s.
 
-*Jay: hurt; Duke: attack; Marty: scared idle; Marty is confined in the cage; broadcast monitors are powered; sound cue: swish.*
+*Jay: hurt; Duke: v10 button; Marty: scared idle; Marty is confined in the cage; broadcast monitors are powered; sound cue: swish.*
 
 *Franklin route: Franklin: idle.*
 
@@ -118,9 +118,9 @@ Portrait: duke | Expression: smug
 
 ### Beat 07 second press
 
-opening/second-press | Automatic advance after 1s; earliest advance 0.9s.
+opening/second-press | Automatic advance after 1.2s; earliest advance 0.9s.
 
-*Jay: hurt; Duke: attack; Marty: scared idle; Marty is confined in the cage; broadcast monitors are powered; a white flash punctuates the beat; sound cue: heavy.*
+*Jay: hurt; Duke: v10 button; Marty: scared idle; Marty is confined in the cage; broadcast monitors are powered; a white flash punctuates the beat; sound cue: heavy.*
 
 *Franklin route: Franklin: idle.*
 
@@ -180,19 +180,29 @@ Setting: Last Train Uptown | Music: current stage
 
 ### Beat 01 transport
 
-stage-02-intro/transport | Automatic advance after 2.2s; earliest advance 1.8s.
+stage-02-intro/transport | Automatic advance after 3.6s; earliest advance 3.5s.
 
-*Duke: walk, moving right over 2.2s; Marty: scared idle, moving right over 2.2s; Selected player: run, moving right over 1s; Duke transports Marty’s closed cage.*
+*Duke: walk, moving right over 3.5s; Marty: scared idle, moving right over 3.5s; Duke transports Marty’s closed cage.*
 
 No spoken dialogue.
 
 Destination: UPTOWN EXPRESS
 
-### Beat 02
+### Beat 02 pursuit entry
 
-stage-02-intro/beat-02 | Player advances; earliest advance 0.22s.
+stage-02-intro/pursuit-entry | Automatic advance after 1.55s; earliest advance 1.5s.
 
-*Selected player: idle; Duke: walk, moving right over 1.5s; Marty: scared idle, moving right over 1.5s; Duke transports Marty’s closed cage.*
+*Selected player: v10 run in, moving right over 1.5s, then v10 stop after 1.35s.*
+
+No spoken dialogue.
+
+Destination: UPTOWN EXPRESS
+
+### Beat 03
+
+stage-02-intro/beat-03 | Player advances; earliest advance 0.22s.
+
+*Selected player: v10 point.*
 
 **JAY / Jay route**
 
@@ -218,19 +228,29 @@ Setting: Above the Avenue | Music: current stage
 
 ### Beat 01 transport
 
-stage-03-intro/transport | Automatic advance after 2.2s; earliest advance 1.8s.
+stage-03-intro/transport | Automatic advance after 3.6s; earliest advance 3.5s.
 
-*Duke: walk, moving right over 2.2s; Marty: scared idle, moving right over 2.2s; Selected player: run, moving right over 1s; Duke transports Marty’s closed cage.*
+*Duke: walk, moving right over 3.5s; Marty: scared idle, moving right over 3.5s; Duke transports Marty’s closed cage.*
 
 No spoken dialogue.
 
 Destination: ROOF ACCESS / PREMIERE
 
-### Beat 02
+### Beat 02 pursuit entry
 
-stage-03-intro/beat-02 | Player advances; earliest advance 0.22s.
+stage-03-intro/pursuit-entry | Automatic advance after 1.55s; earliest advance 1.5s.
 
-*Selected player: idle; Duke: walk, moving right over 1.5s; Marty: scared idle, moving right over 1.5s; Duke transports Marty’s closed cage.*
+*Selected player: v10 run in, moving right over 1.5s, then v10 stop after 1.35s.*
+
+No spoken dialogue.
+
+Destination: ROOF ACCESS / PREMIERE
+
+### Beat 03
+
+stage-03-intro/beat-03 | Player advances; earliest advance 0.22s.
+
+*Selected player: v10 point.*
 
 **JAY / Jay route**
 
@@ -256,19 +276,29 @@ Setting: Theater District | Music: current stage
 
 ### Beat 01 transport
 
-stage-04-intro/transport | Automatic advance after 2.2s; earliest advance 1.8s.
+stage-04-intro/transport | Automatic advance after 3.6s; earliest advance 3.5s.
 
-*Duke: walk, moving right over 2.2s; Marty: scared idle, moving right over 2.2s; Selected player: run, moving right over 1s; Duke transports Marty’s closed cage.*
+*Duke: walk, moving right over 3.5s; Marty: scared idle, moving right over 3.5s; Duke transports Marty’s closed cage.*
 
 No spoken dialogue.
 
 Destination: PALACE CINEMA
 
-### Beat 02
+### Beat 02 pursuit entry
 
-stage-04-intro/beat-02 | Player advances; earliest advance 0.22s.
+stage-04-intro/pursuit-entry | Automatic advance after 1.55s; earliest advance 1.5s.
 
-*Selected player: idle; Duke: walk, moving right over 1.5s; Marty: scared idle, moving right over 1.5s; Duke transports Marty’s closed cage.*
+*Selected player: v10 run in, moving right over 1.5s, then v10 stop after 1.35s.*
+
+No spoken dialogue.
+
+Destination: PALACE CINEMA
+
+### Beat 03
+
+stage-04-intro/beat-03 | Player advances; earliest advance 0.22s.
+
+*Selected player: v10 point.*
 
 **JAY / Jay route**
 
@@ -332,15 +362,23 @@ Setting: Palace Cinema | Music: current stage
 
 ### Beat 01 transport
 
-stage-05-intro/transport | Automatic advance after 2s; earliest advance 1.8s.
+stage-05-intro/transport | Automatic advance after 3.6s; earliest advance 3.5s.
 
-*Duke: walk, moving right over 2s; Marty: scared idle, moving right over 2s; Selected player: run, moving right over 1s; Duke transports Marty’s closed cage; the Violent Austrian Rabbi is foreshadowed inside the cinema screen.*
+*Duke: walk, moving right over 3.5s; Marty: scared idle, moving right over 3.5s; Duke transports Marty’s closed cage.*
 
 No spoken dialogue.
 
 Destination: SERVICE EXIT / LITTLE ITALY
 
-### Beat 02 booth eyes
+### Beat 02 pursuit entry
+
+stage-05-intro/pursuit-entry | Automatic advance after 1.55s; earliest advance 1.5s.
+
+*Selected player: v10 run in, moving right over 1.5s, then v10 stop after 1.35s.*
+
+No spoken dialogue.
+
+### Beat 03 booth eyes
 
 stage-05-intro/booth-eyes | Automatic advance after 1.5s; earliest advance 1.25s.
 
@@ -348,7 +386,7 @@ stage-05-intro/booth-eyes | Automatic advance after 1.5s; earliest advance 1.25s
 
 No spoken dialogue.
 
-### Beat 03 booth light
+### Beat 04 booth light
 
 stage-05-intro/booth-light | Automatic advance after 1s; earliest advance 0.9s.
 
@@ -360,9 +398,9 @@ Portrait: projectionist | Expression: neutral
 
 No spoken dialogue.
 
-### Beat 04
+### Beat 05
 
-stage-05-intro/beat-04 | Player advances; earliest advance 0.22s.
+stage-05-intro/beat-05 | Player advances; earliest advance 0.22s.
 
 *Selected player: idle; the booth light reveals the projectionist; the Violent Austrian Rabbi is foreshadowed inside the cinema screen.*
 
@@ -378,7 +416,7 @@ This looks like a job for the robot puncher!
 
 Portrait: franklin | Expression: neutral
 
-Objective: DODGE THREE REELS — SMASH THE REMOTE
+Objective: DODGE REELS — SMASH THE THROWN RADIO
 
 ## THE MAIN ATTRACTION
 
@@ -456,7 +494,7 @@ Destination: BOOTH POWER / OFF
 
 boss-projection-defeat/beat-02 | Player advances; earliest advance 0.22s.
 
-*Selected player: walk, moving right over 1.2s; the projection booths go dark.*
+*Selected player: v10 point; the projection booths go dark.*
 
 **JAY / Jay route**
 
@@ -508,19 +546,29 @@ Setting: Little Italy pizzeria | Music: current stage
 
 ### Beat 01 transport
 
-stage-06-intro/transport | Automatic advance after 2.2s; earliest advance 1.8s.
+stage-06-intro/transport | Automatic advance after 3.6s; earliest advance 3.5s.
 
-*Duke: walk, moving right over 2.2s; Marty: scared idle, moving right over 2.2s; Selected player: run, moving right over 1s; Duke transports Marty’s closed cage.*
+*Duke: walk, moving right over 3.5s; Marty: scared idle, moving right over 3.5s; Duke transports Marty’s closed cage.*
 
 No spoken dialogue.
 
 Destination: BROADCAST TOWER
 
-### Beat 02
+### Beat 02 pursuit entry
 
-stage-06-intro/beat-02 | Player advances; earliest advance 0.22s.
+stage-06-intro/pursuit-entry | Automatic advance after 1.55s; earliest advance 1.5s.
 
-*Selected player: idle; Duke: walk, moving right over 1.5s; Marty: scared idle, moving right over 1.5s; Duke transports Marty’s closed cage.*
+*Selected player: v10 run in, moving right over 1.5s, then v10 stop after 1.35s.*
+
+No spoken dialogue.
+
+Destination: BROADCAST TOWER
+
+### Beat 03
+
+stage-06-intro/beat-03 | Player advances; earliest advance 0.22s.
+
+*Selected player: v10 point.*
 
 **JAY / Jay route**
 
@@ -556,7 +604,7 @@ No spoken dialogue.
 
 boss-spike-intro/beat-02 | Player advances; earliest advance 1.1s.
 
-*Selected player: idle; Spike: walk, moving left over 1.1s; the pizzeria door is open.*
+*Selected player: idle; Spike: v10 walk, moving left over 1.1s; the pizzeria door is open.*
 
 **SPIKE**
 
@@ -644,7 +692,7 @@ Portrait: duke | Expression: neutral
 
 stage-07-intro/beat-03 | Player advances; earliest advance 0.22s.
 
-*Selected player: walk, moving right over 1s; Duke: idle; Marty: scared idle; Marty is confined in the cage; broadcast monitors are powered; alarms pulse.*
+*Selected player: v10 point; Duke: idle; Marty: scared idle; Marty is confined in the cage; broadcast monitors are powered; alarms pulse.*
 
 **JAY / Jay route**
 
@@ -657,6 +705,14 @@ Portrait: jay | Expression: neutral
 Which way is the bus station?
 
 Portrait: franklin | Expression: neutral
+
+### Beat 04 duke to controls
+
+stage-07-intro/duke-to-controls | Automatic advance after 1.6s; earliest advance 1.5s.
+
+*Selected player: idle; Duke: walk, moving right over 1.5s; Marty: scared idle; Marty is confined in the cage; broadcast monitors are powered.*
+
+No spoken dialogue.
 
 ## THE FINAL BROADCAST
 
@@ -690,7 +746,7 @@ No spoken dialogue.
 
 boss-broadcast-intro/beat-03 | Player advances; earliest advance 0.22s.
 
-*Selected player: walk, moving right over 1s; Duke: idle; Marty: scared idle; Marty is confined in the cage; broadcast monitors are powered; alarms pulse.*
+*Selected player: v10 point; Duke: idle; Marty: scared idle; Marty is confined in the cage; broadcast monitors are powered; alarms pulse.*
 
 **JAY / Jay route**
 
@@ -802,7 +858,7 @@ Setting: Broadcast Tower | Music: current stage
 
 boss-duke-defeat/beat-01 | Automatic advance after 1.8s; earliest advance 1.5s.
 
-*Selected player: idle; Duke: death; Marty: scared idle; Marty is confined in the cage.*
+*Selected player: idle; Duke: v10 defeat; Marty: scared idle; Marty is confined in the cage.*
 
 **DUKE**
 
@@ -814,7 +870,7 @@ Portrait: duke | Expression: defeated
 
 boss-duke-defeat/beat-02 | Player advances; earliest advance 0.22s.
 
-*Selected player: idle; Duke: death; Marty: scared idle; Marty’s cage is open.*
+*Selected player: idle; Duke: v10 defeat; Marty: scared idle; Marty’s cage is open.*
 
 **JAY / Jay route**
 
@@ -842,7 +898,7 @@ Setting: Broadcast Tower | Music: title
 
 ending/marty-freed | Automatic advance after 1.6s; earliest advance 1.3s.
 
-*Selected player: idle; Marty: run, moving left and down over 1.4s; Duke: death; Marty’s cage is open.*
+*Selected player: idle; Marty: run, moving left and down over 1.4s; Duke: v10 defeat; Marty’s cage is open.*
 
 *Franklin route: Jay: walk, moving right over 1.3s.*
 
@@ -852,9 +908,11 @@ No spoken dialogue.
 
 ending/beat-02 | Player advances; earliest advance 0.22s.
 
-*Selected player: idle; Marty: idle.*
+*Marty: idle.*
 
-*Franklin route: Jay: idle.*
+*Jay route: Selected player: v10 reunion.*
+
+*Franklin route: Selected player: v10 victory; Jay: v10 reunion.*
 
 **MARTY**
 
@@ -866,9 +924,11 @@ Portrait: marty | Expression: happy
 
 ending/beat-03 | Player advances; earliest advance 0.22s.
 
-*Selected player: idle; Marty: idle.*
+*Marty: idle.*
 
-*Franklin route: Jay: idle.*
+*Jay route: Selected player: v10 reunion.*
+
+*Franklin route: Selected player: v10 victory; Jay: v10 reunion.*
 
 **JAY / Jay route**
 
@@ -886,9 +946,11 @@ Portrait: franklin | Expression: neutral
 
 ending/beat-04 | Player advances; earliest advance 0.22s.
 
-*Selected player: idle; Marty: idle.*
+*Marty: idle.*
 
-*Franklin route: Jay: idle.*
+*Jay route: Selected player: v10 reunion.*
+
+*Franklin route: Selected player: v10 victory; Jay: v10 reunion.*
 
 **MARTY**
 
@@ -900,9 +962,11 @@ Portrait: marty | Expression: happy
 
 ending/beat-05 | Player advances; earliest advance 0.22s.
 
-*Selected player: idle; Marty: idle.*
+*Marty: idle.*
 
-*Franklin route: Jay: idle.*
+*Jay route: Selected player: v10 reunion.*
+
+*Franklin route: Selected player: v10 victory; Jay: v10 reunion.*
 
 **JAY / Jay route**
 
@@ -928,7 +992,7 @@ Setting: Palace Cinema | Music: current stage
 
 ### Beat 01 booth eyes
 
-boss-projection-intro/booth-eyes | Automatic advance after 1s; earliest advance 0.9s.
+boss-projection-intro/booth-eyes | Automatic advance after 1.3s; earliest advance 1.1s.
 
 *Selected player: idle; eyes move in the dark projection booth.*
 
@@ -964,7 +1028,7 @@ Lights first. Then the exit.
 
 Portrait: franklin | Expression: neutral
 
-Objective: DODGE THREE REELS — SMASH THE REMOTE
+Objective: DODGE REELS — SMASH THE THROWN RADIO
 
 ## Unlock and results text
 
@@ -1052,4 +1116,4 @@ Story lines and staging are authored in data/cutscenes.js. Stage and boss trigge
 
 Use the scene and beat identifiers when returning revisions. Replace the spoken line under the appropriate route; shared lines affect both characters. The seven approved opening lines are preserved exactly.
 
-Source fingerprint: 9747ca6bf5993119
+Source fingerprint: 2f3d4c0c0c795b46

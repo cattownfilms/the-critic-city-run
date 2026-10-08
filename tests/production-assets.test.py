@@ -298,8 +298,12 @@ class ProductionAssets(unittest.TestCase):
             self.assertEqual(sha(ROOT / 'assets' / filename), expected, filename)
         for filename, expected in p['runtimeSHA256'].items():
             self.assertEqual(sha(ROOT / filename), expected, filename)
+        # V10 appends to the mutable manifests. Retained v8 frames below and
+        # the separate v10 append-only test still compare every old action/page.
+        v10 = json.loads((ROOT / 'production/v10-assets.json').read_text())
         for filename, expected in p['mutableManifestSHA256'].items():
-            self.assertEqual(sha(ROOT / filename), expected, filename)
+            historical = subprocess.check_output(['git', 'show', v10['baselineCommit'] + ':' + filename], cwd=ROOT)
+            self.assertEqual(hashlib.sha256(historical).hexdigest(), expected, filename)
         images = {}
         try:
             for record in p['frameDerivatives']:
