@@ -2,15 +2,19 @@
 
 A complete seven-stage, mobile-first arcade brawler. Duke demands a glowing review, kidnaps Marty, and turns his experimental broadcasting system on. The Coming Attractions spill into New York. Jay goes after his son.
 
-**[Play the game](https://cattownfilms.github.io/the-critic-city-run/)** · v10.0.0 · Touch, keyboard, optional remappable controller · No account or runtime service required.
+**[Play the game](https://cattownfilms.github.io/the-critic-city-run/)** · v11.0.0 · Touch, keyboard, optional remappable controller · No account or runtime service required.
 
 ## Play locally
 
 Run `python3 -m http.server 8788 --bind 127.0.0.1` in this folder and open `http://127.0.0.1:8788/`. Keep this origin to retain existing local saves. Direct `file://index.html` is unsupported; use the generated standalone file for direct offline play.
 
-The release bundle includes the complete standalone `The-Critic-Coming-Attractions-v10.html` and Termux launcher `The-Critic-Coming-Attractions-v10-Play.sh`. In Termux, install Python, then run `bash The-Critic-Coming-Attractions-v10-Play.sh`. It keeps the existing localhost:8788 origin and installation directory, backs up the old HTML, and never clears browser saves. The browser and Termux must remain open for reloads.
+The release bundle includes the complete standalone `The-Critic-Coming-Attractions-v11.html` and Termux launcher `The-Critic-Coming-Attractions-v11-Play.sh`. In Termux, install Python, then run `bash The-Critic-Coming-Attractions-v11-Play.sh`. It keeps the existing localhost:8788 origin and installation directory, backs up the old HTML, and never clears browser saves. The browser and Termux must remain open for reloads.
 
 The title shell and options appear first. The game then bulk loads and decodes all runtime sprite atlases, portraits, scene and environment images, and downloads the five music recordings and thirteen sound cues. Start, Continue and every Animation Room entrance remain disabled until this preparation finishes. Progress reflects actual completed files and downloaded bytes, with Retry after a failed download. Later scenes use the prepared cache. This intentionally moves loading to startup and retains every unique animation.
+
+## V11
+
+Three exact source reels add Duke’s prop-free cart mime, cautious backsteps and Marty’s captive reactions. Palace has three screen-area booths with 1/3/5-reel spread volleys. Spike demonstrates a real rolling can and selected-player jump before combat. Settled boss falls precede the jokes; Franklin’s cartwheel is more readable; the reunion explicitly draws Marty above Jay. Original atlases, audio and schema-five saves remain intact. See [the v11 playtest ledger](docs/V11-V10-PLAYTEST-LEDGER.md). Browser and public-release evidence are recorded in validation and the release receipt.
 
 ## V10
 
@@ -72,7 +76,7 @@ Python 3.10+ and Node 22+; gameplay itself has no package dependencies.
 
 ```sh
 python3 tools/build_standalone.py
-python3 tools/build_launcher.py The-Critic-Coming-Attractions-v10.html The-Critic-Coming-Attractions-v10-Play.sh
+python3 tools/build_launcher.py The-Critic-Coming-Attractions-v11.html The-Critic-Coming-Attractions-v11-Play.sh
 node tests/engine.test.js
 node tests/franklin.test.js
 node tests/v4-engine.test.js

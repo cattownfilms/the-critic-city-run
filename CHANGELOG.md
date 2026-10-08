@@ -1,5 +1,14 @@
 # v10.0.0 — post-v9 production pass
 
+## 11.0.0
+
+- Three hash-pinned reels: Duke push/stop/release mime, cautious retreat, confrontation and Marty reactions. Clean alternates retained without new mechanics.
+- Three Palace booths above the movie screen; encounter begins at its screen area; three volleys per phase spread 1/3/5 reels.
+- Real-physics, route-aware Spike jump demonstration with skip cleanup and unchanged dangerous combat cans.
+- Grounded boss defeat beats before the approved jokes; one credits joke.
+- Separate cart/hand staging, physically existing standby Broadcast monitors, modest Franklin cartwheel retiming, explicit reunion overlap.
+- Conservative derived Rabbi spill correction; original source atlases/audio and save schema 5 retained.
+
 - Appended 25 reviewed source performances; existing animation libraries and all audio remain intact.
 - Raptor flank/charge and Fred K teleport identities.
 - Projectionist facing, eyes timing, booth spacing, escalating reels, visible thrown radios and bounded support.

@@ -1,3 +1,15 @@
+# V11 validation
+
+Baseline: `8757424f41b7f7cc9a3eebaa927298473988d56b`. Local deterministic coverage includes both selected-player tutorial jumps, actual airborne underpass, skip at four phases, later dangerous can contact, settled punchline timing, screen-area trigger, exact volley widths and saved schema lineage. Retained full-campaign normal-input route tests remain required.
+
+`node tests/v11-engine.test.js`
+`python3 tests/v11-assets.test.py`
+`python3 tests/v11-presentation-browser.test.py --engine chromium --url local` (remote browser runner; repeat Firefox/WebKit).
+
+Source CI and deployed HTTPS testing remain separate. Physical phone observations are not inferred from these tests.
+
+## Historical validation
+
 # V10 validation
 
 Version **10.0.0**, continued from released v9 `ba087d21a1699ffec1fd923d17a18b796ae37ab6`. Eleven local JavaScript suites pass, including both seven-stage routes through normal combat inputs, source audio lifecycle, controller contracts, saves and v10 encounter state machines. Core, Chromium, Firefox and WebKit passed [source run](https://github.com/cattownfilms/the-critic-city-run/actions/runs/37710897264) at `28c22162e361efe0384014687f9669e6f923c71a`. WebKit includes three independent campaign/loading repetitions; Chromium also tests the offline edition. Post-merge hosted verification is recorded separately in the external release receipt.

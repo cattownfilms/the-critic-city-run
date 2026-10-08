@@ -1,3 +1,13 @@
+# V11 additions
+
+Palace: exactly three primary booths at world X 2190, 2450, 2710, above the auditorium screen. Only the screen-area gate activates them. Left/center/right phases throw three volleys each, containing 1/3/5 reels respectively, followed by one visible airborne remote. Lane movement remains an escape route.
+
+Spike’s first introduction demonstrates the shared release, bounce/roll and selected-player jump physics. Only the tagged staging projectile has a no-damage guard; it is removed on skip/completion. Existing story checkpoint flags prevent an extra tutorial on a resolved introduction.
+
+Franklin cartwheel: 0.56 seconds, active contact 0.24 seconds mapped to unchanged source pose 11/26. Jay remains 0.43 seconds.
+
+Rabbi and Spike: 1.7-second fall plus a short settle beat before dialogue, without free-play progression during that interval. Broadcast screens are permanent mounted architecture, initially dark, powering on for the encounter. No hoist is needed; the cart stays at its established floor mark.
+
 # THE CRITIC: COMING ATTRACTIONS
 
 This is the authored content implemented by `data/campaign.js`, `engine.js`, `render.js` and `data/cutscenes.js`. It documents the current source build; release and public deployment validation are recorded separately.

@@ -4,7 +4,7 @@ const actor=(id,character,x,y=318,extra={})=>({id,character,x,y,animation:'idle'
 const hero=(x=255,extra={})=>actor('player','selected',x,318,extra);
 const duke=(x=610,extra={})=>actor('duke','duke',x,318,extra);
 const cage=(x=822,extra={})=>({x,y:318,w:116,h:155,...extra});
-const boy=(x=822,extra={})=>actor('marty','marty',x,311,{scale:.92,animation:'scared-idle',lookAt:'player',...extra});
+const boy=(x=822,extra={})=>actor('marty','marty',x,311,{scale:.92,animation:'v11-captive-idle',lookAt:'player',...extra});
 const move=(fromX,toX,duration=1.4,start=0,extra={})=>({fromX,toX,duration,start,...extra});
 const dialogue=(speaker,text,extra={})=>({speaker,dialogue:text,manual:true,minTime:.22,...extra});
 const route=(jay,franklin,extra={})=>({routeDialogue:{hero:{speaker:'JAY',dialogue:jay,portrait:'jay',expression:'neutral'},franklin:{speaker:'FRANKLIN',dialogue:franklin,portrait:'franklin',expression:'neutral'}},manual:true,minTime:.22,...extra});
@@ -19,7 +19,7 @@ const openingEmissions=cast.map((character,i)=>{const f=openingFormation[i];retu
 const openingBase=[actor('jay','hero',260,318,{image:'cutscenes/jay-seated.webp',imageHeight:224,imagePivot:{x:128,y:208}}),duke(610),actor('ally','franklin',145,318,{routes:['franklin'],face:1,scale:.96})];
 const revealed=[actor('jay','hero',270,318,{animation:'hurt'}),duke(610),boy(822,{lookAt:'jay'}),actor('ally','franklin',145,318,{routes:['franklin'],face:1,scale:.96})];
 const chase=(id,title,environment,destination,jay,franklin)=>({id,title,environment,destination,shots:[
- {id:'transport',auto:3.6,minTime:3.5,actors:[duke(250,{animation:'walk',motion:move(250,1080,3.5)}),boy(360,{motion:move(360,1190,3.5)})],cage:cage(360,{carried:true,motion:move(360,1190,3.5)}),destination},
+ {id:'transport',cartCoupled:true,auto:3.6,minTime:3.5,actors:[duke(250,{animation:'v11-cart-push',motion:move(250,1080,3.5)}),boy(360,{motion:move(360,1190,3.5)})],cage:cage(360,{carried:true,motion:move(360,1190,3.5)}),destination},
  {id:'pursuit-entry',auto:1.55,minTime:1.5,actors:[hero(-110,{animation:'v10-run-in',motion:move(-110,285,1.5),afterAnimation:'v10-stop',after:1.35})]},
  route(jay,franklin,{actors:[hero(285,{animation:'v10-point',face:1})]})
  ]});
@@ -57,11 +57,11 @@ const scenes={
  ]},
  'boss-projection-defeat':{id:'boss-projection-defeat',title:'END OF REEL',environment:'cinema',shots:[
   {id:'booth-shutdown',auto:1.2,minTime:1,actors:[hero(260)],booth:{phase:'off'},circuits:0,sound:'slam',destination:'BOOTH POWER / OFF'},
-  route("I usually don't sit through the credits…","This isn't my house.",{actors:[hero(260,{animation:'v10-point',face:1})],booth:{phase:'off'},circuits:0,destination:'BOOTH POWER / OFF'})
+  route("That’s enough audience participation.","This isn't my house.",{actors:[hero(260,{animation:'v10-point',face:1})],booth:{phase:'off'},circuits:0,destination:'BOOTH POWER / OFF'})
  ]},
  'stage-06-intro':chase('stage-06-intro','LITTLE ITALY','pizzeria','BROADCAST TOWER',"I'm going to fight my boss. Do I dare live out the American dream?","Everbody seen the leprechaun say, “Yeah!”"),
  'boss-cinema-intro':{id:'boss-cinema-intro',title:'THE MAIN ATTRACTION',environment:'cinema',shots:[
-  {id:'screen-shadow',auto:1.3,minTime:1.1,actors:[hero(235)],screenForeshadow:true,sound:'swish'},
+  {id:'screen-shadow',auto:.45,minTime:.4,actors:[hero(235)],screenForeshadow:true,sound:'swish'},
   {id:'screen-emergence',auto:1.6,minTime:1.4,actors:[hero(235),actor('headliner','pizzeria-boss',635,318,{animation:'walk',afterAnimation:'guard-reset',after:1.4,face:1,scale:1.52,emerging:true,motion:move(242,635,1.6,0,{fromY:180,toY:318})})],screenForeshadow:false,flash:.12,sound:'slam'},
   dialogue('VIOLENT AUSTRIAN RABBI',"Welcome to your Bar Mitsfa. It's time to become a man. A dead man.",{portrait:'pizzeria',actors:[hero(235),actor('headliner','pizzeria-boss',635,318,{animation:'guard-reset',face:-1,scale:1.52})]}),
   route('I usually leave before the credits.','You’re blocking the exit.',{actors:[hero(235),actor('headliner','pizzeria-boss',635,318,{face:-1,scale:1.52})]})
@@ -79,8 +79,8 @@ const scenes={
  ]},
  'stage-07-intro':{id:'stage-07-intro',title:'LIVE FROM PHILLIPS',environment:'broadcast',screens,shots:[
   {id:'last-transport',auto:2.3,minTime:2,actors:[duke(390,{animation:'walk',motion:move(390,638,2.1)}),boy(502,{motion:move(502,792,2.1)}),hero(100,{animation:'run',motion:move(-60,265,1.5,.6)})],cage:cage(502,{carried:true,motion:move(502,792,2.1)}),destination:'TRANSMISSION CORE',alarm:true},
-  dialogue('DUKE',"You should have taken the deal, Sherman.",{portrait:'duke',actors:[hero(265),duke(638),boy(792)],cage:cage(792),powered:true,alarm:true}),
-  route("You should know I have too much integrity, Duke!","Which way is the bus station?",{actors:[hero(265,{animation:'v10-point',face:1}),duke(638),boy(792)],cage:cage(792),powered:true,alarm:true})
+  dialogue('DUKE',"You want Marty? Come and get him.",{portrait:'duke',actors:[hero(265),duke(638),boy(792)],cage:cage(792),powered:true,alarm:true}),
+  route("Let Marty go. Your reviews are about to get worse.","Step away from my grandson, Duke.",{actors:[hero(265,{animation:'v10-point',face:1}),duke(638),boy(792)],cage:cage(792),powered:true,alarm:true})
  ]},
  'boss-broadcast-intro':{id:'boss-broadcast-intro',title:'THE FINAL BROADCAST',environment:'broadcast',screens,shots:[
   dialogue('DUKE','Live. Everywhere. All at once!',{portrait:'duke',expression:'smug',actors:[hero(280),duke(638,{animation:'attack'}),boy(792)],cage:cage(792),powered:true,alarm:true}),
@@ -90,7 +90,7 @@ const scenes={
  'boss-broadcast-defeat':{id:'boss-broadcast-defeat',title:'SIGNAL LOST',environment:'broadcast',screens,shots:[
   {id:'signal-dies',auto:1.2,minTime:1,actors:[hero(280),duke(638,{animation:'hurt'}),boy(792)],cage:cage(792),powered:false,flash:.18,sound:'slam'},
   dialogue('DUKE','You don’t get to cancel me!',{portrait:'duke',expression:'angry',actors:[hero(280),duke(515,{animation:'walk',motion:move(638,515,1)}),boy(792)],cage:cage(792),minTime:1}),
-  route('Then let’s discuss your performance.','Come down here.',{actors:[hero(280),duke(515,{animation:'folded-idle',face:-1}),boy(792)],cage:cage(792)})
+  route('Then let’s discuss your performance.','Come down here.',{actors:[hero(280),duke(515,{animation:'v11-confrontation',face:-1}),boy(792)],cage:cage(792)})
  ]},
  'boss-duke-intro':{id:'boss-duke-intro',title:'DUKE PHILLIPS',environment:'broadcast',shots:[
   dialogue('DUKE','I own this network!',{portrait:'duke',expression:'angry',actors:[hero(280),duke(550,{animation:'lead-jab',face:-1,motion:move(605,550,.8)}),boy(792)],cage:cage(792),minTime:.8}),
@@ -108,8 +108,14 @@ const scenes={
   route('Now let’s find something good to watch.',"Has anyone seen the remote control?",{actors:[...endingParty(),boy(350,{animation:'idle',y:318})],caption:'MARTY IS SAFE. THE BROADCAST IS OFF. NEW YORK GETS ITS REALITY BACK.'})
  ]}
 };
+scenes['boss-spike-intro'].shots.push({id:'jump-demonstration',spikeTutorial:true,auto:30,minTime:30,objective:'ROLLS LOW — JUMP OVER IT',actors:[hero(260,{face:1}),actor('spike','spike',660,318,{face:-1,scale:1.08})]});
+for(const scene of Object.values(scenes))for(const shot of scene.shots){
+ if(shot.cage&&!shot.cage.open){const d=shot.actors?.find(a=>a.character==='duke'),m=shot.actors?.find(a=>a.character==='marty');if(d&&m&&(d.motion&&m.motion||scene.id==='stage-07-intro')){shot.cartCoupled=true;d.animation=d.motion?'v11-cart-push':'v11-cart-stop';m.animation='v11-captive-idle';}}
+ if(scene.id==='ending')shot.reunionLayers=true;
+}
 const cinemaPursuit=chase('cinema-pursuit','','cinema','SERVICE EXIT / LITTLE ITALY','','');
-scenes['stage-05-intro'].shots.splice(0,1,...cinemaPursuit.shots.slice(0,2));
+scenes['stage-05-intro'].shots=cinemaPursuit.shots.slice(0,2);
+scenes['stage-07-intro'].shots.push({id:'cart-release',auto:1.2,minTime:1.1,actors:[hero(265,{face:1}),duke(638,{animation:'v11-cart-release',face:1}),boy(768,{animation:'v11-worried-look'})],cage:cage(768)});
 scenes['stage-07-intro'].shots.push({id:'duke-to-controls',auto:1.6,minTime:1.5,actors:[hero(265,{face:1}),duke(638,{animation:'walk',motion:move(638,850,1.5)}),boy(792)],cage:cage(792),powered:true});
 for(const shot of scenes['boss-broadcast-intro'].shots)for(const a of shot.actors||[])if(a.character==='duke')a.worldY=324;
 for(const a of scenes['stage-07-intro'].shots.at(-1).actors)if(a.character==='duke')a.worldY=324;

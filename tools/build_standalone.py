@@ -3,7 +3,7 @@ from pathlib import Path
 import argparse, json, base64, mimetypes, subprocess, re
 ROOT = Path(__file__).resolve().parents[1]
 parser = argparse.ArgumentParser()
-parser.add_argument('--output', default='The-Critic-Coming-Attractions-v10.html')
+parser.add_argument('--output', default='The-Critic-Coming-Attractions-v11.html')
 args = parser.parse_args()
 A = ROOT / 'assets'
 meta = json.loads((A / 'sprites.json').read_text())

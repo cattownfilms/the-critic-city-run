@@ -2,8 +2,8 @@
 from pathlib import Path
 import tempfile,subprocess,os,time,urllib.request,json,hashlib,signal
 ROOT=Path(__file__).resolve().parents[1]
-html=Path(os.environ.get('CRITIC_HTML',ROOT/'The-Critic-Coming-Attractions-v10.html'))
-script=Path(os.environ.get('CRITIC_LAUNCHER',ROOT/'The-Critic-Coming-Attractions-v10-Play.sh'))
+html=Path(os.environ.get('CRITIC_HTML',ROOT/'The-Critic-Coming-Attractions-v11.html'))
+script=Path(os.environ.get('CRITIC_LAUNCHER',ROOT/'The-Critic-Coming-Attractions-v11-Play.sh'))
 results=[]
 def check(name,ok,details=None):
     results.append({'name':name,'passed':bool(ok),'details':details});print('PASS' if ok else 'FAIL',name,flush=True)
@@ -19,8 +19,8 @@ with tempfile.TemporaryDirectory(prefix='brawler-launcher-') as home:
                 with urllib.request.urlopen(url+'version.json',timeout=.5) as r:data=json.load(r)
                 break
             except OSError:time.sleep(.1)
-        check('Launcher starts its dedicated local server',data and data.get('app')=='cattown-critic-brawler-v10',data)
-        check('New server reports the exact v10 release version',data and data.get('version')=='10.0.0',data)
+        check('Launcher starts its dedicated local server',data and data.get('app')=='cattown-critic-brawler-v11',data)
+        check('New server reports the exact v11 release version',data and data.get('version')=='11.0.0',data)
         with urllib.request.urlopen(url,timeout=5) as r:
             body=r.read();mime=r.headers.get('Content-Type');cache=r.headers.get('Cache-Control')
         expected=hashlib.sha256(html.read_bytes()).hexdigest()

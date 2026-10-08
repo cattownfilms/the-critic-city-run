@@ -87,11 +87,11 @@ def trigger(scene_id: str, model: dict) -> str:
     if scene_id == "opening":
         return "New Game, before Stage 1. Continue resumes the saved checkpoint."
     if scene_id == "ending":
-        return "After Duke is defeated and the player reaches the final exit. Marty is released before results."
+        return "After Duke’s defeat settles. Marty is released before results."
     if scene_id == "stage4-clear":
         return "After Stage 4 is cleared. The Franklin line appears only on Jay’s route."
     if scene_id == "boss-projection-intro":
-        return "Optional reusable scene. The current campaign stages the reveal in the Palace Cinema introduction."
+        return "When the player reaches the Palace movie-screen encounter area."
     if scene_id == "boss-projection-defeat":
         return "When all three projection circuits have been disabled. The cinema boss must also be defeated to leave."
     for number, stage in enumerate(model["stages"], 1):
@@ -198,7 +198,7 @@ def blocks(model: dict) -> list[tuple[str, str]]:
     for scene in scenes + optional:
         raw = scene["raw"]
         if raw["id"] == "boss-projection-intro":
-            out.append(("heading1", "Optional projection booth introduction"))
+            out.append(("heading1", "Projection booth encounter introduction"))
         else:
             out.append(("opening" if raw["id"] == "opening" else "heading1", raw["title"].replace(" / ", " ").replace("’", "").replace("!", "")))
         out.append(("meta", "Scene " + raw["id"] + " | Onscreen title: " + raw["title"]))
@@ -387,8 +387,8 @@ def main() -> int:
               "sourceHashes": model["sourceHashes"], "scenes": len(model["scenes"]),
               "beats": sum(len(s["raw"]["shots"]) for s in model["scenes"]),
               "dialogueEntriesByRoute": {r: sum(bool(shot.get("dialogue")) for s in model["scenes"] for shot in s["routes"][r]["shots"]) for r in ROUTES},
-              "activeCampaignDialogueEntriesByRoute": {r: sum(bool(shot.get("dialogue")) for s in model["scenes"] if s["raw"]["id"] != "boss-projection-intro" for shot in s["routes"][r]["shots"]) for r in ROUTES},
-              "optionalSceneAppendix": ["boss-projection-intro"]}
+              "activeCampaignDialogueEntriesByRoute": {r: sum(bool(shot.get("dialogue")) for s in model["scenes"] for shot in s["routes"][r]["shots"]) for r in ROUTES},
+              "optionalSceneAppendix": []}
     if args.check:
         if not args.markdown.is_file() or args.markdown.read_text() != md:
             raise SystemExit("Script Markdown is stale. Run tools/export_script.py.")

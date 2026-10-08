@@ -11,7 +11,7 @@ def standalone_path():
     override = os.environ.get('CRITIC_HTML')
     if override:
         return Path(override)
-    for name in ['The-Critic-Coming-Attractions-v10.html', 'The-Critic-Coming-Attractions-v9.html', 'The-Critic-Coming-Attractions-v8.html', 'The-Critic-Coming-Attractions-v7.html', 'The-Critic-Coming-Attractions-v6.html', 'The-Critic-City-Brawler-v5.html']:
+    for name in ['The-Critic-Coming-Attractions-v11.html', 'The-Critic-Coming-Attractions-v10.html', 'The-Critic-Coming-Attractions-v9.html', 'The-Critic-Coming-Attractions-v8.html', 'The-Critic-Coming-Attractions-v7.html', 'The-Critic-Coming-Attractions-v6.html', 'The-Critic-City-Brawler-v5.html']:
         path = ROOT / name
         if path.exists():
             return path

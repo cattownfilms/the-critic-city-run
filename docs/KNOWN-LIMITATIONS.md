@@ -1,3 +1,11 @@
+# V11 verification boundaries
+
+- Physical Android speaker output, multitouch and Logitech hardware require a phone playtest.
+- The three new reels contain no Marty locomotion or new Duke attacks. Existing run/reunion and combat assets remain authoritative. Pull/adjust mime alternates are preserved, not forced into gameplay.
+- Browser CI and public deployment are separate release gates; consult the current validation report and external receipt for actual outcomes.
+
+## Historical records
+
 # V10 verification boundaries
 
 - Core and all three browser engines passed [the source validation run](https://github.com/cattownfilms/the-critic-city-run/actions/runs/37710897264); public deployment is a separate post-merge gate recorded in the external receipt.

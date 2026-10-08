@@ -26,12 +26,12 @@ function arena(stage){const g=new B.Game();g.start();g.stage=stage;g.activeGate=
    for(const ev of g.drain())if(ev.type==='projectile'&&ev.kind==='reel')count++;
    remote=g.props.find(o=>o.hp>0&&o.kind==='remote');
   }
-  assert.equal(count,3+phase);assert(eyes>=1);assert(remote);assert(remote.flight);assert.equal(remote.x,g.projection.booths[g.projection.window].x+g.projection.face*26);
+  assert.equal(count,3*(1+2*phase));assert(eyes>=1);assert(remote);assert(remote.flight);assert.equal(remote.x,g.projection.booths[g.projection.window].x+g.projection.face*26);
   const x=remote.x;g.updateProps(.4);assert.notEqual(remote.x,x);assert(remote.z>0);
   for(let i=0;i<180;i++)g.updateProps(1/120);assert.equal(remote.z,0);
   assert(g.enemies.length<=3);assert.equal(g.props.filter(o=>o.hp>0).length,1);g.disableCircuit(remote.circuitId);
  }
- assert(g.projection.disabled);console.log('PASS Projectionist eyes, 3/4/5 reels, bounded supports, visible radio trajectory, landing and three circuits');
+ assert(g.projection.disabled);console.log('PASS Projectionist eyes, 1/3/5-reel volleys, bounded supports, visible radio trajectory, landing and three circuits');
 }
 {
  const g=arena(6);g.spawnBoss();const core=g.enemies[0];
