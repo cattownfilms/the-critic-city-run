@@ -16,7 +16,7 @@ with source_site(args.url) as url,sync_playwright() as pw:
  context.add_init_script("if(!localStorage.getItem('cattown.critic.brawler.v2.settings'))localStorage.setItem('cattown.critic.brawler.v2.settings',JSON.stringify({reducedMotion:true}))")
  page=context.new_page();page.on('pageerror',lambda e:errors.append(str(e)))
  try:
-  page.goto(url);wait(page,'__brawler.ready()');check('Version is v9 without changing storage keys',page.evaluate("BRAWLER_CONFIG.version==='9.0.0'&&BRAWLER_CONFIG.saveKey==='cattown.critic.brawler.v3.save'"))
+  page.goto(url);wait(page,'__brawler.ready()');check('Version is v10 without changing storage keys',page.evaluate("BRAWLER_CONFIG.version==='10.0.0'&&BRAWLER_CONFIG.saveKey==='cattown.critic.brawler.v3.save'"))
   check('Partial old settings preserve audible defaults',page.evaluate('settings.music===.35&&settings.sfx===.72'))
   # Pointer up/click is a real trusted event, including on touch-sensitive policies.
   page.locator('#title h1').tap();wait(page,"__brawler.audio.ctx?.state==='running'&&__brawler.audio.music.currentTime>.15")

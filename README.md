@@ -2,15 +2,19 @@
 
 A complete seven-stage, mobile-first arcade brawler. Duke demands a glowing review, kidnaps Marty, and turns his experimental broadcasting system on. The Coming Attractions spill into New York. Jay goes after his son.
 
-**[Play the game](https://cattownfilms.github.io/the-critic-city-run/)** · v9.0.0 · Touch, keyboard, optional remappable controller · No account or runtime service required.
+**[Play the game](https://cattownfilms.github.io/the-critic-city-run/)** · v10.0.0 · Touch, keyboard, optional remappable controller · No account or runtime service required.
 
 ## Play locally
 
 Run `python3 -m http.server 8788 --bind 127.0.0.1` in this folder and open `http://127.0.0.1:8788/`. Keep this origin to retain existing local saves. Direct `file://index.html` is unsupported; use the generated standalone file for direct offline play.
 
-The release bundle includes the complete standalone `The-Critic-Coming-Attractions-v9.html` and Termux launcher `The-Critic-Coming-Attractions-v9-Play.sh`. In Termux, install Python, then run `bash The-Critic-Coming-Attractions-v9-Play.sh`. It keeps the existing localhost:8788 origin and installation directory, backs up the old HTML, and never clears browser saves. The browser and Termux must remain open for reloads.
+The release bundle includes the complete standalone `The-Critic-Coming-Attractions-v10.html` and Termux launcher `The-Critic-Coming-Attractions-v10-Play.sh`. In Termux, install Python, then run `bash The-Critic-Coming-Attractions-v10-Play.sh`. It keeps the existing localhost:8788 origin and installation directory, backs up the old HTML, and never clears browser saves. The browser and Termux must remain open for reloads.
 
 The title shell and options appear first. The game then bulk loads and decodes all runtime sprite atlases, portraits, scene and environment images, and downloads the five music recordings and thirteen sound cues. Start, Continue and every Animation Room entrance remain disabled until this preparation finishes. Progress reflects actual completed files and downloaded bytes, with Retry after a failed download. Later scenes use the prepared cache. This intentionally moves loading to startup and retains every unique animation.
+
+## V10
+
+Raptors flank and charge; Fred K teleports with readable tells. Projectionist booths reveal eyes, throw 3/4/5 reels and visibly release radios while bounded support enemies enter. The Broadcast device travels on a rail, lasers during waves, crashes for three vulnerability rounds, then breaks down before Duke’s expanded physical fight. Supplemental source performances are appended to the existing banks. See [the 26-note ledger](docs/V10-V9-PLAYTEST-LEDGER.md) and [validation boundaries](docs/VALIDATION.md).
 
 ## Controls
 
@@ -68,7 +72,7 @@ Python 3.10+ and Node 22+; gameplay itself has no package dependencies.
 
 ```sh
 python3 tools/build_standalone.py
-python3 tools/build_launcher.py The-Critic-Coming-Attractions-v9.html The-Critic-Coming-Attractions-v9-Play.sh
+python3 tools/build_launcher.py The-Critic-Coming-Attractions-v10.html The-Critic-Coming-Attractions-v10-Play.sh
 node tests/engine.test.js
 node tests/franklin.test.js
 node tests/v4-engine.test.js

@@ -31,3 +31,8 @@ The supplied cream-scarf male figure is now the Palace Cinema boss. He is foresh
 The final tower shows Duke at the controls and Marty still confined. The active system continues transmitting Coming Attractions, sending repeated enemy waves from its screens during the machine fight. The final encounter has two required combat phases: disable the transmitter, then defeat Duke personally. Machine failure stops the transmissions and dismisses its remaining summons before Duke confronts the player. Duke fights as a furious executive, with faster pursuit, grounded physical attacks and punishable recovery. He has no monster transformation.
 
 Only Duke’s defeat permits the rescue. The ending reunites Jay and Marty, gives the selected player a visible reaction or celebration, and returns to the existing results presentation. Franklin’s replay acknowledges his assistance without attributing Jay’s father-specific dialogue to him or announcing an existing unlock as new.
+
+
+## V10 staging continuity
+
+Marty’s cage rests on a wheeled transport platform. Duke’s large red control powers screens before a second activation releases the crowd. Pursuit scenes let Duke depart before the selected player runs into the same world. The Broadcast machine moves mechanically, never as a humanoid; Duke remains a physical fighter without teleportation. Marty’s final destination is Jay, including Franklin’s route. All four explicitly approved one-liners are unchanged.

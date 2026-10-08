@@ -29,7 +29,11 @@ const BOSS_DEFINITIONS={
  duke:{recovery:.7,hurtRecovery:.4,cooldown:.45,phaseCooldown:.3,moves:[
   {name:'LEAD JAB',anim:'lead-jab',windAnim:'folded-idle',wind:.6,duration:.48,hits:[.18],reach:108,lane:30,damage:14},
   {name:'EXECUTIVE CROSS',anim:'attack',windAnim:'folded-idle',wind:.7,duration:.68,hits:[.27],reach:122,lane:34,damage:19,recovery:.85},
-  {name:'HOSTILE TAKEOVER',anim:'attack',windAnim:'folded-idle',wind:.8,duration:.82,hits:[.42],reach:116,lane:34,damage:18,rush:215,recovery:.95}
+  {name:'HOSTILE TAKEOVER',anim:'v10-shoulder',windAnim:'folded-idle',wind:.8,duration:.9,hits:[.34],sourceImpact:7/22,reach:116,lane:34,damage:18,rush:245,recovery:.95},
+  {name:'EXECUTIVE ONE-TWO',anim:'v10-one-two',wind:.65,duration:.8,hits:[.22,.61],reach:120,lane:32,damage:12,minPhase:1,recovery:.85},
+  {name:'SWEEPING BACKHAND',anim:'v10-backhand',wind:.8,duration:1.05,hits:[.43],sourceImpact:11/30,reach:148,lane:48,damage:20,minPhase:1,recovery:1.05,all:true},
+  {name:'RETREAT / RE-ENGAGE',anim:'v10-shoulder',wind:.75,duration:1.15,hits:[.74],reach:120,lane:32,damage:18,retreat:true,minPhase:1,recovery:1.1},
+  {name:'ANGRY FLURRY',anim:'v10-flurry',wind:.7,duration:1.1,hits:[.18,.51,.82],reach:112,lane:32,damage:10,minPhase:2,recovery:1.2}
  ]},
  'booth-enforcer':{recovery:.85,moves:[
   {name:'AISLE RUSH',anim:'attack',wind:.85,duration:.9,hits:[.42],reach:117,lane:45,damage:15,rush:115},
@@ -41,9 +45,9 @@ const BOSS_DEFINITIONS={
   {name:'HEAVY COUNTER',anim:'opposite-strike',windAnim:'guard-reset',wind:.95,duration:.85,hits:[.43],reach:128,lane:42,damage:16,recovery:1.05}
  ]},
  spike:{recovery:1.05,ranged:true,preferredDistance:220,attackDistance:500,retreatDistance:145,moves:[
-  {name:'CAN TOSS',anim:'trash-throw',windAnim:'throw-ready',wind:.9,duration:.78,hits:[.32],sourceImpact:7/19,damage:16,radius:38,area:'trash-can',flight:.9},
-  {name:'LOW SKIP',anim:'trash-throw',windAnim:'throw-ready',wind:1.05,duration:.85,hits:[.35],sourceImpact:7/19,damage:15,radius:36,area:'trash-can',flight:1.0,low:true,recovery:1.15},
-  {name:'BACK OFF',anim:'attack',windAnim:'idle',wind:.68,duration:.65,hits:[.28],reach:128,lane:35,damage:17,recovery:.85}
+  {name:'CAN TOSS',anim:'v10-can-release',windAnim:'v10-can-windup',wind:.9,duration:.78,hits:[.015],sourceImpact:0,damage:16,radius:38,area:'trash-can',flight:.9},
+  {name:'LOW SKIP',anim:'v10-can-release',windAnim:'v10-can-windup',wind:1.05,duration:.85,hits:[.015],sourceImpact:0,damage:15,radius:36,area:'trash-can',flight:1.0,low:true,recovery:1.15},
+  {name:'BACK OFF',anim:'v10-backoff',windAnim:'idle',wind:.68,duration:.65,hits:[.28],reach:128,lane:35,damage:17,recovery:.85}
  ]},
  'broadcast-rig':{stationary:true,recovery:1.3,moves:[
   {name:'SWEEPING SIGNAL',anim:'attack',wind:1.12,duration:.62,hits:[.22],reach:610,lane:23,damage:15,area:'lane'},
@@ -59,7 +63,7 @@ for(const [kind,def] of Object.entries(BOSS_DEFINITIONS)){
 }
 const ITEMS={coffee:{name:'Coffee',health:18,meter:8,score:25},'turkey-dinner':{name:'Turkey Dinner',health:46,meter:12,score:50}};
 const PROPS={bin:{name:'Trash Can',alias:'trash-can'},'trash-can':{name:'Trash Can'},box:{name:'Box'},circuit:{name:'Booth Circuit',health:45}};
-const PROJECTION={colors:['#ffc36b','#73e3e4','#c2a0ff'],windowXs:[170,390,610,830,1050,1270,1490,1710,1930,2110,2310,2530,2750],shadow:.4,reveal:.55,wind:1.15,flight:.7,cooldown:2.4};
+const PROJECTION={colors:['#ffc36b','#73e3e4','#c2a0ff'],windowXs:[200,520,840,1160,1480,1800,2090,2410,2730],shadow:1.15,reveal:.55,wind:1.15,flight:.7,cooldown:2.4};
 function propsFor(stage){return [{id:1,x:900,y:445,hp:20,kind:'trash-can',scale:1.35,drop:'coffee'},{id:2,x:1810,y:445,hp:24,kind:'box',scale:1.35,drop:stage>=4?'turkey-dinner':'coffee'},{id:3,x:[4,6].includes(stage)?1880:2540,y:[4,6].includes(stage)?450:354,hp:20,kind:'box',scale:1.35,drop:'coffee'}];}
 const API={STAGES,EINFO,BOSS_DEFINITIONS,ITEMS,PROPS,PROJECTION,propsFor};if(typeof module!=='undefined')module.exports=API;else root.CriticCampaign=API;
 })(typeof window!=='undefined'?window:globalThis);

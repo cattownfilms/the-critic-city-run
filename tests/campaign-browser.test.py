@@ -126,7 +126,7 @@ with source_site(args.url) as url, sync_playwright() as pw:
     page=context.new_page()
     trace_native_audio(page)
     load(page,url)
-    check('Current canonical title and expanded campaign load',page.title().upper()=='THE CRITIC: COMING ATTRACTIONS' and page.evaluate('Brawler.STAGES.length===7&&BRAWLER_CONFIG.version==="9.0.0"'))
+    check('Current canonical title and expanded campaign load',page.title().upper()=='THE CRITIC: COMING ATTRACTIONS' and page.evaluate('Brawler.STAGES.length===7&&BRAWLER_CONFIG.version==="10.0.0"'))
     ui_step('New Game click',lambda: page.locator('#startButton').click());opening_ready(page)
     check('New Game opens the implemented story',page.evaluate('__brawler.game.mode==="cutscene"&&__brawler.scenes().state().id==="opening"'))
     expected=[('DUKE','Ratings are low. I need you to give this a glowing review, Sherman!'),('JAY','It Stinks!'),('DUKE','I thought you might say that... Allow me to give you a little motivation...'),('MARTY','Dad!'),('JAY','Marty!'),('DUKE',"If television can't bring the audience to us, perhaps we'll just bring the television to the audience!"),('JAY','Hatchi Matchi!!!')]

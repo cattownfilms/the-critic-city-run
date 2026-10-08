@@ -1,3 +1,15 @@
+# V10 validation
+
+Version **10.0.0**, continued from released v9 `ba087d21a1699ffec1fd923d17a18b796ae37ab6`. Eleven local JavaScript suites pass, including both seven-stage routes through normal combat inputs, source audio lifecycle, controller contracts, saves and v10 encounter state machines. Browser CI, release artifacts and hosted verification are pending in this working revision.
+
+Supplemental intake: all four actual files, 10.005 seconds / 1280×720 / 24 fps / 240 frames each, were hashed and reviewed in full chronological sheets. The requested Duke filename ends `b917`; the actual matching Duke file ends `6917`. The discrepancy, exact hashes, selections, cleanup, scales, pivots and flips are recorded in `production/v10-assets.json`. Raw MP4s remain outside the repository.
+
+New tests: `node tests/v10-engine.test.js`, `python tests/v10-assets.test.py`, `python tests/v10-presentation-browser.test.py --engine <chromium|firefox|webkit> --url local`. Existing native browser audio and full-campaign suites remain required. The remote browser matrix supplies real engines; no desktop browser is installed into Termux.
+
+Physical Android speaker output, touch/controller feel and subjective difficulty remain unverified until the phone smoke test.
+
+## Historical v9 evidence
+
 # V9 validation
 
 Version **9.0.0**, based on released v8 `51f1131163edbccc28390d00d766bb348327da30`.
