@@ -1161,5 +1161,19 @@
     "scope": "representative idle/walk/defeat poses across all banks, Projectionist portrait, all nine new action sheets",
     "changes": "Rabbi-only derived RGB spill correction; original atlas bytes and alpha preserved",
     "physicalReview": "not performed"
+  },
+  "annotatedPolish": {
+    "baseline": "ac9745966cffa707eb21fe94d3d30aaa88a0f3fd",
+    "build": "v11-playtest-20261008",
+    "sourceValidationRun": "https://github.com/cattownfilms/the-critic-city-run/actions/runs/37856214732",
+    "focusedSource": "pass",
+    "chromiumAudio": "pass",
+    "chromiumScenes": "pass",
+    "firefox": "not run for this patch",
+    "webkit": "not run for this patch",
+    "physicalAndroid": "not performed",
+    "endingSting": "blocked: three exact reference files unavailable; approved reunion/results preserved",
+    "publication": "verify separately in external receipt",
+    "ledger": "docs/V11-ANNOTATED-POLISH.md"
   }
 }

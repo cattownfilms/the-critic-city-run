@@ -125,6 +125,8 @@ class Renderer{
   return {a,f,progress};
  }
  nativeFacing(who,name,f,a=this.sprites.characters[who]?.[name]){
+  const corrected=this.sprites.facingCorrections?.[who]?.[name]?.[a?.frames.indexOf(f)];
+  if(corrected!==undefined)return corrected===-1?-1:1;
   // Archives retain their exact source metadata. Display the eight same-frame
   // archived actions with the audited direction of their active counterpart.
   // The six-frame older cartwheel is a different performance and keeps its own face.
