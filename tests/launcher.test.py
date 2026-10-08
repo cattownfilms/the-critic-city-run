@@ -20,6 +20,7 @@ with tempfile.TemporaryDirectory(prefix='brawler-launcher-') as home:
                 break
             except OSError:time.sleep(.1)
         check('Launcher starts its dedicated local server',data and data.get('app')=='cattown-critic-brawler-v10',data)
+        check('New server reports the exact v10 release version',data and data.get('version')=='10.0.0',data)
         with urllib.request.urlopen(url,timeout=5) as r:
             body=r.read();mime=r.headers.get('Content-Type');cache=r.headers.get('Cache-Control')
         expected=hashlib.sha256(html.read_bytes()).hexdigest()
@@ -38,6 +39,6 @@ with tempfile.TemporaryDirectory(prefix='brawler-launcher-') as home:
             os.killpg(proc.pid,signal.SIGINT)
             try:proc.wait(timeout=5)
             except subprocess.TimeoutExpired:os.killpg(proc.pid,signal.SIGTERM);proc.wait(timeout=3)
-report={'tests':results,'passed':sum(t['passed'] for t in results),'failed':sum(not t['passed'] for t in results),'boundary':'Actual Python loopback server and downloaded-launcher payload tested in Linux. No physical Termux/Android installation claimed.'}
+report={'tests':results,'passed':sum(t['passed'] for t in results),'failed':sum(not t['passed'] for t in results),'boundary':'Actual Python loopback server and launcher payload tested in an isolated native Termux directory. No interactive Android browser or personal installation update claimed.'}
 (ROOT/'tests/launcher-results.json').write_text(json.dumps(report,indent=2))
 if report['failed']:raise SystemExit(1)

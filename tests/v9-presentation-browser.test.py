@@ -29,7 +29,7 @@ with source_site(a.url) as url,sync_playwright() as pw:
   page.screenshot(path=str(photos/(a.engine+'-cinema-boss.png')))
   check('Single larger physical Rabbi survives after one emergence',page.evaluate("__brawler.game.enemies.filter(e=>e.kind==='pizzeria-boss').length===1&&__brawler.game.enemies[0].renderScale===1.52&&!__brawler.game.enemies[0].entry"))
   page.evaluate("""()=>{const g=__brawler.game;g.stage=6;g.resetWorld();g.mode='play';g.p.x=2150;g.camera=1820;g.activeGate=2;g.spawnBoss();for(const e of g.drain())__brawler.handleEvent(e);}""")
-  wait(page,'__brawler.scenes().active');skip_story(page);page.wait_for_timeout(150);page.screenshot(path=str(photos/(a.engine+'-broadcast-wave.png')))
+  wait(page,'__brawler.scenes().active');skip_story(page);wait(page,"__brawler.game.mode==='play'&&__brawler.game.broadcastSummons.waveStarted&&__brawler.game.enemies.some(e=>e.broadcastSummon&&e.hp>0)");page.screenshot(path=str(photos/(a.engine+'-broadcast-wave.png')))
   check('Environmental core moves on its rail, shielded with a living wave',page.evaluate("Number.isFinite(__brawler.game.enemies[0].x)&&__brawler.game.enemies[0].targetable===false&&__brawler.game.enemies.some(e=>e.broadcastSummon&&e.hp>0)"))
   check('No uncaught presentation errors',not errors,errors)
  except Exception as e:check('Presentation fixture completed',False,str(e))

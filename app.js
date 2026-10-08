@@ -243,7 +243,7 @@ async function pumpScenes(){
 function beginWorldScene(scene){
  if(!scene.worldStage)return;
  game.storyActors=game.storyActors||[];game.sceneClock=0;
- scene.worldOrigin=game.camera;scene.worldScale=renderer.rect.w/960;
+ game.viewWidth=renderer.resize().w;scene.worldOrigin=game.camera;scene.worldScale=game.viewWidth/960;
  if(scene.id.startsWith('stage-')){game.p.x=scene.worldOrigin-110;game.p.vx=game.p.vy=0;game.p.action=null;}
 }
 function finishWorldScene(scene,skipped){

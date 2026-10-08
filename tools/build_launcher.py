@@ -41,7 +41,7 @@ class Handler(http.server.BaseHTTPRequestHandler):
         if path in ('/','/index.html'):
             data=f.read_bytes();mime='text/html; charset=utf-8'
         elif path=='/version.json':
-            data=json.dumps({'app':TAG,'version':'8.0','sha256':hashlib.sha256(f.read_bytes()).hexdigest()}).encode();mime='application/json'
+            data=json.dumps({'app':TAG,'version':'10.0.0','sha256':hashlib.sha256(f.read_bytes()).hexdigest()}).encode();mime='application/json'
         elif path=='/favicon.ico':
             self.send_response(204);self.end_headers();return
         else:
