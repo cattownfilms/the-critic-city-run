@@ -297,7 +297,7 @@
     "tests/upgrade-launcher.test.py": "942e370a5fb737c255bbaa0311eb056da1b127e9d7798d3f89c0ca1a08c85dae",
     "tests/v10-assets.test.py": "ee4455b2eac2258cd63f3246e07ac95ca69aae62d9c67852e01c2320cb64dad4",
     "tests/v10-engine.test.js": "5709e50a976ac6c550a79f8e04e514834e12b94132e503d90f1284ee450e3927",
-    "tests/v10-presentation-browser.test.py": "db50d3eb68ef248cac2bfce6fcdd3e2084bb833e7cafc4f268510d986032dcbf",
+    "tests/v10-presentation-browser.test.py": "83386fee71bff842245d08886479e7280e74b9da1d292a459f28053df15eec5a",
     "tests/v2-combat-baseline.json": "1e9a363efbc20e393d2c01fa2104849df0b80b126fe17dff56aea1a6f58c6efc",
     "tests/v2-immutable-baseline.json": "3426b4adb2b9199ae1bd251ea3f728209672f8d09c8a67621e71985c001a364d",
     "tests/v4-engine.test.js": "bc11867fcdd980c1e60c5271c0ab9a19712e24d4f949150f95d52efe68448ba8",
