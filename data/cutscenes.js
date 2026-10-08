@@ -109,7 +109,8 @@ const scenes={
  ]}
 };
 scenes['boss-duke-intro'].shots.unshift({id:'face-off-marks',auto:1.2,minTime:1.1,actors:[hero(280,{motion:move(280,280,1.1),face:1}),duke(550,{motion:move(515,550,1.1),face:-1}),boy(792)],cage:cage(792)});
-scenes['boss-spike-intro'].shots.push({id:'jump-demonstration',spikeTutorial:true,auto:30,minTime:30,tutorialHint:'ROLLS LOW — JUMP OVER IT',actors:[hero(260,{face:1}),actor('spike','spike',660,318,{face:-1,scale:1.08})]});
+scenes['boss-spike-intro'].shots.push({id:'tutorial-marks',auto:1.8,minTime:1.75,actors:[hero(235,{motion:move(235,235,1.7),face:1}),actor('spike','spike',670,318,{motion:move(670,670,1.7),face:-1,scale:1.08})]});
+scenes['boss-spike-intro'].shots.push({id:'jump-demonstration',spikeTutorial:true,auto:30,minTime:30,tutorialHint:'ROLLS LOW — JUMP OVER IT',actors:[hero(235,{face:1}),actor('spike','spike',670,318,{face:-1,scale:1.08})]});
 for(const scene of Object.values(scenes))for(const shot of scene.shots){
  if(shot.cage&&!shot.cage.open){const d=shot.actors?.find(a=>a.character==='duke'),m=shot.actors?.find(a=>a.character==='marty');if(d&&m&&(d.motion&&m.motion||scene.id==='stage-07-intro')){shot.cartCoupled=true;d.animation=d.motion?'v11-cart-push':'v11-cart-stop';m.animation='v11-captive-idle';}}
  if(scene.id==='ending')shot.reunionLayers=true;

@@ -191,6 +191,10 @@ with source_site(args.url) as url, sync_playwright() as pw:
         fixture_ids = ['stage-02-intro', 'stage-03-intro', 'stage-04-intro', 'stage-05-intro', 'stage-06-intro', 'stage-07-intro', 'boss-cinema-intro', 'boss-spike-intro', 'boss-broadcast-intro', 'boss-broadcast-defeat', 'boss-duke-intro', 'ending']
         selected_lines = []
         for scene_id in fixture_ids:
+            if scene_id == 'boss-spike-intro':
+                # V11 demonstrates the real boss/projectile/jump, so this isolated
+                # scene fixture must contain the actual Little Italy boss.
+                page.evaluate("()=>{const g=__brawler.game;g.stage=5;g.resetWorld();g.makePlayer();g.p.x=2200;g.p.y=407;g.camera=1820;g.activeGate=g.nextGate=2;g.spawnBoss();g.drain();}")
             page.evaluate('id=>__brawler.handleEvent({type:"story",id})', scene_id)
             shot_ready(page)
             for _ in range(12):

@@ -590,7 +590,15 @@ Put the can down, Spike. Do the right thing.
 
 Portrait: franklin | Expression: neutral
 
-### Beat 04 jump demonstration
+### Beat 04 tutorial marks
+
+boss-spike-intro/tutorial-marks | Automatic advance after 1.8s; earliest advance 1.75s.
+
+*Selected player: idle, moving in place over 1.7s; Spike: idle, moving in place over 1.7s.*
+
+No spoken dialogue.
+
+### Beat 05 jump demonstration
 
 boss-spike-intro/jump-demonstration | Automatic advance after 30s; earliest advance 30s.
 
@@ -1100,4 +1108,4 @@ Story lines and staging are authored in data/cutscenes.js. Stage and boss trigge
 
 Use the scene and beat identifiers when returning revisions. Replace the spoken line under the appropriate route; shared lines affect both characters. The seven approved opening lines are preserved exactly.
 
-Source fingerprint: 15ff4b701684253a
+Source fingerprint: 6c6dcfbb1217f832
