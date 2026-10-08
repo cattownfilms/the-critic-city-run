@@ -56,13 +56,13 @@ const scenes={
   route('Three circuits. Three remotes. At least this theater has an off switch.','Lights first. Then the exit.',{actors:[hero(260)],booth:{phase:'lit',active:1},circuits:undefined,objective:'DODGE REELS — SMASH THE THROWN RADIO',expression:'focused'})
  ]},
  'boss-projection-defeat':{id:'boss-projection-defeat',title:'END OF REEL',environment:'cinema',shots:[
-  {id:'booth-shutdown',auto:1.2,minTime:1,actors:[hero(260)],booth:{phase:'off'},circuits:0,sound:'slam',destination:'BOOTH POWER / OFF'},
+  {id:'booth-shutdown',auto:2,minTime:1.9,actors:[hero(260)],booth:{phase:'off'},circuits:0,sound:'slam',destination:'BOOTH POWER / OFF'},
   route("That’s enough audience participation.","This isn't my house.",{actors:[hero(260,{animation:'v10-point',face:1})],booth:{phase:'off'},circuits:0,destination:'BOOTH POWER / OFF'})
  ]},
  'stage-06-intro':chase('stage-06-intro','LITTLE ITALY','pizzeria','BROADCAST TOWER',"I'm going to fight my boss. Do I dare live out the American dream?","Everbody seen the leprechaun say, “Yeah!”"),
  'boss-cinema-intro':{id:'boss-cinema-intro',title:'THE MAIN ATTRACTION',environment:'cinema',shots:[
   {id:'screen-shadow',auto:.45,minTime:.4,actors:[hero(235)],screenForeshadow:true,sound:'swish'},
-  {id:'screen-emergence',auto:1.6,minTime:1.4,actors:[hero(235),actor('headliner','pizzeria-boss',635,318,{animation:'walk',afterAnimation:'guard-reset',after:1.4,face:1,scale:1.52,emerging:true,motion:move(242,635,1.6,0,{fromY:180,toY:318})})],screenForeshadow:false,flash:.12,sound:'slam'},
+  {id:'screen-emergence',auto:2.25,minTime:2.15,actors:[hero(235),actor('headliner','pizzeria-boss',635,318,{animation:'guard-reset',face:-1,scale:1.52,emerging:true})],screenForeshadow:false,flash:.12,sound:'slam'},
   dialogue('VIOLENT AUSTRIAN RABBI',"Welcome to your Bar Mitsfa. It's time to become a man. A dead man.",{portrait:'pizzeria',actors:[hero(235),actor('headliner','pizzeria-boss',635,318,{animation:'guard-reset',face:-1,scale:1.52})]}),
   route('I usually leave before the credits.','You’re blocking the exit.',{actors:[hero(235),actor('headliner','pizzeria-boss',635,318,{face:-1,scale:1.52})]})
  ]},

@@ -293,9 +293,10 @@ function finishWorldScene(scene,skipped){
 function drawWorldScene(s){
  const dt=s.paused||s.loading?0:Math.max(0,Math.min(.05,s.totalTime-(game.sceneClock||0)));game.sceneClock=s.totalTime;s.actorStates=[];
  game.reunionLayers=!!s.shot.reunionLayers;
+ if(game.stage===4&&game.projection.shutdown){for(const e of game.enemies)if(e.projectionSupport&&e.hp<=0)e.timer+=dt;}
  if(s.shot.spikeTutorial){game.startSpikeTutorial();game.updateSpikeTutorial(dt);for(const e of game.drain())handle(e);s.tutorialComplete=!!game.spikeTutorial?.complete;s.actorStates=[game.p,game.spikeTutorial?.boss].filter(Boolean).map(a=>({id:a===game.p?'player':'spike',character:a===game.p?game.playerKind:a.kind,x:a.x,y:a.y,z:a.z||0,animation:a.anim,visible:true,resolvedFace:a.face}));return;}
  const origin=s.scene.worldOrigin||0,scale=s.scene.worldScale||1,map=x=>origin+x*scale;
- if(s.shot.booth&&game.stage===4){const a=game.projection,booth=a.booths.find(b=>b.x>=game.camera+70&&b.x<=game.camera+renderer.rect.w-70);if(booth){a.window=booth.id;a.visible=s.shot.booth.phase!=='off';a.phase=s.shot.booth.phase==='shadow'?'shadow':'reveal';a.timer=s.time;a.face=game.p.x<booth.x?-1:1;s.boothState={phase:s.shot.booth.phase,active:booth.id};}}
+ if(s.shot.booth&&game.stage===4){const a=game.projection,booth=a.booths.find(b=>b.id===game.activeGate&&b.x>=game.camera+70&&b.x<=game.camera+renderer.rect.w-70);if(booth){a.window=booth.id;a.visible=s.shot.booth.phase!=='off';a.phase=s.shot.booth.phase==='shadow'?'shadow':'reveal';a.timer=s.time;a.face=game.p.x<booth.x?-1:1;s.boothState={phase:s.shot.booth.phase,active:booth.id};}}
  const realBoss=game.enemies.find(e=>e.boss&&e.kind!=='broadcast-rig');
  if(realBoss?.entry){if(realBoss.kind==='pizzeria-boss'&&s.shot.id==='screen-shadow')realBoss.hidden=true;else{realBoss.animT+=dt;game.updateEntry(realBoss,dt);}}
  const active=new Set();

@@ -1,0 +1,16 @@
+{
+  "character": "pizzeria-boss",
+  "method": "Reviewed original atlas frame contact sheets; metadata only, image bytes unchanged.",
+  "corrections": {
+    "guard-reset": [
+      16,
+      17
+    ],
+    "land": [
+      11,
+      12
+    ],
+    "death": "all frames native left"
+  },
+  "retained": "idle/walk/run native right; existing per-frame attack and opposite-strike left metadata retained; hurt resolves to idle (no dedicated hurt performance in supplied bank)."
+}

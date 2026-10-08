@@ -63,7 +63,7 @@ for(const [kind,def] of Object.entries(BOSS_DEFINITIONS)){
 }
 const ITEMS={coffee:{name:'Coffee',health:18,meter:8,score:25},'turkey-dinner':{name:'Turkey Dinner',health:46,meter:12,score:50}};
 const PROPS={bin:{name:'Trash Can',alias:'trash-can'},'trash-can':{name:'Trash Can'},box:{name:'Box'},circuit:{name:'Booth Circuit',health:45}};
-const PROJECTION={colors:['#ffc36b','#73e3e4','#c2a0ff'],windowXs:[2190,2450,2710],shadow:1.15,reveal:.55,wind:1.15,flight:.7,cooldown:2.4};
+const PROJECTION={colors:['#ffc36b','#73e3e4','#c2a0ff'],windowXs:[640,1500,2450],shadow:1.15,reveal:.55,wind:1.15,flight:.7,cooldown:2.4};
 function propsFor(stage){return [{id:1,x:900,y:445,hp:20,kind:'trash-can',scale:1.35,drop:'coffee'},{id:2,x:1810,y:445,hp:24,kind:'box',scale:1.35,drop:stage>=4?'turkey-dinner':'coffee'},{id:3,x:[4,6].includes(stage)?1880:2540,y:[4,6].includes(stage)?450:354,hp:20,kind:'box',scale:1.35,drop:'coffee'}];}
 const API={STAGES,EINFO,BOSS_DEFINITIONS,ITEMS,PROPS,PROJECTION,propsFor};if(typeof module!=='undefined')module.exports=API;else root.CriticCampaign=API;
 })(typeof window!=='undefined'?window:globalThis);

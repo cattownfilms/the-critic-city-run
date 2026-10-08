@@ -462,7 +462,7 @@ Setting: Palace Cinema | Music: current stage
 
 ### Beat 01 booth shutdown
 
-boss-projection-defeat/booth-shutdown | Automatic advance after 1.2s; earliest advance 1s.
+boss-projection-defeat/booth-shutdown | Automatic advance after 2s; earliest advance 1.9s.
 
 *Selected player: idle; the projection booths go dark; sound cue: slam.*
 
@@ -508,9 +508,9 @@ No spoken dialogue.
 
 ### Beat 02 screen emergence
 
-boss-cinema-intro/screen-emergence | Automatic advance after 1.6s; earliest advance 1.4s.
+boss-cinema-intro/screen-emergence | Automatic advance after 2.25s; earliest advance 2.15s.
 
-*Selected player: idle; Violent Austrian Rabbi emerges from the cinema screen and moves right and down onto the combat plane, then guard reset after 1.4s; a white flash punctuates the beat; sound cue: slam.*
+*Selected player: idle; Violent Austrian Rabbi: guard reset; a white flash punctuates the beat; sound cue: slam.*
 
 No spoken dialogue.
 
@@ -1134,4 +1134,4 @@ Story lines and staging are authored in data/cutscenes.js. Stage and boss trigge
 
 Use the scene and beat identifiers when returning revisions. Replace the spoken line under the appropriate route; shared lines affect both characters. The seven approved opening lines are preserved exactly.
 
-Source fingerprint: 6b158c54edf1ab63
+Source fingerprint: ab709b5b9e1bb687
