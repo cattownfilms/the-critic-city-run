@@ -1,3 +1,7 @@
+# Annotated polish validation
+
+See [the focused correction ledger](V11-ANNOTATED-POLISH.md) for commands, evidence and the missing ending-source blocker. Earlier full-matrix results below are historical, not patch validation.
+
 # V11 validation
 
 Baseline: `8757424f41b7f7cc9a3eebaa927298473988d56b`. Local deterministic coverage includes both selected-player tutorial jumps, actual airborne underpass, skip at four phases, later dangerous can contact, settled punchline timing, screen-area trigger, exact volley widths and saved schema lineage. Retained full-campaign normal-input route tests remain required.

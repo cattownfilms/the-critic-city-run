@@ -20,6 +20,7 @@ function arena(stage){const g=new B.Game();g.start();g.stage=stage;g.activeGate=
 {
  const g=arena(4);g.configureProjection();
  for(let phase=0;phase<3;phase++){
+  g.activeGate=g.nextGate=phase;g.camera=[205,1065,1900][phase];g.p.x=[520,1380,2280][phase];g.configureProjection();
   let count=0,eyes=0,remote;
   for(let i=0;i<10000&&!remote;i++){
    g.updateProjection(1/120);if(g.projection.phase==='shadow')eyes+=1/120;

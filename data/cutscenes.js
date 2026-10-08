@@ -42,7 +42,7 @@ const scenes={
  'stage-04-intro':chase('stage-04-intro','THEATER DISTRICT','theater','PALACE CINEMA',"Isn't this where we saw Cats? Not the play... It was the cast eating out of the garbage.","I can say my name backward. Nilknarf!"),
  'stage4-clear':{id:'stage4-clear',title:'THE PREMIERE CONTINUES',environment:'theater',shots:[
   dialogue('FRANKLIN',"Nilknarf!",{routes:['hero'],portrait:'franklin',actors:[hero(270),actor('franklin','franklin',565)]}),
-  route("Ah the theater, where nothing is sharper than my rapier wit!","I'm not wearing pants.",{actors:[hero(270,{animation:'walk',motion:move(270,470,1.1)})]})
+  dialogue('FRANKLIN',"I'm not wearing pants.",{routes:['franklin'],portrait:'franklin',actors:[hero(270,{animation:'walk',motion:move(270,470,1.1)})]})
  ]},
  'stage-05-intro':{id:'stage-05-intro',title:'PALACE CINEMA',environment:'cinema',shots:[
   {id:'transport',auto:2,minTime:1.8,screenForeshadow:true,actors:[duke(250,{animation:'walk',motion:move(250,690,2)}),boy(360,{motion:move(360,800,2)}),hero(80,{animation:'run',motion:move(-90,185,1,.8)})],cage:cage(360,{carried:true,motion:move(360,800,2)}),destination:'SERVICE EXIT / LITTLE ITALY'},
@@ -56,13 +56,13 @@ const scenes={
   route('Three circuits. Three remotes. At least this theater has an off switch.','Lights first. Then the exit.',{actors:[hero(260)],booth:{phase:'lit',active:1},circuits:undefined,objective:'DODGE REELS — SMASH THE THROWN RADIO',expression:'focused'})
  ]},
  'boss-projection-defeat':{id:'boss-projection-defeat',title:'END OF REEL',environment:'cinema',shots:[
-  {id:'booth-shutdown',auto:1.2,minTime:1,actors:[hero(260)],booth:{phase:'off'},circuits:0,sound:'slam',destination:'BOOTH POWER / OFF'},
+  {id:'booth-shutdown',auto:2,minTime:1.9,actors:[hero(260)],booth:{phase:'off'},circuits:0,sound:'slam',destination:'BOOTH POWER / OFF'},
   route("That’s enough audience participation.","This isn't my house.",{actors:[hero(260,{animation:'v10-point',face:1})],booth:{phase:'off'},circuits:0,destination:'BOOTH POWER / OFF'})
  ]},
  'stage-06-intro':chase('stage-06-intro','LITTLE ITALY','pizzeria','BROADCAST TOWER',"I'm going to fight my boss. Do I dare live out the American dream?","Everbody seen the leprechaun say, “Yeah!”"),
  'boss-cinema-intro':{id:'boss-cinema-intro',title:'THE MAIN ATTRACTION',environment:'cinema',shots:[
   {id:'screen-shadow',auto:.45,minTime:.4,actors:[hero(235)],screenForeshadow:true,sound:'swish'},
-  {id:'screen-emergence',auto:1.6,minTime:1.4,actors:[hero(235),actor('headliner','pizzeria-boss',635,318,{animation:'walk',afterAnimation:'guard-reset',after:1.4,face:1,scale:1.52,emerging:true,motion:move(242,635,1.6,0,{fromY:180,toY:318})})],screenForeshadow:false,flash:.12,sound:'slam'},
+  {id:'screen-emergence',auto:2.25,minTime:2.15,actors:[hero(235),actor('headliner','pizzeria-boss',635,318,{animation:'guard-reset',face:-1,scale:1.52,emerging:true})],screenForeshadow:false,flash:.12,sound:'slam'},
   dialogue('VIOLENT AUSTRIAN RABBI',"Welcome to your Bar Mitsfa. It's time to become a man. A dead man.",{portrait:'pizzeria',actors:[hero(235),actor('headliner','pizzeria-boss',635,318,{animation:'guard-reset',face:-1,scale:1.52})]}),
   route('I usually leave before the credits.','You’re blocking the exit.',{actors:[hero(235),actor('headliner','pizzeria-boss',635,318,{face:-1,scale:1.52})]})
  ]},
@@ -83,18 +83,18 @@ const scenes={
   route("Let Marty go. Your reviews are about to get worse.","Step away from my grandson, Duke.",{actors:[hero(265,{animation:'v10-point',face:1}),duke(638),boy(792)],cage:cage(792),powered:true,alarm:true})
  ]},
  'boss-broadcast-intro':{id:'boss-broadcast-intro',title:'THE FINAL BROADCAST',environment:'broadcast',screens,shots:[
-  dialogue('DUKE','Live. Everywhere. All at once!',{portrait:'duke',expression:'smug',actors:[hero(280),duke(638,{animation:'attack'}),boy(792)],cage:cage(792),powered:true,alarm:true}),
+  dialogue('DUKE','Look at those screens, Jay. Everybody’s finally watching me.',{portrait:'duke',expression:'smug',actors:[hero(280),duke(638,{animation:'attack'}),boy(792)],cage:cage(792),powered:true,alarm:true}),
   {id:'broadcast-surges',auto:2.4,minTime:2.2,actors:[hero(280,{animation:'guard'}),duke(638),boy(792)],cage:cage(792),powered:true,alarm:true,emissions:emissions.slice(0,5).map((e,i)=>({...e,start:i*.25,toX:450+i*82})),flash:.16,sound:'slam'},
-  route('Not one more frame.',"Hands off my grandson.",{actors:[hero(280,{animation:'v10-point',face:1}),duke(638),boy(792)],cage:cage(792),powered:true,alarm:true,objective:'STOP THE BROADCAST'})
+  route('It’s a bunch of TVs and a hostage, Duke. Nobody’s impressed.',"Hands off my grandson.",{actors:[hero(280,{animation:'v10-point',face:1}),duke(638),boy(792)],cage:cage(792),powered:true,alarm:true,objective:'STOP THE BROADCAST'})
  ]},
  'boss-broadcast-defeat':{id:'boss-broadcast-defeat',title:'SIGNAL LOST',environment:'broadcast',screens,shots:[
   {id:'signal-dies',auto:1.2,minTime:1,actors:[hero(280),duke(638,{animation:'hurt'}),boy(792)],cage:cage(792),powered:false,flash:.18,sound:'slam'},
-  dialogue('DUKE','You don’t get to cancel me!',{portrait:'duke',expression:'angry',actors:[hero(280),duke(515,{animation:'walk',motion:move(638,515,1)}),boy(792)],cage:cage(792),minTime:1}),
-  route('Then let’s discuss your performance.','Come down here.',{actors:[hero(280),duke(515,{animation:'v11-confrontation',face:-1}),boy(792)],cage:cage(792)})
+  dialogue('DUKE','That was supposed to be my masterpiece!',{portrait:'duke',expression:'angry',actors:[hero(280),duke(515,{animation:'walk',motion:move(638,515,1)}),boy(792)],cage:cage(792),minTime:1}),
+  route('You want somebody to blame? I’m right here.','Come down here.',{actors:[hero(280),duke(515,{animation:'v11-confrontation',face:-1}),boy(792)],cage:cage(792)})
  ]},
  'boss-duke-intro':{id:'boss-duke-intro',title:'DUKE PHILLIPS',environment:'broadcast',shots:[
-  dialogue('DUKE','I own this network!',{portrait:'duke',expression:'angry',actors:[hero(280),duke(550,{animation:'lead-jab',face:-1,motion:move(605,550,.8)}),boy(792)],cage:cage(792),minTime:.8}),
-  route('Yes. And I’m cancelling my subscription.','You don’t own me.',{actors:[hero(280,{animation:'guard'}),duke(550,{face:-1}),boy(792)],cage:cage(792)})
+  dialogue('DUKE','You ruined my finale!',{portrait:'duke',expression:'angry',actors:[hero(280),duke(550,{animation:'lead-jab',face:-1,motion:move(605,550,.8)}),boy(792)],cage:cage(792),minTime:.8}),
+  route('Then come down here and finish it.','You don’t own me.',{actors:[hero(280,{animation:'guard'}),duke(550,{face:-1}),boy(792)],cage:cage(792)})
  ]},
  'boss-duke-defeat':{id:'boss-duke-defeat',title:'THE LAST WORD',environment:'broadcast',shots:[
   dialogue('DUKE','Fine! Take him!',{portrait:'duke',expression:'defeated',actors:[hero(280),duke(570,{animation:'v10-defeat',face:-1}),boy(792)],cage:cage(792),auto:1.8,minTime:1.5}),
@@ -119,10 +119,26 @@ const cinemaPursuit=chase('cinema-pursuit','','cinema','SERVICE EXIT / LITTLE IT
 // Move the existing route reaction to the screen-area encounter; retain its dialogue.
 scenes['boss-projection-intro'].shots.splice(2,0,scenes['stage-05-intro'].shots.at(-1));
 scenes['stage-05-intro'].shots=cinemaPursuit.shots.slice(0,2);
+scenes['stage-05-intro'].shots.push(dialogue('JAY','Ah the theater, where nothing is sharper than my rapier wit!',{routes:['hero'],portrait:'jay',actors:[hero(265)]}));
 scenes['stage-07-intro'].shots.push({id:'cart-release',auto:1.2,minTime:1.1,actors:[hero(265,{face:1}),duke(638,{animation:'v11-cart-release',face:1}),boy(768,{animation:'v11-worried-look'})],cage:cage(768)});
 scenes['stage-07-intro'].shots.push({id:'duke-to-controls',auto:1.6,minTime:1.5,actors:[hero(265,{face:1}),duke(638,{animation:'walk',motion:move(638,850,1.5)}),boy(792)],cage:cage(792),powered:true});
 for(const shot of scenes['boss-broadcast-intro'].shots)for(const a of shot.actors||[])if(a.character==='duke')a.worldY=324;
 for(const a of scenes['stage-07-intro'].shots.at(-1).actors)if(a.character==='duke')a.worldY=324;
+const broadcastBoast=scenes['boss-broadcast-intro'].shots.find(s=>s.speaker==='DUKE');
+broadcastBoast.routeDialogue={franklin:{speaker:'DUKE',dialogue: 'Look at those screens, Franklin. Everybody’s finally watching me.'}};
+// Fixed background marks are shared by the machine scene and its physical handoff.
+scenes['boss-broadcast-intro'].shots.unshift({id:'control-marks',auto:2.5,minTime:2.4,actors:[hero(280),duke(638),boy(792)],cage:cage(792)});
+for(const id of ['boss-broadcast-intro','boss-broadcast-defeat','boss-duke-intro','boss-duke-defeat'])for(const shot of scenes[id].shots){
+ for(const a of shot.actors||[]){
+  if(a.character==='marty'){a.worldX=2740;a.worldY=305;a.animation='v11-captive-idle';}
+  if(a.character==='duke'&&id==='boss-broadcast-intro'){a.worldX=2520;a.worldY=305;delete a.motion;}
+  if(a.character==='duke'&&id==='boss-broadcast-defeat'){a.worldX=2450;a.worldY=407;a.animation='v11-confrontation';delete a.motion;}
+  if(a.character==='duke'&&id==='boss-duke-intro'){a.worldX=2450;a.worldY=407;delete a.motion;}
+  if(a.id==='player'&&id==='boss-duke-intro'){a.worldX=2180;delete a.motion;}
+ }
+}
+scenes['boss-broadcast-defeat'].shots[0].auto=2.3;
+scenes['boss-broadcast-defeat'].shots[0].minTime=2.2;
 for(const scene of Object.values(scenes))if(scene.id!=='opening')scene.worldStage=true;
 // Expressions supplied in the revised campaign script.
 scenes['stage-02-intro'].shots[2].routeDialogue.hero.expression='smug';

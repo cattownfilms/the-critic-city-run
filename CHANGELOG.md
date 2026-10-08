@@ -1,3 +1,12 @@
+# V11 annotated polish (2026-10-08)
+
+- Recover SFX decoding and resume with concise diagnostics; preserve all recordings.
+- Move the theater line to Palace; separate three booth arenas, lock/release, frozen-target depth-sorted reels and visible final support shutdown.
+- Repair Rabbi source facing and screen emergence; align Spike can release.
+- Clarify Receiver core and background staging; retain coordinates into physical Duke confrontation and update only flagged exchanges.
+- Preserve version/save lineage. New skyline ending blocked by unavailable exact source references; approved reunion unchanged.
+- Focused validation details: `docs/V11-ANNOTATED-POLISH.md`.
+
 # v10.0.0 — post-v9 production pass
 
 ## 11.0.0

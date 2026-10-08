@@ -14,7 +14,7 @@ let profile=readStore(conf.profileKey)||{};if(typeof profile!=='object')profile=
 $('continueButton').hidden=!save;$('musicVolume').value=Math.round(settings.music*100);$('sfxVolume').value=Math.round(settings.sfx*100);$('reducedMotion').checked=settings.reducedMotion;$('vibration').checked=settings.vibration;
 function toast(s){$('toast').textContent=s;$('toast').hidden=false;clearTimeout(toast.timer);toast.timer=setTimeout(()=>$('toast').hidden=true,3500);}
 function fatal(s){$('fatal').textContent='The game could not finish loading. '+s+' Reload after the download has finished, or use the included local launcher.';$('fatal').hidden=false;}
-const cachedURLs=new Map(),rawSrc=name=>inline?inline.files[name]:(conf.assetBase+name+'?v='+encodeURIComponent(conf.version));
+const cachedURLs=new Map(),rawSrc=name=>inline?inline.files[name]:(conf.assetBase+name+'?v='+encodeURIComponent(name==='sprites.json'?(conf.build||conf.version):conf.version));
 const src=name=>cachedURLs.get(name)||rawSrc(name);
 $('titleArt').src=src('title.png');$('portrait').src=src('icon.png');
 class Input{
@@ -44,8 +44,33 @@ class Input{
 }
 class AudioSystem{
  constructor(){this.music=new Audio();this.music.loop=true;this.music.preload='none';this.music.volume=settings.music;this.trackKey='title';this.musicNodes=new Map([['title',this.music]]);this.outgoing=null;this.fade=1;this.wantMusic=false;this.musicSerial=0;this.ctx=null;this.buffers={};this.bytes=new Map();this.active=new Set();this.loaded=false;this.ready=null;this.muted=false;this.lastVoice=-9;this.duck=0;this.played={};this.errors=[];this.cueNames=['swish','backhand','bear-call','bear-hit','hit','heavy','hippo-hit','slam','step1','step2','elder-strike','elder-hit','fall'];}
- async unlock(){if(!window.AudioContext&&!window.webkitAudioContext)return;try{if(!this.ctx){this.ctx=new (window.AudioContext||window.webkitAudioContext)();this.bus=this.ctx.createGain();this.bus.gain.value=settings.sfx;const comp=this.ctx.createDynamicsCompressor();comp.threshold.value=-14;comp.knee.value=20;comp.ratio.value=4;this.bus.connect(comp);comp.connect(this.ctx.destination);this.ready=this.decode();}if(this.ctx.state==='suspended'||this.ctx.state==='interrupted'){if(!this.resuming)this.resuming=this.ctx.resume();const pending=this.resuming;try{await pending;}finally{if(this.resuming===pending)this.resuming=null;}}}catch(e){this.errors.push(String(e));}}
- async decode(){const load=async name=>{const data=this.bytes.get(name+'.wav');if(!data||this.buffers[name])return;try{this.buffers[name]=await this.ctx.decodeAudioData(data.slice(0));}catch(e){this.errors.push(name+': '+e);}};await Promise.all(this.cueNames.map(load));this.loaded=Object.keys(this.buffers).length===this.cueNames.length;}
+ sfxStatus(reason,cue){this.lastSfx={reason,cue:cue||null,context:this.ctx?.state||'absent',decoded:Object.keys(this.buffers).length,total:this.cueNames.length};return false;}
+ async unlock(){
+  if(!window.AudioContext&&!window.webkitAudioContext)return this.sfxStatus('web-audio-unavailable');
+  try{
+   if(!this.ctx||this.ctx.state==='closed'){
+    this.ctx=new (window.AudioContext||window.webkitAudioContext)();this.bus=this.ctx.createGain();this.bus.gain.value=this.muted?0:settings.sfx;
+    this.compressor=this.ctx.createDynamicsCompressor();this.compressor.threshold.value=-14;this.compressor.knee.value=20;this.compressor.ratio.value=4;this.bus.connect(this.compressor);this.compressor.connect(this.ctx.destination);
+    this.resuming=null;this.decoding=new Map();this.ctx.onstatechange=()=>{if(this.ctx.state!=='running')this.sfxStatus('context-'+this.ctx.state);};
+   }
+   // Resume in the trusted event, before any await or deferred decode work.
+   if(['suspended','interrupted'].includes(this.ctx.state)&&(!this.resuming||performance.now()-this.resumeAt>1500)){
+    this.resumeAt=performance.now();const pending=this.ctx.resume();this.resuming=pending;
+    Promise.resolve(pending).catch(e=>{this.errors.push('SFX resume: '+e);this.sfxStatus('resume-rejected');}).finally(()=>{if(this.resuming===pending)this.resuming=null;});
+   }
+   this.ready=this.decode();
+  }catch(e){this.errors.push('SFX context: '+e);this.sfxStatus('context-error');}
+ }
+ async decode(){
+  const ctx=this.ctx;if(!ctx||ctx.state==='closed')return false;this.decoding=this.decoding||new Map();
+  const load=name=>{
+   if(this.buffers[name])return;const data=this.bytes.get(name+'.wav');if(!data){this.sfxStatus('bytes-not-ready',name);return;}
+   if(this.decoding.has(name))return this.decoding.get(name);
+   let timeout;const job=Promise.race([Promise.resolve().then(()=>ctx.decodeAudioData(data.slice(0))),new Promise((_,reject)=>{timeout=setTimeout(()=>reject(new Error('decode timeout')),6000);})]).then(buffer=>{if(this.ctx===ctx)this.buffers[name]=buffer;}).catch(e=>{this.errors.push(name+': '+e);this.errors=this.errors.slice(-20);this.sfxStatus('decode-failed',name);}).finally(()=>{clearTimeout(timeout);if(this.decoding.get(name)===job)this.decoding.delete(name);});
+   this.decoding.set(name,job);return job;
+  };
+  await Promise.all(this.cueNames.map(load));this.loaded=this.cueNames.every(name=>!!this.buffers[name]);if(this.loaded)this.sfxStatus('ready');return this.loaded;
+ }
  chooseTrack(key){
   key=conf.music[key]?key:'title';const item=conf.music[key];if(key===this.trackKey){if(!this.music.getAttribute('src')&&cachedURLs.has(item.file))this.music.src=src(item.file);return;}
   if(!cachedURLs.has(item.file))return;
@@ -89,7 +114,16 @@ class AudioSystem{
   try{const pending=node.play();await pending;this.lastBlocked=null;if(!this.wantMusic||node!==this.music||this.muted)node.pause();}
   catch(e){if(this.wantMusic&&serial===this.musicSerial){this.lastBlocked=String(e);this.errors.push('music: '+e);toast('Tap the sound button to enable audio.');}}
  }
- sample(name,vol=.65,rate=1){if(this.muted||!this.ctx||this.ctx.state!=='running'||!this.buffers[name]||this.active.size>=10)return;const b=this.ctx.createBufferSource(),g=this.ctx.createGain();b.buffer=this.buffers[name];b.playbackRate.value=rate;g.gain.value=vol;b.connect(g);g.connect(this.bus);this.bus.gain.value=settings.sfx;b.start();this.active.add(b);this.played[name]=(this.played[name]||0)+1;b.onended=()=>{this.active.delete(b);b.disconnect();g.disconnect();};}
+ sample(name,vol=.65,rate=1){
+  if(this.muted)return this.sfxStatus('muted',name);if(settings.sfx<=0)return this.sfxStatus('effects-volume-zero',name);
+  if(!this.ctx||this.ctx.state!=='running'){this.unlock();return this.sfxStatus('context-not-running',name);}
+  if(!this.cueNames.includes(name))return this.sfxStatus('unknown-cue',name);
+  if(!this.buffers[name]){this.ready=this.decode();return this.sfxStatus('buffer-not-ready',name);}
+  if(this.active.size>=10)return this.sfxStatus('voice-limit',name);
+  try{const b=this.ctx.createBufferSource(),g=this.ctx.createGain();b.buffer=this.buffers[name];b.playbackRate.value=rate;g.gain.value=vol;b.connect(g);g.connect(this.bus);this.bus.gain.value=settings.sfx;
+   b.onended=()=>{this.active.delete(b);b.disconnect();g.disconnect();};b.start();this.active.add(b);this.played[name]=(this.played[name]||0)+1;this.sfxStatus('playing',name);return true;
+  }catch(e){this.errors.push('SFX play: '+e);return this.sfxStatus('source-start-failed',name);}
+ }
  event(e){if(e.type==='swing')this.sample(e.sound,.22,1.05);if(e.type==='hit'){this.sample(e.sound,.72,.94+Math.random()*.12);this.duck=.18;}
   if(e.type==='footstep')this.sample(Math.random()<.5?'step1':'step2',.13,.95+Math.random()*.12);if(e.type==='land'||e.type==='entryLand')this.sample('step2',.23,.9);if(e.type==='jump')this.sample('swish',.10,1.3);
   if(e.type==='enemySwing'){this.sample(e.kind==='franklin'?'elder-strike':'backhand',.23,1);}
@@ -253,15 +287,17 @@ function finishWorldScene(scene,skipped){
  if(scene.id.startsWith('stage-')){const a=shot.actors?.find(a=>a.id==='player');if(a){game.p.x=map(a.motion?.toX??a.x);game.p.face=a.face||1;game.p.anim='idle';game.p.animT=0;game.p.vx=game.p.vy=0;}}
  const boss=game.enemies.find(e=>e.boss&&e.entry);if(boss)for(let i=0;i<1000&&boss.entry;i++)game.updateEntry(boss,1/120);
  if(scene.id==='boss-spike-intro'){const e=game.enemies.find(e=>e.kind==='spike');game.p.x=map(235);game.p.y=407;if(e){e.x=map(670);e.y=407;}game.finishSpikeTutorial();}
+ if(['boss-broadcast-intro','boss-broadcast-defeat','boss-duke-intro'].includes(scene.id)){for(const a of shot.actors||[]){const body=a.id==='player'?game.p:game.storyActors.find(e=>e.id===a.id);if(body&&a.worldX!==undefined){body.x=a.worldX;body.y=a.worldY??407;body.backdrop=body.y<350;body.renderScale=body.backdrop?.63:1;}}const m=game.storyActors.find(a=>a.kind==='marty');if(m)game.storyCage={x:m.x,y:m.y,scale:m.renderScale,backdrop:m.backdrop,open:false};}
  // Skipping is an explicit transition to the authored terminal staging state.
  if(scene.id==='ending'){const father=game.playerKind==='hero'?game.p:game.storyActors.find(a=>a.id==='jay'),boy=game.storyActors.find(a=>a.kind==='marty');if(father&&boy){boy.x=father.x+70;boy.face=-1;boy.anim='idle';father.face=1;}}
 }
 function drawWorldScene(s){
  const dt=s.paused||s.loading?0:Math.max(0,Math.min(.05,s.totalTime-(game.sceneClock||0)));game.sceneClock=s.totalTime;s.actorStates=[];
  game.reunionLayers=!!s.shot.reunionLayers;
+ if(game.stage===4&&game.projection.shutdown){for(const e of game.enemies)if(e.projectionSupport&&e.hp<=0)e.timer+=dt;}
  if(s.shot.spikeTutorial){game.startSpikeTutorial();game.updateSpikeTutorial(dt);for(const e of game.drain())handle(e);s.tutorialComplete=!!game.spikeTutorial?.complete;s.actorStates=[game.p,game.spikeTutorial?.boss].filter(Boolean).map(a=>({id:a===game.p?'player':'spike',character:a===game.p?game.playerKind:a.kind,x:a.x,y:a.y,z:a.z||0,animation:a.anim,visible:true,resolvedFace:a.face}));return;}
  const origin=s.scene.worldOrigin||0,scale=s.scene.worldScale||1,map=x=>origin+x*scale;
- if(s.shot.booth&&game.stage===4){const a=game.projection,booth=a.booths.find(b=>b.x>=game.camera+70&&b.x<=game.camera+renderer.rect.w-70);if(booth){a.window=booth.id;a.visible=s.shot.booth.phase!=='off';a.phase=s.shot.booth.phase==='shadow'?'shadow':'reveal';a.timer=s.time;a.face=game.p.x<booth.x?-1:1;s.boothState={phase:s.shot.booth.phase,active:booth.id};}}
+ if(s.shot.booth&&game.stage===4){const a=game.projection,booth=a.booths.find(b=>b.id===game.activeGate&&b.x>=game.camera+70&&b.x<=game.camera+renderer.rect.w-70);if(booth){a.window=booth.id;a.visible=s.shot.booth.phase!=='off';a.phase=s.shot.booth.phase==='shadow'?'shadow':'reveal';a.timer=s.time;a.face=game.p.x<booth.x?-1:1;s.boothState={phase:s.shot.booth.phase,active:booth.id};}}
  const realBoss=game.enemies.find(e=>e.boss&&e.kind!=='broadcast-rig');
  if(realBoss?.entry){if(realBoss.kind==='pizzeria-boss'&&s.shot.id==='screen-shadow')realBoss.hidden=true;else{realBoss.animT+=dt;game.updateEntry(realBoss,dt);}}
  const active=new Set();
@@ -273,8 +309,8 @@ function drawWorldScene(s){
   active.add(a.id);
   if(!isBoss||!body.entry){
    const key=s.index+':'+a.id;if(!s.worldActors.has(key))s.worldActors.set(key,{x:body.x,y:body.y});
-   const start=s.worldActors.get(key),m=a.motion;let target=map(m?.toX??a.x),moving=false;
-   if(who==='marty'&&s.shot.cage&&!s.shot.cage.open&&!s.shot.cartCoupled&&game.storyCage)target=game.storyCage.x;
+   const start=s.worldActors.get(key),m=a.motion;let target=a.worldX??map(m?.toX??a.x),moving=false;
+   if(a.worldX===undefined&&who==='marty'&&s.shot.cage&&!s.shot.cage.open&&!s.shot.cartCoupled&&game.storyCage)target=game.storyCage.x;
    // Marty’s rescue destination is the actual father, never a delta from a reset pose.
    if(who==='marty'&&s.scene.id==='ending'){
     const father=game.playerKind==='hero'?game.p:game.storyActors.find(e=>e.id==='jay'),mark=s.shot.actors?.find(q=>q.id===(game.playerKind==='hero'?'player':'jay'));if(father)target=(m&&mark?map(mark.motion?.toX??mark.x):father.x)+70;
@@ -283,6 +319,7 @@ function drawWorldScene(s){
     body.x+=Math.sign(dx)*Math.min(Math.abs(dx),340*dt);moving=Math.abs(target-body.x)>3&&u>0;if(moving)body.face=target<body.x?-1:1;
    }else if((body.hp>0||!isBoss)&&!(isPlayer&&(s.shot.dialogue||s.shot.routeDialogue))){const dx=target-body.x;moving=Math.abs(dx)>4;if(moving){body.x+=Math.sign(dx)*Math.min(Math.abs(dx),220*dt);body.face=dx<0?-1:1;}}
    const targetY=a.worldY??407,dy=targetY-body.y;if(Math.abs(dy)>2&&(!isBoss||body.hp>0)){body.y+=Math.sign(dy)*Math.min(Math.abs(dy),85*dt);moving=true;}
+   if(game.stage===6&&['duke','marty'].includes(who)){body.backdrop=targetY<350||body.y<350;body.renderScale=.63+.37*Brawler.clamp((body.y-305)/102,0,1);}
    if(moving)body.anim=s.shot.cartCoupled&&who==='duke'?'v11-cart-push':s.shot.cartCoupled&&who==='marty'?'v11-captive-idle':who==='spike'?'v10-walk':who==='marty'?'run':isPlayer&&s.shot.id==='pursuit-entry'?'v10-run-in':m?.duration<1.6?'run':'walk';
    else{body.anim=a.animation||'idle';if(m)body.anim=isPlayer?'v10-stop':s.shot.cartCoupled&&who==='duke'?'v11-cart-stop':s.shot.cartCoupled&&who==='marty'?'v11-captive-idle':'idle';if(a.face)body.face=a.face;else if(isPlayer)body.face=1;else if(['duke','spike','pizzeria-boss','marty'].includes(who))body.face=game.p.x<body.x?-1:1;}
    if(isBoss&&body.hp<=0)body.anim=who==='duke'?'v10-defeat':'death';
@@ -295,7 +332,7 @@ function drawWorldScene(s){
  const boy=game.storyActors.find(a=>a.kind==='marty'),cartDuke=game.storyActors.find(a=>a.kind==='duke');
  if(s.shot.cartCoupled&&boy&&cartDuke){boy.x=cartDuke.x+130;boy.y=cartDuke.y;cartDuke.face=1;boy.anim='v11-captive-idle';}
  game.cartDuke=s.shot.cartCoupled?cartDuke:null;
- if(s.shot.cage){if(s.shot.cage.open){if(game.storyCage)game.storyCage.open=true;}else if(boy)game.storyCage={x:boy.x,y:boy.y,open:false};}
+ if(s.shot.cage){if(s.shot.cage.open){if(game.storyCage)game.storyCage.open=true;}else if(boy)game.storyCage={x:boy.x,y:boy.y,scale:boy.renderScale||1,backdrop:!!boy.backdrop,open:false};}
  else if(game.stage!==6)game.storyCage=null;
 }
 

@@ -6,5 +6,5 @@ function defeatMachine(g){const core=g.enemies.find(e=>e.kind==='broadcast-rig')
  for(const e of g.enemies.filter(e=>e.broadcastSummon&&e.hp>0))g.registerHit(e,{damage:9999,kb:0});
  advanceDevice(g,()=>g.broadcastSummons.phase==='vulnerable');g.registerHit(core,{damage:9999,kb:0});
  }assert(g.machineDefeated);advanceDevice(g,()=>g.broadcastSummons.defeatTime>=4);assert(g.resolveBroadcast());return core;}
-function clearProjection(g){for(let i=0;i<3;i++)g.disableCircuit(i);}
+function clearProjection(g){for(let i=0;i<3;i++){g.activeGate=g.nextGate=i;g.disableCircuit(i);}}
 module.exports={defeatMachine,clearProjection,advanceDevice};

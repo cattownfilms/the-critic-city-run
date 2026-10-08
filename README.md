@@ -12,6 +12,10 @@ The release bundle includes the complete standalone `The-Critic-Coming-Attractio
 
 The title shell and options appear first. The game then bulk loads and decodes all runtime sprite atlases, portraits, scene and environment images, and downloads the five music recordings and thirteen sound cues. Start, Continue and every Animation Room entrance remain disabled until this preparation finishes. Progress reflects actual completed files and downloaded bytes, with Retry after a failed download. Later scenes use the prepared cache. This intentionally moves loading to startup and retains every unique animation.
 
+## V11 annotated polish
+
+Audio recovery, spatial Palace booths, reel depth, Rabbi facing/entry, Spike release and Receiver/Duke staging have been repaired. See [the correction ledger](docs/V11-ANNOTATED-POLISH.md) for checks and boundaries. The requested new skyline ending remains blocked by missing source media; the approved reunion and results remain intact.
+
 ## V11
 
 Three exact source reels add Duke’s prop-free cart mime, cautious backsteps and Marty’s captive reactions. Palace has three screen-area booths with 1/3/5-reel spread volleys. Spike demonstrates a real rolling can and selected-player jump before combat. Settled boss falls precede the jokes; Franklin’s cartwheel is more readable; the reunion explicitly draws Marty above Jay. Original atlases, audio and schema-five saves remain intact. See [the v11 playtest ledger](docs/V11-V10-PLAYTEST-LEDGER.md). Browser and public-release evidence are recorded in validation and the release receipt.
