@@ -780,19 +780,27 @@ Before the Duke’s Broadcast System fight in Stage 7, Broadcast Tower.
 
 Setting: Broadcast Tower | Music: current stage
 
-### Beat 01
+### Beat 01 control marks
 
-boss-broadcast-intro/beat-01 | Player advances; earliest advance 0.22s.
+boss-broadcast-intro/control-marks | Automatic advance after 2.5s; earliest advance 2.4s.
+
+*Selected player: idle; Duke: idle; Marty: v11 captive idle; Marty is confined in the cage.*
+
+No spoken dialogue.
+
+### Beat 02
+
+boss-broadcast-intro/beat-02 | Player advances; earliest advance 0.22s.
 
 *Selected player: idle; Duke: attack; Marty: v11 captive idle; Marty is confined in the cage; broadcast monitors are powered; alarms pulse.*
 
 **DUKE**
 
-Live. Everywhere. All at once!
+Look at those screens, Jay. Everybody’s finally watching me.
 
 Portrait: duke | Expression: smug
 
-### Beat 02 broadcast surges
+### Beat 03 broadcast surges
 
 boss-broadcast-intro/broadcast-surges | Automatic advance after 2.4s; earliest advance 2.2s.
 
@@ -800,15 +808,15 @@ boss-broadcast-intro/broadcast-surges | Automatic advance after 2.4s; earliest a
 
 No spoken dialogue.
 
-### Beat 03
+### Beat 04
 
-boss-broadcast-intro/beat-03 | Player advances; earliest advance 0.22s.
+boss-broadcast-intro/beat-04 | Player advances; earliest advance 0.22s.
 
 *Selected player: v10 point; Duke: idle; Marty: v11 captive idle; Marty is confined in the cage; broadcast monitors are powered; alarms pulse.*
 
 **JAY / Jay route**
 
-Not one more frame.
+It’s a bunch of TVs and a hostage, Duke. Nobody’s impressed.
 
 Portrait: jay | Expression: neutral
 
@@ -830,9 +838,9 @@ Setting: Broadcast Tower | Music: current stage
 
 ### Beat 01 signal dies
 
-boss-broadcast-defeat/signal-dies | Automatic advance after 1.2s; earliest advance 1s.
+boss-broadcast-defeat/signal-dies | Automatic advance after 2.3s; earliest advance 2.2s.
 
-*Selected player: idle; Duke: hurt; Marty: v11 captive idle; Marty is confined in the cage; the broadcast monitors lose power; a white flash punctuates the beat; sound cue: slam.*
+*Selected player: idle; Duke: v11 confrontation; Marty: v11 captive idle; Marty is confined in the cage; the broadcast monitors lose power; a white flash punctuates the beat; sound cue: slam.*
 
 No spoken dialogue.
 
@@ -840,11 +848,11 @@ No spoken dialogue.
 
 boss-broadcast-defeat/beat-02 | Player advances; earliest advance 1s.
 
-*Selected player: idle; Duke: walk, moving left over 1s; Marty: v11 captive idle; Marty is confined in the cage.*
+*Selected player: idle; Duke: v11 confrontation; Marty: v11 captive idle; Marty is confined in the cage.*
 
 **DUKE**
 
-You don’t get to cancel me!
+That was supposed to be my masterpiece!
 
 Portrait: duke | Expression: angry
 
@@ -856,7 +864,7 @@ boss-broadcast-defeat/beat-03 | Player advances; earliest advance 0.22s.
 
 **JAY / Jay route**
 
-Then let’s discuss your performance.
+You want somebody to blame? I’m right here.
 
 Portrait: jay | Expression: neutral
 
@@ -878,7 +886,7 @@ Setting: Broadcast Tower | Music: current stage
 
 boss-duke-intro/face-off-marks | Automatic advance after 1.2s; earliest advance 1.1s.
 
-*Selected player: idle, moving in place over 1.1s; Duke: idle, moving right over 1.1s; Marty: v11 captive idle; Marty is confined in the cage.*
+*Selected player: idle; Duke: idle; Marty: v11 captive idle; Marty is confined in the cage.*
 
 No spoken dialogue.
 
@@ -886,11 +894,11 @@ No spoken dialogue.
 
 boss-duke-intro/beat-02 | Player advances; earliest advance 0.8s.
 
-*Selected player: idle; Duke: lead jab, moving left over 0.8s; Marty: v11 captive idle; Marty is confined in the cage.*
+*Selected player: idle; Duke: lead jab; Marty: v11 captive idle; Marty is confined in the cage.*
 
 **DUKE**
 
-I own this network!
+You ruined my finale!
 
 Portrait: duke | Expression: angry
 
@@ -902,7 +910,7 @@ boss-duke-intro/beat-03 | Player advances; earliest advance 0.22s.
 
 **JAY / Jay route**
 
-Yes. And I’m cancelling my subscription.
+Then come down here and finish it.
 
 Portrait: jay | Expression: neutral
 
@@ -1134,4 +1142,4 @@ Story lines and staging are authored in data/cutscenes.js. Stage and boss trigge
 
 Use the scene and beat identifiers when returning revisions. Replace the spoken line under the appropriate route; shared lines affect both characters. The seven approved opening lines are preserved exactly.
 
-Source fingerprint: ab709b5b9e1bb687
+Source fingerprint: a01b096df4b00d2d

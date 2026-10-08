@@ -287,6 +287,7 @@ function finishWorldScene(scene,skipped){
  if(scene.id.startsWith('stage-')){const a=shot.actors?.find(a=>a.id==='player');if(a){game.p.x=map(a.motion?.toX??a.x);game.p.face=a.face||1;game.p.anim='idle';game.p.animT=0;game.p.vx=game.p.vy=0;}}
  const boss=game.enemies.find(e=>e.boss&&e.entry);if(boss)for(let i=0;i<1000&&boss.entry;i++)game.updateEntry(boss,1/120);
  if(scene.id==='boss-spike-intro'){const e=game.enemies.find(e=>e.kind==='spike');game.p.x=map(235);game.p.y=407;if(e){e.x=map(670);e.y=407;}game.finishSpikeTutorial();}
+ if(['boss-broadcast-intro','boss-broadcast-defeat','boss-duke-intro'].includes(scene.id)){for(const a of shot.actors||[]){const body=a.id==='player'?game.p:game.storyActors.find(e=>e.id===a.id);if(body&&a.worldX!==undefined){body.x=a.worldX;body.y=a.worldY??407;body.backdrop=body.y<350;body.renderScale=body.backdrop?.63:1;}}const m=game.storyActors.find(a=>a.kind==='marty');if(m)game.storyCage={x:m.x,y:m.y,scale:m.renderScale,backdrop:m.backdrop,open:false};}
  // Skipping is an explicit transition to the authored terminal staging state.
  if(scene.id==='ending'){const father=game.playerKind==='hero'?game.p:game.storyActors.find(a=>a.id==='jay'),boy=game.storyActors.find(a=>a.kind==='marty');if(father&&boy){boy.x=father.x+70;boy.face=-1;boy.anim='idle';father.face=1;}}
 }
@@ -308,8 +309,8 @@ function drawWorldScene(s){
   active.add(a.id);
   if(!isBoss||!body.entry){
    const key=s.index+':'+a.id;if(!s.worldActors.has(key))s.worldActors.set(key,{x:body.x,y:body.y});
-   const start=s.worldActors.get(key),m=a.motion;let target=map(m?.toX??a.x),moving=false;
-   if(who==='marty'&&s.shot.cage&&!s.shot.cage.open&&!s.shot.cartCoupled&&game.storyCage)target=game.storyCage.x;
+   const start=s.worldActors.get(key),m=a.motion;let target=a.worldX??map(m?.toX??a.x),moving=false;
+   if(a.worldX===undefined&&who==='marty'&&s.shot.cage&&!s.shot.cage.open&&!s.shot.cartCoupled&&game.storyCage)target=game.storyCage.x;
    // Marty’s rescue destination is the actual father, never a delta from a reset pose.
    if(who==='marty'&&s.scene.id==='ending'){
     const father=game.playerKind==='hero'?game.p:game.storyActors.find(e=>e.id==='jay'),mark=s.shot.actors?.find(q=>q.id===(game.playerKind==='hero'?'player':'jay'));if(father)target=(m&&mark?map(mark.motion?.toX??mark.x):father.x)+70;
@@ -318,6 +319,7 @@ function drawWorldScene(s){
     body.x+=Math.sign(dx)*Math.min(Math.abs(dx),340*dt);moving=Math.abs(target-body.x)>3&&u>0;if(moving)body.face=target<body.x?-1:1;
    }else if((body.hp>0||!isBoss)&&!(isPlayer&&(s.shot.dialogue||s.shot.routeDialogue))){const dx=target-body.x;moving=Math.abs(dx)>4;if(moving){body.x+=Math.sign(dx)*Math.min(Math.abs(dx),220*dt);body.face=dx<0?-1:1;}}
    const targetY=a.worldY??407,dy=targetY-body.y;if(Math.abs(dy)>2&&(!isBoss||body.hp>0)){body.y+=Math.sign(dy)*Math.min(Math.abs(dy),85*dt);moving=true;}
+   if(game.stage===6&&['duke','marty'].includes(who)){body.backdrop=targetY<350||body.y<350;body.renderScale=.63+.37*Brawler.clamp((body.y-305)/102,0,1);}
    if(moving)body.anim=s.shot.cartCoupled&&who==='duke'?'v11-cart-push':s.shot.cartCoupled&&who==='marty'?'v11-captive-idle':who==='spike'?'v10-walk':who==='marty'?'run':isPlayer&&s.shot.id==='pursuit-entry'?'v10-run-in':m?.duration<1.6?'run':'walk';
    else{body.anim=a.animation||'idle';if(m)body.anim=isPlayer?'v10-stop':s.shot.cartCoupled&&who==='duke'?'v11-cart-stop':s.shot.cartCoupled&&who==='marty'?'v11-captive-idle':'idle';if(a.face)body.face=a.face;else if(isPlayer)body.face=1;else if(['duke','spike','pizzeria-boss','marty'].includes(who))body.face=game.p.x<body.x?-1:1;}
    if(isBoss&&body.hp<=0)body.anim=who==='duke'?'v10-defeat':'death';
@@ -330,7 +332,7 @@ function drawWorldScene(s){
  const boy=game.storyActors.find(a=>a.kind==='marty'),cartDuke=game.storyActors.find(a=>a.kind==='duke');
  if(s.shot.cartCoupled&&boy&&cartDuke){boy.x=cartDuke.x+130;boy.y=cartDuke.y;cartDuke.face=1;boy.anim='v11-captive-idle';}
  game.cartDuke=s.shot.cartCoupled?cartDuke:null;
- if(s.shot.cage){if(s.shot.cage.open){if(game.storyCage)game.storyCage.open=true;}else if(boy)game.storyCage={x:boy.x,y:boy.y,open:false};}
+ if(s.shot.cage){if(s.shot.cage.open){if(game.storyCage)game.storyCage.open=true;}else if(boy)game.storyCage={x:boy.x,y:boy.y,scale:boy.renderScale||1,backdrop:!!boy.backdrop,open:false};}
  else if(game.stage!==6)game.storyCage=null;
 }
 

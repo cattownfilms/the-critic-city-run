@@ -23,3 +23,9 @@ console.log('PASS booth-origin frozen target, depth flight and three bounces acr
 {
  const g=new B.Game();g.start();g.stage=5;g.activeGate=2;g.p.x=2200;g.spawnBoss();const e=g.enemies[0];e.x=2600;e.y=407;e.face=-1;const m=B.Campaign?.BOSS_DEFINITIONS?.spike?.moves?.find(m=>m.area==='trash-can')||require('../data/campaign.js').BOSS_DEFINITIONS.spike.moves.find(m=>m.area==='trash-can');const q=g.releaseTrashCan(e,m);assert(Math.abs(q.y-q.z-39*q.renderScale-(e.y-48.77622377622378*q.renderScale))<.001);assert(q.x<e.x);g.updateProjectiles(.1);assert(q.x<q.sourceX);console.log('PASS released can center matches held pose and moves toward player');
 }
+for(const route of ['hero','franklin']){
+ const g=new B.Game();g.franklinUnlocked=true;g.start(null,route);g.stage=6;g.activeGate=g.nextGate=2;g.p.x=2480;g.p.y=407;g.camera=1900;g.spawnBoss();const core=g.enemies[0];g.broadcastSummons.wave=3;g.broadcastSummons.phase='vulnerable';core.targetable=true;g.registerHit(core,{damage:99999,kb:0});g.drain();let last=g.p.x,running=false;
+ for(let i=0;i<500&&g.mode==='play';i++){g.step(1/120);assert(g.p.x<=last+.001);assert(last-g.p.x<=260/120+.001);running||=g.p.anim==='run';last=g.p.x;}
+ assert(running);assert.equal(g.mode,'confrontation');assert.equal(g.p.hp,100);assert.equal(g.drain().filter(e=>e.type==='story'&&e.id==='boss-broadcast-defeat').length,1);g.dukeStaged={x:2450,y:407,face:-1};g.finishDukeConfrontation();assert.equal(g.enemies[0].x,2450);assert.equal(g.enemies[0].y,407);assert(!g.storyFlags.martyRescued);assert.equal(g.snapshot().version,5);
+ console.log('PASS '+route+' physical leftward run during destruction, one Duke handoff, captive Marty, schema 5');
+}

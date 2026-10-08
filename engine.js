@@ -378,7 +378,7 @@ class Game{
   p.combo++;p.comboClock=2.0;p.meter=clamp(p.meter+(s.all?2:6),0,100);this.score+=Math.round(s.damage*(1+Math.min(p.combo,20)*.04));this.stats.hits++;this.stats.maxCombo=Math.max(this.stats.maxCombo,p.combo);this.hitstop=Math.max(this.hitstop,s.launch?.075:s.kb>80?.068:.04);this.shake=Math.max(this.shake,s.kb>80?6:2.5);this.target=e;this.targetT=3;
   this.emit('hit',{x:e.x,y:e.y-88,z:e.z||0,damage:s.damage,heavy:s.kb>80,sound:s.sound||'hit',kind:e.kind,combo:p.combo});
   if(machine&&e.hp>0&&e.hp<=e.maxHp*(3-this.broadcastSummons.wave)/3+.001){this.broadcastSummons.phase='rising';this.broadcastSummons.timer=0;e.targetable=false;}
-  if(e.hp<=0){if(s.kb>80){e.deathAnim=({'sherm-punch':'fall-alt','sherm-slam':'spill-collapse-alt',raptor:'death-alt'})[e.kind]||'death';}if(e.boss){this.bossDefeated=!machine;this.emit('bossDefeated',{kind:e.kind});if(['pizzeria-boss','spike'].includes(e.kind)){this.settlingBoss={id:e.id,scene:e.kind==='spike'?'boss-spike-defeat':'boss-cinema-defeat',time:0};p.inv=Math.max(p.inv,2.1);}if(machine){this.stopBroadcastSummons();this.machineDefeated=true;this.broadcastSummons.defeatTime=0;this.finalPhase='duke';this.projectiles=[];this.p.attackBuffer=this.p.jumpBuffer=0;this.waveWait=0;this.resolveBroadcast();}if(e.kind==='duke'){this.dukeDefeated=true;this.finalPhase='resolved';this.dukeDefeatTime=0;this.hitstop=.16;}}this.score+=EINFO[e.kind].score*(e.elite?3:1);this.stats.kos++;this.emit('ko',{kind:e.kind,x:e.x,y:e.y});if(e.kind==='hippo'||e.kind==='sherm-slam')this.pickups.push({x:e.x,y:e.y,kind:'coffee',age:0});if(machine||e.kind==='duke')this.checkpointSave();}return true;
+  if(e.hp<=0){if(s.kb>80){e.deathAnim=({'sherm-punch':'fall-alt','sherm-slam':'spill-collapse-alt',raptor:'death-alt'})[e.kind]||'death';}if(e.boss){this.bossDefeated=!machine;this.emit('bossDefeated',{kind:e.kind});if(['pizzeria-boss','spike'].includes(e.kind)){this.settlingBoss={id:e.id,scene:e.kind==='spike'?'boss-spike-defeat':'boss-cinema-defeat',time:0};p.inv=Math.max(p.inv,2.1);}if(machine){this.stopBroadcastSummons();this.machineDefeated=true;this.broadcastSummons.defeatTime=0;this.broadcastSummons.exitX=clamp(p.x-230,1900,2180);this.finalPhase='duke';this.projectiles=[];this.p.attackBuffer=this.p.jumpBuffer=0;this.waveWait=0;this.resolveBroadcast();}if(e.kind==='duke'){this.dukeDefeated=true;this.finalPhase='resolved';this.dukeDefeatTime=0;this.hitstop=.16;}}this.score+=EINFO[e.kind].score*(e.elite?3:1);this.stats.kos++;this.emit('ko',{kind:e.kind,x:e.x,y:e.y});if(e.kind==='hippo'||e.kind==='sherm-slam')this.pickups.push({x:e.x,y:e.y,kind:'coffee',age:0});if(machine||e.kind==='duke')this.checkpointSave();}return true;
  }
  knockdown(face,kind='impact',duration=.88){const p=this.p;if(p.hp<=0||p.action?.name==='knockdown')return false;
   p.action={name:'knockdown',t:0,dur:duration};p.combo=p.comboClock=p.chainIndex=p.counter=p.attackBuffer=p.jumpBuffer=0;p.guard=false;p.cosmetic=null;p.vx=face*320;p.vy=0;p.inv=Math.max(p.inv,duration+.2);p.z=p.vz=0;
@@ -523,6 +523,8 @@ class Game{
   const targetX=allow?nx*speed:0,targetY=allow?ny*speed*.62:0,acc=1-Math.exp(-(p.z>0?8:18)*dt);
   if(!['hurt','run-stun','knockdown'].includes(p.action?.name)){p.vx=lerp(p.vx,targetX,acc);p.vy=lerp(p.vy,targetY,acc);}p.x+=p.vx*dt;p.y+=p.vy*dt;
   this.updateJump(dt);
+  const machineExit=this.stage===6&&this.machineDefeated&&!this.dukeDefeated&&!this.enemies.some(e=>e.hp>0)&&this.broadcastSummons.exitX!==undefined;
+  if(machineExit){const dx=this.broadcastSummons.exitX-p.x;p.x+=Math.sign(dx)*Math.min(Math.abs(dx),260*dt);p.y+=Math.sign(407-p.y)*Math.min(Math.abs(407-p.y),85*dt);p.run=Math.abs(dx)>3;p.face=p.run?-1:1;p.inv=Math.max(p.inv,.2);}
   const lo=this.stage===4&&this.projection.active&&this.activeGate>=0?GATES[this.activeGate]-280:this.activeGate>=0?Math.max(35,GATES[this.activeGate]-485):35,hi=this.activeGate>=0?Math.min(LENGTH-40,GATES[this.activeGate]+495):LENGTH-45;
   p.x=clamp(p.x,lo,hi);p.y=clamp(p.y,YMIN,YMAX);
   if(mag>.2&&p.z===0&&!p.action){p.footT+=dt*speed/170;if(p.footT>.31){p.footT=0;this.emit('footstep');}}
@@ -539,7 +541,7 @@ class Game{
   }else this.waveWait=0;
   if(this.activeGate<0&&this.nextGate<3&&p.x>GATES[this.nextGate]-280)this.spawnFight(this.nextGate);
   if(this.activeGate<0&&this.nextGate===3&&(p.x>LENGTH-150||STAGES[this.stage].boss&&this.bossDefeated)){this.advanceStage();}
-  this.chooseAnimation(dt,mag);
+  this.chooseAnimation(dt,machineExit&&p.run?1:mag);
   const cameraMin=this.stage===4&&this.projection.active&&this.activeGate>=0?Math.min(Math.max(0,GATES[this.activeGate]-315),Math.max(0,LENGTH-this.viewWidth)):0;
   const aim=clamp(p.x-this.viewWidth*.43+p.face*45,cameraMin,Math.max(0,LENGTH-this.viewWidth));this.camera=Math.max(cameraMin,lerp(this.camera,aim,1-Math.exp(-5*dt)));
  }

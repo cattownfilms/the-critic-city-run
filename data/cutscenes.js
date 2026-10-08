@@ -83,18 +83,18 @@ const scenes={
   route("Let Marty go. Your reviews are about to get worse.","Step away from my grandson, Duke.",{actors:[hero(265,{animation:'v10-point',face:1}),duke(638),boy(792)],cage:cage(792),powered:true,alarm:true})
  ]},
  'boss-broadcast-intro':{id:'boss-broadcast-intro',title:'THE FINAL BROADCAST',environment:'broadcast',screens,shots:[
-  dialogue('DUKE','Live. Everywhere. All at once!',{portrait:'duke',expression:'smug',actors:[hero(280),duke(638,{animation:'attack'}),boy(792)],cage:cage(792),powered:true,alarm:true}),
+  dialogue('DUKE','Look at those screens, Jay. Everybody’s finally watching me.',{portrait:'duke',expression:'smug',actors:[hero(280),duke(638,{animation:'attack'}),boy(792)],cage:cage(792),powered:true,alarm:true}),
   {id:'broadcast-surges',auto:2.4,minTime:2.2,actors:[hero(280,{animation:'guard'}),duke(638),boy(792)],cage:cage(792),powered:true,alarm:true,emissions:emissions.slice(0,5).map((e,i)=>({...e,start:i*.25,toX:450+i*82})),flash:.16,sound:'slam'},
-  route('Not one more frame.',"Hands off my grandson.",{actors:[hero(280,{animation:'v10-point',face:1}),duke(638),boy(792)],cage:cage(792),powered:true,alarm:true,objective:'STOP THE BROADCAST'})
+  route('It’s a bunch of TVs and a hostage, Duke. Nobody’s impressed.',"Hands off my grandson.",{actors:[hero(280,{animation:'v10-point',face:1}),duke(638),boy(792)],cage:cage(792),powered:true,alarm:true,objective:'STOP THE BROADCAST'})
  ]},
  'boss-broadcast-defeat':{id:'boss-broadcast-defeat',title:'SIGNAL LOST',environment:'broadcast',screens,shots:[
   {id:'signal-dies',auto:1.2,minTime:1,actors:[hero(280),duke(638,{animation:'hurt'}),boy(792)],cage:cage(792),powered:false,flash:.18,sound:'slam'},
-  dialogue('DUKE','You don’t get to cancel me!',{portrait:'duke',expression:'angry',actors:[hero(280),duke(515,{animation:'walk',motion:move(638,515,1)}),boy(792)],cage:cage(792),minTime:1}),
-  route('Then let’s discuss your performance.','Come down here.',{actors:[hero(280),duke(515,{animation:'v11-confrontation',face:-1}),boy(792)],cage:cage(792)})
+  dialogue('DUKE','That was supposed to be my masterpiece!',{portrait:'duke',expression:'angry',actors:[hero(280),duke(515,{animation:'walk',motion:move(638,515,1)}),boy(792)],cage:cage(792),minTime:1}),
+  route('You want somebody to blame? I’m right here.','Come down here.',{actors:[hero(280),duke(515,{animation:'v11-confrontation',face:-1}),boy(792)],cage:cage(792)})
  ]},
  'boss-duke-intro':{id:'boss-duke-intro',title:'DUKE PHILLIPS',environment:'broadcast',shots:[
-  dialogue('DUKE','I own this network!',{portrait:'duke',expression:'angry',actors:[hero(280),duke(550,{animation:'lead-jab',face:-1,motion:move(605,550,.8)}),boy(792)],cage:cage(792),minTime:.8}),
-  route('Yes. And I’m cancelling my subscription.','You don’t own me.',{actors:[hero(280,{animation:'guard'}),duke(550,{face:-1}),boy(792)],cage:cage(792)})
+  dialogue('DUKE','You ruined my finale!',{portrait:'duke',expression:'angry',actors:[hero(280),duke(550,{animation:'lead-jab',face:-1,motion:move(605,550,.8)}),boy(792)],cage:cage(792),minTime:.8}),
+  route('Then come down here and finish it.','You don’t own me.',{actors:[hero(280,{animation:'guard'}),duke(550,{face:-1}),boy(792)],cage:cage(792)})
  ]},
  'boss-duke-defeat':{id:'boss-duke-defeat',title:'THE LAST WORD',environment:'broadcast',shots:[
   dialogue('DUKE','Fine! Take him!',{portrait:'duke',expression:'defeated',actors:[hero(280),duke(570,{animation:'v10-defeat',face:-1}),boy(792)],cage:cage(792),auto:1.8,minTime:1.5}),
@@ -124,6 +124,19 @@ scenes['stage-07-intro'].shots.push({id:'cart-release',auto:1.2,minTime:1.1,acto
 scenes['stage-07-intro'].shots.push({id:'duke-to-controls',auto:1.6,minTime:1.5,actors:[hero(265,{face:1}),duke(638,{animation:'walk',motion:move(638,850,1.5)}),boy(792)],cage:cage(792),powered:true});
 for(const shot of scenes['boss-broadcast-intro'].shots)for(const a of shot.actors||[])if(a.character==='duke')a.worldY=324;
 for(const a of scenes['stage-07-intro'].shots.at(-1).actors)if(a.character==='duke')a.worldY=324;
+// Fixed background marks are shared by the machine scene and its physical handoff.
+scenes['boss-broadcast-intro'].shots.unshift({id:'control-marks',auto:2.5,minTime:2.4,actors:[hero(280),duke(638),boy(792)],cage:cage(792)});
+for(const id of ['boss-broadcast-intro','boss-broadcast-defeat','boss-duke-intro','boss-duke-defeat'])for(const shot of scenes[id].shots){
+ for(const a of shot.actors||[]){
+  if(a.character==='marty'){a.worldX=2740;a.worldY=305;a.animation='v11-captive-idle';}
+  if(a.character==='duke'&&id==='boss-broadcast-intro'){a.worldX=2520;a.worldY=305;delete a.motion;}
+  if(a.character==='duke'&&id==='boss-broadcast-defeat'){a.worldX=2450;a.worldY=407;a.animation='v11-confrontation';delete a.motion;}
+  if(a.character==='duke'&&id==='boss-duke-intro'){a.worldX=2450;a.worldY=407;delete a.motion;}
+  if(a.id==='player'&&id==='boss-duke-intro'){a.worldX=2180;delete a.motion;}
+ }
+}
+scenes['boss-broadcast-defeat'].shots[0].auto=2.3;
+scenes['boss-broadcast-defeat'].shots[0].minTime=2.2;
 for(const scene of Object.values(scenes))if(scene.id!=='opening')scene.worldStage=true;
 // Expressions supplied in the revised campaign script.
 scenes['stage-02-intro'].shots[2].routeDialogue.hero.expression='smug';
