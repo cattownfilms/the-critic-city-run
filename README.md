@@ -14,7 +14,7 @@ The title shell and options appear first. The game then bulk loads and decodes a
 
 ## V10
 
-Raptors flank and charge; Fred K teleports with readable tells. Projectionist booths reveal eyes, throw 3/4/5 reels and visibly release radios while bounded support enemies enter. The Broadcast device travels on a rail, lasers during waves, crashes for three vulnerability rounds, then breaks down before Duke’s expanded physical fight. Supplemental source performances are appended to the existing banks. See [the 26-note ledger](docs/V10-V9-PLAYTEST-LEDGER.md) and [validation boundaries](docs/VALIDATION.md).
+Raptors flank and charge; Fred K teleports with readable tells. Projectionist booths reveal eyes, throw 3/4/5 reels and visibly release radios while bounded support enemies enter. The Broadcast device travels on a rail, lasers during waves, crashes for three vulnerability rounds, then breaks down before Duke’s expanded physical fight. Supplemental source performances are appended to the existing banks. Source validation passed [Core and all three browsers](https://github.com/cattownfilms/the-critic-city-run/actions/runs/37710897264). See [the 26-note ledger](docs/V10-V9-PLAYTEST-LEDGER.md) and [validation boundaries](docs/VALIDATION.md).
 
 ## Controls
 

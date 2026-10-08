@@ -7,6 +7,7 @@
 - Mobile rail transmitter, locked laser, crash/vulnerability rounds and four-second destruction.
 - Expanded phased Duke attacks, physical retreat and dedicated defeat.
 - Save schema 5 and stable browser/localhost storage keys retained.
+- Verified native audio, both routes, responsive dialogue and v9-to-v10 launcher reuse; exact source CI and phone-testing boundaries are in docs/VALIDATION.md.
 
 # v9.0.0 — gameplay and playtest correction pass
 

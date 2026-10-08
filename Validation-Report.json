@@ -3,14 +3,32 @@
   "title": "THE CRITIC: COMING ATTRACTIONS",
   "version": "10.0.0",
   "baselineCommit": "ba087d21a1699ffec1fd923d17a18b796ae37ab6",
-  "status": "implementation-local-validation-in-progress",
-  "testedAtUTC": "2026-10-08T00:41:42.235609+00:00",
+  "status": "source-validated-public-release-gated",
+  "testedAtUTC": "2026-10-08T01:13:55.947049+00:00",
   "checks": {
     "localJavaScriptSuites": 11,
     "localJavaScript": "pass",
-    "browserCI": "pending",
-    "publicDeployment": "pending",
-    "physicalAndroid": "not performed"
+    "browserCI": {
+      "core": "success",
+      "browsers (firefox)": "success",
+      "browsers (chromium)": "success",
+      "browsers (webkit)": "success"
+    },
+    "publicDeployment": "Post-merge gate; exact deployed commit and public browser result recorded in external release receipt",
+    "physicalAndroid": "not performed",
+    "browserRun": "https://github.com/cattownfilms/the-critic-city-run/actions/runs/37710897264",
+    "browserSourceCommit": "28c22162e361efe0384014687f9669e6f923c71a",
+    "localPythonSuites": 4,
+    "localPython": "pass",
+    "launcher": 8,
+    "isolatedV9Upgrade": 10,
+    "standaloneParity": {
+      "scriptsAndStyles": 11,
+      "embeddedFiles": 184,
+      "launcherPayloadMatches": true
+    },
+    "nativeAudio": "15 playback/signal assertions per browser; no physical speaker claim",
+    "runtimeVisualReview": "Captured opening, dialogue, pursuit, cinema, radio, Broadcast and both-route reunion frames reviewed"
   },
   "saveSchema": 5,
   "playtestLedger": "docs/V10-V9-PLAYTEST-LEDGER.md",

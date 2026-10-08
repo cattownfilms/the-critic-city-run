@@ -1,6 +1,6 @@
 # V10 verification boundaries
 
-- Browser CI and runtime screenshots are release gates still pending in this working revision.
+- Core and all three browser engines passed [the source validation run](https://github.com/cattownfilms/the-critic-city-run/actions/runs/37710897264); public deployment is a separate post-merge gate recorded in the external receipt.
 - Physical Android audio, multitouch and Logitech hardware are not automatically verified.
 - Supplemental Duke source was found as `df8d7ed2-e798-410c-bdfb-ba0966676917.mp4`, not the prompt’s `...b917.mp4`; provenance preserves the actual name/hash. No original was renamed.
 - Source performance review cannot establish subjective combat feel; use the release’s phone smoke checklist.
