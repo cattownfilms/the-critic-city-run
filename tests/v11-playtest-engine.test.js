@@ -20,3 +20,6 @@ console.log('PASS booth-origin frozen target, depth flight and three bounces acr
  const g=cinema();g.activeGate=2;g.projection.disabled=true;g.p.x=2250;g.spawnBoss();const e=g.enemies.find(e=>e.kind==='pizzeria-boss');let last=e.x;for(let i=0;i<300&&e.entry;i++){g.updateEntry(e,1/120);assert(Math.abs(e.x-last)<10);last=e.x;if(!e.hidden)assert.equal(e.face,-1);}assert(!e.entry);assert.equal(g.enemies.filter(e=>e.kind==='pizzeria-boss').length,1);assert.equal(e.y,409);
  console.log('PASS single continuous screen emergence faces player and settles');
 }
+{
+ const g=new B.Game();g.start();g.stage=5;g.activeGate=2;g.p.x=2200;g.spawnBoss();const e=g.enemies[0];e.x=2600;e.y=407;e.face=-1;const m=B.Campaign?.BOSS_DEFINITIONS?.spike?.moves?.find(m=>m.area==='trash-can')||require('../data/campaign.js').BOSS_DEFINITIONS.spike.moves.find(m=>m.area==='trash-can');const q=g.releaseTrashCan(e,m);assert(Math.abs(q.y-q.z-39*q.renderScale-(e.y-48.77622377622378*q.renderScale))<.001);assert(q.x<e.x);g.updateProjectiles(.1);assert(q.x<q.sourceX);console.log('PASS released can center matches held pose and moves toward player');
+}

@@ -137,7 +137,7 @@ class Game{
  visibleBooths(){const a=this.projection;return a.booths.filter(b=>b.id===this.activeGate&&a.circuits[b.circuitId].active&&b.x>=this.camera+70&&b.x<=this.camera+this.viewWidth-70);}
  startJump(){const p=this.p;if(p.z>0||p.hp<=0)return false;p.vz=585;p.z=.1;p.jumpBuffer=0;p.airUsed=false;p.landTimer=0;p.guard=false;this.emit('jump');return true;}
  updateJump(dt){const p=this.p;if(p.z>0||p.vz>0){p.vz-=1700*dt;p.z+=p.vz*dt;if(p.z<=0){p.z=p.vz=0;p.landTimer=.12;p.airUsed=false;if(p.action?.name==='air')p.action=null;this.emit('land');}}else p.landTimer=Math.max(0,p.landTimer-dt);}
- releaseTrashCan(e,m,options={}){const p=this.p,scale=e.renderScale||1;return this.launchProjectile('trash-can',e.x+e.face*Math.min(59.50699300699301*scale,Math.abs(p.x-e.x)*.5),e.y-48.77622377622378*scale,p.x,p.y,m.damage,m.radius,m.flight,null,{ownerKind:'spike',renderScale:scale,low:!!m.low,...options});}
+ releaseTrashCan(e,m,options={}){const p=this.p,scale=e.renderScale||1;return this.launchProjectile('trash-can',e.x+e.face*Math.min(59.50699300699301*scale,Math.abs(p.x-e.x)*.5),e.y+(39-48.77622377622378)*scale,p.x,p.y,m.damage,m.radius,m.flight,null,{ownerKind:'spike',renderScale:scale,low:!!m.low,...options});}
  startSpikeTutorial(){if(this.spikeTutorial)return;const e=this.enemies.find(e=>e.kind==='spike'&&e.hp>0);if(!e)return;const m=BOSS_DEFINITIONS.spike.moves.find(m=>m.area==='trash-can');this.spikeTutorial={time:0,released:false,jumped:false,complete:false,boss:e,move:m};this.p.action=null;this.p.vx=this.p.vy=0;e.face=sign(this.p.x-e.x);this.p.face=-e.face;this.p.y=e.y;}
  updateSpikeTutorial(dt){const t=this.spikeTutorial;if(!t||t.complete)return;const e=t.boss,m=t.move;t.time+=dt;e.anim=t.time<m.wind?(m.windAnim||'idle'):m.anim;const age=Math.max(0,t.time-m.wind),contact=m.hits[0];e.animT=t.time<m.wind?t.time:clamp(age<=contact?m.sourceImpact*age/contact:m.sourceImpact+(1-m.sourceImpact)*(age-contact)/(m.duration-contact),0,1)*m.duration;e.animDuration=t.time<m.wind?m.wind:m.duration;
   if(!t.released&&t.time>=m.wind+m.hits[0]){t.can=this.releaseTrashCan(e,m,{tutorial:true});t.released=true;}
@@ -230,7 +230,7 @@ class Game{
   }
   if(a.phase==='crashing'){
    e.telegraph=null;e.z=Math.max(0,185*(1-Math.pow(clamp(a.timer/1.1,0,1),2)));
-   if(a.timer>=1.1){a.phase='vulnerable';a.timer=0;e.targetable=true;this.shake=5;this.banner='CORE EXPOSED — HIT';this.bannerT=3;this.emit('coreExposed',{round:a.wave});}return;
+   if(a.timer>=1.1){a.phase='vulnerable';a.timer=0;e.targetable=true;this.shake=5;this.banner='HIT THE EXPOSED CORE';this.bannerT=3;this.emit('coreExposed',{round:a.wave});}return;
   }
   if(a.phase!=='shielded'){e.telegraph=null;e.timer=0;return;}
   const interval=3.8-(a.wave||1)*.35;
@@ -385,7 +385,7 @@ class Game{
   this.emit('playerKnockdown',{kind,x:p.x,y:p.y});return true;
  }
  blockRun(e){const p=this.p;if(!this.knockdown(-p.face,e.kind))return;this.hitstop=Math.max(this.hitstop,.055);this.shake=Math.max(this.shake,4);this.emit('runBlocked',{kind:e.kind,x:e.x,y:e.y,playerKind:this.playerKind});}
- hitTest(s,a){const p=this.p;if(p.hp<=0)return;const ordered=a.name==='dash'?[...this.enemies].sort((a,b)=>(a.x-p.x)*p.face-(b.x-p.x)*p.face):this.enemies;for(const e of ordered){if(e.hp<=0||e.hidden||e.targetable===false||a.hits.includes(e.id))continue;const dx=e.x-p.x,dy=Math.abs(e.y-p.y);if(dy>(s.all?60:33))continue;if(!s.all&&(dx*p.face<-20||dx*p.face>s.range+EINFO[e.kind].radius*.55))continue;if(s.all&&Math.abs(dx)>s.range+18)continue;if(a.name==='air'&&(p.z>125||p.z<7))continue;
+ hitTest(s,a){const p=this.p;if(p.hp<=0)return;const ordered=a.name==='dash'?[...this.enemies].sort((a,b)=>(a.x-p.x)*p.face-(b.x-p.x)*p.face):this.enemies;for(const e of ordered){if(e.kind==='broadcast-rig'&&e.hp>0&&e.targetable===false&&!a.hits.includes(e.id)&&Math.abs(e.x-p.x)<s.range+40&&Math.abs(e.y-p.y)<33&&(e.z||0)<45){a.hits.push(e.id);e.flashes=.12;this.emit('block',{x:e.x,y:e.y-50});}if(e.hp<=0||e.hidden||e.targetable===false||a.hits.includes(e.id))continue;const dx=e.x-p.x,dy=Math.abs(e.y-p.y);if(dy>(s.all?60:33))continue;if(!s.all&&(dx*p.face<-20||dx*p.face>s.range+EINFO[e.kind].radius*.55))continue;if(s.all&&Math.abs(dx)>s.range+18)continue;if(a.name==='air'&&(p.z>125||p.z<7))continue;
    a.hits.push(e.id);if(a.name==='dash'&&(e.kind==='bear'||e.kind==='hippo'||e.kind==='pizzeria-boss')){this.blockRun(e);return;}a.confirmed=true;this.registerHit(e,s);
   }
   for(const o of this.props){if(o.hp<=0||o.z>15||a.hits.includes('o'+o.id))continue;const dx=o.x-p.x;if(Math.abs(o.y-p.y)>42||(!s.all&&(dx*p.face<-14||dx*p.face>s.range))||(s.all&&Math.abs(dx)>s.range))continue;o.hp-=s.damage;a.hits.push('o'+o.id);this.emit('break',{x:o.x,y:o.y,broken:o.hp<=0,kind:o.kind,circuitId:o.circuitId,color:o.color});if(o.hp<=0){const drop=o.drop===undefined?'coffee':o.drop;if(drop)this.pickups.push({x:o.x,y:o.y,kind:drop,age:0});this.score+=40;if(o.kind==='remote'||o.kind==='circuit')this.disableCircuit(o.circuitId??o.id-50);}}
