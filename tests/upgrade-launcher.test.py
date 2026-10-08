@@ -1,4 +1,4 @@
-"""Upgrade the reviewed v9 installation with the actual v10 launcher on port 8788.
+"""Upgrade the reviewed v10 installation with the actual v11 launcher on port 8788.
 
 The old launcher's Python bootstrap runs verbatim in this process, so the
 loopback server remains reachable in test environments with process isolation.
@@ -19,9 +19,9 @@ import urllib.request
 from unittest.mock import patch
 
 ROOT = Path(__file__).resolve().parents[1]
-BASELINE = os.environ.get('CRITIC_V9_REF', 'ba087d21a1699ffec1fd923d17a18b796ae37ab6')
-NEW_HTML = Path(os.environ.get('CRITIC_HTML', ROOT / 'The-Critic-Coming-Attractions-v10.html'))
-NEW_LAUNCHER = Path(os.environ.get('CRITIC_LAUNCHER', ROOT / 'The-Critic-Coming-Attractions-v10-Play.sh'))
+BASELINE = os.environ.get('CRITIC_V10_REF', '8757424f41b7f7cc9a3eebaa927298473988d56b')
+NEW_HTML = Path(os.environ.get('CRITIC_HTML', ROOT / 'The-Critic-Coming-Attractions-v11.html'))
+NEW_LAUNCHER = Path(os.environ.get('CRITIC_LAUNCHER', ROOT / 'The-Critic-Coming-Attractions-v11-Play.sh'))
 URL = 'http://127.0.0.1:8788/'
 results = []
 
@@ -36,15 +36,15 @@ def baseline_blob(name):
                           check=True, capture_output=True).stdout
 
 
-def prepare_v9(folder):
+def prepare_v10(folder):
     """Rebuild the actual reviewed offline game, without a historical download."""
-    override = os.environ.get('CRITIC_V9_LAUNCHER')
+    override = os.environ.get('CRITIC_V10_LAUNCHER')
     if override:
         launcher = Path(override)
         if not launcher.is_file():
-            raise FileNotFoundError(f'CRITIC_V9_LAUNCHER does not exist: {launcher}')
+            raise FileNotFoundError(f'CRITIC_V10_LAUNCHER does not exist: {launcher}')
         return launcher
-    source = folder / 'baseline-v9'
+    source = folder / 'baseline-v10'
     source.mkdir()
     for name in ['index.html', 'style.css', 'cutscenes.css', 'cutscenes.js', 'data/campaign.js', 'data/cutscenes.js', 'engine.js', 'render.js', 'config.js',
                  'gamepad.js', 'controller-ui.js', 'app.js',
@@ -54,7 +54,7 @@ def prepare_v9(folder):
         target.parent.mkdir(parents=True, exist_ok=True)
         target.write_bytes(baseline_blob(name))
     # Runtime assets are restored from the reviewed commit too: later atlases and
-    # metadata changes cannot accidentally turn the old fixture into a v10 game.
+    # metadata changes cannot accidentally turn the old fixture into a v11 game.
     names = subprocess.run(['git', 'ls-tree', '-r', '--name-only', BASELINE, 'assets/'],
                            cwd=ROOT, check=True, text=True, capture_output=True).stdout.splitlines()
     for name in names:
@@ -64,8 +64,8 @@ def prepare_v9(folder):
             target.write_bytes(baseline_blob(name))
     subprocess.run([sys.executable, str(source / 'tools/build_standalone.py')],
                    check=True, capture_output=True)
-    old_html = source / 'The-Critic-Coming-Attractions-v9.html'
-    launcher = folder / 'The-Critic-Coming-Attractions-v9-Play.sh'
+    old_html = source / 'The-Critic-Coming-Attractions-v10.html'
+    launcher = folder / 'The-Critic-Coming-Attractions-v10-Play.sh'
     subprocess.run([sys.executable, str(source / 'tools/build_launcher.py'),
                     str(old_html), str(launcher)], check=True, capture_output=True)
     return launcher
@@ -73,13 +73,13 @@ def prepare_v9(folder):
 
 def bootstrap(path):
     code = path.read_text().split("<<'PYGAME'\n", 1)[1].split('\nPYGAME\n', 1)[0]
-    if '__CRITIC_EMBEDDED_BRAWLER_V9__' not in code:
-        raise AssertionError('Upgrade fixture must use the v9 launcher bootstrap.')
+    if '__CRITIC_EMBEDDED_BRAWLER_V10__' not in code:
+        raise AssertionError('Upgrade fixture must use the v10 launcher bootstrap.')
     return code
 
 
 if not NEW_HTML.is_file() or not NEW_LAUNCHER.is_file():
-    raise FileNotFoundError('Build the v10 standalone HTML and launcher before running this test. '
+    raise FileNotFoundError('Build the v11 standalone HTML and launcher before running this test. '
                             'See docs/PUBLISHING.md for the two build commands.')
 # This fixed port is part of the save-origin contract. Never stop an unrelated
 # process to make the test pass; launcher tests must run serially.
@@ -93,9 +93,9 @@ with socket.socket() as probe:
         raise RuntimeError('Port 8788 is occupied. Run launcher tests serially after stopping '
                            'your own local test server; this test will not kill it.') from exc
 
-with tempfile.TemporaryDirectory(prefix='critic-v9-v10-upgrade-') as temporary:
+with tempfile.TemporaryDirectory(prefix='critic-v10-v11-upgrade-') as temporary:
     folder = Path(temporary)
-    old = prepare_v9(folder)
+    old = prepare_v10(folder)
     home = folder / 'user-home'
     home.mkdir()
     env = {**os.environ, 'HOME': str(home), 'CRITIC_NO_BROWSER': '1', 'PYTHONUNBUFFERED': '1'}
@@ -115,26 +115,26 @@ with tempfile.TemporaryDirectory(prefix='critic-v9-v10-upgrade-') as temporary:
             version = None
             for _ in range(150):
                 if failures:
-                    raise RuntimeError('v9 server could not start: ' + '; '.join(failures))
+                    raise RuntimeError('v10 server could not start: ' + '; '.join(failures))
                 try:
                     with urllib.request.urlopen(URL + 'version.json', timeout=.5) as response:
                         version = json.load(response)
-                    if version.get('app') == 'cattown-critic-brawler-v9':
+                    if version.get('app') == 'cattown-critic-brawler-v10':
                         break
                 except OSError:
                     pass
                 time.sleep(.1)
             if not version:
-                raise RuntimeError('The v9 local server did not become available on port 8788.')
+                raise RuntimeError('The v10 local server did not become available on port 8788.')
             server = namespace['server']
             index = home / '.local/share/cattown/critic-brawler/index.html'
             original = index.read_bytes()
             expected = NEW_HTML.read_bytes()
-            check('Reviewed v9 launcher starts on the retained 8788 browser origin',
-                  version.get('app') == 'cattown-critic-brawler-v9' and thread.is_alive(),
+            check('Reviewed v10 launcher starts on the retained 8788 browser origin',
+                  version.get('app') == 'cattown-critic-brawler-v10' and thread.is_alive(),
                   {'origin': URL, 'baseline': BASELINE})
-            check('The installed v9 payload differs from the new v10 payload',
-                  original != expected and b"version:'9.0.0'" in original and b"version:'10.0.0'" in expected)
+            check('The installed v10 payload differs from the new v11 payload',
+                  original != expected and b"version:'10.0.0'" in original and b"version:'11.0.0'" in expected)
 
             retained = {
                 index.parent / 'existing-save-marker.json': b'{"keep":"installed companion data"}',
@@ -148,19 +148,19 @@ with tempfile.TemporaryDirectory(prefix='critic-v9-v10-upgrade-') as temporary:
                 path.write_bytes(value)
             first = subprocess.run(['bash', str(NEW_LAUNCHER)], env=env,
                                    capture_output=True, timeout=60)
-            check('v10 reuses the running v9 server without replacing its process',
+            check('v11 reuses the running v10 server without replacing its process',
                   first.returncode == 0 and thread.is_alive() and namespace['server'] is server
                   and b'already running' in first.stdout,
                   {'returncode': first.returncode, 'stderr': first.stderr.decode()[:500]})
             with urllib.request.urlopen(URL, timeout=10) as response:
                 served = response.read()
                 cache = response.headers.get('Cache-Control')
-            check('The same origin immediately serves the exact complete v10 HTML',
+            check('The same origin immediately serves the exact complete v11 HTML',
                   served == expected and index.read_bytes() == expected,
                   {'bytes': len(served), 'sha256': hashlib.sha256(served).hexdigest()})
             check('Updated HTML is not trapped behind a stale browser cache', cache == 'no-cache')
-            backup = index.with_name('index-before-v10.html')
-            check('The original installed v9 HTML is backed up byte-for-byte',
+            backup = index.with_name('index-before-v11.html')
+            check('The original installed v10 HTML is backed up byte-for-byte',
                   backup.is_file() and backup.read_bytes() == original)
             second = subprocess.run(['bash', str(NEW_LAUNCHER)], env=env,
                                     capture_output=True, timeout=60)
@@ -171,11 +171,11 @@ with tempfile.TemporaryDirectory(prefix='critic-v9-v10-upgrade-') as temporary:
                   all(path.read_bytes() == value for path, value in retained.items()))
             check('Upgrade keeps the same install directory with no stale temporary file',
                   sorted(path.name for path in index.parent.iterdir()) ==
-                  ['existing-save-marker.json', 'index-before-v10.html', 'index.html'])
+                  ['existing-save-marker.json', 'index-before-v11.html', 'index.html'])
             with urllib.request.urlopen(URL + 'version.json', timeout=5) as response:
                 final_version = json.load(response)
-            check('The retained v9 server reports the hash of the updated v10 file',
-                  final_version.get('app') == 'cattown-critic-brawler-v9'
+            check('The retained v10 server reports the hash of the updated v11 file',
+                  final_version.get('app') == 'cattown-critic-brawler-v10'
                   and final_version.get('sha256') == hashlib.sha256(expected).hexdigest())
         finally:
             if namespace.get('server'):
@@ -185,8 +185,8 @@ with tempfile.TemporaryDirectory(prefix='critic-v9-v10-upgrade-') as temporary:
 
 report = {'tests': results, 'passed': sum(item['passed'] for item in results),
           'failed': sum(not item['passed'] for item in results),
-          'boundary': 'Reviewed v9 offline payload and launcher rebuilt from git; original v9 Python '
-                      'bootstrap and HTTP handler run verbatim in a same-process thread. Actual v10 '
+          'boundary': 'Reviewed v10 offline payload and launcher rebuilt from git; original v10 Python '
+                      'bootstrap and HTTP handler run verbatim in a same-process thread. Actual v11 '
                       'Bash launcher updates that installation twice on loopback port 8788. Retained '
                       'filesystem sentinels checked; browser localStorage migration is tested separately. '
                       'No physical Android or Termux testing claimed.'}

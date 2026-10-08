@@ -9,7 +9,7 @@ for(const kind of ['hero','franklin']){
  for(const s of opening.shots.slice(0,3)){assert.ok(!s.actors.some(a=>a.character==='marty'));assert.ok(!s.cage);assert.ok(s.actors.some(a=>a.id==='jay'));assert.ok(s.actors.some(a=>a.character==='duke'));}
  const seated=opening.shots[0].actors.find(a=>a.id==='jay');assert.equal(seated.image,'cutscenes/jay-seated.webp');assert.equal(seated.imageHeight,224);assert.deepEqual(seated.imagePivot,{x:128,y:208});
  assert.ok(opening.shots[0].actors.find(a=>a.character==='duke').motion);
- assert.ok(opening.shots.find(s=>s.id==='marty-reveal').cage);assert.equal(opening.shots.find(s=>s.id==='marty-reveal').actors.find(a=>a.character==='marty').animation,'scared-idle');
+ assert.ok(opening.shots.find(s=>s.id==='marty-reveal').cage);assert.equal(opening.shots.find(s=>s.id==='marty-reveal').actors.find(a=>a.character==='marty').animation,'v11-captive-idle');
  const emergence=opening.shots.find(s=>s.id==='screen-emergence');assert.deepEqual(emergence.emissions.map(e=>e.character),C.cast);assert.ok(emergence.emissions.every(e=>Number.isInteger(e.screen)&&e.duration>0));
  assert.ok(opening.shots.find(s=>s.id==='window-launch').actors.find(a=>a.id==='jay').motion.toX<0);
  assert.equal(opening.shots.at(-1).id,'street-recovery');

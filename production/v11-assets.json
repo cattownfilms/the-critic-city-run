@@ -1,0 +1,3456 @@
+{
+  "schemaVersion": 1,
+  "baselineCommit": "8757424f41b7f7cc9a3eebaa927298473988d56b",
+  "sourceVideos": [
+    {
+      "filename": "230c230e-cb83-4b1a-8161-1f972526a463.mp4",
+      "path": "/storage/emulated/0/Download/230c230e-cb83-4b1a-8161-1f972526a463.mp4",
+      "sha256": "e23d0d7a5533084a66ed3ee6f32a260a4e77795e5b7ced984277fdf1b5d7a324",
+      "bytes": 2985323,
+      "width": 1280,
+      "height": 720,
+      "fps": "24/1",
+      "duration": "10.005000",
+      "frames": "240",
+      "decodedFrames": 240,
+      "character": "duke"
+    },
+    {
+      "filename": "2c15e195-b3c2-4f23-a395-79124eb77d54.mp4",
+      "path": "/storage/emulated/0/Download/2c15e195-b3c2-4f23-a395-79124eb77d54.mp4",
+      "sha256": "439ca8c29ee8dc60d77eef50674281b72c7114e148eb84dda7fc780054e64901",
+      "bytes": 2860433,
+      "width": 1280,
+      "height": 720,
+      "fps": "24/1",
+      "duration": "10.005000",
+      "frames": "240",
+      "decodedFrames": 240,
+      "character": "duke"
+    },
+    {
+      "filename": "output (8).mp4",
+      "path": "/storage/emulated/0/Download/output (8).mp4",
+      "sha256": "c7356dbe6fb6fe5ea86c4af5315c7a2b1906d3183a322cd1d4a47714897238c7",
+      "bytes": 1928839,
+      "width": 1280,
+      "height": 720,
+      "fps": "24/1",
+      "duration": "4.064000",
+      "frames": "97",
+      "decodedFrames": 97,
+      "character": "marty"
+    }
+  ],
+  "uniqueSourceCount": 3,
+  "review": "All 577 source frames reviewed chronologically, plus full-resolution action samples; no attachment aliases or unrelated videos ingested.",
+  "cleanup": "Float chroma alpha ramp; edge-connected background and saturated enclosed green; conservative spill suppression; largest connected actor; no global red/pink removal",
+  "actions": [
+    {
+      "character": "duke",
+      "action": "v11-cart-push",
+      "filename": "230c230e-cb83-4b1a-8161-1f972526a463.mp4",
+      "frames": [
+        28,
+        30,
+        32,
+        34,
+        37,
+        40,
+        43,
+        46,
+        49,
+        52,
+        54,
+        57,
+        60,
+        63,
+        66,
+        69
+      ],
+      "range": [
+        28,
+        69
+      ],
+      "seconds": [
+        1.1666666666666667,
+        2.875
+      ],
+      "category": "cutscene",
+      "scale": 0.32517482517482516,
+      "pivot": "horizontal lower-body median; fixed source floor 662",
+      "flip": false,
+      "facing": 1,
+      "runtimeUsage": "v11-cart-push",
+      "propFree": true
+    },
+    {
+      "character": "duke",
+      "action": "v11-cart-stop",
+      "filename": "230c230e-cb83-4b1a-8161-1f972526a463.mp4",
+      "frames": [
+        80,
+        82,
+        85,
+        88,
+        91,
+        94,
+        98,
+        102,
+        106
+      ],
+      "range": [
+        80,
+        106
+      ],
+      "seconds": [
+        3.3333333333333335,
+        4.416666666666667
+      ],
+      "category": "cutscene",
+      "scale": 0.32517482517482516,
+      "pivot": "horizontal lower-body median; fixed source floor 662",
+      "flip": false,
+      "facing": 1,
+      "runtimeUsage": "v11-cart-stop",
+      "propFree": true
+    },
+    {
+      "character": "duke",
+      "action": "v11-cart-pull",
+      "filename": "230c230e-cb83-4b1a-8161-1f972526a463.mp4",
+      "frames": [
+        125,
+        128,
+        131,
+        134,
+        137,
+        140,
+        143,
+        146,
+        149,
+        152,
+        156,
+        160,
+        164,
+        168,
+        172,
+        176
+      ],
+      "range": [
+        125,
+        176
+      ],
+      "seconds": [
+        5.208333333333333,
+        7.333333333333333
+      ],
+      "category": "preserved-unused",
+      "scale": 0.32517482517482516,
+      "pivot": "horizontal lower-body median; fixed source floor 662",
+      "flip": false,
+      "facing": 1,
+      "runtimeUsage": "preserved alternate; not selected for current scenes",
+      "propFree": true
+    },
+    {
+      "character": "duke",
+      "action": "v11-cart-adjust",
+      "filename": "230c230e-cb83-4b1a-8161-1f972526a463.mp4",
+      "frames": [
+        108,
+        110,
+        113,
+        116,
+        119,
+        122
+      ],
+      "range": [
+        108,
+        122
+      ],
+      "seconds": [
+        4.5,
+        5.083333333333333
+      ],
+      "category": "preserved-unused",
+      "scale": 0.32517482517482516,
+      "pivot": "horizontal lower-body median; fixed source floor 662",
+      "flip": false,
+      "facing": 1,
+      "runtimeUsage": "preserved alternate; not selected for current scenes",
+      "propFree": true
+    },
+    {
+      "character": "duke",
+      "action": "v11-cart-release",
+      "filename": "230c230e-cb83-4b1a-8161-1f972526a463.mp4",
+      "frames": [
+        199,
+        202,
+        205,
+        208,
+        211,
+        214,
+        217,
+        220,
+        223,
+        226
+      ],
+      "range": [
+        199,
+        226
+      ],
+      "seconds": [
+        8.291666666666666,
+        9.416666666666666
+      ],
+      "category": "cutscene",
+      "scale": 0.32517482517482516,
+      "pivot": "horizontal lower-body median; fixed source floor 662",
+      "flip": false,
+      "facing": 1,
+      "runtimeUsage": "v11-cart-release",
+      "propFree": true
+    },
+    {
+      "character": "duke",
+      "action": "v11-cautious-retreat",
+      "filename": "2c15e195-b3c2-4f23-a395-79124eb77d54.mp4",
+      "frames": [
+        32,
+        35,
+        38,
+        41,
+        44,
+        47,
+        50,
+        53,
+        56,
+        59,
+        62,
+        65,
+        68,
+        71,
+        74
+      ],
+      "range": [
+        32,
+        74
+      ],
+      "seconds": [
+        1.3333333333333333,
+        3.0833333333333335
+      ],
+      "category": "gameplay",
+      "scale": 0.32517482517482516,
+      "pivot": "horizontal lower-body median; fixed source floor 662",
+      "flip": false,
+      "facing": 1,
+      "runtimeUsage": "v11-cautious-retreat",
+      "propFree": true
+    },
+    {
+      "character": "duke",
+      "action": "v11-confrontation",
+      "filename": "2c15e195-b3c2-4f23-a395-79124eb77d54.mp4",
+      "frames": [
+        174,
+        177,
+        180,
+        183,
+        186,
+        190,
+        194,
+        198,
+        202
+      ],
+      "range": [
+        174,
+        202
+      ],
+      "seconds": [
+        7.25,
+        8.416666666666666
+      ],
+      "category": "cutscene",
+      "scale": 0.32517482517482516,
+      "pivot": "horizontal lower-body median; fixed source floor 662",
+      "flip": false,
+      "facing": 1,
+      "runtimeUsage": "v11-confrontation",
+      "propFree": true
+    },
+    {
+      "character": "marty",
+      "action": "v11-worried-look",
+      "filename": "output (8).mp4",
+      "frames": [
+        0,
+        3,
+        6,
+        9,
+        12,
+        15,
+        18,
+        21,
+        24,
+        27,
+        30,
+        33,
+        36,
+        40,
+        44,
+        48
+      ],
+      "range": [
+        0,
+        48
+      ],
+      "seconds": [
+        0.0,
+        2.0
+      ],
+      "category": "cutscene",
+      "scale": 0.24825174825174826,
+      "pivot": "horizontal lower-body median; fixed source floor 662",
+      "flip": false,
+      "facing": 1,
+      "runtimeUsage": "v11-worried-look",
+      "propFree": false
+    },
+    {
+      "character": "marty",
+      "action": "v11-captive-idle",
+      "filename": "output (8).mp4",
+      "frames": [
+        49,
+        53,
+        57,
+        61,
+        65,
+        69,
+        73,
+        77,
+        81,
+        85,
+        89,
+        93,
+        96
+      ],
+      "range": [
+        49,
+        96
+      ],
+      "seconds": [
+        2.0416666666666665,
+        4.0
+      ],
+      "category": "cutscene",
+      "scale": 0.24825174825174826,
+      "pivot": "horizontal lower-body median; fixed source floor 662",
+      "flip": false,
+      "facing": 1,
+      "runtimeUsage": "v11-captive-idle",
+      "propFree": false
+    }
+  ],
+  "frameDerivatives": [
+    {
+      "character": "duke",
+      "action": "v11-cart-push",
+      "source": "230c230e-cb83-4b1a-8161-1f972526a463.mp4",
+      "sha256": "e23d0d7a5533084a66ed3ee6f32a260a4e77795e5b7ced984277fdf1b5d7a324",
+      "sourceFrame": 28,
+      "sourceSeconds": 1.1666666666666667,
+      "scale": 0.32517482517482516,
+      "pivot": [
+        607.0,
+        662
+      ],
+      "facing": 1,
+      "flip": false,
+      "runtimeFrame": 0,
+      "rect": {
+        "p": 110,
+        "x": 3,
+        "y": 3,
+        "w": 109,
+        "h": 166
+      },
+      "decodedSHA256": "9018eaab61935ac5d5bda9641deea4127152ef55176320c86a05d4f3b9040d0b",
+      "handContact": {
+        "x": 68.287,
+        "y": -125.192
+      }
+    },
+    {
+      "character": "duke",
+      "action": "v11-cart-push",
+      "source": "230c230e-cb83-4b1a-8161-1f972526a463.mp4",
+      "sha256": "e23d0d7a5533084a66ed3ee6f32a260a4e77795e5b7ced984277fdf1b5d7a324",
+      "sourceFrame": 30,
+      "sourceSeconds": 1.25,
+      "scale": 0.32517482517482516,
+      "pivot": [
+        589.0,
+        662
+      ],
+      "facing": 1,
+      "flip": false,
+      "runtimeFrame": 1,
+      "rect": {
+        "p": 110,
+        "x": 115,
+        "y": 3,
+        "w": 116,
+        "h": 166
+      },
+      "decodedSHA256": "b7194a502a5548b5bb4af4ade7063e30586af4cf047493aac3316e59d7e00011",
+      "handContact": {
+        "x": 74.14,
+        "y": -125.192
+      }
+    },
+    {
+      "character": "duke",
+      "action": "v11-cart-push",
+      "source": "230c230e-cb83-4b1a-8161-1f972526a463.mp4",
+      "sha256": "e23d0d7a5533084a66ed3ee6f32a260a4e77795e5b7ced984277fdf1b5d7a324",
+      "sourceFrame": 32,
+      "sourceSeconds": 1.3333333333333333,
+      "scale": 0.32517482517482516,
+      "pivot": [
+        584.0,
+        662
+      ],
+      "facing": 1,
+      "flip": false,
+      "runtimeFrame": 2,
+      "rect": {
+        "p": 110,
+        "x": 234,
+        "y": 3,
+        "w": 116,
+        "h": 167
+      },
+      "decodedSHA256": "23e651006751e587b1e939035f28850a94ab57f92ac9554554fdbb5fd6886e05",
+      "handContact": {
+        "x": 75.766,
+        "y": -125.192
+      }
+    },
+    {
+      "character": "duke",
+      "action": "v11-cart-push",
+      "source": "230c230e-cb83-4b1a-8161-1f972526a463.mp4",
+      "sha256": "e23d0d7a5533084a66ed3ee6f32a260a4e77795e5b7ced984277fdf1b5d7a324",
+      "sourceFrame": 34,
+      "sourceSeconds": 1.4166666666666667,
+      "scale": 0.32517482517482516,
+      "pivot": [
+        576.0,
+        662
+      ],
+      "facing": 1,
+      "flip": false,
+      "runtimeFrame": 3,
+      "rect": {
+        "p": 110,
+        "x": 353,
+        "y": 3,
+        "w": 108,
+        "h": 169
+      },
+      "decodedSHA256": "a5fe7b3d52d70504b0671093dadfa14139fe8d0a981b1e987fba0eae81151649",
+      "handContact": {
+        "x": 78.367,
+        "y": -124.867
+      }
+    },
+    {
+      "character": "duke",
+      "action": "v11-cart-push",
+      "source": "230c230e-cb83-4b1a-8161-1f972526a463.mp4",
+      "sha256": "e23d0d7a5533084a66ed3ee6f32a260a4e77795e5b7ced984277fdf1b5d7a324",
+      "sourceFrame": 37,
+      "sourceSeconds": 1.5416666666666667,
+      "scale": 0.32517482517482516,
+      "pivot": [
+        580.0,
+        662
+      ],
+      "facing": 1,
+      "flip": false,
+      "runtimeFrame": 4,
+      "rect": {
+        "p": 110,
+        "x": 464,
+        "y": 3,
+        "w": 102,
+        "h": 172
+      },
+      "decodedSHA256": "fb6a77116fc020d50b3b12bdd9e968d05282cb9e3fe93844fbb3b0ec4c3e4365",
+      "handContact": {
+        "x": 77.392,
+        "y": -124.867
+      }
+    },
+    {
+      "character": "duke",
+      "action": "v11-cart-push",
+      "source": "230c230e-cb83-4b1a-8161-1f972526a463.mp4",
+      "sha256": "e23d0d7a5533084a66ed3ee6f32a260a4e77795e5b7ced984277fdf1b5d7a324",
+      "sourceFrame": 40,
+      "sourceSeconds": 1.6666666666666667,
+      "scale": 0.32517482517482516,
+      "pivot": [
+        573.0,
+        662
+      ],
+      "facing": 1,
+      "flip": false,
+      "runtimeFrame": 5,
+      "rect": {
+        "p": 110,
+        "x": 569,
+        "y": 3,
+        "w": 113,
+        "h": 170
+      },
+      "decodedSHA256": "a08410f1d7510e64ffc19b99f28e77a56e772476a09de3c84c6f854641568147",
+      "handContact": {
+        "x": 79.993,
+        "y": -125.517
+      }
+    },
+    {
+      "character": "duke",
+      "action": "v11-cart-push",
+      "source": "230c230e-cb83-4b1a-8161-1f972526a463.mp4",
+      "sha256": "e23d0d7a5533084a66ed3ee6f32a260a4e77795e5b7ced984277fdf1b5d7a324",
+      "sourceFrame": 43,
+      "sourceSeconds": 1.7916666666666667,
+      "scale": 0.32517482517482516,
+      "pivot": [
+        565.0,
+        662
+      ],
+      "facing": 1,
+      "flip": false,
+      "runtimeFrame": 6,
+      "rect": {
+        "p": 110,
+        "x": 685,
+        "y": 3,
+        "w": 125,
+        "h": 166
+      },
+      "decodedSHA256": "c4a19868b4eeb728426c410440020db5e0178ec1359846d3eb4a7e1a9ef3c908",
+      "handContact": {
+        "x": 82.594,
+        "y": -124.867
+      }
+    },
+    {
+      "character": "duke",
+      "action": "v11-cart-push",
+      "source": "230c230e-cb83-4b1a-8161-1f972526a463.mp4",
+      "sha256": "e23d0d7a5533084a66ed3ee6f32a260a4e77795e5b7ced984277fdf1b5d7a324",
+      "sourceFrame": 46,
+      "sourceSeconds": 1.9166666666666667,
+      "scale": 0.32517482517482516,
+      "pivot": [
+        555.0,
+        662
+      ],
+      "facing": 1,
+      "flip": false,
+      "runtimeFrame": 7,
+      "rect": {
+        "p": 110,
+        "x": 813,
+        "y": 3,
+        "w": 132,
+        "h": 165
+      },
+      "decodedSHA256": "01ca18671cb8b4b6f779ab4a253ff36e8350a5aeee94eaaf482998aa12535b4b",
+      "handContact": {
+        "x": 86.497,
+        "y": -125.192
+      }
+    },
+    {
+      "character": "duke",
+      "action": "v11-cart-push",
+      "source": "230c230e-cb83-4b1a-8161-1f972526a463.mp4",
+      "sha256": "e23d0d7a5533084a66ed3ee6f32a260a4e77795e5b7ced984277fdf1b5d7a324",
+      "sourceFrame": 49,
+      "sourceSeconds": 2.0416666666666665,
+      "scale": 0.32517482517482516,
+      "pivot": [
+        589.0,
+        662
+      ],
+      "facing": 1,
+      "flip": false,
+      "runtimeFrame": 8,
+      "rect": {
+        "p": 110,
+        "x": 3,
+        "y": 178,
+        "w": 123,
+        "h": 166
+      },
+      "decodedSHA256": "0e233f8778fb0572b03401acb6a81221ac412ee940db303dcc7f60f4ef61e24c",
+      "handContact": {
+        "x": 75.441,
+        "y": -125.517
+      }
+    },
+    {
+      "character": "duke",
+      "action": "v11-cart-push",
+      "source": "230c230e-cb83-4b1a-8161-1f972526a463.mp4",
+      "sha256": "e23d0d7a5533084a66ed3ee6f32a260a4e77795e5b7ced984277fdf1b5d7a324",
+      "sourceFrame": 52,
+      "sourceSeconds": 2.1666666666666665,
+      "scale": 0.32517482517482516,
+      "pivot": [
+        585.0,
+        662
+      ],
+      "facing": 1,
+      "flip": false,
+      "runtimeFrame": 9,
+      "rect": {
+        "p": 110,
+        "x": 129,
+        "y": 178,
+        "w": 105,
+        "h": 168
+      },
+      "decodedSHA256": "439b083ca286b9b41e0ab3003aa589a9d4599dbf3f6f16d77c947fa4e0eb98e0",
+      "handContact": {
+        "x": 77.392,
+        "y": -126.168
+      }
+    },
+    {
+      "character": "duke",
+      "action": "v11-cart-push",
+      "source": "230c230e-cb83-4b1a-8161-1f972526a463.mp4",
+      "sha256": "e23d0d7a5533084a66ed3ee6f32a260a4e77795e5b7ced984277fdf1b5d7a324",
+      "sourceFrame": 54,
+      "sourceSeconds": 2.25,
+      "scale": 0.32517482517482516,
+      "pivot": [
+        593.0,
+        662
+      ],
+      "facing": 1,
+      "flip": false,
+      "runtimeFrame": 10,
+      "rect": {
+        "p": 110,
+        "x": 237,
+        "y": 178,
+        "w": 98,
+        "h": 168
+      },
+      "decodedSHA256": "145f7221d57ef953265d9697599bfe6665228551ea2ab1a25f260234032f993b",
+      "handContact": {
+        "x": 74.79,
+        "y": -125.843
+      }
+    },
+    {
+      "character": "duke",
+      "action": "v11-cart-push",
+      "source": "230c230e-cb83-4b1a-8161-1f972526a463.mp4",
+      "sha256": "e23d0d7a5533084a66ed3ee6f32a260a4e77795e5b7ced984277fdf1b5d7a324",
+      "sourceFrame": 57,
+      "sourceSeconds": 2.375,
+      "scale": 0.32517482517482516,
+      "pivot": [
+        617.0,
+        662
+      ],
+      "facing": 1,
+      "flip": false,
+      "runtimeFrame": 11,
+      "rect": {
+        "p": 110,
+        "x": 338,
+        "y": 178,
+        "w": 110,
+        "h": 165
+      },
+      "decodedSHA256": "347218a9671da499d1b42c7cd292f1055dcc9612744978e5f6f81cfebdc0bab0",
+      "handContact": {
+        "x": 66.986,
+        "y": -125.192
+      }
+    },
+    {
+      "character": "duke",
+      "action": "v11-cart-push",
+      "source": "230c230e-cb83-4b1a-8161-1f972526a463.mp4",
+      "sha256": "e23d0d7a5533084a66ed3ee6f32a260a4e77795e5b7ced984277fdf1b5d7a324",
+      "sourceFrame": 60,
+      "sourceSeconds": 2.5,
+      "scale": 0.32517482517482516,
+      "pivot": [
+        591.0,
+        662
+      ],
+      "facing": 1,
+      "flip": false,
+      "runtimeFrame": 12,
+      "rect": {
+        "p": 110,
+        "x": 451,
+        "y": 178,
+        "w": 120,
+        "h": 165
+      },
+      "decodedSHA256": "cf4bf8c5b4df54169cbbbbdb6860a57e5edb263ed9075b65b8d3529e626e2861",
+      "handContact": {
+        "x": 75.441,
+        "y": -125.192
+      }
+    },
+    {
+      "character": "duke",
+      "action": "v11-cart-push",
+      "source": "230c230e-cb83-4b1a-8161-1f972526a463.mp4",
+      "sha256": "e23d0d7a5533084a66ed3ee6f32a260a4e77795e5b7ced984277fdf1b5d7a324",
+      "sourceFrame": 63,
+      "sourceSeconds": 2.625,
+      "scale": 0.32517482517482516,
+      "pivot": [
+        604.0,
+        662
+      ],
+      "facing": 1,
+      "flip": false,
+      "runtimeFrame": 13,
+      "rect": {
+        "p": 110,
+        "x": 574,
+        "y": 178,
+        "w": 116,
+        "h": 167
+      },
+      "decodedSHA256": "73a750468dd6457567e713f9fa60d71aa1f11f90fa6160fa18cfca45a79fd70a",
+      "handContact": {
+        "x": 71.538,
+        "y": -125.192
+      }
+    },
+    {
+      "character": "duke",
+      "action": "v11-cart-push",
+      "source": "230c230e-cb83-4b1a-8161-1f972526a463.mp4",
+      "sha256": "e23d0d7a5533084a66ed3ee6f32a260a4e77795e5b7ced984277fdf1b5d7a324",
+      "sourceFrame": 66,
+      "sourceSeconds": 2.75,
+      "scale": 0.32517482517482516,
+      "pivot": [
+        598.0,
+        662
+      ],
+      "facing": 1,
+      "flip": false,
+      "runtimeFrame": 14,
+      "rect": {
+        "p": 110,
+        "x": 693,
+        "y": 178,
+        "w": 101,
+        "h": 170
+      },
+      "decodedSHA256": "dd3d5053e12b188ebaaab6b88157e9391e94f56982fa95bb2d2d438ad6e2c110",
+      "handContact": {
+        "x": 73.815,
+        "y": -124.867
+      }
+    },
+    {
+      "character": "duke",
+      "action": "v11-cart-push",
+      "source": "230c230e-cb83-4b1a-8161-1f972526a463.mp4",
+      "sha256": "e23d0d7a5533084a66ed3ee6f32a260a4e77795e5b7ced984277fdf1b5d7a324",
+      "sourceFrame": 69,
+      "sourceSeconds": 2.875,
+      "scale": 0.32517482517482516,
+      "pivot": [
+        599.0,
+        662
+      ],
+      "facing": 1,
+      "flip": false,
+      "runtimeFrame": 15,
+      "rect": {
+        "p": 110,
+        "x": 797,
+        "y": 178,
+        "w": 100,
+        "h": 172
+      },
+      "decodedSHA256": "2954cdef4d409bbe226d72f683b4038d8f450840c5f0814d7a3a7e951c95eb2a",
+      "handContact": {
+        "x": 74.14,
+        "y": -125.192
+      }
+    },
+    {
+      "character": "duke",
+      "action": "v11-cart-stop",
+      "source": "230c230e-cb83-4b1a-8161-1f972526a463.mp4",
+      "sha256": "e23d0d7a5533084a66ed3ee6f32a260a4e77795e5b7ced984277fdf1b5d7a324",
+      "sourceFrame": 80,
+      "sourceSeconds": 3.3333333333333335,
+      "scale": 0.32517482517482516,
+      "pivot": [
+        585.0,
+        662
+      ],
+      "facing": 1,
+      "flip": false,
+      "runtimeFrame": 0,
+      "rect": {
+        "p": 111,
+        "x": 3,
+        "y": 3,
+        "w": 122,
+        "h": 171
+      },
+      "decodedSHA256": "6d0180cca4f71aa8d220ed0f811ff3b1f71bf8e99bfc43432e23870882fcccc5",
+      "handContact": {
+        "x": 77.717,
+        "y": -125.68
+      }
+    },
+    {
+      "character": "duke",
+      "action": "v11-cart-stop",
+      "source": "230c230e-cb83-4b1a-8161-1f972526a463.mp4",
+      "sha256": "e23d0d7a5533084a66ed3ee6f32a260a4e77795e5b7ced984277fdf1b5d7a324",
+      "sourceFrame": 82,
+      "sourceSeconds": 3.4166666666666665,
+      "scale": 0.32517482517482516,
+      "pivot": [
+        591.0,
+        662
+      ],
+      "facing": 1,
+      "flip": false,
+      "runtimeFrame": 1,
+      "rect": {
+        "p": 111,
+        "x": 128,
+        "y": 3,
+        "w": 117,
+        "h": 175
+      },
+      "decodedSHA256": "a4074d4fe62b528e7c413870b3fb0c623a7710c175ad58f512ffecb48dea745e",
+      "handContact": {
+        "x": 76.091,
+        "y": -126.168
+      }
+    },
+    {
+      "character": "duke",
+      "action": "v11-cart-stop",
+      "source": "230c230e-cb83-4b1a-8161-1f972526a463.mp4",
+      "sha256": "e23d0d7a5533084a66ed3ee6f32a260a4e77795e5b7ced984277fdf1b5d7a324",
+      "sourceFrame": 85,
+      "sourceSeconds": 3.5416666666666665,
+      "scale": 0.32517482517482516,
+      "pivot": [
+        636.0,
+        662
+      ],
+      "facing": 1,
+      "flip": false,
+      "runtimeFrame": 2,
+      "rect": {
+        "p": 111,
+        "x": 248,
+        "y": 3,
+        "w": 113,
+        "h": 180
+      },
+      "decodedSHA256": "a265de9465d8436935f7e1f019a84f4e75915fb47830cc3fb36e42c37c9b34fa",
+      "handContact": {
+        "x": 61.458,
+        "y": -126.818
+      }
+    },
+    {
+      "character": "duke",
+      "action": "v11-cart-stop",
+      "source": "230c230e-cb83-4b1a-8161-1f972526a463.mp4",
+      "sha256": "e23d0d7a5533084a66ed3ee6f32a260a4e77795e5b7ced984277fdf1b5d7a324",
+      "sourceFrame": 88,
+      "sourceSeconds": 3.6666666666666665,
+      "scale": 0.32517482517482516,
+      "pivot": [
+        634.0,
+        662
+      ],
+      "facing": 1,
+      "flip": false,
+      "runtimeFrame": 3,
+      "rect": {
+        "p": 111,
+        "x": 364,
+        "y": 3,
+        "w": 111,
+        "h": 183
+      },
+      "decodedSHA256": "5b10f9a24f292e26939a89f0592da46d221e10e59993e950b2eb8c6eade14310",
+      "handContact": {
+        "x": 62.434,
+        "y": -127.469
+      }
+    },
+    {
+      "character": "duke",
+      "action": "v11-cart-stop",
+      "source": "230c230e-cb83-4b1a-8161-1f972526a463.mp4",
+      "sha256": "e23d0d7a5533084a66ed3ee6f32a260a4e77795e5b7ced984277fdf1b5d7a324",
+      "sourceFrame": 91,
+      "sourceSeconds": 3.7916666666666665,
+      "scale": 0.32517482517482516,
+      "pivot": [
+        632.0,
+        662
+      ],
+      "facing": 1,
+      "flip": false,
+      "runtimeFrame": 4,
+      "rect": {
+        "p": 111,
+        "x": 478,
+        "y": 3,
+        "w": 112,
+        "h": 184
+      },
+      "decodedSHA256": "b1cc15631adf505182146bbc1bf4459f334dd2403bf1ce20402b449f39288c94",
+      "handContact": {
+        "x": 63.084,
+        "y": -127.469
+      }
+    },
+    {
+      "character": "duke",
+      "action": "v11-cart-stop",
+      "source": "230c230e-cb83-4b1a-8161-1f972526a463.mp4",
+      "sha256": "e23d0d7a5533084a66ed3ee6f32a260a4e77795e5b7ced984277fdf1b5d7a324",
+      "sourceFrame": 94,
+      "sourceSeconds": 3.9166666666666665,
+      "scale": 0.32517482517482516,
+      "pivot": [
+        630.0,
+        662
+      ],
+      "facing": 1,
+      "flip": false,
+      "runtimeFrame": 5,
+      "rect": {
+        "p": 111,
+        "x": 593,
+        "y": 3,
+        "w": 112,
+        "h": 185
+      },
+      "decodedSHA256": "92d05ea6129ce20474977406f493f730da6a54d1bde35aa8755d7436724f1c64",
+      "handContact": {
+        "x": 63.734,
+        "y": -127.469
+      }
+    },
+    {
+      "character": "duke",
+      "action": "v11-cart-stop",
+      "source": "230c230e-cb83-4b1a-8161-1f972526a463.mp4",
+      "sha256": "e23d0d7a5533084a66ed3ee6f32a260a4e77795e5b7ced984277fdf1b5d7a324",
+      "sourceFrame": 98,
+      "sourceSeconds": 4.083333333333333,
+      "scale": 0.32517482517482516,
+      "pivot": [
+        630.0,
+        662
+      ],
+      "facing": 1,
+      "flip": false,
+      "runtimeFrame": 6,
+      "rect": {
+        "p": 111,
+        "x": 708,
+        "y": 3,
+        "w": 111,
+        "h": 185
+      },
+      "decodedSHA256": "4a47bfd41dad3759234ad27116df6c7a8e79a37a25db07651f9b0505acee25d9",
+      "handContact": {
+        "x": 62.759,
+        "y": -128.119
+      }
+    },
+    {
+      "character": "duke",
+      "action": "v11-cart-stop",
+      "source": "230c230e-cb83-4b1a-8161-1f972526a463.mp4",
+      "sha256": "e23d0d7a5533084a66ed3ee6f32a260a4e77795e5b7ced984277fdf1b5d7a324",
+      "sourceFrame": 102,
+      "sourceSeconds": 4.25,
+      "scale": 0.32517482517482516,
+      "pivot": [
+        629.0,
+        662
+      ],
+      "facing": 1,
+      "flip": false,
+      "runtimeFrame": 7,
+      "rect": {
+        "p": 111,
+        "x": 822,
+        "y": 3,
+        "w": 106,
+        "h": 185
+      },
+      "decodedSHA256": "e650a1993cce304ff2fa2df0990b1a717f7774ca7da1d8710af6cd9f30105758",
+      "handContact": {
+        "x": 58.531,
+        "y": -128.769
+      }
+    },
+    {
+      "character": "duke",
+      "action": "v11-cart-stop",
+      "source": "230c230e-cb83-4b1a-8161-1f972526a463.mp4",
+      "sha256": "e23d0d7a5533084a66ed3ee6f32a260a4e77795e5b7ced984277fdf1b5d7a324",
+      "sourceFrame": 106,
+      "sourceSeconds": 4.416666666666667,
+      "scale": 0.32517482517482516,
+      "pivot": [
+        634.0,
+        662
+      ],
+      "facing": 1,
+      "flip": false,
+      "runtimeFrame": 8,
+      "rect": {
+        "p": 111,
+        "x": 3,
+        "y": 191,
+        "w": 99,
+        "h": 185
+      },
+      "decodedSHA256": "e90792525900f8bbddbe0f4531734703ffb1cb20ee3b39e223611689e502179d",
+      "handContact": {
+        "x": 51.378,
+        "y": -131.371
+      }
+    },
+    {
+      "character": "duke",
+      "action": "v11-cart-pull",
+      "source": "230c230e-cb83-4b1a-8161-1f972526a463.mp4",
+      "sha256": "e23d0d7a5533084a66ed3ee6f32a260a4e77795e5b7ced984277fdf1b5d7a324",
+      "sourceFrame": 125,
+      "sourceSeconds": 5.208333333333333,
+      "scale": 0.32517482517482516,
+      "pivot": [
+        628.0,
+        662
+      ],
+      "facing": 1,
+      "flip": false,
+      "runtimeFrame": 0,
+      "rect": {
+        "p": 112,
+        "x": 3,
+        "y": 3,
+        "w": 97,
+        "h": 181
+      },
+      "decodedSHA256": "bf1672357bb4cf2293cbf46fbdfb576fcc495610aaf0151b31560c939b3d0229",
+      "handContact": {
+        "x": 49.101,
+        "y": -117.388
+      }
+    },
+    {
+      "character": "duke",
+      "action": "v11-cart-pull",
+      "source": "230c230e-cb83-4b1a-8161-1f972526a463.mp4",
+      "sha256": "e23d0d7a5533084a66ed3ee6f32a260a4e77795e5b7ced984277fdf1b5d7a324",
+      "sourceFrame": 128,
+      "sourceSeconds": 5.333333333333333,
+      "scale": 0.32517482517482516,
+      "pivot": [
+        623.0,
+        662
+      ],
+      "facing": 1,
+      "flip": false,
+      "runtimeFrame": 1,
+      "rect": {
+        "p": 112,
+        "x": 103,
+        "y": 3,
+        "w": 97,
+        "h": 181
+      },
+      "decodedSHA256": "79e6898797e4b06916c8ed8cab6292333e9f2c2ae16fcec7354c9f5943b28657",
+      "handContact": {
+        "x": 47.801,
+        "y": -117.388
+      }
+    },
+    {
+      "character": "duke",
+      "action": "v11-cart-pull",
+      "source": "230c230e-cb83-4b1a-8161-1f972526a463.mp4",
+      "sha256": "e23d0d7a5533084a66ed3ee6f32a260a4e77795e5b7ced984277fdf1b5d7a324",
+      "sourceFrame": 131,
+      "sourceSeconds": 5.458333333333333,
+      "scale": 0.32517482517482516,
+      "pivot": [
+        616.0,
+        662
+      ],
+      "facing": 1,
+      "flip": false,
+      "runtimeFrame": 2,
+      "rect": {
+        "p": 112,
+        "x": 203,
+        "y": 3,
+        "w": 97,
+        "h": 181
+      },
+      "decodedSHA256": "e4c2d9dae3c8dc4a9632abef32fd6cb7a4a4ef175838bd0845564ebc62241300",
+      "handContact": {
+        "x": 46.825,
+        "y": -117.388
+      }
+    },
+    {
+      "character": "duke",
+      "action": "v11-cart-pull",
+      "source": "230c230e-cb83-4b1a-8161-1f972526a463.mp4",
+      "sha256": "e23d0d7a5533084a66ed3ee6f32a260a4e77795e5b7ced984277fdf1b5d7a324",
+      "sourceFrame": 134,
+      "sourceSeconds": 5.583333333333333,
+      "scale": 0.32517482517482516,
+      "pivot": [
+        614.0,
+        662
+      ],
+      "facing": 1,
+      "flip": false,
+      "runtimeFrame": 3,
+      "rect": {
+        "p": 112,
+        "x": 303,
+        "y": 3,
+        "w": 96,
+        "h": 181
+      },
+      "decodedSHA256": "1e123744193e65668fd118bd1172e178cd39ae4580924742d3319d946eebdb46",
+      "handContact": {
+        "x": 44.549,
+        "y": -117.388
+      }
+    },
+    {
+      "character": "duke",
+      "action": "v11-cart-pull",
+      "source": "230c230e-cb83-4b1a-8161-1f972526a463.mp4",
+      "sha256": "e23d0d7a5533084a66ed3ee6f32a260a4e77795e5b7ced984277fdf1b5d7a324",
+      "sourceFrame": 137,
+      "sourceSeconds": 5.708333333333333,
+      "scale": 0.32517482517482516,
+      "pivot": [
+        616.0,
+        662
+      ],
+      "facing": 1,
+      "flip": false,
+      "runtimeFrame": 4,
+      "rect": {
+        "p": 112,
+        "x": 402,
+        "y": 3,
+        "w": 97,
+        "h": 179
+      },
+      "decodedSHA256": "1bb4fb3c7cd15a9a934c5ff30bc6e4e2ff8c81ebacdbe5b5bd2214a5575eb9ff",
+      "handContact": {
+        "x": 41.948,
+        "y": -117.713
+      }
+    },
+    {
+      "character": "duke",
+      "action": "v11-cart-pull",
+      "source": "230c230e-cb83-4b1a-8161-1f972526a463.mp4",
+      "sha256": "e23d0d7a5533084a66ed3ee6f32a260a4e77795e5b7ced984277fdf1b5d7a324",
+      "sourceFrame": 140,
+      "sourceSeconds": 5.833333333333333,
+      "scale": 0.32517482517482516,
+      "pivot": [
+        621.0,
+        662
+      ],
+      "facing": 1,
+      "flip": false,
+      "runtimeFrame": 5,
+      "rect": {
+        "p": 112,
+        "x": 502,
+        "y": 3,
+        "w": 99,
+        "h": 178
+      },
+      "decodedSHA256": "32f6e6028e19d8d5d8f25e5323a6fde0ea26a87381bcb7ac512d38d1bafaf3cd",
+      "handContact": {
+        "x": 38.371,
+        "y": -117.713
+      }
+    },
+    {
+      "character": "duke",
+      "action": "v11-cart-pull",
+      "source": "230c230e-cb83-4b1a-8161-1f972526a463.mp4",
+      "sha256": "e23d0d7a5533084a66ed3ee6f32a260a4e77795e5b7ced984277fdf1b5d7a324",
+      "sourceFrame": 143,
+      "sourceSeconds": 5.958333333333333,
+      "scale": 0.32517482517482516,
+      "pivot": [
+        625.0,
+        662
+      ],
+      "facing": 1,
+      "flip": false,
+      "runtimeFrame": 6,
+      "rect": {
+        "p": 112,
+        "x": 604,
+        "y": 3,
+        "w": 97,
+        "h": 179
+      },
+      "decodedSHA256": "b43b36bb1ec11e9f257067e8da95ce5a542b998e7f398da4162f9358505ea1c7",
+      "handContact": {
+        "x": 37.07,
+        "y": -118.038
+      }
+    },
+    {
+      "character": "duke",
+      "action": "v11-cart-pull",
+      "source": "230c230e-cb83-4b1a-8161-1f972526a463.mp4",
+      "sha256": "e23d0d7a5533084a66ed3ee6f32a260a4e77795e5b7ced984277fdf1b5d7a324",
+      "sourceFrame": 146,
+      "sourceSeconds": 6.083333333333333,
+      "scale": 0.32517482517482516,
+      "pivot": [
+        609.0,
+        662
+      ],
+      "facing": 1,
+      "flip": false,
+      "runtimeFrame": 7,
+      "rect": {
+        "p": 112,
+        "x": 704,
+        "y": 3,
+        "w": 95,
+        "h": 181
+      },
+      "decodedSHA256": "f62c0fe18e73885f7a036d29f956ac1f741c28033bc4fea4fd8a1b684c18ad5a",
+      "handContact": {
+        "x": 42.923,
+        "y": -117.713
+      }
+    },
+    {
+      "character": "duke",
+      "action": "v11-cart-pull",
+      "source": "230c230e-cb83-4b1a-8161-1f972526a463.mp4",
+      "sha256": "e23d0d7a5533084a66ed3ee6f32a260a4e77795e5b7ced984277fdf1b5d7a324",
+      "sourceFrame": 149,
+      "sourceSeconds": 6.208333333333333,
+      "scale": 0.32517482517482516,
+      "pivot": [
+        593.0,
+        662
+      ],
+      "facing": 1,
+      "flip": false,
+      "runtimeFrame": 8,
+      "rect": {
+        "p": 112,
+        "x": 802,
+        "y": 3,
+        "w": 94,
+        "h": 183
+      },
+      "decodedSHA256": "136b901d0ea3973707d3ff60404fa854a588a10ee6266aa812a97c32ce78e495",
+      "handContact": {
+        "x": 49.752,
+        "y": -117.713
+      }
+    },
+    {
+      "character": "duke",
+      "action": "v11-cart-pull",
+      "source": "230c230e-cb83-4b1a-8161-1f972526a463.mp4",
+      "sha256": "e23d0d7a5533084a66ed3ee6f32a260a4e77795e5b7ced984277fdf1b5d7a324",
+      "sourceFrame": 152,
+      "sourceSeconds": 6.333333333333333,
+      "scale": 0.32517482517482516,
+      "pivot": [
+        590.0,
+        662
+      ],
+      "facing": 1,
+      "flip": false,
+      "runtimeFrame": 9,
+      "rect": {
+        "p": 112,
+        "x": 899,
+        "y": 3,
+        "w": 95,
+        "h": 180
+      },
+      "decodedSHA256": "06e0ef363040de2c1a844b04cddc3e188938f923d2d25650a97a76e8484393b7",
+      "handContact": {
+        "x": 52.678,
+        "y": -117.388
+      }
+    },
+    {
+      "character": "duke",
+      "action": "v11-cart-pull",
+      "source": "230c230e-cb83-4b1a-8161-1f972526a463.mp4",
+      "sha256": "e23d0d7a5533084a66ed3ee6f32a260a4e77795e5b7ced984277fdf1b5d7a324",
+      "sourceFrame": 156,
+      "sourceSeconds": 6.5,
+      "scale": 0.32517482517482516,
+      "pivot": [
+        586.0,
+        662
+      ],
+      "facing": 1,
+      "flip": false,
+      "runtimeFrame": 10,
+      "rect": {
+        "p": 112,
+        "x": 3,
+        "y": 189,
+        "w": 95,
+        "h": 181
+      },
+      "decodedSHA256": "492a4a8807491a0049fcbaecdc3ed8c6a63a1732399b276ed0e89bd5214b4606",
+      "handContact": {
+        "x": 55.605,
+        "y": -117.713
+      }
+    },
+    {
+      "character": "duke",
+      "action": "v11-cart-pull",
+      "source": "230c230e-cb83-4b1a-8161-1f972526a463.mp4",
+      "sha256": "e23d0d7a5533084a66ed3ee6f32a260a4e77795e5b7ced984277fdf1b5d7a324",
+      "sourceFrame": 160,
+      "sourceSeconds": 6.666666666666667,
+      "scale": 0.32517482517482516,
+      "pivot": [
+        577.0,
+        662
+      ],
+      "facing": 1,
+      "flip": false,
+      "runtimeFrame": 11,
+      "rect": {
+        "p": 112,
+        "x": 101,
+        "y": 189,
+        "w": 101,
+        "h": 181
+      },
+      "decodedSHA256": "b5c426d6d76ef5062ef5f540393e123268653003af5b7fc698087d15b9e6ffb0",
+      "handContact": {
+        "x": 58.531,
+        "y": -117.713
+      }
+    },
+    {
+      "character": "duke",
+      "action": "v11-cart-pull",
+      "source": "230c230e-cb83-4b1a-8161-1f972526a463.mp4",
+      "sha256": "e23d0d7a5533084a66ed3ee6f32a260a4e77795e5b7ced984277fdf1b5d7a324",
+      "sourceFrame": 164,
+      "sourceSeconds": 6.833333333333333,
+      "scale": 0.32517482517482516,
+      "pivot": [
+        580.0,
+        662
+      ],
+      "facing": 1,
+      "flip": false,
+      "runtimeFrame": 12,
+      "rect": {
+        "p": 112,
+        "x": 205,
+        "y": 189,
+        "w": 95,
+        "h": 183
+      },
+      "decodedSHA256": "8b4f02aa2e88f7bd6652003eb5a546d3e3c3aae46243cecfa20d962d675e5ba4",
+      "handContact": {
+        "x": 57.556,
+        "y": -117.388
+      }
+    },
+    {
+      "character": "duke",
+      "action": "v11-cart-pull",
+      "source": "230c230e-cb83-4b1a-8161-1f972526a463.mp4",
+      "sha256": "e23d0d7a5533084a66ed3ee6f32a260a4e77795e5b7ced984277fdf1b5d7a324",
+      "sourceFrame": 168,
+      "sourceSeconds": 7.0,
+      "scale": 0.32517482517482516,
+      "pivot": [
+        593.0,
+        662
+      ],
+      "facing": 1,
+      "flip": false,
+      "runtimeFrame": 13,
+      "rect": {
+        "p": 112,
+        "x": 303,
+        "y": 189,
+        "w": 95,
+        "h": 184
+      },
+      "decodedSHA256": "d7cca210abcc7ec566df92dbc83b4d2ed4fa19613f7c5f5efb6795f4d27f0012",
+      "handContact": {
+        "x": 53.329,
+        "y": -117.713
+      }
+    },
+    {
+      "character": "duke",
+      "action": "v11-cart-pull",
+      "source": "230c230e-cb83-4b1a-8161-1f972526a463.mp4",
+      "sha256": "e23d0d7a5533084a66ed3ee6f32a260a4e77795e5b7ced984277fdf1b5d7a324",
+      "sourceFrame": 172,
+      "sourceSeconds": 7.166666666666667,
+      "scale": 0.32517482517482516,
+      "pivot": [
+        620.0,
+        662
+      ],
+      "facing": 1,
+      "flip": false,
+      "runtimeFrame": 14,
+      "rect": {
+        "p": 112,
+        "x": 401,
+        "y": 189,
+        "w": 95,
+        "h": 181
+      },
+      "decodedSHA256": "08610ec4785f70f2a87de7e158dbf23ce9d11ce90aafa360b54c629e9a17cf07",
+      "handContact": {
+        "x": 44.874,
+        "y": -117.713
+      }
+    },
+    {
+      "character": "duke",
+      "action": "v11-cart-pull",
+      "source": "230c230e-cb83-4b1a-8161-1f972526a463.mp4",
+      "sha256": "e23d0d7a5533084a66ed3ee6f32a260a4e77795e5b7ced984277fdf1b5d7a324",
+      "sourceFrame": 176,
+      "sourceSeconds": 7.333333333333333,
+      "scale": 0.32517482517482516,
+      "pivot": [
+        582.5,
+        662
+      ],
+      "facing": 1,
+      "flip": false,
+      "runtimeFrame": 15,
+      "rect": {
+        "p": 112,
+        "x": 499,
+        "y": 189,
+        "w": 99,
+        "h": 179
+      },
+      "decodedSHA256": "f010552764eeef96bdaabfcf89c480f067c5062ab58e780b6e87df0309b5321d",
+      "handContact": {
+        "x": 57.393,
+        "y": -117.713
+      }
+    },
+    {
+      "character": "duke",
+      "action": "v11-cart-adjust",
+      "source": "230c230e-cb83-4b1a-8161-1f972526a463.mp4",
+      "sha256": "e23d0d7a5533084a66ed3ee6f32a260a4e77795e5b7ced984277fdf1b5d7a324",
+      "sourceFrame": 108,
+      "sourceSeconds": 4.5,
+      "scale": 0.32517482517482516,
+      "pivot": [
+        634.0,
+        662
+      ],
+      "facing": 1,
+      "flip": false,
+      "runtimeFrame": 0,
+      "rect": {
+        "p": 113,
+        "x": 3,
+        "y": 3,
+        "w": 95,
+        "h": 185
+      },
+      "decodedSHA256": "9649d302c1dea83b8a5ae18c34d2e11f7b89c5825372b1c626bbcf62fbf1f03f",
+      "handContact": {
+        "x": 48.776,
+        "y": -131.696
+      }
+    },
+    {
+      "character": "duke",
+      "action": "v11-cart-adjust",
+      "source": "230c230e-cb83-4b1a-8161-1f972526a463.mp4",
+      "sha256": "e23d0d7a5533084a66ed3ee6f32a260a4e77795e5b7ced984277fdf1b5d7a324",
+      "sourceFrame": 110,
+      "sourceSeconds": 4.583333333333333,
+      "scale": 0.32517482517482516,
+      "pivot": [
+        632.0,
+        662
+      ],
+      "facing": 1,
+      "flip": false,
+      "runtimeFrame": 1,
+      "rect": {
+        "p": 113,
+        "x": 101,
+        "y": 3,
+        "w": 92,
+        "h": 186
+      },
+      "decodedSHA256": "ffef48a338bc12a41fa81cfab75bdf35e618cd33f929e88272106b3e5d8b7cf1",
+      "handContact": {
+        "x": 45.85,
+        "y": -130.395
+      }
+    },
+    {
+      "character": "duke",
+      "action": "v11-cart-adjust",
+      "source": "230c230e-cb83-4b1a-8161-1f972526a463.mp4",
+      "sha256": "e23d0d7a5533084a66ed3ee6f32a260a4e77795e5b7ced984277fdf1b5d7a324",
+      "sourceFrame": 113,
+      "sourceSeconds": 4.708333333333333,
+      "scale": 0.32517482517482516,
+      "pivot": [
+        628.0,
+        662
+      ],
+      "facing": 1,
+      "flip": false,
+      "runtimeFrame": 2,
+      "rect": {
+        "p": 113,
+        "x": 196,
+        "y": 3,
+        "w": 89,
+        "h": 185
+      },
+      "decodedSHA256": "d4fd9fc9ed1947bd2cdf7858f6b0eeb69d74f3485e9ac104f317d6b55a38acf6",
+      "handContact": {
+        "x": 45.524,
+        "y": -131.045
+      }
+    },
+    {
+      "character": "duke",
+      "action": "v11-cart-adjust",
+      "source": "230c230e-cb83-4b1a-8161-1f972526a463.mp4",
+      "sha256": "e23d0d7a5533084a66ed3ee6f32a260a4e77795e5b7ced984277fdf1b5d7a324",
+      "sourceFrame": 116,
+      "sourceSeconds": 4.833333333333333,
+      "scale": 0.32517482517482516,
+      "pivot": [
+        626.0,
+        662
+      ],
+      "facing": 1,
+      "flip": false,
+      "runtimeFrame": 3,
+      "rect": {
+        "p": 113,
+        "x": 288,
+        "y": 3,
+        "w": 92,
+        "h": 184
+      },
+      "decodedSHA256": "9be38a8b5700ec1a9189988dbcda0c37ff1c487e6f2adf8211246f4cf70386a2",
+      "handContact": {
+        "x": 49.101,
+        "y": -126.493
+      }
+    },
+    {
+      "character": "duke",
+      "action": "v11-cart-adjust",
+      "source": "230c230e-cb83-4b1a-8161-1f972526a463.mp4",
+      "sha256": "e23d0d7a5533084a66ed3ee6f32a260a4e77795e5b7ced984277fdf1b5d7a324",
+      "sourceFrame": 119,
+      "sourceSeconds": 4.958333333333333,
+      "scale": 0.32517482517482516,
+      "pivot": [
+        629.0,
+        662
+      ],
+      "facing": 1,
+      "flip": false,
+      "runtimeFrame": 4,
+      "rect": {
+        "p": 113,
+        "x": 383,
+        "y": 3,
+        "w": 97,
+        "h": 182
+      },
+      "decodedSHA256": "c5ed33169e158d2fe43347f10bd5e0119fe8632176760b92f812ffe2a249b225",
+      "handContact": {
+        "x": 50.077,
+        "y": -120.315
+      }
+    },
+    {
+      "character": "duke",
+      "action": "v11-cart-adjust",
+      "source": "230c230e-cb83-4b1a-8161-1f972526a463.mp4",
+      "sha256": "e23d0d7a5533084a66ed3ee6f32a260a4e77795e5b7ced984277fdf1b5d7a324",
+      "sourceFrame": 122,
+      "sourceSeconds": 5.083333333333333,
+      "scale": 0.32517482517482516,
+      "pivot": [
+        630.0,
+        662
+      ],
+      "facing": 1,
+      "flip": false,
+      "runtimeFrame": 5,
+      "rect": {
+        "p": 113,
+        "x": 483,
+        "y": 3,
+        "w": 97,
+        "h": 181
+      },
+      "decodedSHA256": "3fdd1c39043973fe9ea8049caed7314a59247c28dd982480250fe3d791e043f9",
+      "handContact": {
+        "x": 50.077,
+        "y": -117.713
+      }
+    },
+    {
+      "character": "duke",
+      "action": "v11-cart-release",
+      "source": "230c230e-cb83-4b1a-8161-1f972526a463.mp4",
+      "sha256": "e23d0d7a5533084a66ed3ee6f32a260a4e77795e5b7ced984277fdf1b5d7a324",
+      "sourceFrame": 199,
+      "sourceSeconds": 8.291666666666666,
+      "scale": 0.32517482517482516,
+      "pivot": [
+        634.0,
+        662
+      ],
+      "facing": 1,
+      "flip": false,
+      "runtimeFrame": 0,
+      "rect": {
+        "p": 114,
+        "x": 3,
+        "y": 3,
+        "w": 101,
+        "h": 179
+      },
+      "decodedSHA256": "1a46117961cc30fa557a92a67788967bba46b4ebe7c45e5527e1a3d941e832c1",
+      "handContact": {
+        "x": 42.923,
+        "y": -118.038
+      }
+    },
+    {
+      "character": "duke",
+      "action": "v11-cart-release",
+      "source": "230c230e-cb83-4b1a-8161-1f972526a463.mp4",
+      "sha256": "e23d0d7a5533084a66ed3ee6f32a260a4e77795e5b7ced984277fdf1b5d7a324",
+      "sourceFrame": 202,
+      "sourceSeconds": 8.416666666666666,
+      "scale": 0.32517482517482516,
+      "pivot": [
+        628.0,
+        662
+      ],
+      "facing": 1,
+      "flip": false,
+      "runtimeFrame": 1,
+      "rect": {
+        "p": 114,
+        "x": 107,
+        "y": 3,
+        "w": 111,
+        "h": 180
+      },
+      "decodedSHA256": "e2962072ce2d0ad976d91fafaca1cd00e4a4c2f14be2e01219686fcf4c0bcc34",
+      "handContact": {
+        "x": 48.776,
+        "y": -117.388
+      }
+    },
+    {
+      "character": "duke",
+      "action": "v11-cart-release",
+      "source": "230c230e-cb83-4b1a-8161-1f972526a463.mp4",
+      "sha256": "e23d0d7a5533084a66ed3ee6f32a260a4e77795e5b7ced984277fdf1b5d7a324",
+      "sourceFrame": 205,
+      "sourceSeconds": 8.541666666666666,
+      "scale": 0.32517482517482516,
+      "pivot": [
+        601.0,
+        662
+      ],
+      "facing": 1,
+      "flip": false,
+      "runtimeFrame": 2,
+      "rect": {
+        "p": 114,
+        "x": 221,
+        "y": 3,
+        "w": 105,
+        "h": 178
+      },
+      "decodedSHA256": "067f690b40b3a9dd9ebc73fbd99c689616552da54f96c9631b0f682748c9ba9f",
+      "handContact": {
+        "x": 60.157,
+        "y": -120.965
+      }
+    },
+    {
+      "character": "duke",
+      "action": "v11-cart-release",
+      "source": "230c230e-cb83-4b1a-8161-1f972526a463.mp4",
+      "sha256": "e23d0d7a5533084a66ed3ee6f32a260a4e77795e5b7ced984277fdf1b5d7a324",
+      "sourceFrame": 208,
+      "sourceSeconds": 8.666666666666666,
+      "scale": 0.32517482517482516,
+      "pivot": [
+        597.0,
+        662
+      ],
+      "facing": 1,
+      "flip": false,
+      "runtimeFrame": 3,
+      "rect": {
+        "p": 114,
+        "x": 329,
+        "y": 3,
+        "w": 91,
+        "h": 176
+      },
+      "decodedSHA256": "c7306ca74bd9a34dcd06f8bc99733ab03ebdc35b19584180d2e34a6c03f45ff5",
+      "handContact": {
+        "x": 64.71,
+        "y": -120.64
+      }
+    },
+    {
+      "character": "duke",
+      "action": "v11-cart-release",
+      "source": "230c230e-cb83-4b1a-8161-1f972526a463.mp4",
+      "sha256": "e23d0d7a5533084a66ed3ee6f32a260a4e77795e5b7ced984277fdf1b5d7a324",
+      "sourceFrame": 211,
+      "sourceSeconds": 8.791666666666666,
+      "scale": 0.32517482517482516,
+      "pivot": [
+        617.0,
+        662
+      ],
+      "facing": 1,
+      "flip": false,
+      "runtimeFrame": 4,
+      "rect": {
+        "p": 114,
+        "x": 423,
+        "y": 3,
+        "w": 96,
+        "h": 173
+      },
+      "decodedSHA256": "d0944f1234cd365907b189064e5351127d3b4f9206d5c1379be2ae4d5ec258f2",
+      "handContact": {
+        "x": 61.458,
+        "y": -120.315
+      }
+    },
+    {
+      "character": "duke",
+      "action": "v11-cart-release",
+      "source": "230c230e-cb83-4b1a-8161-1f972526a463.mp4",
+      "sha256": "e23d0d7a5533084a66ed3ee6f32a260a4e77795e5b7ced984277fdf1b5d7a324",
+      "sourceFrame": 214,
+      "sourceSeconds": 8.916666666666666,
+      "scale": 0.32517482517482516,
+      "pivot": [
+        642.0,
+        662
+      ],
+      "facing": 1,
+      "flip": false,
+      "runtimeFrame": 5,
+      "rect": {
+        "p": 114,
+        "x": 522,
+        "y": 3,
+        "w": 110,
+        "h": 172
+      },
+      "decodedSHA256": "cffec1e61c71a9e1a5c7049527bf4dda80024f216b60d760fb0f44812013feb7",
+      "handContact": {
+        "x": 56.58,
+        "y": -120.315
+      }
+    },
+    {
+      "character": "duke",
+      "action": "v11-cart-release",
+      "source": "230c230e-cb83-4b1a-8161-1f972526a463.mp4",
+      "sha256": "e23d0d7a5533084a66ed3ee6f32a260a4e77795e5b7ced984277fdf1b5d7a324",
+      "sourceFrame": 217,
+      "sourceSeconds": 9.041666666666666,
+      "scale": 0.32517482517482516,
+      "pivot": [
+        609.0,
+        662
+      ],
+      "facing": 1,
+      "flip": false,
+      "runtimeFrame": 6,
+      "rect": {
+        "p": 114,
+        "x": 635,
+        "y": 3,
+        "w": 114,
+        "h": 170
+      },
+      "decodedSHA256": "1f6111bc5b86dcc73c77a8c0e609d89fa15a5a8648ccd30afc75dca8641884b3",
+      "handContact": {
+        "x": 65.035,
+        "y": -119.014
+      }
+    },
+    {
+      "character": "duke",
+      "action": "v11-cart-release",
+      "source": "230c230e-cb83-4b1a-8161-1f972526a463.mp4",
+      "sha256": "e23d0d7a5533084a66ed3ee6f32a260a4e77795e5b7ced984277fdf1b5d7a324",
+      "sourceFrame": 220,
+      "sourceSeconds": 9.166666666666666,
+      "scale": 0.32517482517482516,
+      "pivot": [
+        627.0,
+        662
+      ],
+      "facing": 1,
+      "flip": false,
+      "runtimeFrame": 7,
+      "rect": {
+        "p": 114,
+        "x": 752,
+        "y": 3,
+        "w": 100,
+        "h": 178
+      },
+      "decodedSHA256": "0760baa8ddb6596fbb50ef7a4a5d18bb6eb947c629dc9a6a9f9b0a2f43d74bc2",
+      "handContact": {
+        "x": 56.906,
+        "y": -107.308
+      }
+    },
+    {
+      "character": "duke",
+      "action": "v11-cart-release",
+      "source": "230c230e-cb83-4b1a-8161-1f972526a463.mp4",
+      "sha256": "e23d0d7a5533084a66ed3ee6f32a260a4e77795e5b7ced984277fdf1b5d7a324",
+      "sourceFrame": 223,
+      "sourceSeconds": 9.291666666666666,
+      "scale": 0.32517482517482516,
+      "pivot": [
+        654.0,
+        662
+      ],
+      "facing": 1,
+      "flip": false,
+      "runtimeFrame": 8,
+      "rect": {
+        "p": 114,
+        "x": 855,
+        "y": 3,
+        "w": 82,
+        "h": 183
+      },
+      "decodedSHA256": "96c82f84885ba23000ebd38c3daa3d7ef3999b2bb54ba06aac48061341cd9698",
+      "handContact": {
+        "x": 40.647,
+        "y": -91.049
+      }
+    },
+    {
+      "character": "duke",
+      "action": "v11-cart-release",
+      "source": "230c230e-cb83-4b1a-8161-1f972526a463.mp4",
+      "sha256": "e23d0d7a5533084a66ed3ee6f32a260a4e77795e5b7ced984277fdf1b5d7a324",
+      "sourceFrame": 226,
+      "sourceSeconds": 9.416666666666666,
+      "scale": 0.32517482517482516,
+      "pivot": [
+        650.0,
+        662
+      ],
+      "facing": 1,
+      "flip": false,
+      "runtimeFrame": 9,
+      "rect": {
+        "p": 114,
+        "x": 940,
+        "y": 3,
+        "w": 74,
+        "h": 185
+      },
+      "decodedSHA256": "6c75f53a04ce889d1ea14fb4a25a1b978ecb6739bdddb6883e9c516ffce8818c",
+      "handContact": {
+        "x": 22.437,
+        "y": -89.423
+      }
+    },
+    {
+      "character": "duke",
+      "action": "v11-cautious-retreat",
+      "source": "2c15e195-b3c2-4f23-a395-79124eb77d54.mp4",
+      "sha256": "439ca8c29ee8dc60d77eef50674281b72c7114e148eb84dda7fc780054e64901",
+      "sourceFrame": 32,
+      "sourceSeconds": 1.3333333333333333,
+      "scale": 0.32517482517482516,
+      "pivot": [
+        661.0,
+        662
+      ],
+      "facing": 1,
+      "flip": false,
+      "runtimeFrame": 0,
+      "rect": {
+        "p": 115,
+        "x": 3,
+        "y": 3,
+        "w": 89,
+        "h": 182
+      },
+      "decodedSHA256": "e114a87208c8e0fe2c40302087bf6cf60798e71fa7a93d002e7d02f062605cb6",
+      "handContact": null
+    },
+    {
+      "character": "duke",
+      "action": "v11-cautious-retreat",
+      "source": "2c15e195-b3c2-4f23-a395-79124eb77d54.mp4",
+      "sha256": "439ca8c29ee8dc60d77eef50674281b72c7114e148eb84dda7fc780054e64901",
+      "sourceFrame": 35,
+      "sourceSeconds": 1.4583333333333333,
+      "scale": 0.32517482517482516,
+      "pivot": [
+        648.0,
+        662
+      ],
+      "facing": 1,
+      "flip": false,
+      "runtimeFrame": 1,
+      "rect": {
+        "p": 115,
+        "x": 95,
+        "y": 3,
+        "w": 86,
+        "h": 181
+      },
+      "decodedSHA256": "d429e940d1100d6d7a61770121d310a3de0d8c1a8fba7b0464ffc8b761d2d4d9",
+      "handContact": null
+    },
+    {
+      "character": "duke",
+      "action": "v11-cautious-retreat",
+      "source": "2c15e195-b3c2-4f23-a395-79124eb77d54.mp4",
+      "sha256": "439ca8c29ee8dc60d77eef50674281b72c7114e148eb84dda7fc780054e64901",
+      "sourceFrame": 38,
+      "sourceSeconds": 1.5833333333333333,
+      "scale": 0.32517482517482516,
+      "pivot": [
+        613.0,
+        662
+      ],
+      "facing": 1,
+      "flip": false,
+      "runtimeFrame": 2,
+      "rect": {
+        "p": 115,
+        "x": 184,
+        "y": 3,
+        "w": 89,
+        "h": 184
+      },
+      "decodedSHA256": "e4ea9be317d1dae36a4e84f77dcda0ec91ddb556be6dd031fa6d4756723a087f",
+      "handContact": null
+    },
+    {
+      "character": "duke",
+      "action": "v11-cautious-retreat",
+      "source": "2c15e195-b3c2-4f23-a395-79124eb77d54.mp4",
+      "sha256": "439ca8c29ee8dc60d77eef50674281b72c7114e148eb84dda7fc780054e64901",
+      "sourceFrame": 41,
+      "sourceSeconds": 1.7083333333333333,
+      "scale": 0.32517482517482516,
+      "pivot": [
+        576.0,
+        662
+      ],
+      "facing": 1,
+      "flip": false,
+      "runtimeFrame": 3,
+      "rect": {
+        "p": 115,
+        "x": 276,
+        "y": 3,
+        "w": 91,
+        "h": 186
+      },
+      "decodedSHA256": "c4e3df20193db34b1b4590302bc651b8a6929eb414cdb2424a2adc9c7d3bac5a",
+      "handContact": null
+    },
+    {
+      "character": "duke",
+      "action": "v11-cautious-retreat",
+      "source": "2c15e195-b3c2-4f23-a395-79124eb77d54.mp4",
+      "sha256": "439ca8c29ee8dc60d77eef50674281b72c7114e148eb84dda7fc780054e64901",
+      "sourceFrame": 44,
+      "sourceSeconds": 1.8333333333333333,
+      "scale": 0.32517482517482516,
+      "pivot": [
+        555.0,
+        662
+      ],
+      "facing": 1,
+      "flip": false,
+      "runtimeFrame": 4,
+      "rect": {
+        "p": 115,
+        "x": 370,
+        "y": 3,
+        "w": 93,
+        "h": 184
+      },
+      "decodedSHA256": "a5529017b1cf955224efe49ee1e550df818abe00821a5f75b2a2fab90ec1ea45",
+      "handContact": null
+    },
+    {
+      "character": "duke",
+      "action": "v11-cautious-retreat",
+      "source": "2c15e195-b3c2-4f23-a395-79124eb77d54.mp4",
+      "sha256": "439ca8c29ee8dc60d77eef50674281b72c7114e148eb84dda7fc780054e64901",
+      "sourceFrame": 47,
+      "sourceSeconds": 1.9583333333333333,
+      "scale": 0.32517482517482516,
+      "pivot": [
+        534.0,
+        662
+      ],
+      "facing": 1,
+      "flip": false,
+      "runtimeFrame": 5,
+      "rect": {
+        "p": 115,
+        "x": 466,
+        "y": 3,
+        "w": 96,
+        "h": 183
+      },
+      "decodedSHA256": "def26e32515853ae19faf5384659b86a95178d6057247616eb7e92a6cd9eff1b",
+      "handContact": null
+    },
+    {
+      "character": "duke",
+      "action": "v11-cautious-retreat",
+      "source": "2c15e195-b3c2-4f23-a395-79124eb77d54.mp4",
+      "sha256": "439ca8c29ee8dc60d77eef50674281b72c7114e148eb84dda7fc780054e64901",
+      "sourceFrame": 50,
+      "sourceSeconds": 2.0833333333333335,
+      "scale": 0.32517482517482516,
+      "pivot": [
+        515.0,
+        662
+      ],
+      "facing": 1,
+      "flip": false,
+      "runtimeFrame": 6,
+      "rect": {
+        "p": 115,
+        "x": 565,
+        "y": 3,
+        "w": 98,
+        "h": 181
+      },
+      "decodedSHA256": "8c1a1bf423fb0e0611b00a5765d3ec8e006d81208156133ead91f2409acc6d82",
+      "handContact": null
+    },
+    {
+      "character": "duke",
+      "action": "v11-cautious-retreat",
+      "source": "2c15e195-b3c2-4f23-a395-79124eb77d54.mp4",
+      "sha256": "439ca8c29ee8dc60d77eef50674281b72c7114e148eb84dda7fc780054e64901",
+      "sourceFrame": 53,
+      "sourceSeconds": 2.2083333333333335,
+      "scale": 0.32517482517482516,
+      "pivot": [
+        502.0,
+        662
+      ],
+      "facing": 1,
+      "flip": false,
+      "runtimeFrame": 7,
+      "rect": {
+        "p": 115,
+        "x": 666,
+        "y": 3,
+        "w": 96,
+        "h": 182
+      },
+      "decodedSHA256": "4e420e3496a0064ddbfbf11a50cd93a853860c6f75a296b3da80bf89f43f6780",
+      "handContact": null
+    },
+    {
+      "character": "duke",
+      "action": "v11-cautious-retreat",
+      "source": "2c15e195-b3c2-4f23-a395-79124eb77d54.mp4",
+      "sha256": "439ca8c29ee8dc60d77eef50674281b72c7114e148eb84dda7fc780054e64901",
+      "sourceFrame": 56,
+      "sourceSeconds": 2.3333333333333335,
+      "scale": 0.32517482517482516,
+      "pivot": [
+        479.0,
+        662
+      ],
+      "facing": 1,
+      "flip": false,
+      "runtimeFrame": 8,
+      "rect": {
+        "p": 115,
+        "x": 765,
+        "y": 3,
+        "w": 93,
+        "h": 181
+      },
+      "decodedSHA256": "401cc63f5d9a70fb43e8f42a223fc7f71f7ccc9f88c7aa4d61313e10f31e8419",
+      "handContact": null
+    },
+    {
+      "character": "duke",
+      "action": "v11-cautious-retreat",
+      "source": "2c15e195-b3c2-4f23-a395-79124eb77d54.mp4",
+      "sha256": "439ca8c29ee8dc60d77eef50674281b72c7114e148eb84dda7fc780054e64901",
+      "sourceFrame": 59,
+      "sourceSeconds": 2.4583333333333335,
+      "scale": 0.32517482517482516,
+      "pivot": [
+        474.0,
+        662
+      ],
+      "facing": 1,
+      "flip": false,
+      "runtimeFrame": 9,
+      "rect": {
+        "p": 115,
+        "x": 861,
+        "y": 3,
+        "w": 95,
+        "h": 182
+      },
+      "decodedSHA256": "d03c5d47047bcdc70978c6e1983d8b6947cb4f21d75925a022bdcb32c65bde07",
+      "handContact": null
+    },
+    {
+      "character": "duke",
+      "action": "v11-cautious-retreat",
+      "source": "2c15e195-b3c2-4f23-a395-79124eb77d54.mp4",
+      "sha256": "439ca8c29ee8dc60d77eef50674281b72c7114e148eb84dda7fc780054e64901",
+      "sourceFrame": 62,
+      "sourceSeconds": 2.5833333333333335,
+      "scale": 0.32517482517482516,
+      "pivot": [
+        494.0,
+        662
+      ],
+      "facing": 1,
+      "flip": false,
+      "runtimeFrame": 10,
+      "rect": {
+        "p": 115,
+        "x": 3,
+        "y": 192,
+        "w": 97,
+        "h": 180
+      },
+      "decodedSHA256": "cedab4eef0ee3b49f552a57c65f5bb18fd78055fda6aac14dbdfa12e6338fd79",
+      "handContact": null
+    },
+    {
+      "character": "duke",
+      "action": "v11-cautious-retreat",
+      "source": "2c15e195-b3c2-4f23-a395-79124eb77d54.mp4",
+      "sha256": "439ca8c29ee8dc60d77eef50674281b72c7114e148eb84dda7fc780054e64901",
+      "sourceFrame": 65,
+      "sourceSeconds": 2.7083333333333335,
+      "scale": 0.32517482517482516,
+      "pivot": [
+        508.0,
+        662
+      ],
+      "facing": 1,
+      "flip": false,
+      "runtimeFrame": 11,
+      "rect": {
+        "p": 115,
+        "x": 103,
+        "y": 192,
+        "w": 97,
+        "h": 182
+      },
+      "decodedSHA256": "549d050d7aeb3a92fe56b6a1b0fd93be6bcf0ad1e4f8acdf75577dc35e3a7808",
+      "handContact": null
+    },
+    {
+      "character": "duke",
+      "action": "v11-cautious-retreat",
+      "source": "2c15e195-b3c2-4f23-a395-79124eb77d54.mp4",
+      "sha256": "439ca8c29ee8dc60d77eef50674281b72c7114e148eb84dda7fc780054e64901",
+      "sourceFrame": 68,
+      "sourceSeconds": 2.8333333333333335,
+      "scale": 0.32517482517482516,
+      "pivot": [
+        534.0,
+        662
+      ],
+      "facing": 1,
+      "flip": false,
+      "runtimeFrame": 12,
+      "rect": {
+        "p": 115,
+        "x": 203,
+        "y": 192,
+        "w": 94,
+        "h": 184
+      },
+      "decodedSHA256": "7d09e55469de0e80eb6df8e1c6f1d0c3cd03f9317e8fc5bdade19522b5469077",
+      "handContact": null
+    },
+    {
+      "character": "duke",
+      "action": "v11-cautious-retreat",
+      "source": "2c15e195-b3c2-4f23-a395-79124eb77d54.mp4",
+      "sha256": "439ca8c29ee8dc60d77eef50674281b72c7114e148eb84dda7fc780054e64901",
+      "sourceFrame": 71,
+      "sourceSeconds": 2.9583333333333335,
+      "scale": 0.32517482517482516,
+      "pivot": [
+        558.0,
+        662
+      ],
+      "facing": 1,
+      "flip": false,
+      "runtimeFrame": 13,
+      "rect": {
+        "p": 115,
+        "x": 300,
+        "y": 192,
+        "w": 90,
+        "h": 185
+      },
+      "decodedSHA256": "2b5085dee352c982de81e730aa246b176105954cd80d10137578fde870203bab",
+      "handContact": null
+    },
+    {
+      "character": "duke",
+      "action": "v11-cautious-retreat",
+      "source": "2c15e195-b3c2-4f23-a395-79124eb77d54.mp4",
+      "sha256": "439ca8c29ee8dc60d77eef50674281b72c7114e148eb84dda7fc780054e64901",
+      "sourceFrame": 74,
+      "sourceSeconds": 3.0833333333333335,
+      "scale": 0.32517482517482516,
+      "pivot": [
+        611.0,
+        662
+      ],
+      "facing": 1,
+      "flip": false,
+      "runtimeFrame": 14,
+      "rect": {
+        "p": 115,
+        "x": 393,
+        "y": 192,
+        "w": 87,
+        "h": 183
+      },
+      "decodedSHA256": "48658dc9f1ec84d6422fdb82618a864aa7c3f87db4785ecc3e20fa68ff47d1f8",
+      "handContact": null
+    },
+    {
+      "character": "duke",
+      "action": "v11-confrontation",
+      "source": "2c15e195-b3c2-4f23-a395-79124eb77d54.mp4",
+      "sha256": "439ca8c29ee8dc60d77eef50674281b72c7114e148eb84dda7fc780054e64901",
+      "sourceFrame": 174,
+      "sourceSeconds": 7.25,
+      "scale": 0.32517482517482516,
+      "pivot": [
+        635.0,
+        662
+      ],
+      "facing": 1,
+      "flip": false,
+      "runtimeFrame": 0,
+      "rect": {
+        "p": 116,
+        "x": 3,
+        "y": 3,
+        "w": 91,
+        "h": 186
+      },
+      "decodedSHA256": "f06cdfcdf976816aabb6d183b6fa689a722cf69eae4b3022080e087d8b58baea",
+      "handContact": null
+    },
+    {
+      "character": "duke",
+      "action": "v11-confrontation",
+      "source": "2c15e195-b3c2-4f23-a395-79124eb77d54.mp4",
+      "sha256": "439ca8c29ee8dc60d77eef50674281b72c7114e148eb84dda7fc780054e64901",
+      "sourceFrame": 177,
+      "sourceSeconds": 7.375,
+      "scale": 0.32517482517482516,
+      "pivot": [
+        635.0,
+        662
+      ],
+      "facing": 1,
+      "flip": false,
+      "runtimeFrame": 1,
+      "rect": {
+        "p": 116,
+        "x": 97,
+        "y": 3,
+        "w": 89,
+        "h": 185
+      },
+      "decodedSHA256": "24be71dac44d5d6887cc5abeb69cbeb2373f5bb02d1bd9801c9a5479511c2014",
+      "handContact": null
+    },
+    {
+      "character": "duke",
+      "action": "v11-confrontation",
+      "source": "2c15e195-b3c2-4f23-a395-79124eb77d54.mp4",
+      "sha256": "439ca8c29ee8dc60d77eef50674281b72c7114e148eb84dda7fc780054e64901",
+      "sourceFrame": 180,
+      "sourceSeconds": 7.5,
+      "scale": 0.32517482517482516,
+      "pivot": [
+        636.0,
+        662
+      ],
+      "facing": 1,
+      "flip": false,
+      "runtimeFrame": 2,
+      "rect": {
+        "p": 116,
+        "x": 189,
+        "y": 3,
+        "w": 88,
+        "h": 185
+      },
+      "decodedSHA256": "822bc223de5d323e0bd3a88a96c91ef48f21392468e4d8851f12d52da8c529b3",
+      "handContact": null
+    },
+    {
+      "character": "duke",
+      "action": "v11-confrontation",
+      "source": "2c15e195-b3c2-4f23-a395-79124eb77d54.mp4",
+      "sha256": "439ca8c29ee8dc60d77eef50674281b72c7114e148eb84dda7fc780054e64901",
+      "sourceFrame": 183,
+      "sourceSeconds": 7.625,
+      "scale": 0.32517482517482516,
+      "pivot": [
+        636.0,
+        662
+      ],
+      "facing": 1,
+      "flip": false,
+      "runtimeFrame": 3,
+      "rect": {
+        "p": 116,
+        "x": 280,
+        "y": 3,
+        "w": 103,
+        "h": 185
+      },
+      "decodedSHA256": "db715ed307bd28384ae2cb4a037574812fcde5004274b5db1a0fed0a332b7b30",
+      "handContact": null
+    },
+    {
+      "character": "duke",
+      "action": "v11-confrontation",
+      "source": "2c15e195-b3c2-4f23-a395-79124eb77d54.mp4",
+      "sha256": "439ca8c29ee8dc60d77eef50674281b72c7114e148eb84dda7fc780054e64901",
+      "sourceFrame": 186,
+      "sourceSeconds": 7.75,
+      "scale": 0.32517482517482516,
+      "pivot": [
+        636.0,
+        662
+      ],
+      "facing": 1,
+      "flip": false,
+      "runtimeFrame": 4,
+      "rect": {
+        "p": 116,
+        "x": 386,
+        "y": 3,
+        "w": 106,
+        "h": 185
+      },
+      "decodedSHA256": "ce96baed86e18b419b772e392cf35d5e38785b6b1937b0c88b01c05b4498d93b",
+      "handContact": null
+    },
+    {
+      "character": "duke",
+      "action": "v11-confrontation",
+      "source": "2c15e195-b3c2-4f23-a395-79124eb77d54.mp4",
+      "sha256": "439ca8c29ee8dc60d77eef50674281b72c7114e148eb84dda7fc780054e64901",
+      "sourceFrame": 190,
+      "sourceSeconds": 7.916666666666667,
+      "scale": 0.32517482517482516,
+      "pivot": [
+        636.0,
+        662
+      ],
+      "facing": 1,
+      "flip": false,
+      "runtimeFrame": 5,
+      "rect": {
+        "p": 116,
+        "x": 495,
+        "y": 3,
+        "w": 103,
+        "h": 185
+      },
+      "decodedSHA256": "9fc73b8c135f038328dea6736dda78670198fb8aeb62a2f976516b9c14476281",
+      "handContact": null
+    },
+    {
+      "character": "duke",
+      "action": "v11-confrontation",
+      "source": "2c15e195-b3c2-4f23-a395-79124eb77d54.mp4",
+      "sha256": "439ca8c29ee8dc60d77eef50674281b72c7114e148eb84dda7fc780054e64901",
+      "sourceFrame": 194,
+      "sourceSeconds": 8.083333333333334,
+      "scale": 0.32517482517482516,
+      "pivot": [
+        636.0,
+        662
+      ],
+      "facing": 1,
+      "flip": false,
+      "runtimeFrame": 6,
+      "rect": {
+        "p": 116,
+        "x": 601,
+        "y": 3,
+        "w": 103,
+        "h": 185
+      },
+      "decodedSHA256": "438465515c217f495943aed2b192bfe6b86b0fa89c8f5ebc689b639f9362d9ac",
+      "handContact": null
+    },
+    {
+      "character": "duke",
+      "action": "v11-confrontation",
+      "source": "2c15e195-b3c2-4f23-a395-79124eb77d54.mp4",
+      "sha256": "439ca8c29ee8dc60d77eef50674281b72c7114e148eb84dda7fc780054e64901",
+      "sourceFrame": 198,
+      "sourceSeconds": 8.25,
+      "scale": 0.32517482517482516,
+      "pivot": [
+        636.0,
+        662
+      ],
+      "facing": 1,
+      "flip": false,
+      "runtimeFrame": 7,
+      "rect": {
+        "p": 116,
+        "x": 707,
+        "y": 3,
+        "w": 103,
+        "h": 185
+      },
+      "decodedSHA256": "b8910157096ca074be0d66443eea5391576807d27699719f8be928738597d263",
+      "handContact": null
+    },
+    {
+      "character": "duke",
+      "action": "v11-confrontation",
+      "source": "2c15e195-b3c2-4f23-a395-79124eb77d54.mp4",
+      "sha256": "439ca8c29ee8dc60d77eef50674281b72c7114e148eb84dda7fc780054e64901",
+      "sourceFrame": 202,
+      "sourceSeconds": 8.416666666666666,
+      "scale": 0.32517482517482516,
+      "pivot": [
+        641.0,
+        662
+      ],
+      "facing": 1,
+      "flip": false,
+      "runtimeFrame": 8,
+      "rect": {
+        "p": 116,
+        "x": 813,
+        "y": 3,
+        "w": 100,
+        "h": 186
+      },
+      "decodedSHA256": "f62a87622ab3a6f9140da33937bfe7acd79707dc399d9265dc1a999b0d24cd60",
+      "handContact": null
+    },
+    {
+      "character": "marty",
+      "action": "v11-worried-look",
+      "source": "output (8).mp4",
+      "sha256": "c7356dbe6fb6fe5ea86c4af5315c7a2b1906d3183a322cd1d4a47714897238c7",
+      "sourceFrame": 0,
+      "sourceSeconds": 0.0,
+      "scale": 0.24825174825174826,
+      "pivot": [
+        639.0,
+        662
+      ],
+      "facing": 1,
+      "flip": false,
+      "runtimeFrame": 0,
+      "rect": {
+        "p": 117,
+        "x": 3,
+        "y": 3,
+        "w": 70,
+        "h": 142
+      },
+      "decodedSHA256": "6ea3bab8ecb787a48eac3a2ebb1faae0434b31fa56125e25b71d2aac45e572fe",
+      "handContact": null
+    },
+    {
+      "character": "marty",
+      "action": "v11-worried-look",
+      "source": "output (8).mp4",
+      "sha256": "c7356dbe6fb6fe5ea86c4af5315c7a2b1906d3183a322cd1d4a47714897238c7",
+      "sourceFrame": 3,
+      "sourceSeconds": 0.125,
+      "scale": 0.24825174825174826,
+      "pivot": [
+        639.0,
+        662
+      ],
+      "facing": 1,
+      "flip": false,
+      "runtimeFrame": 1,
+      "rect": {
+        "p": 117,
+        "x": 76,
+        "y": 3,
+        "w": 70,
+        "h": 142
+      },
+      "decodedSHA256": "68e1cc0d94f127071e7f1c2839d6581ce2cbb2788b8b2c12cc863c5ad447ec04",
+      "handContact": null
+    },
+    {
+      "character": "marty",
+      "action": "v11-worried-look",
+      "source": "output (8).mp4",
+      "sha256": "c7356dbe6fb6fe5ea86c4af5315c7a2b1906d3183a322cd1d4a47714897238c7",
+      "sourceFrame": 6,
+      "sourceSeconds": 0.25,
+      "scale": 0.24825174825174826,
+      "pivot": [
+        640.0,
+        662
+      ],
+      "facing": 1,
+      "flip": false,
+      "runtimeFrame": 2,
+      "rect": {
+        "p": 117,
+        "x": 149,
+        "y": 3,
+        "w": 70,
+        "h": 142
+      },
+      "decodedSHA256": "3f44d3d5d93cb7f151c23fe1b3f4ac9847ac8f2d0d57816486339600d9c18b72",
+      "handContact": null
+    },
+    {
+      "character": "marty",
+      "action": "v11-worried-look",
+      "source": "output (8).mp4",
+      "sha256": "c7356dbe6fb6fe5ea86c4af5315c7a2b1906d3183a322cd1d4a47714897238c7",
+      "sourceFrame": 9,
+      "sourceSeconds": 0.375,
+      "scale": 0.24825174825174826,
+      "pivot": [
+        640.0,
+        662
+      ],
+      "facing": 1,
+      "flip": false,
+      "runtimeFrame": 3,
+      "rect": {
+        "p": 117,
+        "x": 222,
+        "y": 3,
+        "w": 71,
+        "h": 142
+      },
+      "decodedSHA256": "395b73d0b14f20f52a1b1079de43d983650140d811630ee61728b5aad527c1b3",
+      "handContact": null
+    },
+    {
+      "character": "marty",
+      "action": "v11-worried-look",
+      "source": "output (8).mp4",
+      "sha256": "c7356dbe6fb6fe5ea86c4af5315c7a2b1906d3183a322cd1d4a47714897238c7",
+      "sourceFrame": 12,
+      "sourceSeconds": 0.5,
+      "scale": 0.24825174825174826,
+      "pivot": [
+        640.0,
+        662
+      ],
+      "facing": 1,
+      "flip": false,
+      "runtimeFrame": 4,
+      "rect": {
+        "p": 117,
+        "x": 296,
+        "y": 3,
+        "w": 73,
+        "h": 142
+      },
+      "decodedSHA256": "d46c4d67fe304ba39cd53d9be246be3071cbf464f3ef992c439dea8f1e36913b",
+      "handContact": null
+    },
+    {
+      "character": "marty",
+      "action": "v11-worried-look",
+      "source": "output (8).mp4",
+      "sha256": "c7356dbe6fb6fe5ea86c4af5315c7a2b1906d3183a322cd1d4a47714897238c7",
+      "sourceFrame": 15,
+      "sourceSeconds": 0.625,
+      "scale": 0.24825174825174826,
+      "pivot": [
+        640.0,
+        662
+      ],
+      "facing": 1,
+      "flip": false,
+      "runtimeFrame": 5,
+      "rect": {
+        "p": 117,
+        "x": 372,
+        "y": 3,
+        "w": 77,
+        "h": 142
+      },
+      "decodedSHA256": "3dedac1e6c6ca54ad5c3ac8262ec7a894f8500fe1de3e4f5b9acbf1495392a18",
+      "handContact": null
+    },
+    {
+      "character": "marty",
+      "action": "v11-worried-look",
+      "source": "output (8).mp4",
+      "sha256": "c7356dbe6fb6fe5ea86c4af5315c7a2b1906d3183a322cd1d4a47714897238c7",
+      "sourceFrame": 18,
+      "sourceSeconds": 0.75,
+      "scale": 0.24825174825174826,
+      "pivot": [
+        640.0,
+        662
+      ],
+      "facing": 1,
+      "flip": false,
+      "runtimeFrame": 6,
+      "rect": {
+        "p": 117,
+        "x": 452,
+        "y": 3,
+        "w": 77,
+        "h": 142
+      },
+      "decodedSHA256": "d7c6f050263e1c5f1816d2827145a0977eb5d2f4b996408a551116ee8ea1b49e",
+      "handContact": null
+    },
+    {
+      "character": "marty",
+      "action": "v11-worried-look",
+      "source": "output (8).mp4",
+      "sha256": "c7356dbe6fb6fe5ea86c4af5315c7a2b1906d3183a322cd1d4a47714897238c7",
+      "sourceFrame": 21,
+      "sourceSeconds": 0.875,
+      "scale": 0.24825174825174826,
+      "pivot": [
+        640.0,
+        662
+      ],
+      "facing": 1,
+      "flip": false,
+      "runtimeFrame": 7,
+      "rect": {
+        "p": 117,
+        "x": 532,
+        "y": 3,
+        "w": 77,
+        "h": 142
+      },
+      "decodedSHA256": "986346add9506561662bf973e1bae62d3ef5dbd671d7f7b0ba2e2785e14377f2",
+      "handContact": null
+    },
+    {
+      "character": "marty",
+      "action": "v11-worried-look",
+      "source": "output (8).mp4",
+      "sha256": "c7356dbe6fb6fe5ea86c4af5315c7a2b1906d3183a322cd1d4a47714897238c7",
+      "sourceFrame": 24,
+      "sourceSeconds": 1.0,
+      "scale": 0.24825174825174826,
+      "pivot": [
+        640.0,
+        662
+      ],
+      "facing": 1,
+      "flip": false,
+      "runtimeFrame": 8,
+      "rect": {
+        "p": 117,
+        "x": 612,
+        "y": 3,
+        "w": 76,
+        "h": 142
+      },
+      "decodedSHA256": "baaf14605ac9f50aec7b0f45b5ff3d75ffcef9adea15ba60273c6350d842b125",
+      "handContact": null
+    },
+    {
+      "character": "marty",
+      "action": "v11-worried-look",
+      "source": "output (8).mp4",
+      "sha256": "c7356dbe6fb6fe5ea86c4af5315c7a2b1906d3183a322cd1d4a47714897238c7",
+      "sourceFrame": 27,
+      "sourceSeconds": 1.125,
+      "scale": 0.24825174825174826,
+      "pivot": [
+        640.0,
+        662
+      ],
+      "facing": 1,
+      "flip": false,
+      "runtimeFrame": 9,
+      "rect": {
+        "p": 117,
+        "x": 691,
+        "y": 3,
+        "w": 70,
+        "h": 142
+      },
+      "decodedSHA256": "0ae8f8cc4144467d78f2b16e4b6487d2b5d6b8258a8095b4bcf44a34906672af",
+      "handContact": null
+    },
+    {
+      "character": "marty",
+      "action": "v11-worried-look",
+      "source": "output (8).mp4",
+      "sha256": "c7356dbe6fb6fe5ea86c4af5315c7a2b1906d3183a322cd1d4a47714897238c7",
+      "sourceFrame": 30,
+      "sourceSeconds": 1.25,
+      "scale": 0.24825174825174826,
+      "pivot": [
+        640.0,
+        662
+      ],
+      "facing": 1,
+      "flip": false,
+      "runtimeFrame": 10,
+      "rect": {
+        "p": 117,
+        "x": 764,
+        "y": 3,
+        "w": 70,
+        "h": 142
+      },
+      "decodedSHA256": "1fd7432e221a5bb99619db2073c7b4bb3d6926871f5a8d81f139078cd742332a",
+      "handContact": null
+    },
+    {
+      "character": "marty",
+      "action": "v11-worried-look",
+      "source": "output (8).mp4",
+      "sha256": "c7356dbe6fb6fe5ea86c4af5315c7a2b1906d3183a322cd1d4a47714897238c7",
+      "sourceFrame": 33,
+      "sourceSeconds": 1.375,
+      "scale": 0.24825174825174826,
+      "pivot": [
+        640.0,
+        662
+      ],
+      "facing": 1,
+      "flip": false,
+      "runtimeFrame": 11,
+      "rect": {
+        "p": 117,
+        "x": 837,
+        "y": 3,
+        "w": 70,
+        "h": 142
+      },
+      "decodedSHA256": "6288673006c1bed369f3e02baedf0e49ec210d6afab30862cac861c40a02e65f",
+      "handContact": null
+    },
+    {
+      "character": "marty",
+      "action": "v11-worried-look",
+      "source": "output (8).mp4",
+      "sha256": "c7356dbe6fb6fe5ea86c4af5315c7a2b1906d3183a322cd1d4a47714897238c7",
+      "sourceFrame": 36,
+      "sourceSeconds": 1.5,
+      "scale": 0.24825174825174826,
+      "pivot": [
+        640.0,
+        662
+      ],
+      "facing": 1,
+      "flip": false,
+      "runtimeFrame": 12,
+      "rect": {
+        "p": 117,
+        "x": 910,
+        "y": 3,
+        "w": 70,
+        "h": 142
+      },
+      "decodedSHA256": "dbe3bd06d372eba8e4cbda3c994321d8a83d2971c52ceb690f380f7ca1d011e0",
+      "handContact": null
+    },
+    {
+      "character": "marty",
+      "action": "v11-worried-look",
+      "source": "output (8).mp4",
+      "sha256": "c7356dbe6fb6fe5ea86c4af5315c7a2b1906d3183a322cd1d4a47714897238c7",
+      "sourceFrame": 40,
+      "sourceSeconds": 1.6666666666666667,
+      "scale": 0.24825174825174826,
+      "pivot": [
+        640.0,
+        662
+      ],
+      "facing": 1,
+      "flip": false,
+      "runtimeFrame": 13,
+      "rect": {
+        "p": 117,
+        "x": 3,
+        "y": 148,
+        "w": 73,
+        "h": 142
+      },
+      "decodedSHA256": "750abbeb227641598c14e78b3ead1eba7c8fda51eb1804d0b8d4c34eacab2186",
+      "handContact": null
+    },
+    {
+      "character": "marty",
+      "action": "v11-worried-look",
+      "source": "output (8).mp4",
+      "sha256": "c7356dbe6fb6fe5ea86c4af5315c7a2b1906d3183a322cd1d4a47714897238c7",
+      "sourceFrame": 44,
+      "sourceSeconds": 1.8333333333333333,
+      "scale": 0.24825174825174826,
+      "pivot": [
+        640.0,
+        662
+      ],
+      "facing": 1,
+      "flip": false,
+      "runtimeFrame": 14,
+      "rect": {
+        "p": 117,
+        "x": 79,
+        "y": 148,
+        "w": 77,
+        "h": 142
+      },
+      "decodedSHA256": "eabf5420bb15603873e34d1a3f42d6d1b9f609121dd97deeca54f1c46570086b",
+      "handContact": null
+    },
+    {
+      "character": "marty",
+      "action": "v11-worried-look",
+      "source": "output (8).mp4",
+      "sha256": "c7356dbe6fb6fe5ea86c4af5315c7a2b1906d3183a322cd1d4a47714897238c7",
+      "sourceFrame": 48,
+      "sourceSeconds": 2.0,
+      "scale": 0.24825174825174826,
+      "pivot": [
+        640.0,
+        662
+      ],
+      "facing": 1,
+      "flip": false,
+      "runtimeFrame": 15,
+      "rect": {
+        "p": 117,
+        "x": 159,
+        "y": 148,
+        "w": 77,
+        "h": 142
+      },
+      "decodedSHA256": "d3b811975e91f3c6e67510856565007a82b28d70a94ed44489d9271e4ffc7b30",
+      "handContact": null
+    },
+    {
+      "character": "marty",
+      "action": "v11-captive-idle",
+      "source": "output (8).mp4",
+      "sha256": "c7356dbe6fb6fe5ea86c4af5315c7a2b1906d3183a322cd1d4a47714897238c7",
+      "sourceFrame": 49,
+      "sourceSeconds": 2.0416666666666665,
+      "scale": 0.24825174825174826,
+      "pivot": [
+        640.0,
+        662
+      ],
+      "facing": 1,
+      "flip": false,
+      "runtimeFrame": 0,
+      "rect": {
+        "p": 118,
+        "x": 3,
+        "y": 3,
+        "w": 77,
+        "h": 142
+      },
+      "decodedSHA256": "991107a10ca30d83f9df030b7978e3aeb230802090c329940420c9748bbde709",
+      "handContact": null
+    },
+    {
+      "character": "marty",
+      "action": "v11-captive-idle",
+      "source": "output (8).mp4",
+      "sha256": "c7356dbe6fb6fe5ea86c4af5315c7a2b1906d3183a322cd1d4a47714897238c7",
+      "sourceFrame": 53,
+      "sourceSeconds": 2.2083333333333335,
+      "scale": 0.24825174825174826,
+      "pivot": [
+        640.0,
+        662
+      ],
+      "facing": 1,
+      "flip": false,
+      "runtimeFrame": 1,
+      "rect": {
+        "p": 118,
+        "x": 83,
+        "y": 3,
+        "w": 77,
+        "h": 142
+      },
+      "decodedSHA256": "849c25ecd1810487f30f2539d847522cb5f4e8e94ac44562ef887912b8e58692",
+      "handContact": null
+    },
+    {
+      "character": "marty",
+      "action": "v11-captive-idle",
+      "source": "output (8).mp4",
+      "sha256": "c7356dbe6fb6fe5ea86c4af5315c7a2b1906d3183a322cd1d4a47714897238c7",
+      "sourceFrame": 57,
+      "sourceSeconds": 2.375,
+      "scale": 0.24825174825174826,
+      "pivot": [
+        640.0,
+        662
+      ],
+      "facing": 1,
+      "flip": false,
+      "runtimeFrame": 2,
+      "rect": {
+        "p": 118,
+        "x": 163,
+        "y": 3,
+        "w": 70,
+        "h": 142
+      },
+      "decodedSHA256": "d805ea13606745875461e5c61d9d2299209bebf23c91c0cb83a6757059323dca",
+      "handContact": null
+    },
+    {
+      "character": "marty",
+      "action": "v11-captive-idle",
+      "source": "output (8).mp4",
+      "sha256": "c7356dbe6fb6fe5ea86c4af5315c7a2b1906d3183a322cd1d4a47714897238c7",
+      "sourceFrame": 61,
+      "sourceSeconds": 2.5416666666666665,
+      "scale": 0.24825174825174826,
+      "pivot": [
+        640.0,
+        662
+      ],
+      "facing": 1,
+      "flip": false,
+      "runtimeFrame": 3,
+      "rect": {
+        "p": 118,
+        "x": 236,
+        "y": 3,
+        "w": 70,
+        "h": 142
+      },
+      "decodedSHA256": "dedbf1a2ce2580a837eb9720e94454b33c7050ad2aa71e8f773416f5136ec333",
+      "handContact": null
+    },
+    {
+      "character": "marty",
+      "action": "v11-captive-idle",
+      "source": "output (8).mp4",
+      "sha256": "c7356dbe6fb6fe5ea86c4af5315c7a2b1906d3183a322cd1d4a47714897238c7",
+      "sourceFrame": 65,
+      "sourceSeconds": 2.7083333333333335,
+      "scale": 0.24825174825174826,
+      "pivot": [
+        640.0,
+        662
+      ],
+      "facing": 1,
+      "flip": false,
+      "runtimeFrame": 4,
+      "rect": {
+        "p": 118,
+        "x": 309,
+        "y": 3,
+        "w": 70,
+        "h": 142
+      },
+      "decodedSHA256": "9b5271973e74a188a228e67267d021bfb27d64c2d25cd9fc3e512e2faf7d2aad",
+      "handContact": null
+    },
+    {
+      "character": "marty",
+      "action": "v11-captive-idle",
+      "source": "output (8).mp4",
+      "sha256": "c7356dbe6fb6fe5ea86c4af5315c7a2b1906d3183a322cd1d4a47714897238c7",
+      "sourceFrame": 69,
+      "sourceSeconds": 2.875,
+      "scale": 0.24825174825174826,
+      "pivot": [
+        640.0,
+        662
+      ],
+      "facing": 1,
+      "flip": false,
+      "runtimeFrame": 5,
+      "rect": {
+        "p": 118,
+        "x": 382,
+        "y": 3,
+        "w": 74,
+        "h": 142
+      },
+      "decodedSHA256": "1779d7f27a5947400180e65cde3936344f5116fe98b5192224a1ea98906e2234",
+      "handContact": null
+    },
+    {
+      "character": "marty",
+      "action": "v11-captive-idle",
+      "source": "output (8).mp4",
+      "sha256": "c7356dbe6fb6fe5ea86c4af5315c7a2b1906d3183a322cd1d4a47714897238c7",
+      "sourceFrame": 73,
+      "sourceSeconds": 3.0416666666666665,
+      "scale": 0.24825174825174826,
+      "pivot": [
+        640.0,
+        662
+      ],
+      "facing": 1,
+      "flip": false,
+      "runtimeFrame": 6,
+      "rect": {
+        "p": 118,
+        "x": 459,
+        "y": 3,
+        "w": 77,
+        "h": 142
+      },
+      "decodedSHA256": "f0bb807fb91e3eee25bbd425b8d1a6b2e5a9a600f1d525c25568700b14d081ee",
+      "handContact": null
+    },
+    {
+      "character": "marty",
+      "action": "v11-captive-idle",
+      "source": "output (8).mp4",
+      "sha256": "c7356dbe6fb6fe5ea86c4af5315c7a2b1906d3183a322cd1d4a47714897238c7",
+      "sourceFrame": 77,
+      "sourceSeconds": 3.2083333333333335,
+      "scale": 0.24825174825174826,
+      "pivot": [
+        640.0,
+        662
+      ],
+      "facing": 1,
+      "flip": false,
+      "runtimeFrame": 7,
+      "rect": {
+        "p": 118,
+        "x": 539,
+        "y": 3,
+        "w": 77,
+        "h": 142
+      },
+      "decodedSHA256": "a5fbb129c28631f7296c95e0cf720e41ed53bd07eddbccac8bfea547fae93997",
+      "handContact": null
+    },
+    {
+      "character": "marty",
+      "action": "v11-captive-idle",
+      "source": "output (8).mp4",
+      "sha256": "c7356dbe6fb6fe5ea86c4af5315c7a2b1906d3183a322cd1d4a47714897238c7",
+      "sourceFrame": 81,
+      "sourceSeconds": 3.375,
+      "scale": 0.24825174825174826,
+      "pivot": [
+        640.0,
+        662
+      ],
+      "facing": 1,
+      "flip": false,
+      "runtimeFrame": 8,
+      "rect": {
+        "p": 118,
+        "x": 619,
+        "y": 3,
+        "w": 77,
+        "h": 142
+      },
+      "decodedSHA256": "c60ca39cdfaf30d083c1bd4e518ad3446945d692d47e0d35b2fd6cc89238012a",
+      "handContact": null
+    },
+    {
+      "character": "marty",
+      "action": "v11-captive-idle",
+      "source": "output (8).mp4",
+      "sha256": "c7356dbe6fb6fe5ea86c4af5315c7a2b1906d3183a322cd1d4a47714897238c7",
+      "sourceFrame": 85,
+      "sourceSeconds": 3.5416666666666665,
+      "scale": 0.24825174825174826,
+      "pivot": [
+        640.0,
+        662
+      ],
+      "facing": 1,
+      "flip": false,
+      "runtimeFrame": 9,
+      "rect": {
+        "p": 118,
+        "x": 699,
+        "y": 3,
+        "w": 77,
+        "h": 142
+      },
+      "decodedSHA256": "51143560ad68b4118718cdd72987fabfe7b1620e2e8c610b764fc574523d9630",
+      "handContact": null
+    },
+    {
+      "character": "marty",
+      "action": "v11-captive-idle",
+      "source": "output (8).mp4",
+      "sha256": "c7356dbe6fb6fe5ea86c4af5315c7a2b1906d3183a322cd1d4a47714897238c7",
+      "sourceFrame": 89,
+      "sourceSeconds": 3.7083333333333335,
+      "scale": 0.24825174825174826,
+      "pivot": [
+        640.0,
+        662
+      ],
+      "facing": 1,
+      "flip": false,
+      "runtimeFrame": 10,
+      "rect": {
+        "p": 118,
+        "x": 779,
+        "y": 3,
+        "w": 77,
+        "h": 142
+      },
+      "decodedSHA256": "5fabf20bafef22d2deb36adcc9d50807e995f5c31c1f6ad1ee147187a9ffdf3f",
+      "handContact": null
+    },
+    {
+      "character": "marty",
+      "action": "v11-captive-idle",
+      "source": "output (8).mp4",
+      "sha256": "c7356dbe6fb6fe5ea86c4af5315c7a2b1906d3183a322cd1d4a47714897238c7",
+      "sourceFrame": 93,
+      "sourceSeconds": 3.875,
+      "scale": 0.24825174825174826,
+      "pivot": [
+        640.0,
+        662
+      ],
+      "facing": 1,
+      "flip": false,
+      "runtimeFrame": 11,
+      "rect": {
+        "p": 118,
+        "x": 859,
+        "y": 3,
+        "w": 77,
+        "h": 142
+      },
+      "decodedSHA256": "739fbce0f8ffa725264bc19dfded05ac4bb94b19dca49db2df04acd8688f5027",
+      "handContact": null
+    },
+    {
+      "character": "marty",
+      "action": "v11-captive-idle",
+      "source": "output (8).mp4",
+      "sha256": "c7356dbe6fb6fe5ea86c4af5315c7a2b1906d3183a322cd1d4a47714897238c7",
+      "sourceFrame": 96,
+      "sourceSeconds": 4.0,
+      "scale": 0.24825174825174826,
+      "pivot": [
+        640.0,
+        662
+      ],
+      "facing": 1,
+      "flip": false,
+      "runtimeFrame": 12,
+      "rect": {
+        "p": 118,
+        "x": 939,
+        "y": 3,
+        "w": 77,
+        "h": 142
+      },
+      "decodedSHA256": "c6b31a57ae1e10440b444b2ca90f415c890fe6973bb28b6d17719c7cf078822d",
+      "handContact": null
+    }
+  ],
+  "newPages": [
+    "assets/dependency/v11-cart-push-duke.webp",
+    "assets/dependency/v11-cart-stop-duke.webp",
+    "assets/dependency/v11-cart-pull-duke.webp",
+    "assets/dependency/v11-cart-adjust-duke.webp",
+    "assets/dependency/v11-cart-release-duke.webp",
+    "assets/dependency/v11-cautious-retreat-duke.webp",
+    "assets/dependency/v11-confrontation-duke.webp",
+    "assets/dependency/v11-worried-look-marty.webp",
+    "assets/dependency/v11-captive-idle-marty.webp"
+  ],
+  "baselinePageSHA256": {
+    "dependency/hero-scene-00.webp": "4099441df61e8d6978b146682056200fe20c10fed1303b55b892f4676d59a35e",
+    "dependency/hero-scene-01.webp": "2552677682c9694cd4dbbb6c3372de9b33682c1ad971c4e11a6b7104d83575c4",
+    "dependency/hero-gameplay-00.webp": "52bcf0eead1265441931e2fef23e0fca099b8a0b274e35365ff009eb398b4f00",
+    "dependency/hero-gameplay-01.webp": "110e113f458a00496728a88beb6f2cf917adcaf748cd078b4ebc4a70791643f1",
+    "dependency/hero-gameplay-02.webp": "de22d48eb6402e4a25bca9f09a6901c8dc8c9529e425ddda6ce7363402d01b0b",
+    "dependency/hero-gameplay-03.webp": "8bf8ef72b364556969d74454ecf8a85790eed93c4825f1de10b3c48f088ac9d9",
+    "dependency/hero-gameplay-04.webp": "aace602da04102de0023d326b32e8ae191222054a951ed095b7e6f7e5ef2e96c",
+    "dependency/hero-gameplay-05.webp": "8bb81619d615979c44226ee3dc9c0f1a2e7c0fec8b64d5e0d227fe21c1c6f427",
+    "dependency/hero-gameplay-06.webp": "1a86dfe05c8a8e43c887fc3000a21ea7c8b4dd8f250652ff0339ebbd638894c5",
+    "dependency/hero-gameplay-07.webp": "6e258b1611856dc4d0684806d07be622e779bd4d8a29331b3cec2efde3f87d11",
+    "dependency/hero-gameplay-08.webp": "f42ff97ec4b3fb50a279dedf8ef4f687a231194fd42c309d9e795d5f90c46356",
+    "dependency/hero-gameplay-09.webp": "cd59e3e7e91a50edbba48b976b2ee342eda66c0e12b40cecc90f824508a24c18",
+    "dependency/hero-gameplay-10.webp": "5ec4e859614e038f382d622b33a7276ff43c7dd74cfeb5e6030808a0055a97a3",
+    "dependency/hero-gameplay-11.webp": "15dea1294aa3020d1a4fe81ee8f647fba459e1e517e8dd5cf58f637d68d46ee5",
+    "dependency/hero-gameplay-12.webp": "1f69648cfd4204d0ba5dcacbfbe0c83294959c34205a19b69135ce73b3c42c53",
+    "dependency/hero-gameplay-13.webp": "eec4d658e65803ca4af3856741325422d068ff03bba0318fe6c7129efabdda49",
+    "dependency/hero-optional-00.webp": "bd8518294fecae99ae64aca2ad8a48f7180063d0662706101d201725b4546265",
+    "dependency/hero-optional-01.webp": "08e79f00a046b4c15544110473f62573313e46f380266d983ec6a8083dd61218",
+    "dependency/hero-optional-02.webp": "f39ab19117956936f545aef7cc1618808bc6930e4819d0c621478a8c7a9354b0",
+    "dependency/hero-optional-03.webp": "bd4ad0b09459cc59b56b1fcbb62df33908ebebeebb9318ec67a9f1ac33100b28",
+    "dependency/hero-optional-04.webp": "a959290130d0cc2124de9a6e7422809a8674b2ba53563dcb592d73f2eabb61e4",
+    "dependency/hero-optional-05.webp": "368bcadac8b40f992f38954d245fdce547c019b14e394f363218fa544450b088",
+    "dependency/hero-optional-06.webp": "44fca18b1c23b3be21fcffb4d70f98a2b1c837f64ea8d1bbfb856dedd6049466",
+    "dependency/hero-optional-07.webp": "373253a2c4b803f70e6c02266b830b2dd26c12523e0a6fcdada165f7b9601985",
+    "dependency/bear-scene-00.webp": "178183ed97f300a6624de8d24ebd29c88373e27c133fd34f7b7c099bd60262dc",
+    "dependency/bear-gameplay-00.webp": "b9600fb2cab07e2c8506da16370a4686183a4aae7d7e358c36073b8708058ae7",
+    "dependency/bear-gameplay-01.webp": "d0eb5ecb00667c6fcc1086b301b87884bfea71c4f4c5fbfb572d284fea09d4c5",
+    "dependency/bear-gameplay-02.webp": "33fd9ce9231f69ece08140392b2f9df8c15fd06e91edb9633af8caa36e0fbd60",
+    "dependency/bear-gameplay-03.webp": "0298356b79b230206bbf6224a23c57b4fa741ebb7a09eec1068462d48b6b259f",
+    "dependency/hippo-scene-00.webp": "6df38ff17491c900cb7436ba9b020b9cde37ea469416acac78ee1cd154e14849",
+    "dependency/hippo-gameplay-00.webp": "90b9447a87977afc5e598b57914abc76a4901ed253cf7c1a040a46f1b94686c3",
+    "dependency/hippo-gameplay-01.webp": "1288c18145f5c1ff853909ecb8919fe78a07380ee9ba28f20b0bd309917be8a8",
+    "dependency/hippo-gameplay-02.webp": "aa84d7ecc4f612f064babe643b010b40e8ff54b8792da60ad791bfb1b47f9e5c",
+    "dependency/hippo-gameplay-03.webp": "5dc1af624b2798647d0e2abf6dc3ccbdec10d207fd7fdddf85e121b884efec42",
+    "dependency/sherm-punch-scene-00.webp": "68d785bc8817744337c58c520e234a853589321ed2521e256da7314e8b623b09",
+    "dependency/sherm-punch-gameplay-00.webp": "bb3c78902db64d5a8676fe76e0865ed9a2ad04787a0c74f9df1174171cebb77a",
+    "dependency/sherm-punch-gameplay-01.webp": "7ecfb428c8ad922d17aa4f7e370b63422926f88f63d6efda0ca91d4bd3a5283d",
+    "dependency/sherm-punch-gameplay-02.webp": "68706f5d2721f7cc60461338b4eb792ba3681c456a65203bb460b3cd753ead84",
+    "dependency/sherm-shove-scene-00.webp": "fbc41f3c975b49e6f94dceccf91e9a877915d776c1544c172acf352a362f0bb5",
+    "dependency/sherm-shove-gameplay-00.webp": "472a3c8e5dd7feb3a5f7429f205138437ac65b932d8997499ec77ad886fabebe",
+    "dependency/sherm-shove-gameplay-01.webp": "ef881747a9b3c623b1ece66a4f14ac8c81bc36d127533f6f0537311651aeb3ce",
+    "dependency/sherm-slam-scene-00.webp": "6870ca153a0ba21586dc65a73666eecdc0aaa3d7ce76df98a57efc5f65d53c35",
+    "dependency/sherm-slam-gameplay-00.webp": "0a57bf401869f145898d210867fb94979bcb3d681f6cb8236ecec95910e00bf6",
+    "dependency/sherm-slam-gameplay-01.webp": "74bf35174cc764b586ed948d130cafc8f117ce5235d11971cbdf29d275de282d",
+    "dependency/sherm-slam-gameplay-02.webp": "166e28f972944203b7b0cf6ffe61962286c1620a32effc9ed9b2330517292a6b",
+    "dependency/striped-scene-00.webp": "ffad730bb6f86771c32e1e8caac6e78bbaa2c3d59e1ece1be398bf9280df9470",
+    "dependency/striped-gameplay-00.webp": "b025d3da3b41b30fb106bb8e8bbf3660b7b67868778e7146eaf4fa0f2526174b",
+    "dependency/striped-gameplay-01.webp": "1affa99dcbbb704ed1df21c9072009d22d71badf366f182fb33d0328262487b9",
+    "dependency/raptor-scene-00.webp": "575d8ffb79fedd2e4aceaa8459be83bcb1be0c483488e65e655234ca8370fb57",
+    "dependency/raptor-scene-01.webp": "61e3fdd876d55b1afbc11c49123faa836794396af117bb751327adfa448d7673",
+    "dependency/raptor-gameplay-00.webp": "5f0019e50344ca9c179069a58311c76ba8f1545367d58fd9efc4883cc9e0ff16",
+    "dependency/raptor-gameplay-01.webp": "456a35eeeac314e6835a84299ffa4b9ca9a988eab9896467b94e92a5590c493b",
+    "dependency/raptor-gameplay-02.webp": "73e5186decb92733e079a6e60e9c40c9f296bb5b22a885c7e010c197734d4b1c",
+    "dependency/franklin-scene-00.webp": "42b1ce73ff6e6cb5ca22401efa099802d2b5a97a1b5547483957f5a341607ddc",
+    "dependency/franklin-gameplay-00.webp": "3687ee742087d32305ebd27963b86bc27378c6708fb6212a9e9d0abf229c974e",
+    "dependency/franklin-gameplay-01.webp": "32074fd9a6a6132c266a24467cb2cff909ef1237a2e82edf04d40c8b564e1601",
+    "dependency/franklin-gameplay-02.webp": "e2196939e3923a6fe064d0246c56170189dbce57ab876a0eeb3d71e73c082069",
+    "dependency/franklin-gameplay-03.webp": "e8f2a339dec837dcca08764a453de17a1049244dc2465f1b3286fc0b06dc2353",
+    "dependency/franklin-gameplay-04.webp": "0f3d6f1c66c3f920c189019776c38bf0b7ca837332c43552688f402b83227cb9",
+    "dependency/franklin-gameplay-05.webp": "d7ce9975d8ecbca551bfdd80b946e905ef9f467a38a78ae12659d56be8626ee3",
+    "dependency/pizzeria-boss-scene-00.webp": "617feece3a96ac15fddcc8b03e993b057d98cfccbab3fca78d800f2dd934e898",
+    "dependency/pizzeria-boss-gameplay-00.webp": "03c24454f85929b919cb6ad38b9c7f1865b88bced49f86aac249d8ad2b679571",
+    "dependency/pizzeria-boss-gameplay-01.webp": "30bdd381eaab4b2ab228952994690597c2cd3b88381568a2095bb1af985bc391",
+    "dependency/marty-scene-00.webp": "fecbc7c033692eddfe2484b9dfd2557a7d45d634676b3559e2c090728b81bbb1",
+    "dependency/marty-cage-00.webp": "5eaf6e14f79847feccd349264c70c6f15ecbd091170cb4919f39c404be29c850",
+    "dependency/marty-optional-00.webp": "761212240961b2adbd5a16d89af18ce310d724a3028babae7a5a2e54417080ab",
+    "dependency/marty-optional-01.webp": "3a476837730a2b9ed6fb95b88c693106d09db12d38d069b117fede9ced7df400",
+    "dependency/duke-scene-00.webp": "0f1e6a8706475e09288013d2513160b044b795aed8c0a897d82d746ef86f9a32",
+    "dependency/duke-gameplay-00.webp": "2a9abce516b591cb63b3d1c407b5255652125c12f3f2693738b2f372b330279d",
+    "dependency/duke-gameplay-01.webp": "ae3a2bafcf0f31ab388b46d36864145caee41d58e693c57cd73de49a2e2a81ca",
+    "dependency/turkey-dinner-scene-00.webp": "957d133caa242aed33e9647622f22b363f21873049fb4a2cfecbfbde87650b40",
+    "dependency/turkey-dinner-gameplay-00.webp": "3e449569c026be6832af1874c2cce2c73c1aa5db841cc9fe4d4783e2f6ec4c69",
+    "dependency/trash-can-scene-00.webp": "77186d0d3dbee2afbb6a597fefdb8e146da3efed5260d3818773195f6c82d5b5",
+    "dependency/trash-can-gameplay-00.webp": "f8028ac87438efd5ff9fcbbd338d6528b4427f5d7094d918b508ac08b21ca6a1",
+    "dependency/franklin-cartwheel-run-00.webp": "dcaed81baaa4a1c4d11c89652246ec0d6035f5f547bb4c2daa501981bacdbaae",
+    "dependency/v8-franklin-gameplay-00.webp": "579ee60a6b2adba855209c584f31c1e795e144d08d3f85aebc11ae3787658438",
+    "dependency/v8-franklin-optional-00.webp": "62fa25b0e122875a9e8198453438e2083d44f7e6670c7f81987bcd0c093af8f4",
+    "dependency/v8-spike-scene-00.webp": "17a19af0a4ed09c936dd1ecc54eb39276876ad18dc8fd88d671a09c4e765a489",
+    "dependency/v8-spike-gameplay-00.webp": "8cbaf26b9fa8da06c50b58aaaa3322f147c06dab5eea29ddd8e8975a7b60863b",
+    "dependency/v8-spike-gameplay-01.webp": "262c11c0ce2e0afe73e52f442245be57dc69236d7b8e1dd7644f659107aaa509",
+    "dependency/v8-spike-optional-00.webp": "644ad2f066a886f5e015e7b2a436bcdc4faa9f7c0d3ab25fea9fc9152bf71f5d",
+    "dependency/v8-trash-can-gameplay-00.webp": "a8e0b3d2b318fdc175ecef6021e827ca322345fc9fa0db9ae63b3ab1a9fe844a",
+    "dependency/v8-pizzeria-boss-gameplay-00.webp": "27cac45c5a3b037507bed6566662ef93754c2bbbc4075e71bc521a9c09cfe575",
+    "dependency/v8-pizzeria-boss-gameplay-01.webp": "0517f87edacb8da975b00974fd287f0f48fc4607db67e258a8fba5fe910798e8",
+    "dependency/v8-pizzeria-boss-gameplay-02.webp": "23999870700cceae795448f63571f4fccad09203e23667910fdf8a9d5612b927",
+    "dependency/v10-walk-spike.webp": "174545df9fd640ee8e2029ec12cc2ec3a0f7796e3f759db2df8a599284bb56e9",
+    "dependency/v10-can-windup-spike.webp": "309c644ebcd4fa079870a43e5f45bc983a2ef761216d306e16d7083c1407e520",
+    "dependency/v10-can-release-spike.webp": "46683a59b5e1d3372bb47b3dd602527f75b3da4d1561b94d07ff43fe7109e903",
+    "dependency/v10-strong-release-spike.webp": "4074b2e9e2aba266cb30de427526ae3954daf99cec4d96b4b83f8073869525c6",
+    "dependency/v10-backoff-spike.webp": "befc20630c56ce171e52600d2445a099a5c825aacb1736a990a0e988c721409d",
+    "dependency/v10-recoil-spike.webp": "dea71f1848358fafc4035ea1840f6dd3f734db870b139a495d4f1433bd637f0f",
+    "dependency/v10-button-duke.webp": "724668da70c29f208007f11147db48cb602f68fb3bb3e596a082c97cc76f3041",
+    "dependency/v10-shoulder-duke.webp": "2e6964e37bf512f5a97e8dcf5d8d0668cebfb54f51b23d5b0dcc16cfba044fe5",
+    "dependency/v10-backhand-duke.webp": "42295439fe94751fb1af75d5afeb293b0c4d42aa56f437437bc111e9cef1282a",
+    "dependency/v10-one-two-duke.webp": "03a9988c148b19640c6dded1f4e62a4935373b80a36de495ffe9090fe0429250",
+    "dependency/v10-flurry-duke.webp": "8ed02da254b13ce30ed2b29f32359cc20484a57b9628262483290fc181d1ac75",
+    "dependency/v10-retreat-duke.webp": "28bc93b80878880aeb88d0e0c4d5ce1efe6dcaa7368e822dfe55e8c5bf47282a",
+    "dependency/v10-defeat-duke.webp": "f81d1d799586a5b681d3baae98fc4ebda78674b18276a55beed92e2a99e0b84a",
+    "dependency/v10-run-in-hero.webp": "b6de20634923d9db24fcd0458281005b11f742b39bbb6a73339a0b7a7b60209a",
+    "dependency/v10-stop-hero.webp": "9f45cca0e2afb06c5a8bf54fb2c10476f781f2adf90f8564e96eef8be7eb7f26",
+    "dependency/v10-point-hero.webp": "563ba278b28c0581de1650af90a754fa12c0b68065cc428c558931c60d0ed372",
+    "dependency/v10-fall-hero.webp": "c22299879fd12f3605b40f01896fab3c491cef4502f8ae4a551b101f9508d488",
+    "dependency/v10-recover-hero.webp": "42b4d30e1fc049aba395d4fa4619d09ab0999f7b7c6bcaa641c558e8359afd01",
+    "dependency/v10-reunion-hero.webp": "269bfbaae261fc7d9eaecc024cd0904a0e7f0d8eb9f728e15e415046528bae16",
+    "dependency/v10-run-in-franklin.webp": "369a41556c3519989090ce2e085c160ce791a4f506db500c4db55904ea270f1d",
+    "dependency/v10-stop-franklin.webp": "4a296316f64d63e1e658fed79550fd5731d20ecfacf8e70eb9125d44cdfe43c4",
+    "dependency/v10-point-franklin.webp": "bd92ed59132958ca992f8e7f067ed71aa2e4352dd6f6f7908f97f9fda7c95fdf",
+    "dependency/v10-fall-franklin.webp": "d209bc777bb52251ba3b38ecc719e075cdd728c0fe1c33c49f3c4997f7948b4d",
+    "dependency/v10-recover-franklin.webp": "15f454b01f10d30c1d9574526e072fdafd03833dc30aca443a93ccac5de3bdd3",
+    "dependency/v10-victory-franklin.webp": "f9d115eed9cba7618fe9574b148271516d64258806876d413381f72a0fe02d69"
+  },
+  "rejectedRanges": [
+    {
+      "take": 1,
+      "ranges": [
+        [
+          0,
+          27
+        ],
+        [
+          70,
+          79
+        ],
+        [
+          177,
+          198
+        ],
+        [
+          227,
+          239
+        ]
+      ],
+      "reason": "Preparation, redundant gait repetitions or idle tails; retained in original source"
+    },
+    {
+      "take": 2,
+      "ranges": [
+        [
+          0,
+          31
+        ],
+        [
+          75,
+          173
+        ],
+        [
+          203,
+          239
+        ]
+      ],
+      "reason": "Redundant guard/backstep repetitions; strongest single retreat selected; no new attack inferred"
+    },
+    {
+      "take": 3,
+      "ranges": [],
+      "reason": "No new locomotion/release present; two restrained reaction/idle segments only"
+    }
+  ],
+  "preservedUnused": [
+    "v11-cart-adjust",
+    "v11-cart-pull"
+  ],
+  "comparison": "Keep v10 Duke attacks/defeat, existing Marty run/reunion; new source replaces only cautious retreat and adds prop-free cart performance."
+}

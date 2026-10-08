@@ -23,7 +23,7 @@ const CHAIN=['jab','cross','kick','palm'];
 // Route-specific RUN + HIT reuses the accepted dash window. The old rush remains available.
 const RUN_ATTACKS={
  hero:{...HITS.dash,anim:'belly-bash',kb:1000,launch:.4,label:'BELLY BASH',sourceImpact:.3844},
- franklin:{...HITS.dash,anim:'cartwheel-run',kb:1000,launch:.4,label:'CARTWHEEL',sourceImpact:11/26}
+ franklin:{...HITS.dash,dur:.56,hit:.24,end:.56,anim:'cartwheel-run',kb:1000,launch:.4,label:'CARTWHEEL',sourceImpact:11/26}
 };
 const IDLES=['anxious-fidget','vest-adjust','heel-toe-shuffle','toe-tap','head-scratch','shoulder-roll','knee-bounce','lean-peek','shiver','balance-wobble','double-take'];
 const BOSS_MOVES=[
@@ -62,7 +62,7 @@ class Game{
  storyCompleted(id){if(id)this.storyFlags[id]=true;}
  drain(){const a=this.events;this.events=[];return a;}
  makePlayer(){this.p={x:170,y:407,z:0,vx:0,vy:0,vz:0,face:1,hp:100,lives:3,meter:35,inv:0,action:null,anim:'idle',animT:0,animDuration:0,idleT:0,cosmetic:null,cosmeticT:0,combo:0,comboClock:0,chainIndex:0,attackBuffer:0,jumpBuffer:0,guard:false,guardAge:10,guardMeter:100,counter:0,run:false,airUsed:false,landTimer:0,deadT:0,lastHit:0,footT:0,exertion:0};}
- resetWorld(){this.storyActors=[];this.storyCage=null;this.bossSpawned=false;this.bossDefeated=false;this.finalPhase='machine';this.machineDefeated=false;this.dukeDefeated=false;this.lastUnlockEarned=false;this.stageClearT=0;this.entranceId=0;this.enemies=[];this.corpses=[];this.effects=[];this.pickups=[];this.props=Campaign.propsFor(this.stage);this.projectiles=[];this.projectileId=0;this.broadcastSummons={active:false,timer:0,wave:0};this.projection={active:false,disabled:false,visible:false,phase:'waiting',window:-1,timer:0,windowXs:[...PROJECTION.windowXs],booths:PROJECTION.windowXs.map((x,id)=>({id,x,circuitId:id%3})),windowY:196,telegraph:null,circuits:PROJECTION.colors.map((color,id)=>({id,color,active:true}))};this.nextGate=0;this.activeGate=-1;this.cleared=0;this.camera=0;this.waveWait=0;this.shake=0;this.hitstop=0;this.stageBanner=3;this.banner='';this.bannerT=0;this.target=null;this.targetT=0;this.enemyId=0;this.attackTicketT=0;}
+ resetWorld(){this.storyActors=[];this.settlingBoss=null;this.spikeTutorial=null;this.storyCage=null;this.bossSpawned=false;this.bossDefeated=false;this.finalPhase='machine';this.machineDefeated=false;this.dukeDefeated=false;this.lastUnlockEarned=false;this.stageClearT=0;this.entranceId=0;this.enemies=[];this.corpses=[];this.effects=[];this.pickups=[];this.props=Campaign.propsFor(this.stage);this.projectiles=[];this.projectileId=0;this.broadcastSummons={active:false,timer:0,wave:0};this.projection={active:false,disabled:false,visible:false,phase:'waiting',window:-1,timer:0,windowXs:[...PROJECTION.windowXs],booths:PROJECTION.windowXs.map((x,id)=>({id,x,circuitId:id%3})),windowY:92,telegraph:null,circuits:PROJECTION.colors.map((color,id)=>({id,color,active:true}))};this.nextGate=0;this.activeGate=-1;this.cleared=0;this.camera=0;this.waveWait=0;this.shake=0;this.hitstop=0;this.stageBanner=3;this.banner='';this.bannerT=0;this.target=null;this.targetT=0;this.enemyId=0;this.attackTicketT=0;}
  updateProps(dt){for(const o of this.props)if(o.kind==='remote'&&o.hp>0){
   if(o.flight){const f=o.flight;f.age+=dt;const u=clamp(f.age/.85,0,1);o.x=lerp(f.x,f.tx,u);o.y=f.ty;o.z=(f.ty-f.y)*(1-u)+65*Math.sin(Math.PI*u);if(u===1){o.flight=null;o.vz=95;o.z=.1;this.emit('projectileImpact',{kind:'remote',x:o.x,y:o.y});}}
   else if(o.z>0){o.vz=(o.vz||0)-1000*dt;o.z=Math.max(0,o.z+o.vz*dt);if(o.z===0)this.emit('projectileImpact',{kind:'remote',x:o.x,y:o.y});}
@@ -94,7 +94,7 @@ class Game{
   }
   this.checkpoint=this.snapshot();this.emit('start');this.emit('music');this.cosmetic('vest-adjust',.65);
  }
- snapshot(){return {version:5,buildVersion:10,finalBossKind:'duke',stage:this.stage,nextGate:this.nextGate,score:this.score,lives:this.p.lives,meter:this.p.meter,maxCombo:this.stats.maxCombo||0,time:this.t,playerKind:this.playerKind,franklinUnlocked:this.franklinUnlocked,deathsByStage:[...this.deathsByStage],stage4Eligible:this.stage4Eligible,bossDefeated:this.bossDefeated,finalPhase:this.finalPhase,machineDefeated:this.machineDefeated,dukeDefeated:this.dukeDefeated,projectionDisabled:this.projection.disabled,projectionCircuits:this.projection.circuits.map(c=>c.active),storyFlags:{...this.storyFlags}};}
+ snapshot(){return {version:5,buildVersion:11,finalBossKind:'duke',stage:this.stage,nextGate:this.nextGate,score:this.score,lives:this.p.lives,meter:this.p.meter,maxCombo:this.stats.maxCombo||0,time:this.t,playerKind:this.playerKind,franklinUnlocked:this.franklinUnlocked,deathsByStage:[...this.deathsByStage],stage4Eligible:this.stage4Eligible,bossDefeated:this.bossDefeated,finalPhase:this.finalPhase,machineDefeated:this.machineDefeated,dukeDefeated:this.dukeDefeated,projectionDisabled:this.projection.disabled,projectionCircuits:this.projection.circuits.map(c=>c.active),storyFlags:{...this.storyFlags}};}
  checkpointSave(){this.checkpoint=this.snapshot();this.emit('save',{save:this.checkpoint});}
  recordDeath(){if(this.p.deathCounted)return;this.p.deathCounted=true;this.deathsByStage[this.stage]++;if(this.stage===3)this.stage4Eligible=false;
   // Persist failure immediately, without moving the checkpoint forward. Reload cannot erase a death.
@@ -131,14 +131,27 @@ class Game{
   this.projection.phase='remote';this.projection.telegraph=null;this.banner='SMASH THE REMOTE';this.bannerT=3;this.emit('remoteDrop',{circuitId});return true;
  }
  configureProjection(){
-  if(!STAGES[this.stage].projection||this.projection.disabled)return;
-  const a=this.projection;a.shots=a.shots||0;a.active=true;a.visible=false;a.phase='waiting';a.timer=0;a.windowXs=[...PROJECTION.windowXs];a.booths=PROJECTION.windowXs.map((x,id)=>({id,x,circuitId:id%3}));a.telegraph=null;if(a.window>=0&&!a.circuits[a.booths[a.window]?.circuitId]?.active)a.window=-1;
+  if(!STAGES[this.stage].projection||this.projection.disabled||this.activeGate!==2)return;
+  this.story('boss-projection-intro');const a=this.projection;a.shots=a.shots||0;a.active=true;a.visible=false;a.phase='waiting';a.timer=0;a.windowXs=[...PROJECTION.windowXs];a.booths=PROJECTION.windowXs.map((x,id)=>({id,x,circuitId:id%3}));a.telegraph=null;if(a.window>=0&&!a.circuits[a.booths[a.window]?.circuitId]?.active)a.window=-1;
  }
  visibleBooths(){const a=this.projection;return a.booths.filter(b=>a.circuits[b.circuitId].active&&b.x>=this.camera+70&&b.x<=this.camera+this.viewWidth-70);}
+ startJump(){const p=this.p;if(p.z>0||p.hp<=0)return false;p.vz=585;p.z=.1;p.jumpBuffer=0;p.airUsed=false;p.landTimer=0;p.guard=false;this.emit('jump');return true;}
+ updateJump(dt){const p=this.p;if(p.z>0||p.vz>0){p.vz-=1700*dt;p.z+=p.vz*dt;if(p.z<=0){p.z=p.vz=0;p.landTimer=.12;p.airUsed=false;if(p.action?.name==='air')p.action=null;this.emit('land');}}else p.landTimer=Math.max(0,p.landTimer-dt);}
+ releaseTrashCan(e,m,options={}){const p=this.p,scale=e.renderScale||1;return this.launchProjectile('trash-can',e.x+e.face*Math.min(59.50699300699301*scale,Math.abs(p.x-e.x)*.5),e.y-48.77622377622378*scale,p.x,p.y,m.damage,m.radius,m.flight,null,{ownerKind:'spike',renderScale:scale,low:!!m.low,...options});}
+ startSpikeTutorial(){if(this.spikeTutorial)return;const e=this.enemies.find(e=>e.kind==='spike'&&e.hp>0);if(!e)return;const m=BOSS_DEFINITIONS.spike.moves.find(m=>m.area==='trash-can');this.spikeTutorial={time:0,released:false,jumped:false,complete:false,boss:e,move:m};this.p.action=null;this.p.vx=this.p.vy=0;e.face=sign(this.p.x-e.x);this.p.face=-e.face;this.p.y=e.y;}
+ updateSpikeTutorial(dt){const t=this.spikeTutorial;if(!t||t.complete)return;const e=t.boss,m=t.move;t.time+=dt;e.anim=t.time<m.wind?(m.windAnim||'idle'):m.anim;const age=Math.max(0,t.time-m.wind),contact=m.hits[0];e.animT=t.time<m.wind?t.time:clamp(age<=contact?m.sourceImpact*age/contact:m.sourceImpact+(1-m.sourceImpact)*(age-contact)/(m.duration-contact),0,1)*m.duration;e.animDuration=t.time<m.wind?m.wind:m.duration;
+  if(!t.released&&t.time>=m.wind+m.hits[0]){t.can=this.releaseTrashCan(e,m,{tutorial:true});t.released=true;}
+  const q=t.can;if(q&&!t.jumped&&q.phase==='rolling'&&Math.abs(q.x-this.p.x)<155){this.startJump();t.jumped=true;}
+  this.updateJump(dt);this.updateProjectiles(dt);this.chooseAnimation(dt,0);
+  if(t.time>m.wind+m.duration)e.anim='idle';
+  if(t.released&&q.done&&t.jumped&&this.p.z===0){t.complete=true;this.emit('spikeTutorialComplete',{character:this.playerKind});}
+ }
+ finishSpikeTutorial(){this.projectiles=this.projectiles.filter(q=>!q.tutorial);const t=this.spikeTutorial,e=t?.boss||this.enemies.find(e=>e.kind==='spike'&&e.hp>0);if(e){e.state='seek';e.timer=0;e.cooldown=1;e.anim='idle';e.animT=0;e.face=sign(this.p.x-e.x);this.p.face=-e.face;}this.spikeTutorial=null;const p=this.p;p.z=p.vz=p.vx=p.vy=p.attackBuffer=p.jumpBuffer=0;p.action=null;p.anim='idle';}
  launchProjectile(kind,sourceX,sourceY,targetX,targetY,damage=9,radius=32,duration=.7,circuitId=null,options={}){
   const q={id:++this.projectileId,kind,circuitId,color:circuitId===null?null:this.projection.circuits[circuitId]?.color,sourceX,sourceY,targetX,targetY,x:sourceX,y:targetY,z:targetY-sourceY,age:0,duration,damage,radius,face:sign(targetX-sourceX),bounces:0,bounce:0,phase:'flight',contacted:false,...options};this.projectiles.push(q);this.emit('projectile',{kind,circuitId,x:sourceX,y:sourceY});return q;
  }
  projectileContact(q){
+  if(q.tutorial&&this.spikeTutorial)return false;
   const p=this.p;if(q.done||q.contacted||p.z>(q.kind==='trash-can'?58:43)||Math.abs(p.x-q.x)>=q.radius||Math.abs(p.y-q.y)>=26||q.z>43)return false;
   // The incoming side changes when a reel reflects. Never guard against its old booth position.
   q.contacted=true;const hit=this.damagePlayer({kind:q.kind==='trash-can'?'spike':'projection-woman',x:q.x-q.face*65,y:q.y,face:q.face,hitHeight:q.kind==='trash-can'?58:43,attackDamage:q.damage});
@@ -177,8 +190,8 @@ class Game{
   a.timer+=dt;
   if(a.phase==='waiting'&&a.timer>=PROJECTION.cooldown){const active=this.visibleBooths();if(!a.circuits.some(c=>c.active)){this.disableProjection();return;}if(!active.length)return;const circuit=a.circuits.find(c=>c.active).id;const next=active.find(b=>b.circuitId===circuit)||active[0];a.window=next.id;a.visible=true;a.phase='shadow';a.timer=0;a.telegraph=null;this.emit('projectionShadow',{window:a.window,circuitId:next.circuitId});}
   else if(a.phase==='shadow'&&a.timer>=PROJECTION.shadow){a.phase='reveal';a.timer=0;this.emit('projectionReveal',{window:a.window,circuitId:booth.circuitId,color:a.circuits[booth.circuitId].color});}
-  else if(a.phase==='reveal'&&a.timer>=PROJECTION.reveal){a.phase='telegraph';a.remoteReady=(a.shots||0)>=3+a.circuits.filter(c=>!c.active).length;a.timer=0;a.telegraph={x:this.p.x,y:this.p.y,t:0,duration:PROJECTION.wind,radius:32,color:a.circuits[booth.circuitId].color};this.emit('projectionTell',{x:a.telegraph.x,y:a.telegraph.y,window:a.window});}
-  else if(a.phase==='telegraph'){a.telegraph.t=a.timer;if(a.timer>=a.telegraph.duration){if(a.remoteReady){this.dropRemote(a.circuits.find(c=>c.active).id);}else{this.launchProjectile('reel',booth.x,a.windowY,a.telegraph.x,a.telegraph.y,11,32,PROJECTION.flight,booth.circuitId);a.shots=(a.shots||0)+1;a.phase='throw';}a.timer=0;}}
+  else if(a.phase==='reveal'&&a.timer>=PROJECTION.reveal){a.phase='telegraph';a.remoteReady=(a.shots||0)>=3;a.timer=0;a.telegraph={x:this.p.x,y:this.p.y,t:0,duration:PROJECTION.wind,radius:32,color:a.circuits[booth.circuitId].color};this.emit('projectionTell',{x:a.telegraph.x,y:a.telegraph.y,window:a.window});}
+  else if(a.phase==='telegraph'){a.telegraph.t=a.timer;if(a.timer>=a.telegraph.duration){if(a.remoteReady){this.dropRemote(a.circuits.find(c=>c.active).id);}else{const width=1+2*a.circuits.filter(c=>!c.active).length;for(let i=0;i<width;i++)this.launchProjectile('reel',booth.x,a.windowY,a.telegraph.x+(i-(width-1)/2)*90,a.telegraph.y,11,26,PROJECTION.flight,booth.circuitId);this.emit('projectionVolley',{width,circuitId:booth.circuitId});a.shots=(a.shots||0)+1;a.phase='throw';}a.timer=0;}}
   else if(a.phase==='throw'&&a.timer>=PROJECTION.flight){a.phase='recover';a.timer=0;a.telegraph=null;}
   else if(a.phase==='recover'&&a.timer>=.7){a.phase='waiting';a.timer=0;a.visible=false;}
  }
@@ -317,10 +330,10 @@ class Game{
    if(e.timer>=e.move.wind){e.state='attack';e.timer=e.animT=0;e.hitIndex=0;e.anim=e.move.anim;e.animDuration=e.move.duration;this.emit('enemySwing',{kind:e.kind});}return;
   }
   if(e.state==='attack'){
-   const m=e.move;e.anim=m.secondAnim&&e.timer>=m.switchAt?m.secondAnim:m.anim;e.animT=m.secondAnim&&e.timer>=m.switchAt?e.timer-m.switchAt:e.timer;e.animDuration=m.secondAnim?(e.timer>=m.switchAt?m.duration-m.switchAt:m.switchAt):m.duration;if(m.sourceImpact!==undefined){const contact=m.hits[0],u=e.timer<=contact?m.sourceImpact*e.timer/contact:m.sourceImpact+(1-m.sourceImpact)*(e.timer-contact)/(m.duration-contact);e.animT=clamp(u,0,1)*m.duration;}if(m.rush&&e.timer<.55)e.x=clamp(e.x+e.face*m.rush*dt,1825,2750);if(m.retreat){const retreat=e.timer<.38;e.x=clamp(e.x+e.face*(retreat?-150:e.timer<.85?240:0)*dt,1825,2750);e.anim=retreat?'v10-retreat':'v10-shoulder';}
+   const m=e.move;e.anim=m.secondAnim&&e.timer>=m.switchAt?m.secondAnim:m.anim;e.animT=m.secondAnim&&e.timer>=m.switchAt?e.timer-m.switchAt:e.timer;e.animDuration=m.secondAnim?(e.timer>=m.switchAt?m.duration-m.switchAt:m.switchAt):m.duration;if(m.sourceImpact!==undefined){const contact=m.hits[0],u=e.timer<=contact?m.sourceImpact*e.timer/contact:m.sourceImpact+(1-m.sourceImpact)*(e.timer-contact)/(m.duration-contact);e.animT=clamp(u,0,1)*m.duration;}if(m.rush&&e.timer<.55)e.x=clamp(e.x+e.face*m.rush*dt,1825,2750);if(m.retreat){const retreat=e.timer<.38;e.x=clamp(e.x+e.face*(retreat?-150:e.timer<.85?240:0)*dt,1825,2750);e.anim=retreat?'v11-cautious-retreat':'v10-shoulder';}
    while(e.hitIndex<m.hits.length&&e.timer>=m.hits[e.hitIndex]){
     e.hitIndex++;e.attackDamage=e.kind==='franklin'?Math.round(m.damage*1.12):m.damage;
-    if(m.area==='trash-can'){e.face=sign(p.x-e.x);const scale=e.renderScale||1;this.launchProjectile('trash-can',e.x+e.face*Math.min(59.50699300699301*scale,Math.abs(p.x-e.x)*.5),e.y-48.77622377622378*scale,p.x,p.y,m.damage,m.radius,m.flight,null,{ownerKind:'spike',renderScale:scale,low:!!m.low});}
+    if(m.area==='trash-can'){e.face=sign(p.x-e.x);this.releaseTrashCan(e,m);}
     else if(m.area==='projectile')this.launchProjectile('signal',e.x,e.y-190,e.telegraph.x,e.telegraph.y,m.damage,m.radius,.7);
     else if(m.area==='spot'){if(Math.abs(p.x-e.telegraph.x)<m.radius&&Math.abs(p.y-e.telegraph.y)<32)this.damagePlayer(e);this.emit('slam',{x:e.telegraph.x,y:e.telegraph.y});}
     else if(m.area==='lane'){const dx=p.x-e.x;if(Math.abs(p.y-e.telegraph.y)<m.lane&&dx*e.face>-22&&dx*e.face<m.reach)this.damagePlayer(e);this.emit('signalSweep',{x:e.x,y:e.telegraph.y,face:e.face});}
@@ -365,7 +378,7 @@ class Game{
   p.combo++;p.comboClock=2.0;p.meter=clamp(p.meter+(s.all?2:6),0,100);this.score+=Math.round(s.damage*(1+Math.min(p.combo,20)*.04));this.stats.hits++;this.stats.maxCombo=Math.max(this.stats.maxCombo,p.combo);this.hitstop=Math.max(this.hitstop,s.launch?.075:s.kb>80?.068:.04);this.shake=Math.max(this.shake,s.kb>80?6:2.5);this.target=e;this.targetT=3;
   this.emit('hit',{x:e.x,y:e.y-88,z:e.z||0,damage:s.damage,heavy:s.kb>80,sound:s.sound||'hit',kind:e.kind,combo:p.combo});
   if(machine&&e.hp>0&&e.hp<=e.maxHp*(3-this.broadcastSummons.wave)/3+.001){this.broadcastSummons.phase='rising';this.broadcastSummons.timer=0;e.targetable=false;}
-  if(e.hp<=0){if(s.kb>80){e.deathAnim=({'sherm-punch':'fall-alt','sherm-slam':'spill-collapse-alt',raptor:'death-alt'})[e.kind]||'death';}if(e.boss){this.bossDefeated=!machine;this.emit('bossDefeated',{kind:e.kind});if(e.kind==='pizzeria-boss')this.story('boss-cinema-defeat');if(e.kind==='spike')this.story('boss-spike-defeat');if(machine){this.stopBroadcastSummons();this.machineDefeated=true;this.broadcastSummons.defeatTime=0;this.finalPhase='duke';this.projectiles=[];this.p.attackBuffer=this.p.jumpBuffer=0;this.waveWait=0;this.resolveBroadcast();}if(e.kind==='duke'){this.dukeDefeated=true;this.finalPhase='resolved';this.dukeDefeatTime=0;this.hitstop=.16;}}this.score+=EINFO[e.kind].score*(e.elite?3:1);this.stats.kos++;this.emit('ko',{kind:e.kind,x:e.x,y:e.y});if(e.kind==='hippo'||e.kind==='sherm-slam')this.pickups.push({x:e.x,y:e.y,kind:'coffee',age:0});if(machine||e.kind==='duke')this.checkpointSave();}return true;
+  if(e.hp<=0){if(s.kb>80){e.deathAnim=({'sherm-punch':'fall-alt','sherm-slam':'spill-collapse-alt',raptor:'death-alt'})[e.kind]||'death';}if(e.boss){this.bossDefeated=!machine;this.emit('bossDefeated',{kind:e.kind});if(['pizzeria-boss','spike'].includes(e.kind)){this.settlingBoss={id:e.id,scene:e.kind==='spike'?'boss-spike-defeat':'boss-cinema-defeat',time:0};p.inv=Math.max(p.inv,2.1);}if(machine){this.stopBroadcastSummons();this.machineDefeated=true;this.broadcastSummons.defeatTime=0;this.finalPhase='duke';this.projectiles=[];this.p.attackBuffer=this.p.jumpBuffer=0;this.waveWait=0;this.resolveBroadcast();}if(e.kind==='duke'){this.dukeDefeated=true;this.finalPhase='resolved';this.dukeDefeatTime=0;this.hitstop=.16;}}this.score+=EINFO[e.kind].score*(e.elite?3:1);this.stats.kos++;this.emit('ko',{kind:e.kind,x:e.x,y:e.y});if(e.kind==='hippo'||e.kind==='sherm-slam')this.pickups.push({x:e.x,y:e.y,kind:'coffee',age:0});if(machine||e.kind==='duke')this.checkpointSave();}return true;
  }
  knockdown(face,kind='impact',duration=.88){const p=this.p;if(p.hp<=0||p.action?.name==='knockdown')return false;
   p.action={name:'knockdown',t:0,dur:duration};p.combo=p.comboClock=p.chainIndex=p.counter=p.attackBuffer=p.jumpBuffer=0;p.guard=false;p.cosmetic=null;p.vx=face*320;p.vy=0;p.inv=Math.max(p.inv,duration+.2);p.z=p.vz=0;
@@ -487,7 +500,7 @@ class Game{
  }
  step(dt,input={}){
   dt=Math.min(.034,Math.max(0,dt));if(this.mode!=='play')return;const p=this.p;
-  if(this.stage===6&&(this.dukeDefeated||this.machineDefeated&&!this.enemies.some(e=>e.hp>0))){input={};p.attackBuffer=p.jumpBuffer=0;p.action=null;p.vx=p.vy=0;const fallen=this.enemies.find(e=>e.kind==='duke')||this.enemies.find(e=>e.kind==='broadcast-rig');if(fallen)p.face=sign(fallen.x-p.x);}
+  if(this.settlingBoss||this.stage===6&&(this.dukeDefeated||this.machineDefeated&&!this.enemies.some(e=>e.hp>0))){input={};p.attackBuffer=p.jumpBuffer=0;p.action=null;p.vx=p.vy=0;const fallen=this.enemies.find(e=>e.kind==='duke')||this.enemies.find(e=>e.kind==='broadcast-rig');if(fallen)p.face=sign(fallen.x-p.x);}
   // Buffers are ingested even during hitstop, so a tap cannot disappear in a freeze.
   if(input.attackPressed)p.attackBuffer=.30;if(input.jumpPressed)p.jumpBuffer=.16;
   if(input.specialPressed)this.special();
@@ -500,7 +513,7 @@ class Game{
   if(input.guardPressed&&mag>.52&&!p.action&&p.z<=0){p.action={name:'dodge',t:0,dx:mx/(mag||1),dy:my/(mag||1),dur:.32};p.inv=Math.max(p.inv,.24);p.guard=false;this.emit('dodge');}
   if(mag>.10||p.attackBuffer>0||p.guard||p.jumpBuffer>0){p.cosmetic=null;p.idleT=0;}else{p.idleT+=dt;}
   if(p.cosmetic){p.cosmeticT+=dt;if(p.cosmeticT>=p.cosmetic.dur)p.cosmetic=null;}
-  if(!p.action&&p.jumpBuffer>0&&p.z===0){p.vz=585;p.z=.1;p.jumpBuffer=0;p.airUsed=false;p.landTimer=0;p.guard=false;this.emit('jump');}
+  if(!p.action&&p.jumpBuffer>0&&p.z===0){this.startJump();}
   if(!p.action&&p.attackBuffer>0&&p.exertion<=0)this.beginAttack(mag);
   if(p.action?.name==='dodge'&&p.attackBuffer>0&&p.action.t>.12)this.setAction('elbow');
   this.updateAction(dt,input);
@@ -509,8 +522,7 @@ class Game{
   const speed=260*Math.pow(mag,1.08)*(p.guard?.23:1),nx=mag?mx/mag:0,ny=mag?my/mag:0;
   const targetX=allow?nx*speed:0,targetY=allow?ny*speed*.62:0,acc=1-Math.exp(-(p.z>0?8:18)*dt);
   if(!['hurt','run-stun','knockdown'].includes(p.action?.name)){p.vx=lerp(p.vx,targetX,acc);p.vy=lerp(p.vy,targetY,acc);}p.x+=p.vx*dt;p.y+=p.vy*dt;
-  if(p.z>0||p.vz>0){p.vz-=1700*dt;p.z+=p.vz*dt;if(p.z<=0){p.z=0;p.vz=0;p.landTimer=.12;p.airUsed=false;if(p.action?.name==='air')p.action=null;this.emit('land');}}
-  else p.landTimer=Math.max(0,p.landTimer-dt);
+  this.updateJump(dt);
   const lo=this.activeGate>=0?Math.max(35,GATES[this.activeGate]-485):35,hi=this.activeGate>=0?Math.min(LENGTH-40,GATES[this.activeGate]+495):LENGTH-45;
   p.x=clamp(p.x,lo,hi);p.y=clamp(p.y,YMIN,YMAX);
   if(mag>.2&&p.z===0&&!p.action){p.footT+=dt*speed/170;if(p.footT>.31){p.footT=0;this.emit('footstep');}}
@@ -518,11 +530,11 @@ class Game{
    let an=IDLES[Math.floor(this.rng()*IDLES.length)];if(p.hp<25)an=this.rng()<.5?'panic-settle':'sigh';else if(this.stage===1)an=['disgust-grimace','nose-pinch','wave-off','shiver'][Math.floor(this.rng()*4)];this.cosmetic(an,1.25);p.idleT=0;
   }
   if(this.stage===6&&!this.bossSpawned&&this.storyCage){const target=clamp(p.x+430,0,2700),dx=target-this.storyCage.x,step=Math.sign(dx)*Math.min(Math.abs(dx),150*dt);if(dx>0){this.storyCage.x+=step;for(const a of this.storyActors){if(a.kind==='marty'||a.kind==='duke'){a.x+=step;a.anim=a.kind==='duke'?'walk':'scared-idle';a.animT=(a.animT||0)+dt;}}}}
-  this.updateProps(dt);this.updateEnemies(dt);this.updateBroadcastSummons(dt);this.updateProjection(dt);this.updateProjectiles(dt);
+  this.updateProps(dt);this.updateEnemies(dt);if(this.settlingBoss){this.settlingBoss.time+=dt;if(this.settlingBoss.time>=2.05){const scene=this.settlingBoss.scene;this.settlingBoss=null;this.story(scene);return;}}this.updateBroadcastSummons(dt);this.updateProjection(dt);this.updateProjectiles(dt);
   for(const c of this.pickups){c.age+=dt;if(!c.got&&Math.abs(c.x-p.x)<42&&Math.abs(c.y-p.y)<30&&p.z<16){const item=ITEMS[c.kind]||ITEMS.coffee;c.got=true;p.hp=Math.min(100,p.hp+item.health);p.meter=Math.min(100,p.meter+item.meter);this.score+=item.score;this.emit('pickup',{x:c.x,y:c.y,kind:c.kind,heal:item.health});}}
   this.pickups=this.pickups.filter(c=>!c.got);
   if(this.machineDefeated&&!this.dukeDefeated&&this.resolveBroadcast())return;
-  if(this.activeGate>=0&&this.enemies.every(e=>e.hp<=0)&&!(this.stage===6&&(this.machineDefeated&&!this.dukeDefeated||this.dukeDefeated&&(this.dukeDefeatTime||0)<3.5))){
+  if(this.activeGate>=0&&!this.settlingBoss&&this.enemies.every(e=>e.hp<=0)&&!(this.stage===6&&(this.machineDefeated&&!this.dukeDefeated||this.dukeDefeated&&(this.dukeDefeatTime||0)<3.5))){
    this.waveWait+=dt;if(this.waveWait>.75&&STAGES[this.stage].boss&&this.activeGate===2&&!this.bossSpawned){this.spawnBoss();}else if(this.waveWait>.75&&!(STAGES[this.stage].projection&&this.activeGate===2&&(!this.projection.disabled||!this.bossDefeated))){this.cleared=this.activeGate+1;this.nextGate=this.cleared;this.activeGate=-1;this.waveWait=0;this.projection.active=this.projection.visible=false;this.projection.telegraph=null;this.projectiles=[];this.banner='BLOCK CLEAR';this.bannerT=1.8;p.hp=Math.min(100,p.hp+10);this.cosmetic(this.cleared===3?'wave-off':'vest-adjust',.9);this.checkpointSave();this.emit('clear',{last:this.cleared===3});}
   }else this.waveWait=0;
   if(this.activeGate<0&&this.nextGate<3&&p.x>GATES[this.nextGate]-280)this.spawnFight(this.nextGate);
@@ -531,7 +543,7 @@ class Game{
   const aim=clamp(p.x-this.viewWidth*.43+p.face*45,0,Math.max(0,LENGTH-this.viewWidth));this.camera=lerp(this.camera,aim,1-Math.exp(-5*dt));
  }
  advanceStage(){
-  if(this.mode!=='play')return;
+  if(this.mode!=='play'||this.settlingBoss)return;
   if(this.stage===STAGES.length-1&&(!this.dukeDefeated||this.enemies.some(e=>e.kind==='duke')&&(this.dukeDefeatTime||0)<3.5))return;
   if(STAGES[this.stage].boss&&!this.bossDefeated)return;
   if(STAGES[this.stage].projection&&!this.projection.disabled)return;

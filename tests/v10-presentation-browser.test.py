@@ -13,7 +13,7 @@ with source_site(a.url) as url,sync_playwright() as pw:
  b=getattr(pw,a.engine).launch(**launch_options(a.engine));page=b.new_page(viewport={'width':915,'height':412},has_touch=True);page.on('pageerror',lambda e:errors.append(str(e)))
  try:
   page.goto(url);page.wait_for_function('__brawler.ready()',timeout=120000);page.locator('#startButton').tap();page.wait_for_function('__brawler.scenes().active&&!__brawler.scenes().loading',timeout=60000)
-  check('Runtime reports v10 with schema-five save lineage',page.evaluate("BRAWLER_CONFIG.version==='10.0.0'&&__brawler.game.snapshot().version===5"))
+  check('Runtime reports v10 with schema-five save lineage',page.evaluate("BRAWLER_CONFIG.version==='11.0.0'&&__brawler.game.snapshot().version===5"))
   page.evaluate("const s=__brawler.scenes();s.index=s.shots.findIndex(q=>q.id==='activation');s._shot();s.paused=true;s.time=.15;s.update(0)")
   dark=page.evaluate("Array.from(__brawler.scenes().canvas.getContext('2d').getImageData(455,66,1,1).data)")
   page.screenshot(path=str(photos/f'{a.engine}-button-before-power.png'))

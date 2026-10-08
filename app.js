@@ -247,15 +247,19 @@ function beginWorldScene(scene){
  if(scene.id.startsWith('stage-')){game.p.x=scene.worldOrigin-110;game.p.vx=game.p.vy=0;game.p.action=null;}
 }
 function finishWorldScene(scene,skipped){
+ game.reunionLayers=false;if(scene.id==='boss-spike-intro')game.finishSpikeTutorial();
  if(!scene.worldStage||!skipped)return;
  const shot=scene.shots[scene.shots.length-1],map=x=>(scene.worldOrigin||0)+x*(scene.worldScale||1);
  if(scene.id.startsWith('stage-')){const a=shot.actors?.find(a=>a.id==='player');if(a){game.p.x=map(a.motion?.toX??a.x);game.p.face=a.face||1;game.p.anim='idle';game.p.animT=0;game.p.vx=game.p.vy=0;}}
  const boss=game.enemies.find(e=>e.boss&&e.entry);if(boss)for(let i=0;i<1000&&boss.entry;i++)game.updateEntry(boss,1/120);
+ if(scene.id==='boss-spike-intro'){const e=game.enemies.find(e=>e.kind==='spike');game.p.x=map(235);game.p.y=407;if(e){e.x=map(670);e.y=407;}game.finishSpikeTutorial();}
  // Skipping is an explicit transition to the authored terminal staging state.
- if(scene.id==='ending'){const father=game.playerKind==='hero'?game.p:game.storyActors.find(a=>a.id==='jay');const boy=game.storyActors.find(a=>a.kind==='marty');if(father&&boy){boy.x=father.x+70;boy.face=-1;boy.anim='idle';father.face=1;}}
+ if(scene.id==='ending'){const father=game.playerKind==='hero'?game.p:game.storyActors.find(a=>a.id==='jay'),boy=game.storyActors.find(a=>a.kind==='marty');if(father&&boy){boy.x=father.x+70;boy.face=-1;boy.anim='idle';father.face=1;}}
 }
 function drawWorldScene(s){
  const dt=s.paused||s.loading?0:Math.max(0,Math.min(.05,s.totalTime-(game.sceneClock||0)));game.sceneClock=s.totalTime;s.actorStates=[];
+ game.reunionLayers=!!s.shot.reunionLayers;
+ if(s.shot.spikeTutorial){game.startSpikeTutorial();game.updateSpikeTutorial(dt);for(const e of game.drain())handle(e);s.tutorialComplete=!!game.spikeTutorial?.complete;s.actorStates=[game.p,game.spikeTutorial?.boss].filter(Boolean).map(a=>({id:a===game.p?'player':'spike',character:a===game.p?game.playerKind:a.kind,x:a.x,y:a.y,z:a.z||0,animation:a.anim,visible:true,resolvedFace:a.face}));return;}
  const origin=s.scene.worldOrigin||0,scale=s.scene.worldScale||1,map=x=>origin+x*scale;
  if(s.shot.booth&&game.stage===4){const a=game.projection,booth=a.booths.find(b=>b.x>=game.camera+70&&b.x<=game.camera+renderer.rect.w-70);if(booth){a.window=booth.id;a.visible=s.shot.booth.phase!=='off';a.phase=s.shot.booth.phase==='shadow'?'shadow':'reveal';a.timer=s.time;a.face=game.p.x<booth.x?-1:1;s.boothState={phase:s.shot.booth.phase,active:booth.id};}}
  const realBoss=game.enemies.find(e=>e.boss&&e.kind!=='broadcast-rig');
@@ -270,6 +274,7 @@ function drawWorldScene(s){
   if(!isBoss||!body.entry){
    const key=s.index+':'+a.id;if(!s.worldActors.has(key))s.worldActors.set(key,{x:body.x,y:body.y});
    const start=s.worldActors.get(key),m=a.motion;let target=map(m?.toX??a.x),moving=false;
+   if(who==='marty'&&s.shot.cage&&!s.shot.cage.open&&!s.shot.cartCoupled&&game.storyCage)target=game.storyCage.x;
    // Marty’s rescue destination is the actual father, never a delta from a reset pose.
    if(who==='marty'&&s.scene.id==='ending'){
     const father=game.playerKind==='hero'?game.p:game.storyActors.find(e=>e.id==='jay'),mark=s.shot.actors?.find(q=>q.id===(game.playerKind==='hero'?'player':'jay'));if(father)target=(m&&mark?map(mark.motion?.toX??mark.x):father.x)+70;
@@ -278,8 +283,8 @@ function drawWorldScene(s){
     body.x+=Math.sign(dx)*Math.min(Math.abs(dx),340*dt);moving=Math.abs(target-body.x)>3&&u>0;if(moving)body.face=target<body.x?-1:1;
    }else if((body.hp>0||!isBoss)&&!(isPlayer&&(s.shot.dialogue||s.shot.routeDialogue))){const dx=target-body.x;moving=Math.abs(dx)>4;if(moving){body.x+=Math.sign(dx)*Math.min(Math.abs(dx),220*dt);body.face=dx<0?-1:1;}}
    const targetY=a.worldY??407,dy=targetY-body.y;if(Math.abs(dy)>2&&(!isBoss||body.hp>0)){body.y+=Math.sign(dy)*Math.min(Math.abs(dy),85*dt);moving=true;}
-   if(moving)body.anim=who==='spike'?'v10-walk':who==='marty'?'run':isPlayer&&s.shot.id==='pursuit-entry'?'v10-run-in':m?.duration<1.6?'run':'walk';
-   else{body.anim=a.animation||'idle';if(m)body.anim=isPlayer?'v10-stop':'idle';if(a.face)body.face=a.face;else if(isPlayer)body.face=1;else if(['duke','spike','pizzeria-boss','marty'].includes(who))body.face=game.p.x<body.x?-1:1;}
+   if(moving)body.anim=s.shot.cartCoupled&&who==='duke'?'v11-cart-push':s.shot.cartCoupled&&who==='marty'?'v11-captive-idle':who==='spike'?'v10-walk':who==='marty'?'run':isPlayer&&s.shot.id==='pursuit-entry'?'v10-run-in':m?.duration<1.6?'run':'walk';
+   else{body.anim=a.animation||'idle';if(m)body.anim=isPlayer?'v10-stop':s.shot.cartCoupled&&who==='duke'?'v11-cart-stop':s.shot.cartCoupled&&who==='marty'?'v11-captive-idle':'idle';if(a.face)body.face=a.face;else if(isPlayer)body.face=1;else if(['duke','spike','pizzeria-boss','marty'].includes(who))body.face=game.p.x<body.x?-1:1;}
    if(isBoss&&body.hp<=0)body.anim=who==='duke'?'v10-defeat':'death';
    const held=['death','v10-defeat'].includes(body.anim);body.animT=held?10:s.time;body.animDuration=held?(who==='duke'?3:1.7):moving&&body.anim==='v10-run-in'?(m?.duration||1.5):0;
    if(isPlayer){body.vx=body.vy=0;body.action=null;}
@@ -287,7 +292,9 @@ function drawWorldScene(s){
   s.actorStates.push({id:a.id,character:who,x:body.x,y:body.y,animation:body.anim,visible:true,resolvedFace:body.face,faceReason:a.motion?'motion':a.face?'explicit':a.lookAt?'lookAt':'world-continuity'});
  }
  game.storyActors=game.storyActors.filter(a=>active.has(a.id)||game.stage===6&&['marty','duke','jay'].includes(a.kind));
- const boy=game.storyActors.find(a=>a.kind==='marty');
+ const boy=game.storyActors.find(a=>a.kind==='marty'),cartDuke=game.storyActors.find(a=>a.kind==='duke');
+ if(s.shot.cartCoupled&&boy&&cartDuke){boy.x=cartDuke.x+130;boy.y=cartDuke.y;cartDuke.face=1;boy.anim='v11-captive-idle';}
+ game.cartDuke=s.shot.cartCoupled?cartDuke:null;
  if(s.shot.cage){if(s.shot.cage.open){if(game.storyCage)game.storyCage.open=true;}else if(boy)game.storyCage={x:boy.x,y:boy.y,open:false};}
  else if(game.stage!==6)game.storyCage=null;
 }

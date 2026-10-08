@@ -1,6 +1,6 @@
 # THE CRITIC: COMING ATTRACTIONS
 
-Full campaign script v10.0.0
+Full campaign script v11.0.0
 
 Edit the dialogue under each speaker. Scene and beat identifiers connect every line to its place in the game. Shared exchanges appear once; Jay and Franklin alternatives are shown together.
 
@@ -78,7 +78,7 @@ Portrait: duke | Expression: smug
 
 opening/marty-reveal | Player advances; earliest advance 1s.
 
-*Jay: hurt; Duke: idle; Marty: scared idle; Marty is confined in the cage; the curtain reveals Marty for the first time.*
+*Jay: hurt; Duke: idle; Marty: v11 captive idle; Marty is confined in the cage; the curtain reveals Marty for the first time.*
 
 *Franklin route: Franklin: idle.*
 
@@ -92,7 +92,7 @@ Portrait: marty | Expression: worried
 
 opening/father-reaction | Player advances; earliest advance 0.22s.
 
-*Jay: hurt; Duke: idle; Marty: scared idle; Marty is confined in the cage.*
+*Jay: hurt; Duke: idle; Marty: v11 captive idle; Marty is confined in the cage.*
 
 *Franklin route: Franklin: idle.*
 
@@ -106,7 +106,7 @@ Portrait: jay | Expression: worried
 
 opening/activation | Player advances; earliest advance 1.1s.
 
-*Jay: hurt; Duke: v10 button; Marty: scared idle; Marty is confined in the cage; broadcast monitors are powered; sound cue: swish.*
+*Jay: hurt; Duke: v10 button; Marty: v11 captive idle; Marty is confined in the cage; broadcast monitors are powered; sound cue: swish.*
 
 *Franklin route: Franklin: idle.*
 
@@ -120,7 +120,7 @@ Portrait: duke | Expression: smug
 
 opening/second-press | Automatic advance after 1.2s; earliest advance 0.9s.
 
-*Jay: hurt; Duke: v10 button; Marty: scared idle; Marty is confined in the cage; broadcast monitors are powered; a white flash punctuates the beat; sound cue: heavy.*
+*Jay: hurt; Duke: v10 button; Marty: v11 captive idle; Marty is confined in the cage; broadcast monitors are powered; a white flash punctuates the beat; sound cue: heavy.*
 
 *Franklin route: Franklin: idle.*
 
@@ -130,7 +130,7 @@ No spoken dialogue.
 
 opening/screen-emergence | Automatic advance after 4.1s; earliest advance 3.8s.
 
-*Jay: hurt; Duke: idle; Marty: scared idle; Marty is confined in the cage; broadcast monitors are powered; screens release Shermometer v1, Shermometer v2, Shermometer v3, Fred K, JP Raptor Esq, Accordion Bear, Green Hippo in succession; they remain visible and creep toward Jay, clear of Marty’s cage; alarms pulse; a white flash punctuates the beat; sound cue: slam.*
+*Jay: hurt; Duke: idle; Marty: v11 captive idle; Marty is confined in the cage; broadcast monitors are powered; screens release Shermometer v1, Shermometer v2, Shermometer v3, Fred K, JP Raptor Esq, Accordion Bear, Green Hippo in succession; they remain visible and creep toward Jay, clear of Marty’s cage; alarms pulse; a white flash punctuates the beat; sound cue: slam.*
 
 *Franklin route: Franklin: idle.*
 
@@ -140,7 +140,7 @@ No spoken dialogue.
 
 opening/hatchi-matchi | Player advances; earliest advance 0.22s.
 
-*Jay: jump; Duke: idle; Marty: scared idle; Marty is confined in the cage; broadcast monitors are powered; the same screen-born enemies remain visible and advance toward Jay.*
+*Jay: jump; Duke: idle; Marty: v11 captive idle; Marty is confined in the cage; broadcast monitors are powered; the same screen-born enemies remain visible and advance toward Jay.*
 
 *Franklin route: Franklin: idle.*
 
@@ -154,7 +154,7 @@ Portrait: jay | Expression: shocked
 
 opening/window-launch | Automatic advance after 1.9s; earliest advance 1.8s.
 
-*Jay: hurt, moving left and up over 1s; Duke: walk, moving right over 1.8s; Marty: scared idle, moving right over 1.8s; Marty is confined in the cage; broadcast monitors are powered; the same screen-born enemies remain visible and advance toward Jay; Shermometer v1 attacks Jay as the other enemies approach; the studio window breaks; glass scatters; the scene shakes; sound cue: heavy.*
+*Jay: hurt, moving left and up over 1s; Duke: v11 cart push, moving right over 1.8s; Marty: v11 captive idle, moving right over 1.8s; Marty is confined in the cage; broadcast monitors are powered; the same screen-born enemies remain visible and advance toward Jay; Shermometer v1 attacks Jay as the other enemies approach; the studio window breaks; glass scatters; the scene shakes; sound cue: heavy.*
 
 *Franklin route: Franklin: jump, moving left and up over 0.85s.*
 
@@ -182,7 +182,7 @@ Setting: Last Train Uptown | Music: current stage
 
 stage-02-intro/transport | Automatic advance after 3.6s; earliest advance 3.5s.
 
-*Duke: walk, moving right over 3.5s; Marty: scared idle, moving right over 3.5s; Duke transports Marty’s closed cage.*
+*Duke: v11 cart push, moving right over 3.5s; Marty: v11 captive idle, moving right over 3.5s; Duke transports Marty’s closed cage.*
 
 No spoken dialogue.
 
@@ -230,7 +230,7 @@ Setting: Above the Avenue | Music: current stage
 
 stage-03-intro/transport | Automatic advance after 3.6s; earliest advance 3.5s.
 
-*Duke: walk, moving right over 3.5s; Marty: scared idle, moving right over 3.5s; Duke transports Marty’s closed cage.*
+*Duke: v11 cart push, moving right over 3.5s; Marty: v11 captive idle, moving right over 3.5s; Duke transports Marty’s closed cage.*
 
 No spoken dialogue.
 
@@ -278,7 +278,7 @@ Setting: Theater District | Music: current stage
 
 stage-04-intro/transport | Automatic advance after 3.6s; earliest advance 3.5s.
 
-*Duke: walk, moving right over 3.5s; Marty: scared idle, moving right over 3.5s; Duke transports Marty’s closed cage.*
+*Duke: v11 cart push, moving right over 3.5s; Marty: v11 captive idle, moving right over 3.5s; Duke transports Marty’s closed cage.*
 
 No spoken dialogue.
 
@@ -364,7 +364,7 @@ Setting: Palace Cinema | Music: current stage
 
 stage-05-intro/transport | Automatic advance after 3.6s; earliest advance 3.5s.
 
-*Duke: walk, moving right over 3.5s; Marty: scared idle, moving right over 3.5s; Duke transports Marty’s closed cage.*
+*Duke: v11 cart push, moving right over 3.5s; Marty: v11 captive idle, moving right over 3.5s; Duke transports Marty’s closed cage.*
 
 No spoken dialogue.
 
@@ -378,19 +378,27 @@ stage-05-intro/pursuit-entry | Automatic advance after 1.55s; earliest advance 1
 
 No spoken dialogue.
 
-### Beat 03 booth eyes
+## Projection booth encounter introduction
 
-stage-05-intro/booth-eyes | Automatic advance after 1.5s; earliest advance 1.25s.
+Scene boss-projection-intro | Onscreen title: THE PROJECTION BOOTH
 
-*Selected player: idle; eyes move in the dark projection booth; the Violent Austrian Rabbi is foreshadowed inside the cinema screen.*
+When the player reaches the Palace movie-screen encounter area.
+
+Setting: Palace Cinema | Music: current stage
+
+### Beat 01 booth eyes
+
+boss-projection-intro/booth-eyes | Automatic advance after 1.3s; earliest advance 1.1s.
+
+*Selected player: idle; eyes move in the dark projection booth.*
 
 No spoken dialogue.
 
-### Beat 04 booth light
+### Beat 02 booth light
 
-stage-05-intro/booth-light | Automatic advance after 1s; earliest advance 0.9s.
+boss-projection-intro/booth-light | Automatic advance after 1s; earliest advance 0.9s.
 
-*Selected player: idle; the booth light reveals the projectionist; the Violent Austrian Rabbi is foreshadowed inside the cinema screen; sound cue: swish.*
+*Selected player: idle; the booth light reveals the projectionist; sound cue: swish.*
 
 PROJECTIONIST portrait; silent reveal.
 
@@ -398,9 +406,9 @@ Portrait: projectionist | Expression: neutral
 
 No spoken dialogue.
 
-### Beat 05
+### Beat 03
 
-stage-05-intro/beat-05 | Player advances; earliest advance 0.22s.
+boss-projection-intro/beat-03 | Player advances; earliest advance 0.22s.
 
 *Selected player: idle; the booth light reveals the projectionist; the Violent Austrian Rabbi is foreshadowed inside the cinema screen.*
 
@@ -418,6 +426,64 @@ Portrait: franklin | Expression: neutral
 
 Objective: DODGE REELS — SMASH THE THROWN RADIO
 
+### Beat 04
+
+boss-projection-intro/beat-04 | Player advances; earliest advance 0.22s.
+
+*Selected player: idle; the booth light reveals the projectionist.*
+
+**JAY / Jay route**
+
+Three circuits. Three remotes. At least this theater has an off switch.
+
+Portrait: jay | Expression: neutral
+
+**FRANKLIN / Franklin route**
+
+Lights first. Then the exit.
+
+Portrait: franklin | Expression: neutral
+
+Objective: DODGE REELS — SMASH THE THROWN RADIO
+
+## END OF REEL
+
+Scene boss-projection-defeat | Onscreen title: END OF REEL
+
+When all three projection circuits have been disabled. The cinema boss must also be defeated to leave.
+
+Setting: Palace Cinema | Music: current stage
+
+### Beat 01 booth shutdown
+
+boss-projection-defeat/booth-shutdown | Automatic advance after 1.2s; earliest advance 1s.
+
+*Selected player: idle; the projection booths go dark; sound cue: slam.*
+
+No spoken dialogue.
+
+Destination: BOOTH POWER / OFF
+
+### Beat 02
+
+boss-projection-defeat/beat-02 | Player advances; earliest advance 0.22s.
+
+*Selected player: v10 point; the projection booths go dark.*
+
+**JAY / Jay route**
+
+That’s enough audience participation.
+
+Portrait: jay | Expression: neutral
+
+**FRANKLIN / Franklin route**
+
+This isn't my house.
+
+Portrait: franklin | Expression: neutral
+
+Destination: BOOTH POWER / OFF
+
 ## THE MAIN ATTRACTION
 
 Scene boss-cinema-intro | Onscreen title: THE MAIN ATTRACTION
@@ -428,7 +494,7 @@ Setting: Palace Cinema | Music: current stage
 
 ### Beat 01 screen shadow
 
-boss-cinema-intro/screen-shadow | Automatic advance after 1.3s; earliest advance 1.1s.
+boss-cinema-intro/screen-shadow | Automatic advance after 0.45s; earliest advance 0.4s.
 
 *Selected player: idle; the Violent Austrian Rabbi is foreshadowed inside the cinema screen; sound cue: swish.*
 
@@ -472,44 +538,6 @@ You’re blocking the exit.
 
 Portrait: franklin | Expression: neutral
 
-## END OF REEL
-
-Scene boss-projection-defeat | Onscreen title: END OF REEL
-
-When all three projection circuits have been disabled. The cinema boss must also be defeated to leave.
-
-Setting: Palace Cinema | Music: current stage
-
-### Beat 01 booth shutdown
-
-boss-projection-defeat/booth-shutdown | Automatic advance after 1.2s; earliest advance 1s.
-
-*Selected player: idle; the projection booths go dark; sound cue: slam.*
-
-No spoken dialogue.
-
-Destination: BOOTH POWER / OFF
-
-### Beat 02
-
-boss-projection-defeat/beat-02 | Player advances; earliest advance 0.22s.
-
-*Selected player: v10 point; the projection booths go dark.*
-
-**JAY / Jay route**
-
-I usually don't sit through the credits…
-
-Portrait: jay | Expression: neutral
-
-**FRANKLIN / Franklin route**
-
-This isn't my house.
-
-Portrait: franklin | Expression: neutral
-
-Destination: BOOTH POWER / OFF
-
 ## THE CREDITS
 
 Scene boss-cinema-defeat | Onscreen title: THE CREDITS
@@ -548,7 +576,7 @@ Setting: Little Italy pizzeria | Music: current stage
 
 stage-06-intro/transport | Automatic advance after 3.6s; earliest advance 3.5s.
 
-*Duke: walk, moving right over 3.5s; Marty: scared idle, moving right over 3.5s; Duke transports Marty’s closed cage.*
+*Duke: v11 cart push, moving right over 3.5s; Marty: v11 captive idle, moving right over 3.5s; Duke transports Marty’s closed cage.*
 
 No spoken dialogue.
 
@@ -630,6 +658,22 @@ Put the can down, Spike. Do the right thing.
 
 Portrait: franklin | Expression: neutral
 
+### Beat 04 tutorial marks
+
+boss-spike-intro/tutorial-marks | Automatic advance after 1.8s; earliest advance 1.75s.
+
+*Selected player: idle, moving in place over 1.7s; Spike: idle, moving in place over 1.7s.*
+
+No spoken dialogue.
+
+### Beat 05 jump demonstration
+
+boss-spike-intro/jump-demonstration | Automatic advance after 30s; earliest advance 30s.
+
+*Selected player: idle; Spike: idle.*
+
+No spoken dialogue.
+
 ## THE SERVICE ROUTE
 
 Scene boss-spike-defeat | Onscreen title: THE SERVICE ROUTE
@@ -670,7 +714,7 @@ Setting: Broadcast Tower | Music: current stage
 
 stage-07-intro/last-transport | Automatic advance after 2.3s; earliest advance 2s.
 
-*Duke: walk, moving right over 2.1s; Marty: scared idle, moving right over 2.1s; Selected player: run, moving right over 1.5s; Duke transports Marty’s closed cage; alarms pulse.*
+*Duke: v11 cart push, moving right over 2.1s; Marty: v11 captive idle, moving right over 2.1s; Selected player: run, moving right over 1.5s; Duke transports Marty’s closed cage; alarms pulse.*
 
 No spoken dialogue.
 
@@ -680,11 +724,11 @@ Destination: TRANSMISSION CORE
 
 stage-07-intro/beat-02 | Player advances; earliest advance 0.22s.
 
-*Selected player: idle; Duke: idle; Marty: scared idle; Marty is confined in the cage; broadcast monitors are powered; alarms pulse.*
+*Selected player: idle; Duke: v11 cart stop; Marty: v11 captive idle; Marty is confined in the cage; broadcast monitors are powered; alarms pulse.*
 
 **DUKE**
 
-You should have taken the deal, Sherman.
+You want Marty? Come and get him.
 
 Portrait: duke | Expression: neutral
 
@@ -692,25 +736,33 @@ Portrait: duke | Expression: neutral
 
 stage-07-intro/beat-03 | Player advances; earliest advance 0.22s.
 
-*Selected player: v10 point; Duke: idle; Marty: scared idle; Marty is confined in the cage; broadcast monitors are powered; alarms pulse.*
+*Selected player: v10 point; Duke: v11 cart stop; Marty: v11 captive idle; Marty is confined in the cage; broadcast monitors are powered; alarms pulse.*
 
 **JAY / Jay route**
 
-You should know I have too much integrity, Duke!
+Let Marty go. Your reviews are about to get worse.
 
 Portrait: jay | Expression: neutral
 
 **FRANKLIN / Franklin route**
 
-Which way is the bus station?
+Step away from my grandson, Duke.
 
 Portrait: franklin | Expression: neutral
 
-### Beat 04 duke to controls
+### Beat 04 cart release
+
+stage-07-intro/cart-release | Automatic advance after 1.2s; earliest advance 1.1s.
+
+*Selected player: idle; Duke: v11 cart release; Marty: v11 worried look; Marty is confined in the cage.*
+
+No spoken dialogue.
+
+### Beat 05 duke to controls
 
 stage-07-intro/duke-to-controls | Automatic advance after 1.6s; earliest advance 1.5s.
 
-*Selected player: idle; Duke: walk, moving right over 1.5s; Marty: scared idle; Marty is confined in the cage; broadcast monitors are powered.*
+*Selected player: idle; Duke: walk, moving right over 1.5s; Marty: v11 captive idle; Marty is confined in the cage; broadcast monitors are powered.*
 
 No spoken dialogue.
 
@@ -726,7 +778,7 @@ Setting: Broadcast Tower | Music: current stage
 
 boss-broadcast-intro/beat-01 | Player advances; earliest advance 0.22s.
 
-*Selected player: idle; Duke: attack; Marty: scared idle; Marty is confined in the cage; broadcast monitors are powered; alarms pulse.*
+*Selected player: idle; Duke: attack; Marty: v11 captive idle; Marty is confined in the cage; broadcast monitors are powered; alarms pulse.*
 
 **DUKE**
 
@@ -738,7 +790,7 @@ Portrait: duke | Expression: smug
 
 boss-broadcast-intro/broadcast-surges | Automatic advance after 2.4s; earliest advance 2.2s.
 
-*Selected player: guard; Duke: idle; Marty: scared idle; Marty is confined in the cage; broadcast monitors are powered; screens release Shermometer v1, Shermometer v2, Shermometer v3, Fred K, JP Raptor Esq in succession; alarms pulse; a white flash punctuates the beat; sound cue: slam.*
+*Selected player: guard; Duke: idle; Marty: v11 captive idle; Marty is confined in the cage; broadcast monitors are powered; screens release Shermometer v1, Shermometer v2, Shermometer v3, Fred K, JP Raptor Esq in succession; alarms pulse; a white flash punctuates the beat; sound cue: slam.*
 
 No spoken dialogue.
 
@@ -746,7 +798,7 @@ No spoken dialogue.
 
 boss-broadcast-intro/beat-03 | Player advances; earliest advance 0.22s.
 
-*Selected player: v10 point; Duke: idle; Marty: scared idle; Marty is confined in the cage; broadcast monitors are powered; alarms pulse.*
+*Selected player: v10 point; Duke: idle; Marty: v11 captive idle; Marty is confined in the cage; broadcast monitors are powered; alarms pulse.*
 
 **JAY / Jay route**
 
@@ -774,7 +826,7 @@ Setting: Broadcast Tower | Music: current stage
 
 boss-broadcast-defeat/signal-dies | Automatic advance after 1.2s; earliest advance 1s.
 
-*Selected player: idle; Duke: hurt; Marty: scared idle; Marty is confined in the cage; the broadcast monitors lose power; a white flash punctuates the beat; sound cue: slam.*
+*Selected player: idle; Duke: hurt; Marty: v11 captive idle; Marty is confined in the cage; the broadcast monitors lose power; a white flash punctuates the beat; sound cue: slam.*
 
 No spoken dialogue.
 
@@ -782,7 +834,7 @@ No spoken dialogue.
 
 boss-broadcast-defeat/beat-02 | Player advances; earliest advance 1s.
 
-*Selected player: idle; Duke: walk, moving left over 1s; Marty: scared idle; Marty is confined in the cage.*
+*Selected player: idle; Duke: walk, moving left over 1s; Marty: v11 captive idle; Marty is confined in the cage.*
 
 **DUKE**
 
@@ -794,7 +846,7 @@ Portrait: duke | Expression: angry
 
 boss-broadcast-defeat/beat-03 | Player advances; earliest advance 0.22s.
 
-*Selected player: idle; Duke: folded idle; Marty: scared idle; Marty is confined in the cage.*
+*Selected player: idle; Duke: v11 confrontation; Marty: v11 captive idle; Marty is confined in the cage.*
 
 **JAY / Jay route**
 
@@ -816,11 +868,19 @@ Before the Duke fight in Stage 7, Broadcast Tower.
 
 Setting: Broadcast Tower | Music: current stage
 
-### Beat 01
+### Beat 01 face off marks
 
-boss-duke-intro/beat-01 | Player advances; earliest advance 0.8s.
+boss-duke-intro/face-off-marks | Automatic advance after 1.2s; earliest advance 1.1s.
 
-*Selected player: idle; Duke: lead jab, moving left over 0.8s; Marty: scared idle; Marty is confined in the cage.*
+*Selected player: idle, moving in place over 1.1s; Duke: idle, moving right over 1.1s; Marty: v11 captive idle; Marty is confined in the cage.*
+
+No spoken dialogue.
+
+### Beat 02
+
+boss-duke-intro/beat-02 | Player advances; earliest advance 0.8s.
+
+*Selected player: idle; Duke: lead jab, moving left over 0.8s; Marty: v11 captive idle; Marty is confined in the cage.*
 
 **DUKE**
 
@@ -828,11 +888,11 @@ I own this network!
 
 Portrait: duke | Expression: angry
 
-### Beat 02
+### Beat 03
 
-boss-duke-intro/beat-02 | Player advances; earliest advance 0.22s.
+boss-duke-intro/beat-03 | Player advances; earliest advance 0.22s.
 
-*Selected player: guard; Duke: idle; Marty: scared idle; Marty is confined in the cage.*
+*Selected player: guard; Duke: idle; Marty: v11 captive idle; Marty is confined in the cage.*
 
 **JAY / Jay route**
 
@@ -858,7 +918,7 @@ Setting: Broadcast Tower | Music: current stage
 
 boss-duke-defeat/beat-01 | Automatic advance after 1.8s; earliest advance 1.5s.
 
-*Selected player: idle; Duke: v10 defeat; Marty: scared idle; Marty is confined in the cage.*
+*Selected player: idle; Duke: v10 defeat; Marty: v11 captive idle; Marty is confined in the cage.*
 
 **DUKE**
 
@@ -870,7 +930,7 @@ Portrait: duke | Expression: defeated
 
 boss-duke-defeat/beat-02 | Player advances; earliest advance 0.22s.
 
-*Selected player: idle; Duke: v10 defeat; Marty: scared idle; Marty’s cage is open.*
+*Selected player: idle; Duke: v10 defeat; Marty: v11 captive idle; Marty’s cage is open.*
 
 **JAY / Jay route**
 
@@ -890,7 +950,7 @@ Destination: MARTY / CAGE OPEN
 
 Scene ending | Onscreen title: THAT’S A WRAP
 
-After Duke is defeated and the player reaches the final exit. Marty is released before results.
+After Duke’s defeat settles. Marty is released before results.
 
 Setting: Broadcast Tower | Music: title
 
@@ -982,54 +1042,6 @@ Portrait: franklin | Expression: neutral
 
 Caption: MARTY IS SAFE. THE BROADCAST IS OFF. NEW YORK GETS ITS REALITY BACK.
 
-## Optional projection booth introduction
-
-Scene boss-projection-intro | Onscreen title: THE PROJECTION BOOTH
-
-Optional reusable scene. The current campaign stages the reveal in the Palace Cinema introduction.
-
-Setting: Palace Cinema | Music: current stage
-
-### Beat 01 booth eyes
-
-boss-projection-intro/booth-eyes | Automatic advance after 1.3s; earliest advance 1.1s.
-
-*Selected player: idle; eyes move in the dark projection booth.*
-
-No spoken dialogue.
-
-### Beat 02 booth light
-
-boss-projection-intro/booth-light | Automatic advance after 1s; earliest advance 0.9s.
-
-*Selected player: idle; the booth light reveals the projectionist; sound cue: swish.*
-
-PROJECTIONIST portrait; silent reveal.
-
-Portrait: projectionist | Expression: neutral
-
-No spoken dialogue.
-
-### Beat 03
-
-boss-projection-intro/beat-03 | Player advances; earliest advance 0.22s.
-
-*Selected player: idle; the booth light reveals the projectionist.*
-
-**JAY / Jay route**
-
-Three circuits. Three remotes. At least this theater has an off switch.
-
-Portrait: jay | Expression: neutral
-
-**FRANKLIN / Franklin route**
-
-Lights first. Then the exit.
-
-Portrait: franklin | Expression: neutral
-
-Objective: DODGE REELS — SMASH THE THROWN RADIO
-
 ## Unlock and results text
 
 Franklin unlocks when Jay defeats him and leaves Stage 4 without dying during that attempt. Franklin’s own route uses Shermometer v3 in Stage 4. Existing profiles retain their unlock; results do not announce it as a new reward again.
@@ -1116,4 +1128,4 @@ Story lines and staging are authored in data/cutscenes.js. Stage and boss trigge
 
 Use the scene and beat identifiers when returning revisions. Replace the spoken line under the appropriate route; shared lines affect both characters. The seven approved opening lines are preserved exactly.
 
-Source fingerprint: 2f3d4c0c0c795b46
+Source fingerprint: 674c9c4788439716
