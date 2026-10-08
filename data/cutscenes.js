@@ -116,6 +116,8 @@ for(const scene of Object.values(scenes))for(const shot of scene.shots){
  if(scene.id==='ending')shot.reunionLayers=true;
 }
 const cinemaPursuit=chase('cinema-pursuit','','cinema','SERVICE EXIT / LITTLE ITALY','','');
+// Move the existing route reaction to the screen-area encounter; retain its dialogue.
+scenes['boss-projection-intro'].shots.splice(2,0,scenes['stage-05-intro'].shots.at(-1));
 scenes['stage-05-intro'].shots=cinemaPursuit.shots.slice(0,2);
 scenes['stage-07-intro'].shots.push({id:'cart-release',auto:1.2,minTime:1.1,actors:[hero(265,{face:1}),duke(638,{animation:'v11-cart-release',face:1}),boy(768,{animation:'v11-worried-look'})],cage:cage(768)});
 scenes['stage-07-intro'].shots.push({id:'duke-to-controls',auto:1.6,minTime:1.5,actors:[hero(265,{face:1}),duke(638,{animation:'walk',motion:move(638,850,1.5)}),boy(792)],cage:cage(792),powered:true});

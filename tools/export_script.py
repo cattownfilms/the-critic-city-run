@@ -34,8 +34,8 @@ ENVIRONMENTS = {"studio": "Coming Attractions studio", "broadway": "Broadway",
 UI_IDS = {"rosterNote": "Character selection", "rewardHeading": "Results heading",
           "rewardText": "Results message", "unlockStatus": "Boss and unlock status"}
 SCENE_ORDER = ["opening", "stage-02-intro", "stage-03-intro", "stage-04-intro",
-               "stage4-clear", "stage-05-intro", "boss-cinema-intro",
-               "boss-projection-defeat", "boss-cinema-defeat", "stage-06-intro",
+               "stage4-clear", "stage-05-intro", "boss-projection-intro",
+               "boss-projection-defeat", "boss-cinema-intro", "boss-cinema-defeat", "stage-06-intro",
                "boss-spike-intro", "boss-spike-defeat", "stage-07-intro",
                "boss-broadcast-intro", "boss-broadcast-defeat", "boss-duke-intro",
                "boss-duke-defeat", "ending"]

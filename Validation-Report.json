@@ -3,12 +3,23 @@
   "title": "THE CRITIC: COMING ATTRACTIONS",
   "version": "11.0.0",
   "baselineCommit": "8757424f41b7f7cc9a3eebaa927298473988d56b",
-  "status": "implementation-local-validation-browser-pending",
+  "status": "source-validated-public-release-gated",
   "checks": {
     "localJavaScriptSuites": 12,
-    "browserCI": "pending",
-    "publicDeployment": "pending",
-    "physicalAndroid": "not performed"
+    "browserCI": {
+      "core": "success",
+      "browsers (firefox)": "success",
+      "browsers (webkit)": "success",
+      "browsers (chromium)": "success"
+    },
+    "publicDeployment": "Separate post-merge HTTPS and browser gate; exact result in external release receipt",
+    "physicalAndroid": "not performed",
+    "localJavaScript": "pass",
+    "localPython": "pass",
+    "launcher": "8 checks passed",
+    "updateFromV10": "10 checks passed; original installation retained",
+    "browserSourceCommit": "0d7e0d4b4b2e4742fc4b7361102489d7d904b340",
+    "browserRun": "https://github.com/cattownfilms/the-critic-city-run/actions/runs/37742777465"
   },
   "sourceReels": 3,
   "saveSchema": 5,
@@ -1143,5 +1154,12 @@
       },
       "sourceCommit": "6bb28cc3b4b3579ddae2897c59fa68bbe7f83819"
     }
+  },
+  "testedAtUTC": "2026-10-08T07:32:07.843042+00:00",
+  "artifactParity": "Final exact-source scripts, embedded files and launcher payload comparison recorded in external release receipt",
+  "matteAudit": {
+    "scope": "representative idle/walk/defeat poses across all banks, Projectionist portrait, all nine new action sheets",
+    "changes": "Rabbi-only derived RGB spill correction; original atlas bytes and alpha preserved",
+    "physicalReview": "not performed"
   }
 }

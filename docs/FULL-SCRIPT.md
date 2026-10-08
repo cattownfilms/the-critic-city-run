@@ -378,6 +378,112 @@ stage-05-intro/pursuit-entry | Automatic advance after 1.55s; earliest advance 1
 
 No spoken dialogue.
 
+## Projection booth encounter introduction
+
+Scene boss-projection-intro | Onscreen title: THE PROJECTION BOOTH
+
+When the player reaches the Palace movie-screen encounter area.
+
+Setting: Palace Cinema | Music: current stage
+
+### Beat 01 booth eyes
+
+boss-projection-intro/booth-eyes | Automatic advance after 1.3s; earliest advance 1.1s.
+
+*Selected player: idle; eyes move in the dark projection booth.*
+
+No spoken dialogue.
+
+### Beat 02 booth light
+
+boss-projection-intro/booth-light | Automatic advance after 1s; earliest advance 0.9s.
+
+*Selected player: idle; the booth light reveals the projectionist; sound cue: swish.*
+
+PROJECTIONIST portrait; silent reveal.
+
+Portrait: projectionist | Expression: neutral
+
+No spoken dialogue.
+
+### Beat 03
+
+boss-projection-intro/beat-03 | Player advances; earliest advance 0.22s.
+
+*Selected player: idle; the booth light reveals the projectionist; the Violent Austrian Rabbi is foreshadowed inside the cinema screen.*
+
+**JAY / Jay route**
+
+That's one very hostile projectionist.
+
+Portrait: jay | Expression: neutral
+
+**FRANKLIN / Franklin route**
+
+This looks like a job for the robot puncher!
+
+Portrait: franklin | Expression: neutral
+
+Objective: DODGE REELS — SMASH THE THROWN RADIO
+
+### Beat 04
+
+boss-projection-intro/beat-04 | Player advances; earliest advance 0.22s.
+
+*Selected player: idle; the booth light reveals the projectionist.*
+
+**JAY / Jay route**
+
+Three circuits. Three remotes. At least this theater has an off switch.
+
+Portrait: jay | Expression: neutral
+
+**FRANKLIN / Franklin route**
+
+Lights first. Then the exit.
+
+Portrait: franklin | Expression: neutral
+
+Objective: DODGE REELS — SMASH THE THROWN RADIO
+
+## END OF REEL
+
+Scene boss-projection-defeat | Onscreen title: END OF REEL
+
+When all three projection circuits have been disabled. The cinema boss must also be defeated to leave.
+
+Setting: Palace Cinema | Music: current stage
+
+### Beat 01 booth shutdown
+
+boss-projection-defeat/booth-shutdown | Automatic advance after 1.2s; earliest advance 1s.
+
+*Selected player: idle; the projection booths go dark; sound cue: slam.*
+
+No spoken dialogue.
+
+Destination: BOOTH POWER / OFF
+
+### Beat 02
+
+boss-projection-defeat/beat-02 | Player advances; earliest advance 0.22s.
+
+*Selected player: v10 point; the projection booths go dark.*
+
+**JAY / Jay route**
+
+That’s enough audience participation.
+
+Portrait: jay | Expression: neutral
+
+**FRANKLIN / Franklin route**
+
+This isn't my house.
+
+Portrait: franklin | Expression: neutral
+
+Destination: BOOTH POWER / OFF
+
 ## THE MAIN ATTRACTION
 
 Scene boss-cinema-intro | Onscreen title: THE MAIN ATTRACTION
@@ -431,44 +537,6 @@ Portrait: jay | Expression: neutral
 You’re blocking the exit.
 
 Portrait: franklin | Expression: neutral
-
-## END OF REEL
-
-Scene boss-projection-defeat | Onscreen title: END OF REEL
-
-When all three projection circuits have been disabled. The cinema boss must also be defeated to leave.
-
-Setting: Palace Cinema | Music: current stage
-
-### Beat 01 booth shutdown
-
-boss-projection-defeat/booth-shutdown | Automatic advance after 1.2s; earliest advance 1s.
-
-*Selected player: idle; the projection booths go dark; sound cue: slam.*
-
-No spoken dialogue.
-
-Destination: BOOTH POWER / OFF
-
-### Beat 02
-
-boss-projection-defeat/beat-02 | Player advances; earliest advance 0.22s.
-
-*Selected player: v10 point; the projection booths go dark.*
-
-**JAY / Jay route**
-
-That’s enough audience participation.
-
-Portrait: jay | Expression: neutral
-
-**FRANKLIN / Franklin route**
-
-This isn't my house.
-
-Portrait: franklin | Expression: neutral
-
-Destination: BOOTH POWER / OFF
 
 ## THE CREDITS
 
@@ -974,54 +1042,6 @@ Portrait: franklin | Expression: neutral
 
 Caption: MARTY IS SAFE. THE BROADCAST IS OFF. NEW YORK GETS ITS REALITY BACK.
 
-## Projection booth encounter introduction
-
-Scene boss-projection-intro | Onscreen title: THE PROJECTION BOOTH
-
-When the player reaches the Palace movie-screen encounter area.
-
-Setting: Palace Cinema | Music: current stage
-
-### Beat 01 booth eyes
-
-boss-projection-intro/booth-eyes | Automatic advance after 1.3s; earliest advance 1.1s.
-
-*Selected player: idle; eyes move in the dark projection booth.*
-
-No spoken dialogue.
-
-### Beat 02 booth light
-
-boss-projection-intro/booth-light | Automatic advance after 1s; earliest advance 0.9s.
-
-*Selected player: idle; the booth light reveals the projectionist; sound cue: swish.*
-
-PROJECTIONIST portrait; silent reveal.
-
-Portrait: projectionist | Expression: neutral
-
-No spoken dialogue.
-
-### Beat 03
-
-boss-projection-intro/beat-03 | Player advances; earliest advance 0.22s.
-
-*Selected player: idle; the booth light reveals the projectionist.*
-
-**JAY / Jay route**
-
-Three circuits. Three remotes. At least this theater has an off switch.
-
-Portrait: jay | Expression: neutral
-
-**FRANKLIN / Franklin route**
-
-Lights first. Then the exit.
-
-Portrait: franklin | Expression: neutral
-
-Objective: DODGE REELS — SMASH THE THROWN RADIO
-
 ## Unlock and results text
 
 Franklin unlocks when Jay defeats him and leaves Stage 4 without dying during that attempt. Franklin’s own route uses Shermometer v3 in Stage 4. Existing profiles retain their unlock; results do not announce it as a new reward again.
@@ -1108,4 +1128,4 @@ Story lines and staging are authored in data/cutscenes.js. Stage and boss trigge
 
 Use the scene and beat identifiers when returning revisions. Replace the spoken line under the appropriate route; shared lines affect both characters. The seven approved opening lines are preserved exactly.
 
-Source fingerprint: 6c6dcfbb1217f832
+Source fingerprint: 674c9c4788439716

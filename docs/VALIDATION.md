@@ -6,7 +6,7 @@ Baseline: `8757424f41b7f7cc9a3eebaa927298473988d56b`. Local deterministic covera
 `python3 tests/v11-assets.test.py`
 `python3 tests/v11-presentation-browser.test.py --engine chromium --url local` (remote browser runner; repeat Firefox/WebKit).
 
-Source CI and deployed HTTPS testing remain separate. Physical phone observations are not inferred from these tests.
+Source CI passed Core and all three engines: https://github.com/cattownfilms/the-critic-city-run/actions/runs/37742777465. Deployed HTTPS testing remains a separate post-merge gate. Physical phone observations are not inferred from these tests.
 
 ## Historical validation
 
