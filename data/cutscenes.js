@@ -124,6 +124,8 @@ scenes['stage-07-intro'].shots.push({id:'cart-release',auto:1.2,minTime:1.1,acto
 scenes['stage-07-intro'].shots.push({id:'duke-to-controls',auto:1.6,minTime:1.5,actors:[hero(265,{face:1}),duke(638,{animation:'walk',motion:move(638,850,1.5)}),boy(792)],cage:cage(792),powered:true});
 for(const shot of scenes['boss-broadcast-intro'].shots)for(const a of shot.actors||[])if(a.character==='duke')a.worldY=324;
 for(const a of scenes['stage-07-intro'].shots.at(-1).actors)if(a.character==='duke')a.worldY=324;
+const broadcastBoast=scenes['boss-broadcast-intro'].shots.find(s=>s.speaker==='DUKE');
+broadcastBoast.routeDialogue={franklin:{speaker:'DUKE',dialogue: 'Look at those screens, Franklin. Everybody’s finally watching me.'}};
 // Fixed background marks are shared by the machine scene and its physical handoff.
 scenes['boss-broadcast-intro'].shots.unshift({id:'control-marks',auto:2.5,minTime:2.4,actors:[hero(280),duke(638),boy(792)],cage:cage(792)});
 for(const id of ['boss-broadcast-intro','boss-broadcast-defeat','boss-duke-intro','boss-duke-defeat'])for(const shot of scenes[id].shots){

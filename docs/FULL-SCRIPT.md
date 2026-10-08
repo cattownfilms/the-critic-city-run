@@ -794,9 +794,15 @@ boss-broadcast-intro/beat-02 | Player advances; earliest advance 0.22s.
 
 *Selected player: idle; Duke: attack; Marty: v11 captive idle; Marty is confined in the cage; broadcast monitors are powered; alarms pulse.*
 
-**DUKE**
+**DUKE / Jay route**
 
 Look at those screens, Jay. Everybody’s finally watching me.
+
+Portrait: duke | Expression: smug
+
+**DUKE / Franklin route**
+
+Look at those screens, Franklin. Everybody’s finally watching me.
 
 Portrait: duke | Expression: smug
 
@@ -1142,4 +1148,4 @@ Story lines and staging are authored in data/cutscenes.js. Stage and boss trigge
 
 Use the scene and beat identifiers when returning revisions. Replace the spoken line under the appropriate route; shared lines affect both characters. The seven approved opening lines are preserved exactly.
 
-Source fingerprint: a01b096df4b00d2d
+Source fingerprint: 28574b563763f57d
