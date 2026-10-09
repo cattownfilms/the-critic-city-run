@@ -173,7 +173,7 @@ with source_site(args.url) as url, sync_playwright() as pw:
         check('Skip during collapse releases the snapshot',page.evaluate('endingDone.length===1&&!__brawler.renderer().skylineSnapshot&&!__brawler.game.skyline'))
         for route in ['hero','franklin']:
             page.evaluate('''route=>{const g=__brawler.game;g.stage=6;g.playerKind=route;g.resetWorld();g.makePlayer();
-              g.dukeDefeated=g.machineDefeated=true;g.finalPhase='resolved';g.mode='play';g.score=1234;
+              g.bossDefeated=g.dukeDefeated=g.machineDefeated=true;g.finalPhase='resolved';g.mode='play';g.score=1234;
               g.advanceStage();for(const event of g.drain())__brawler.handleEvent(event);}''',route)
             wait_scene(page)
             page.evaluate('const s=__brawler.scenes();s.index=s.shots.length-1;s._shot()')

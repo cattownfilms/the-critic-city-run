@@ -311,7 +311,7 @@
     "tests/browser_support.py": "c4ad4be3e9d5996a52b65408762de3fce3d6bb3a836d06d8661d5f62232bf704",
     "tests/campaign-browser.test.py": "5e0cf800923172b4c89438ff4d77495ba38de4f5f25430fff86e507bf0d805a1",
     "tests/campaign-engine.test.js": "e29336a58e2dc0fdaa194e5334fa3717d5671bad159e685fab6cfa6efa97d1e4",
-    "tests/cinematic-browser.test.py": "11f6250362bb94ba076980b323c0fb03f20fe58f0e5e4e6270d3fe1529f5de2d",
+    "tests/cinematic-browser.test.py": "ae15b20aad1e13dfd1bd5c010185c8837139f74749a42cf1cc3818b6edd97971",
     "tests/cinematic-camera.test.js": "c901c6889e8813a051776b8226411ca51462ac993b54169fca04927c2be27bd4",
     "tests/cutscenes-v7.test.js": "7f84ffffd1d057e47226af192edc92c59fdbee9445035e75d1e8991406af112a",
     "tests/engine.test.js": "abb7378701b1bc3b602a0ab2f32c3ab07b675d450a023be9eb6ca7b3259e58d8",
