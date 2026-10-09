@@ -1,3 +1,7 @@
+# Cinematic refinement validation
+
+Current focused results: [source run](https://github.com/cattownfilms/the-critic-city-run/actions/runs/37887819166). Source scenes 69, refinement 39, offline endings 35, Chromium audio 16; zero failures. Local camera 7, affected encounter 7, audio lifecycle 10 and scene contracts passed. See [camera decisions](CINEMATIC-CAMERA.md). Public deployment verification is recorded separately in the external release receipt. Historical results below do not substitute for this run.
+
 # Annotated polish validation
 
 See [the focused correction ledger](V11-ANNOTATED-POLISH.md) for commands, evidence and the missing ending-source blocker. Earlier full-matrix results below are historical, not patch validation.

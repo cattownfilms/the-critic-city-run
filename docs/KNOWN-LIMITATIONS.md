@@ -1,3 +1,7 @@
+# Current cinematic refinement
+
+Validated in Chromium at Android-sized landscape/portrait viewports and in the standalone build. No physical Android speaker/touch/Gamepad check or new Firefox/WebKit run is claimed. Canvas retention was verified at the Little Italy handoff; the exact original recording was not replayed during this pass. Existing collapse footage and all source assets are unchanged.
+
 # Cinematic update boundaries
 
 The later supplied `28384691-7314-4ebe-9c69-058133be8d2f.mp4` resolves the earlier missing-ending-media blocker. Its collapse frames are integrated as predecoded WebP atlases. Focused browser results do not establish physical Android speaker output, hardware controller behavior or subjective motion comfort. See [camera documentation](CINEMATIC-CAMERA.md).

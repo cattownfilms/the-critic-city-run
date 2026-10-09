@@ -14,7 +14,7 @@ class Renderer{
  // Optional scene art loads independently of the combat banks. A delayed or unavailable
  // illustration leaves an authored geometry backdrop visible rather than a blank scene.
  artwork(name){if(this.art.has(name))return this.art.get(name);this.art.set(name,null);const inline=root.BRAWLER_ASSETS,src=inline?inline.files?.[name]:(root.BRAWLER_CONFIG?.assetBase||'assets/')+name;if(!src)return null;const im=new Image();im.onload=()=>this.art.set(name,im);im.onerror=()=>this.art.set(name,false);im.src=src;return null;}
- resize(){const w=innerWidth,h=innerHeight;this.dpr=Math.min(devicePixelRatio||1,2);this.c.width=Math.round(w*this.dpr);this.c.height=Math.round(h*this.dpr);this.c.style.width=w+'px';this.c.style.height=h+'px';if(w>h){this.rect={x:0,y:0,scale:h/540,w:w/h*540,h:540};}else{const s=w/760;this.rect={x:0,y:Math.max(96,(h-215-540*s)/2),scale:s,w:760,h:540};}return this.rect;}
+ resize(){const w=innerWidth,h=innerHeight;this.dpr=Math.min(devicePixelRatio||1,2);const cw=Math.round(w*this.dpr),ch=Math.round(h*this.dpr);if(this.c.width!==cw||this.c.height!==ch){this.c.width=cw;this.c.height=ch;}this.c.style.width=w+'px';this.c.style.height=h+'px';if(w>h){this.rect={x:0,y:0,scale:h/540,w:w/h*540,h:540};}else{const s=w/760;this.rect={x:0,y:Math.max(96,(h-215-540*s)/2),scale:s,w:760,h:540};}return this.rect;}
  makeCity(stage){this.area=stage;if(stage>=4){this.frontSize=null;this.makeInterior(stage);return;}this.makeDistrict(stage);}
  makeDistrict(stage){
   const width=LENGTH+800,p=PALETTES[stage],r=rnd(9137+stage*23);this.frontSize={w:width,h:350};
@@ -394,10 +394,24 @@ class Renderer{
   if(!this.skylineSnapshot){const r=this.rect;this.skylineSnapshot=canvas(w,540);this.skylineSnapshot.getContext('2d').drawImage(this.c,r.x*this.dpr,r.y*this.dpr,w*r.scale*this.dpr,540*r.scale*this.dpr,0,0,w,540);}
   const first=s.images.get('story/skyline/collapse-01.webp');
   const frame=im?.naturalWidth?im:first;if(!frame?.naturalWidth)return; // Keep the last world image, never a black frame.
-  const fi=frame===im?index%16:0,zoom=s.reduced?1:3-2*ease,dw=w*zoom,dh=dw*9/16,dx=w*.25-dw*.25,dy=270-dh*.50;
+  // Register the room to one upper-floor window of the left tower in frame 0.
+  // One continuous transform pulls the room, frame and facade into the skyline.
+  const fi=frame===im?index%16:0,zoom=s.reduced?1:Math.exp(Math.log(125)*(1-ease)),dw=w*zoom,dh=dw*9/16;
+  const focusX=w*.221,focusY=270+w*9/16*(.40-.5),cx=w/2+(focusX-w/2)*ease,cy=270+(focusY-270)*ease;
+  const dx=cx-dw*.221,dy=cy-dh*.40;
   c.save();rect(c,0,0,w,540,'#111724');c.drawImage(frame,(fi%4)*640,Math.floor(fi/4)*360,640,360,dx,dy,dw,dh);
-  if(u<1){const shrink=s.reduced?1:1-.94*ease,sw=w*shrink,sh=540*shrink;c.globalAlpha=1-ease;c.drawImage(this.skylineSnapshot,w*.25-sw*.25,270-sh*.5,sw,sh);}
-  c.restore();g.skyline.frame=index;g.skyline.progress=ease;
+  if(u<1){
+   const sw=s.reduced?w:dw*.008,sh=sw*540/w,x=cx-sw/2,y=cy-sh/2;
+   c.globalAlpha=s.reduced?1-ease:clamp((1-ease)*8,0,1);
+   rect(c,x-sw*.055,y-sh*.09,sw*1.11,sh*1.18,'#9b9983');
+   rect(c,x-sw*.02,y-sh*.035,sw*1.04,sh*1.07,'#292f32');
+   c.drawImage(this.skylineSnapshot,x,y,sw,sh);
+   // Recessed jambs, lintel and sill remain attached to the same window.
+   rect(c,x-sw*.035,y-sh*.06,sw*1.07,sh*.04,'#cec5a3');
+   rect(c,x-sw*.04,y+sh,sw*1.08,sh*.055,'#c5b998');
+   for(const side of [-1,1]){const px=cx+side*sw*.57;rect(c,px,y-sh*.5,sw*.025,sh*2.5,'#a6a48e');}
+  }
+  c.restore();g.skyline.frame=index;g.skyline.progress=ease;g.skyline.window={x:cx,y:cy,width:dw*.008,zoom};
  }
 }
 root.CityRenderer=Renderer;

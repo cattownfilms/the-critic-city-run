@@ -18,8 +18,8 @@ const openingFormation=[{x:400,y:338,scale:.83,approach:45},{x:464,y:306,scale:.
 const openingEmissions=cast.map((character,i)=>{const f=openingFormation[i];return {id:'attraction-'+i,character,screen:i,start:i*.37,duration:1.1,toX:f.x,toY:f.y,scale:f.scale,face:-1,animation:'walk',approach:{toX:f.x-f.approach,duration:1.45}};});
 const openingBase=[actor('jay','hero',260,318,{image:'cutscenes/jay-seated.webp',imageHeight:224,imagePivot:{x:128,y:208}}),duke(610),actor('ally','franklin',145,318,{routes:['franklin'],face:1,scale:.96})];
 const revealed=[actor('jay','hero',270,318,{animation:'hurt'}),duke(610),boy(822,{lookAt:'jay'}),actor('ally','franklin',145,318,{routes:['franklin'],face:1,scale:.96})];
-const chase=(id,title,environment,destination,jay,franklin)=>({id,title,environment,destination,shots:[
- {id:'transport',cartCoupled:true,auto:3.6,minTime:3.5,actors:[duke(250,{animation:'v11-cart-push',motion:move(250,1080,3.5)}),boy(360,{motion:move(360,1190,3.5)})],cage:cage(360,{carried:true,motion:move(360,1190,3.5)}),destination},
+const chase=(id,title,environment,destination,jay,franklin)=>({id,title,environment,destination,stationaryOpening:true,shots:[
+ {id:'transport',awaitExit:true,cartCoupled:true,auto:3.6,minTime:3.5,actors:[duke(250,{animation:'v11-cart-push',motion:move(250,1080,3.5)}),boy(360,{motion:move(360,1190,3.5)})],cage:cage(360,{carried:true,motion:move(360,1190,3.5)}),destination},
  {id:'pursuit-entry',auto:1.55,minTime:1.5,actors:[hero(-110,{animation:'v10-run-in',motion:move(-110,285,1.5),afterAnimation:'v10-stop',after:1.35})]},
  route(jay,franklin,{actors:[hero(285,{animation:'v10-point',face:1})]})
  ]});
@@ -53,7 +53,7 @@ const scenes={
  'boss-projection-intro':{id:'boss-projection-intro',title:'THE PROJECTION BOOTH',environment:'cinema',shots:[
   {id:'booth-eyes',auto:1.3,minTime:1.1,actors:[hero(260)],booth:{phase:'shadow',active:1},circuits:undefined},
   {id:'booth-light',portrait:'projectionist',speaker:'PROJECTIONIST',auto:1,minTime:.9,actors:[hero(260)],booth:{phase:'lit',active:1},circuits:undefined,sound:'swish'},
-  route('Three circuits. Three remotes. At least this theater has an off switch.','Lights first. Then the exit.',{actors:[hero(260)],booth:{phase:'lit',active:1},circuits:undefined,objective:'DODGE REELS — SMASH THE THROWN RADIO',expression:'focused'})
+  route('The remote to close the projection booth has to be around here somewhere...','Lights first. Then the exit.',{actors:[hero(260)],booth:{phase:'lit',active:1},circuits:undefined,objective:'DODGE REELS — SMASH THE THROWN RADIO',expression:'focused'})
  ]},
  'boss-projection-defeat':{id:'boss-projection-defeat',title:'END OF REEL',environment:'cinema',shots:[
   {id:'booth-shutdown',auto:2,minTime:1.9,actors:[hero(260)],booth:{phase:'off'},circuits:0,sound:'slam',destination:'BOOTH POWER / OFF'},
@@ -115,6 +115,10 @@ for(const scene of Object.values(scenes))for(const shot of scene.shots){
  if(shot.cage&&!shot.cage.open){const d=shot.actors?.find(a=>a.character==='duke'),m=shot.actors?.find(a=>a.character==='marty');if(d&&m&&(d.motion&&m.motion||scene.id==='stage-07-intro')){shot.cartCoupled=true;d.animation=d.motion?'v11-cart-push':'v11-cart-stop';m.animation='v11-captive-idle';}}
  if(scene.id==='ending')shot.reunionLayers=true;
 }
+// Keep the accepted studio blast and physical street landing, with the cart
+// clearing the stationary Broadway composition before the player arrives.
+scenes['stage-01-intro']=chase('stage-01-intro','BROADWAY','broadway','','','');
+scenes['stage-01-intro'].shots=scenes['stage-01-intro'].shots.slice(0,1);
 const cinemaPursuit=chase('cinema-pursuit','','cinema','SERVICE EXIT / LITTLE ITALY','','');
 // Move the existing route reaction to the screen-area encounter; retain its dialogue.
 scenes['boss-projection-intro'].shots.splice(2,0,scenes['stage-05-intro'].shots.at(-1));
@@ -124,6 +128,17 @@ scenes['stage-07-intro'].shots.push({id:'cart-release',auto:1.2,minTime:1.1,acto
 scenes['stage-07-intro'].shots.push({id:'duke-to-controls',auto:1.6,minTime:1.5,actors:[hero(265,{face:1}),duke(638,{animation:'walk',motion:move(638,850,1.5)}),boy(792)],cage:cage(792),powered:true});
 for(const shot of scenes['boss-broadcast-intro'].shots)for(const a of shot.actors||[])if(a.character==='duke')a.worldY=324;
 for(const a of scenes['stage-07-intro'].shots.at(-1).actors)if(a.character==='duke')a.worldY=324;
+// The opening holds its view until the cart has left, then the pursuer enters.
+// Broadcast dialogue is unchanged; the pair continue toward their background marks.
+const towerOpening=scenes['stage-07-intro'];
+towerOpening.stationaryOpening=true;
+towerOpening.shots.splice(0,1,...chase('tower-pursuit','','broadcast','','','').shots.slice(0,2));
+for(const shot of towerOpening.shots.slice(2)){
+ shot.cartCoupled=false;delete shot.cage;
+ shot.actors=shot.actors.filter(a=>!['duke','marty'].includes(a.character));
+}
+towerOpening.shots=towerOpening.shots.filter(s=>!['cart-release','duke-to-controls'].includes(s.id));
+scenes['stage-05-intro'].stationaryOpening=true;
 const broadcastBoast=scenes['boss-broadcast-intro'].shots.find(s=>s.speaker==='DUKE');
 broadcastBoast.routeDialogue={franklin:{speaker:'DUKE',dialogue: 'Look at those screens, Franklin. Everybody’s finally watching me.'}};
 // Fixed background marks are shared by the machine scene and its physical handoff.
@@ -145,7 +160,7 @@ scenes['stage-02-intro'].shots[2].routeDialogue.hero.expression='smug';
 scenes['stage-03-intro'].shots[2].routeDialogue.hero.expression='worried';
 // Preserve the five accepted reunion beats; append only the requested realization/reveal.
 const skylinePages=Array.from({length:7},(_,i)=>'story/skyline/collapse-'+String(i+1).padStart(2,'0')+'.webp');
-scenes.ending.shots.push(dialogue('JAY',"Oh my God! What's that?!?",{id:'skyline-realization',portrait:'jay',expression:'shocked',actors:[...endingParty().map(a=>a.id==='jay'||a.routes?.includes('hero')?{...a,animation:'double-take'}:a),boy(350,{animation:'idle',y:318})],reunionLayers:true,minTime:1}));
+scenes.ending.shots.push(dialogue('JAY',"Oh my god, is that a plane?!? Hatchi Matchi!",{id:'skyline-realization',portrait:'jay',expression:'shocked',actors:[...endingParty().map(a=>a.id==='jay'||a.routes?.includes('hero')?{...a,animation:'double-take'}:a),boy(350,{animation:'idle',y:318})],reunionLayers:true,minTime:1}));
 scenes.ending.shots.push({id:'skyline-collapse',skyline:true,images:skylinePages,auto:7.2,minTime:7.2,actors:[]});
 
 // Still actors face their scene partner; moving actors derive travel direction.

@@ -1,3 +1,10 @@
+# V11 playtest cinematic refinement
+
+- Hold all seven opening cameras until Duke and the cart leave, then admit the selected player; preserve the Broadway landing.
+- Keep Broadcast transport physical and behind combat, and frame the Projectionist reveal without resetting dialogue pans.
+- Avoid canvas clearing on same-size scene handoffs; retain Little Italy artwork and palette.
+- Use the two requested dialogue replacements and a continuous upper-floor-window skyline pullback. Preserve collapse frames, machine destruction, Duke defeat, reunion, saves and gameplay.
+
 # V11 cinematic update
 
 - Ease cinematic reframing across the seven stages while retaining world coordinates and gameplay follow.

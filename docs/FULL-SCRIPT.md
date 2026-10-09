@@ -440,7 +440,7 @@ boss-projection-intro/beat-04 | Player advances; earliest advance 0.22s.
 
 **JAY / Jay route**
 
-Three circuits. Three remotes. At least this theater has an off switch.
+The remote to close the projection booth has to be around here somewhere...
 
 Portrait: jay | Expression: neutral
 
@@ -716,21 +716,27 @@ On entry to Stage 7, Broadcast Tower.
 
 Setting: Broadcast Tower | Music: current stage
 
-### Beat 01 last transport
+### Beat 01 transport
 
-stage-07-intro/last-transport | Automatic advance after 2.3s; earliest advance 2s.
+stage-07-intro/transport | Automatic advance after 3.6s; earliest advance 3.5s.
 
-*Duke: v11 cart push, moving right over 2.1s; Marty: v11 captive idle, moving right over 2.1s; Selected player: run, moving right over 1.5s; Duke transports Marty’s closed cage; alarms pulse.*
+*Duke: v11 cart push, moving right over 3.5s; Marty: v11 captive idle, moving right over 3.5s; Duke transports Marty’s closed cage.*
 
 No spoken dialogue.
 
-Destination: TRANSMISSION CORE
+### Beat 02 pursuit entry
 
-### Beat 02
+stage-07-intro/pursuit-entry | Automatic advance after 1.55s; earliest advance 1.5s.
 
-stage-07-intro/beat-02 | Player advances; earliest advance 0.22s.
+*Selected player: v10 run in, moving right over 1.5s, then v10 stop after 1.35s.*
 
-*Selected player: idle; Duke: v11 cart stop; Marty: v11 captive idle; Marty is confined in the cage; broadcast monitors are powered; alarms pulse.*
+No spoken dialogue.
+
+### Beat 03
+
+stage-07-intro/beat-03 | Player advances; earliest advance 0.22s.
+
+*Selected player: idle; broadcast monitors are powered; alarms pulse.*
 
 **DUKE**
 
@@ -738,11 +744,11 @@ You want Marty? Come and get him.
 
 Portrait: duke | Expression: neutral
 
-### Beat 03
+### Beat 04
 
-stage-07-intro/beat-03 | Player advances; earliest advance 0.22s.
+stage-07-intro/beat-04 | Player advances; earliest advance 0.22s.
 
-*Selected player: v10 point; Duke: v11 cart stop; Marty: v11 captive idle; Marty is confined in the cage; broadcast monitors are powered; alarms pulse.*
+*Selected player: v10 point; broadcast monitors are powered; alarms pulse.*
 
 **JAY / Jay route**
 
@@ -755,22 +761,6 @@ Portrait: jay | Expression: neutral
 Step away from my grandson, Duke.
 
 Portrait: franklin | Expression: neutral
-
-### Beat 04 cart release
-
-stage-07-intro/cart-release | Automatic advance after 1.2s; earliest advance 1.1s.
-
-*Selected player: idle; Duke: v11 cart release; Marty: v11 worried look; Marty is confined in the cage.*
-
-No spoken dialogue.
-
-### Beat 05 duke to controls
-
-stage-07-intro/duke-to-controls | Automatic advance after 1.6s; earliest advance 1.5s.
-
-*Selected player: idle; Duke: walk, moving right over 1.5s; Marty: v11 captive idle; Marty is confined in the cage; broadcast monitors are powered.*
-
-No spoken dialogue.
 
 ## THE FINAL BROADCAST
 
@@ -1074,13 +1064,29 @@ ending/skyline-realization | Player advances; earliest advance 1s.
 
 **JAY**
 
-Oh my God! What's that?!?
+Oh my god, is that a plane?!? Hatchi Matchi!
 
 Portrait: jay | Expression: shocked
 
 ### Beat 07 skyline collapse
 
 ending/skyline-collapse | Automatic advance after 7.2s; earliest advance 7.2s.
+
+No spoken dialogue.
+
+## BROADWAY
+
+Scene stage-01-intro | Onscreen title: BROADWAY
+
+At the corresponding authored story event.
+
+Setting: Broadway | Music: current stage
+
+### Beat 01 transport
+
+stage-01-intro/transport | Automatic advance after 3.6s; earliest advance 3.5s.
+
+*Duke: v11 cart push, moving right over 3.5s; Marty: v11 captive idle, moving right over 3.5s; Duke transports Marty’s closed cage.*
 
 No spoken dialogue.
 
@@ -1170,4 +1176,4 @@ Story lines and staging are authored in data/cutscenes.js. Stage and boss trigge
 
 Use the scene and beat identifiers when returning revisions. Replace the spoken line under the appropriate route; shared lines affect both characters. The seven approved opening lines are preserved exactly.
 
-Source fingerprint: 24e40671ea867ba9
+Source fingerprint: 08c500344182d28f

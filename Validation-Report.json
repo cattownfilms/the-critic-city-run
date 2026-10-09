@@ -7,7 +7,12 @@
     "localAudioLifecycle": "10 passed",
     "localAffectedEncounters": "7 passed",
     "testedSourceCommit": "f3ae1133cb073d818a1e96e7fdb51ebf5b062011",
-    "browserValidation": {"chromiumScenes": 69, "chromiumOffline": 35, "chromiumAudio": 16, "failed": 0},
+    "browserValidation": {
+      "chromiumScenes": 69,
+      "chromiumOffline": 35,
+      "chromiumAudio": 16,
+      "failed": 0
+    },
     "sourceRun": "https://github.com/cattownfilms/the-critic-city-run/actions/runs/37871929298",
     "publication": "Source gate passed; deployment and public HTTP/browser results recorded in external release receipt after merge",
     "physicalAndroid": "not performed",
@@ -1188,5 +1193,27 @@
     "endingSting": "blocked: three exact reference files unavailable; approved reunion/results preserved",
     "publication": "verify separately in external receipt",
     "ledger": "docs/V11-ANNOTATED-POLISH.md"
+  },
+  "cinematicRefinement": {
+    "build": "v11-refinement-20261009",
+    "baseline": "3d0a366c96aacb32b480d4803d8db68c9b782c02",
+    "testedSourceCommit": "3c842a4",
+    "sourceRun": "https://github.com/cattownfilms/the-critic-city-run/actions/runs/37887819166",
+    "local": {
+      "camera": 7,
+      "affectedEncounters": 7,
+      "audioLifecycle": 10,
+      "cutsceneContracts": "passed"
+    },
+    "browser": {
+      "sourceScenes": 69,
+      "refinement": 39,
+      "offlineEnding": 35,
+      "nativeAudio": 16,
+      "failed": 0
+    },
+    "preservation": "Assets, combat/encounter engine, campaign, machine/Duke defeat scenes and first five reunion beats match baseline",
+    "publication": "Public Pages and hosted browser validation are recorded in the external receipt after merge",
+    "physicalAndroid": "not performed"
   }
 }

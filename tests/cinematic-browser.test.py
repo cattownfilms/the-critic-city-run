@@ -148,7 +148,7 @@ with source_site(args.url) as url, sync_playwright() as pw:
                     break
                 page.wait_for_timeout(400)
                 page.locator('#sceneAdvance').tap()
-            check(route+' Jay delivers the realization after reunion', page.evaluate('''__brawler.scenes().shot.id==='skyline-realization'&&__brawler.scenes().shot.speaker==='JAY'&&__brawler.scenes().shot.dialogue==="Oh my God! What's that?!?"'''))
+            check(route+' Jay delivers the realization after reunion', page.evaluate('''__brawler.scenes().shot.id==='skyline-realization'&&__brawler.scenes().shot.speaker==='JAY'&&__brawler.scenes().shot.dialogue==="Oh my god, is that a plane?!? Hatchi Matchi!"'''))
             page.screenshot(path=str(photos/f'{route}-cinematic-reunion.png'))
             page.wait_for_timeout(1050)
             page.locator('#sceneAdvance').tap()

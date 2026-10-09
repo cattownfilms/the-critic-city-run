@@ -575,6 +575,7 @@ class CinematicCamera {
  constructor(x=0,y=0,zoom=1){this.pose={x,y,zoom};this.active=false;this.key=null;}
  shot(key,target,{duration,reduced=false,onComplete}={}){
   if(key===this.key)return;
+  if(this.target&&['x','y','zoom'].every(k=>(target[k]??this.pose[k])===this.target[k])){this.key=key;return;}
   this.key=key;this.from={...this.pose};this.target={...this.pose,...target};
   const distance=Math.hypot(this.target.x-this.pose.x,this.target.y-this.pose.y);
   this.duration=reduced?.12:(duration??clamp(.35+distance/480,.35,1.65));
