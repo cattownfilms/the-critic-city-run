@@ -346,7 +346,7 @@ class Renderer{
   for(const a of g.storyActors||[])if(a.backdrop&&this.available(a.kind,a.anim)){
    // Cage y is its deck. Duke stands on the wheel-contact floor, not on the deck.
    // Button art already has a registered foot pivot; its stand must not shift him.
-   const floor=a.kind==='duke'&&receiverBackground?g.storyCage.y+26*(g.storyCage.scale||1):a.y;
+   const floor=a.kind==='duke'&&receiverBackground?a.y+26*(g.storyCage.scale||1)*clamp((350-a.y)/45,0,1):a.y;
    this.backgroundActorPoses.push({kind:a.kind,x:a.x,y:floor,animation:a.anim,scale:a.renderScale||1});
    if(a.kind==='duke')this.shadow(c,a.kind,a.anim,a.x-g.camera,floor,a.face,a.animT,a.animDuration,a.renderScale||1,0,.25);
    this.sprite(c,a.kind,a.anim,a.x-g.camera,floor,a.face,a.animT,a.animDuration,{scale:a.renderScale||1});
