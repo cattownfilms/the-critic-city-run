@@ -6,8 +6,10 @@
     "localCameraTests": "4 passed",
     "localAudioLifecycle": "10 passed",
     "localAffectedEncounters": "7 passed",
-    "browserValidation": "pending focused CI",
-    "publication": "gated on focused CI and verified Pages deployment",
+    "testedSourceCommit": "f3ae1133cb073d818a1e96e7fdb51ebf5b062011",
+    "browserValidation": {"chromiumScenes": 69, "chromiumOffline": 35, "chromiumAudio": 16, "failed": 0},
+    "sourceRun": "https://github.com/cattownfilms/the-critic-city-run/actions/runs/37871929298",
+    "publication": "Source gate passed; deployment and public HTTP/browser results recorded in external release receipt after merge",
     "physicalAndroid": "not performed",
     "documentation": "docs/CINEMATIC-CAMERA.md"
   },

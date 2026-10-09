@@ -24,4 +24,10 @@ The skyline is a shrinking world-frame composite into decoded frames from the su
 
 ## Verification
 
-Local camera interpolation, audio lifecycle and affected encounter tests pass. The browser suite samples each affected scene in landscape and portrait, checks bounds and continuity, Receiver descent and destruction depth, both route endings, pause/skip, reduced motion and actual saved completion. Final browser/deployment evidence is recorded after validation; physical Android speaker, touch and controller observations remain user-side.
+Local camera interpolation (4), audio lifecycle (10) and affected encounter checks (7) pass. The [final source run](https://github.com/cattownfilms/the-critic-city-run/actions/runs/37871929298) passes 69 Chromium scene checks, 35 standalone checks and 16 native browser audio checks with zero failures. These overlapping runs are reported separately. Runtime source SHA: `f3ae1133cb073d818a1e96e7fdb51ebf5b062011`.
+
+The browser suite samples each affected scene at 915×412 and 412×915, checks camera bounds and continuity, Receiver descent and destruction depth, both route endings, pause/skip, desktop reduced motion and actual saved completion. Screenshots were reviewed, including Duke's corrected background mark beside the Receiver. The source-frame skyline animation reaches its final smoke state, and watched/skip paths both preserve the schema-5 completion save and reward.
+
+The nine source modules and seven new atlas pages match the standalone payload. The launcher embeds that exact HTML. Existing character banks, media recordings, combat definitions and save keys remain unchanged. The only engine camera-target adjustment frames the machine and player together during the already-scripted destruction.
+
+Public deployment and HTTPS/browser verification are separate post-merge gates in the external release receipt. Physical Android speaker output, touch, controller hardware and subjective motion comfort remain user-side. Firefox/WebKit were not rerun for this focused patch.
