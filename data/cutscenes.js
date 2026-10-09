@@ -51,7 +51,7 @@ const scenes={
   route("That's one very hostile projectionist.","This looks like a job for the robot puncher!",{actors:[hero(260)],booth:{phase:'lit',active:1},circuits:undefined,objective:'DODGE REELS — SMASH THE THROWN RADIO',expression:'focused',screenForeshadow:true})
  ]},
  'boss-projection-intro':{id:'boss-projection-intro',title:'THE PROJECTION BOOTH',environment:'cinema',shots:[
-  {id:'booth-eyes',auto:1.3,minTime:1.1,actors:[hero(260)],booth:{phase:'shadow',active:1},circuits:undefined},
+  {id:'booth-eyes',auto:1.3,minTime:1.1,awaitCamera:true,actors:[hero(260)],booth:{phase:'shadow',active:1},circuits:undefined},
   {id:'booth-light',portrait:'projectionist',speaker:'PROJECTIONIST',auto:1,minTime:.9,actors:[hero(260)],booth:{phase:'lit',active:1},circuits:undefined,sound:'swish'},
   route('The remote to close the projection booth has to be around here somewhere...','Lights first. Then the exit.',{actors:[hero(260)],booth:{phase:'lit',active:1},circuits:undefined,objective:'DODGE REELS — SMASH THE THROWN RADIO',expression:'focused'})
  ]},
@@ -65,7 +65,7 @@ const scenes={
   {id:'screen-shadow',auto:.45,minTime:.4,actors:[hero(235)],screenForeshadow:true,sound:'swish'},
   {id:'screen-emergence',auto:2.25,minTime:2.15,actors:[hero(235),actor('headliner','pizzeria-boss',635,318,{animation:'guard-reset',face:-1,scale:1.52,emerging:true})],screenForeshadow:false,flash:.12,sound:'slam'},
   dialogue('VIOLENT AUSTRIAN RABBI',"Welcome to your Bar Mitsfa. It's time to become a man. A dead man.",{portrait:'pizzeria',actors:[hero(235),actor('headliner','pizzeria-boss',635,318,{animation:'guard-reset',face:-1,scale:1.52})]}),
-  route('I usually leave before the credits.','You’re blocking the exit.',{actors:[hero(235),actor('headliner','pizzeria-boss',635,318,{face:-1,scale:1.52})]})
+  route('Is it too late to RSVP no?','You’re blocking the exit.',{actors:[hero(235),actor('headliner','pizzeria-boss',635,318,{face:-1,scale:1.52})]})
  ]},
  'boss-cinema-defeat':{id:'boss-cinema-defeat',title:'THE CREDITS',environment:'cinema',shots:[
   route("Finally! A believable performance.","23 Skidoo!!!",{actors:[hero(235),actor('headliner','pizzeria-boss',635,318,{animation:'death',face:-1,scale:1.52})]})
@@ -95,7 +95,7 @@ const scenes={
  ]},
  'boss-duke-intro':{id:'boss-duke-intro',title:'DUKE PHILLIPS',environment:'broadcast',shots:[
   dialogue('DUKE','You ruined my finale!',{portrait:'duke',expression:'angry',actors:[hero(280),duke(550,{animation:'lead-jab',face:-1,motion:move(605,550,.8)}),boy(792)],cage:cage(792),minTime:.8}),
-  route('Then come down here and finish it.','You don’t own me.',{actors:[hero(280,{animation:'guard'}),duke(550,{face:-1}),boy(792)],cage:cage(792)})
+  route('Duke, you kidnapped my son. What did you expect?','You don’t own me.',{actors:[hero(280,{animation:'guard'}),duke(550,{face:-1}),boy(792)],cage:cage(792)})
  ]},
  'boss-duke-defeat':{id:'boss-duke-defeat',title:'THE LAST WORD',environment:'broadcast',shots:[
   dialogue('DUKE','Fine! Take him!',{portrait:'duke',expression:'defeated',actors:[hero(280),duke(570,{animation:'v10-defeat',face:-1}),boy(792)],cage:cage(792),auto:1.8,minTime:1.5}),
@@ -160,10 +160,13 @@ for(const scene of Object.values(scenes))if(scene.id!=='opening')scene.worldStag
 scenes['stage-02-intro'].shots[2].routeDialogue.hero.expression='smug';
 scenes['stage-03-intro'].shots[2].routeDialogue.hero.expression='worried';
 // Preserve the five accepted reunion beats; append only the requested realization/reveal.
+for(const id of ['boss-cinema-intro','boss-broadcast-intro','boss-broadcast-defeat','boss-duke-intro'])for(const shot of scenes[id].shots){
+ if(shot.routeDialogue?.hero){shot.routeDialogue.hero.expression=id==='boss-duke-intro'?'angry':'smug';shot.jayPerformance='v10-point';}
+}
 const skylinePages=Array.from({length:7},(_,i)=>'story/skyline/collapse-'+String(i+1).padStart(2,'0')+'.webp');
-scenes.ending.shots.push(dialogue('JAY',"Oh my god, is that a plane?!? Hatchi Matchi!",{id:'skyline-realization',portrait:'jay',expression:'shocked',actors:[...endingParty().map(a=>a.id==='jay'||a.routes?.includes('hero')?{...a,animation:'double-take'}:a),boy(350,{animation:'idle',y:318})],reunionLayers:true,minTime:1}));
+scenes.ending.shots.push(dialogue('JAY',"Oh my god, is that a plane?!? Hatchi Matchi!",{id:'skyline-realization',jayPerformance:'double-take',portrait:'jay',expression:'shocked',actors:[...endingParty().map(a=>a.id==='jay'||a.routes?.includes('hero')?{...a,animation:'double-take'}:a),boy(350,{animation:'idle',y:318})],reunionLayers:true,minTime:1}));
 scenes.ending.shots.push({id:'skyline-collapse',skyline:true,images:skylinePages,auto:8.1,minTime:8.1,actors:[]});
-scenes.ending.shots.push({id:'ending-card',endingCard:true,skyline:true,images:skylinePages,caption:'Jay and Marty Sherman perished on September 11, 2001.\n\nNever forget.\n\nTHE END.',minTime:1,actors:[]});
+scenes.ending.shots.push({id:'ending-card',music:'ending',endingCard:true,skyline:true,images:skylinePages,caption:'Jay and Marty Sherman perished on September 11, 2001.\n\nNever forget.\n\nTHE END.',minTime:1,actors:[]});
 
 // Still actors face their scene partner; moving actors derive travel direction.
 for(const scene of Object.values(scenes))for(const shot of scene.shots)for(const a of shot.actors||[]){

@@ -542,9 +542,9 @@ boss-cinema-intro/beat-05 | Player advances; earliest advance 0.22s.
 
 **JAY / Jay route**
 
-I usually leave before the credits.
+Is it too late to RSVP no?
 
-Portrait: jay | Expression: neutral
+Portrait: jay | Expression: smug
 
 **FRANKLIN / Franklin route**
 
@@ -822,7 +822,7 @@ boss-broadcast-intro/beat-04 | Player advances; earliest advance 0.22s.
 
 It’s a bunch of TVs and a hostage, Duke. Nobody’s impressed.
 
-Portrait: jay | Expression: neutral
+Portrait: jay | Expression: smug
 
 **FRANKLIN / Franklin route**
 
@@ -870,7 +870,7 @@ boss-broadcast-defeat/beat-03 | Player advances; earliest advance 0.22s.
 
 You want somebody to blame? I’m right here.
 
-Portrait: jay | Expression: neutral
+Portrait: jay | Expression: smug
 
 **FRANKLIN / Franklin route**
 
@@ -914,9 +914,9 @@ boss-duke-intro/beat-03 | Player advances; earliest advance 0.22s.
 
 **JAY / Jay route**
 
-Then come down here and finish it.
+Duke, you kidnapped my son. What did you expect?
 
-Portrait: jay | Expression: neutral
+Portrait: jay | Expression: angry
 
 **FRANKLIN / Franklin route**
 
@@ -1188,4 +1188,4 @@ Story lines and staging are authored in data/cutscenes.js. Stage and boss trigge
 
 Use the scene and beat identifiers when returning revisions. Replace the spoken line under the appropriate route; shared lines affect both characters. The seven approved opening lines are preserved exactly.
 
-Source fingerprint: 28a5d1ed8b427616
+Source fingerprint: 426b727121717659
