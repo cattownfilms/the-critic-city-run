@@ -555,7 +555,7 @@ class Game{
   if(this.activeGate<0&&this.nextGate===3&&(p.x>LENGTH-150||STAGES[this.stage].boss&&this.bossDefeated)){this.advanceStage();}
   this.chooseAnimation(dt,machineExit&&p.run?1:mag);
   const lock=this.encounterCamera(),cameraMin=0,cameraMax=Math.max(0,LENGTH-this.viewWidth);
-  const aim=lock?.x??clamp(machineExit?2850-this.viewWidth:this.stage===6&&this.bossSpawned&&!this.machineDefeated?clamp(this.camera,p.x-this.viewWidth+100,p.x-100):p.x-this.viewWidth*.43+p.face*45,cameraMin,cameraMax),before=this.camera;
+  const aim=lock?.x??clamp(machineExit?Math.min(2850-this.viewWidth,p.x-160):this.stage===6&&this.bossSpawned&&!this.machineDefeated?clamp(this.camera,p.x-this.viewWidth+100,p.x-100):p.x-this.viewWidth*.43+p.face*45,cameraMin,cameraMax),before=this.camera;
   const desired=(aim-before)*(1-Math.exp(-5*dt))/Math.max(dt,.000001);
   if(this.cameraHandoff>0){this.cameraHandoff=Math.max(0,this.cameraHandoff-dt);this.cameraVelocity=lerp(this.cameraVelocity||0,desired,1-Math.exp(-18*dt));this.camera+=this.cameraVelocity*dt;}
   else this.camera=lerp(before,aim,1-Math.exp(-5*dt));
