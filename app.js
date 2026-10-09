@@ -301,9 +301,9 @@ function directWorldCamera(s,dt){
   const right=game.stage===4&&game.projection.active?Math.min(Brawler.LENGTH-width,game.projection.booths[Math.max(0,game.activeGate)].x-150):Brawler.LENGTH-width;
   cinematicCamera.shot(key,{x:Brawler.clamp(center-width/2,left,Math.max(left,right)),y:0,zoom:1},{reduced:settings.reducedMotion});
  }
- const expected=shot.actors?.some(a=>a.id==='player'&&!a.motion&&!a.hidden&&(!a.routes||a.routes.includes(game.playerKind)));
- s.reframePlayer=!!(expected&&!shot.reunionLayers&&!shot.skyline&&!shot.spikeTutorial&&!s.scene.stationaryOpening&&game.p.hp>0);
- if(s.reframePlayer&&cinematicCamera.active){const bounds=renderer.animationBounds(game.playerKind,Brawler.playerAnimation(game.playerKind,game.p.anim),game.p.face),target=cinematicCamera.target.x;if(bounds&&(game.p.x+bounds.minX*1.05<target+48||game.p.x+bounds.maxX*1.05>target+width-48))s.slowPanKey=key;if(s.slowPanKey===key){const maxSpeed=1.5*Math.abs(target-cinematicCamera.from.x)/cinematicCamera.duration+Math.abs(cinematicCamera.startVelocity||0);dt*=Math.min(1,280/Math.max(280,maxSpeed));}}
+ const expected=shot.actors?.find(a=>a.id==='player'&&!a.hidden&&(!a.routes||a.routes.includes(game.playerKind))),visibleExpected=!!(expected&&!shot.reunionLayers&&!shot.skyline&&!shot.spikeTutorial&&!s.scene.stationaryOpening&&shot.id!=='pursuit-entry'&&game.p.hp>0);
+ s.reframePlayer=visibleExpected&&!expected.motion;s.followAuthoredPlayer=visibleExpected&&!!expected.motion;
+ if((s.reframePlayer||s.followAuthoredPlayer)&&cinematicCamera.active){const bounds=renderer.animationBounds(game.playerKind,Brawler.playerAnimation(game.playerKind,game.p.anim),game.p.face),target=cinematicCamera.target.x;if(bounds&&(game.p.x+bounds.minX*1.05<target+48||game.p.x+bounds.maxX*1.05>target+width-48))s.slowPanKey=key;if(s.slowPanKey===key){const maxSpeed=1.5*Math.abs(target-cinematicCamera.from.x)/cinematicCamera.duration+Math.abs(cinematicCamera.startVelocity||0);dt*=Math.min(1,280/Math.max(280,maxSpeed));if(s.followAuthoredPlayer&&s.time<(expected.motion.start||0))dt=0;}}
  const previousPose=game.camera;game.camera=cinematicCamera.update(dt).x;if(renderDt>0)cinematicCamera.velocity=(game.camera-previousPose)/renderDt;game.cameraVelocity=cinematicCamera.velocity;game.cameraTrace={owner:'cinematic',target:cinematicCamera.target?.x,origin:renderer.lastView?.camera};
  s.cameraState={...cinematicCamera.pose,active:cinematicCamera.active,target:{...cinematicCamera.target}};
 }
@@ -385,6 +385,7 @@ function drawWorldScene(s){
    if(game.stage===6&&['duke','marty'].includes(who)){body.backdrop=targetY<350||body.y<350;body.renderScale=(who==='duke'?1.18:1)*(.63+.37*Brawler.clamp((body.y-305)/102,0,1));}
    if(moving)body.anim=s.shot.cartCoupled&&who==='duke'?'v11-cart-push':s.shot.cartCoupled&&who==='marty'?'v11-captive-idle':who==='spike'?'v10-walk':who==='marty'?'run':isPlayer&&s.shot.id==='pursuit-entry'?'v10-run-in':m?.duration<1.6?'run':'walk';
    else{body.anim=a.animation||'idle';if(m)body.anim=isPlayer?'v10-stop':s.shot.cartCoupled&&who==='duke'?'v11-cart-stop':s.shot.cartCoupled&&who==='marty'?'v11-captive-idle':'idle';if(a.face)body.face=a.face;else if(isPlayer)body.face=1;else if(['duke','spike','pizzeria-boss','marty'].includes(who))body.face=game.p.x<body.x?-1:1;}
+   if(isPlayer&&moving&&s.followAuthoredPlayer&&cinematicCamera?.active)body.anim='run';
    if(isBoss&&body.hp<=0)body.anim=who==='duke'?'v10-defeat':'death';
    const held=['death','v10-defeat'].includes(body.anim);body.animT=held?10:s.time;body.animDuration=held?(who==='duke'?3:1.7):moving&&body.anim==='v10-run-in'?(m?.duration||1.5):0;
    if(isPlayer){body.vx=body.vy=0;body.action=null;}
