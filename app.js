@@ -294,12 +294,10 @@ function directWorldCamera(s,dt){
    return shot.dialogue&&!a.motion&&body?body.x:a.worldX??s.scene.worldOrigin+(a.motion?.toX??a.x)*s.scene.worldScale;
   }).filter(Number.isFinite);
   let center=marks.length?(Math.min(...marks)+Math.max(...marks))/2:game.p.x+width*.07;
-  if(s.scene.id==='boss-projection-intro'&&game.stage===4){const booth=game.projection.booths[Math.max(0,game.activeGate)];center=Math.min(booth.x+width*.18,game.p.x+width/2-80);}
-  if(s.scene.id==='boss-cinema-intro')center=(game.p.x+2450)/2;
+  if(s.scene.id==='boss-cinema-intro')center=s.scene.cinemaCamera+width/2;
   if(s.scene.id==='boss-broadcast-intro')center=2450;
-  const left=game.stage===4&&game.projection.active&&game.activeGate>=0?Math.min(Math.max(0,Brawler.GATES[game.activeGate]-315),Math.max(0,Brawler.LENGTH-width)):0;
-  const right=game.stage===4&&game.projection.active?Math.min(Brawler.LENGTH-width,game.projection.booths[Math.max(0,game.activeGate)].x-150):Brawler.LENGTH-width;
-  cinematicCamera.shot(key,{x:Brawler.clamp(center-width/2,left,Math.max(left,right)),y:0,zoom:1},{reduced:settings.reducedMotion});
+  const target=game.encounterCamera(width)?.x??Brawler.clamp(center-width/2,0,Math.max(0,Brawler.LENGTH-width));
+  cinematicCamera.shot(key,{x:target,y:0,zoom:1},{reduced:settings.reducedMotion});
  }
  const expected=shot.actors?.find(a=>a.id==='player'&&!a.hidden&&(!a.routes||a.routes.includes(game.playerKind))),visibleExpected=!!(expected&&!shot.reunionLayers&&!shot.skyline&&!shot.spikeTutorial&&!s.scene.stationaryOpening&&shot.id!=='pursuit-entry'&&game.p.hp>0);
  s.reframePlayer=visibleExpected&&!expected.motion;s.followAuthoredPlayer=visibleExpected&&!!expected.motion;
@@ -316,6 +314,7 @@ function beginWorldScene(scene){
  if(!cinematicAnchor||cinematicAnchor.stage!==game.stage)cinematicAnchor={stage:game.stage,x:game.camera,scale:game.viewWidth/960};
  scene.worldOrigin=cinematicAnchor.x;scene.worldScale=cinematicAnchor.scale;
  scene.openingCamera=displayedCamera;
+ if(scene.id==='boss-cinema-intro'){scene.cinemaCamera=Brawler.clamp(2450-game.viewWidth*.66,0,Math.max(0,Brawler.LENGTH-game.viewWidth));for(const shot of scene.shots)for(const a of shot.actors||[])if(a.id==='player'){a.worldX=scene.cinemaCamera+game.viewWidth*.23;a.face=1;}}
  if(scene.id==='stage-07-intro')game.backgroundTransport=false;
  if(scene.id==='boss-broadcast-intro')game.backgroundTransport=false;
  cinematicCamera=new Brawler.CinematicCamera(displayedCamera,0,1,lastRendered?.velocity||0);game.skyline=null;
@@ -329,6 +328,7 @@ function finishWorldScene(scene,skipped){
  const shot=scene.shots[scene.shots.length-1],map=x=>(scene.worldOrigin||0)+x*(scene.worldScale||1);
  if(scene.id.startsWith('stage-')){const a=shot.actors?.find(a=>a.id==='player');if(a){game.p.x=map(a.motion?.toX??a.x);game.p.face=a.face||1;game.p.anim='idle';game.p.animT=0;game.p.vx=game.p.vy=0;}}
  const boss=game.enemies.find(e=>e.boss&&e.entry);if(boss)for(let i=0;i<1000&&boss.entry;i++)game.updateEntry(boss,1/120);
+ if(scene.id==='boss-cinema-intro'){game.p.x=shot.actors.find(a=>a.id==='player').worldX;game.p.y=407;game.p.face=1;}
  if(scene.id==='boss-spike-intro'){const e=game.enemies.find(e=>e.kind==='spike');game.p.x=map(235);game.p.y=407;if(e){e.x=map(670);e.y=407;}game.finishSpikeTutorial();}
  if(['boss-broadcast-intro','boss-broadcast-defeat','boss-duke-intro'].includes(scene.id)){for(const a of shot.actors||[]){const body=a.id==='player'?game.p:game.storyActors.find(e=>e.id===a.id);if(body&&a.worldX!==undefined){body.x=a.worldX;body.y=a.worldY??407;body.backdrop=body.y<350;body.renderScale=(body.kind==='duke'?1.18:1)*(body.backdrop?.63:1);}}const m=game.storyActors.find(a=>a.kind==='marty');if(m)game.storyCage={x:m.x,y:m.y,scale:m.renderScale,backdrop:m.backdrop,open:false};}
  // Skipping is an explicit transition to the authored terminal staging state.
@@ -361,7 +361,7 @@ function drawWorldScene(s){
  const origin=s.scene.worldOrigin||0,scale=s.scene.worldScale||1,map=x=>origin+x*scale;
  if(s.shot.booth&&game.stage===4){const a=game.projection,booth=a.booths.find(b=>b.id===game.activeGate&&b.x>=game.camera+70&&b.x<=game.camera+renderer.rect.w-70);if(booth){a.window=booth.id;a.visible=s.shot.booth.phase!=='off';a.phase=s.shot.booth.phase==='shadow'?'shadow':'reveal';a.timer=s.time;a.face=game.p.x<booth.x?-1:1;s.boothState={phase:s.shot.booth.phase,active:booth.id};}}
  const realBoss=game.enemies.find(e=>e.boss&&e.kind!=='broadcast-rig');
- if(realBoss?.entry){if(realBoss.kind==='pizzeria-boss'&&s.shot.id==='screen-shadow')realBoss.hidden=true;else{realBoss.animT+=dt;game.updateEntry(realBoss,dt);}}
+ if(realBoss?.entry){if(realBoss.kind==='pizzeria-boss'&&['cinema-marks','screen-shadow'].includes(s.shot.id))realBoss.hidden=true;else{realBoss.animT+=dt;game.updateEntry(realBoss,dt);}}
  const active=new Set();
  for(const a of s.shot.actors||[]){
   if(a.hidden||a.routes&&!a.routes.includes(game.playerKind))continue;
@@ -393,10 +393,10 @@ function drawWorldScene(s){
   s.actorStates.push({id:a.id,character:who,x:body.x,y:body.y,animation:body.anim,visible:true,resolvedFace:body.face,faceReason:a.motion?'motion':a.face?'explicit':a.lookAt?'lookAt':'world-continuity'});
  }
  if(s.reframePlayer){const p=game.p,b=renderer.animationBounds(game.playerKind,Brawler.playerAnimation(game.playerKind,p.anim),p.face),run=renderer.animationBounds(game.playerKind,Brawler.playerAnimation(game.playerKind,'run'),p.face);if(b&&run){const lo=Math.min(b.minX,run.minX)*1.05,hi=Math.max(b.maxX,run.maxX)*1.05,margin=48,look=(cinematicCamera?.active?Math.sign((cinematicCamera.target?.x||game.camera)-game.camera)*32:0),left=game.camera+margin-lo+look,right=game.camera+renderer.rect.w-margin-hi+look;
- const arenaMin=game.stage===4&&game.projection.active&&game.activeGate>=0?Brawler.GATES[game.activeGate]-280:game.activeGate>=0?Math.max(35,Brawler.GATES[game.activeGate]-485):35,arenaMax=game.activeGate>=0?Math.min(Brawler.LENGTH-40,Brawler.GATES[game.activeGate]+495):Brawler.LENGTH-45,target=Brawler.clamp(p.x<left?left:p.x>right?right:p.x,arenaMin,arenaMax),dx=target-p.x;
+ const arena=game.arenaBounds(),arenaMin=arena.left,arenaMax=arena.right,target=Brawler.clamp(p.x<left?left:p.x>right?right:p.x,arenaMin,arenaMax),dx=target-p.x;
  if(Math.abs(dx)>1){p.x+=Math.sign(dx)*Math.min(Math.abs(dx),340*dt);p.face=Math.sign(dx);p.anim='run';p.animT=(s.autoRunTime||0)+dt;s.autoRunTime=p.animT;p.animDuration=0;}else s.autoRunTime=0;
  // If an arena prevents following, retarget the existing director to retain the player.
- if(cinematicCamera?.active&&(target===arenaMin||target===arenaMax)){const safe=Brawler.clamp(cinematicCamera.target.x,p.x+hi+margin-renderer.rect.w,p.x+lo-margin);if(Math.abs(safe-cinematicCamera.target.x)>1){const key=cinematicCamera.key;cinematicCamera.key=null;cinematicCamera.shot(key,{x:Brawler.clamp(safe,0,Math.max(0,Brawler.LENGTH-renderer.rect.w))});}}
+ if(!game.encounterCamera()&&cinematicCamera?.active&&(target===arenaMin||target===arenaMax)){const safe=Brawler.clamp(cinematicCamera.target.x,p.x+hi+margin-renderer.rect.w,p.x+lo-margin);if(Math.abs(safe-cinematicCamera.target.x)>1){const key=cinematicCamera.key;cinematicCamera.key=null;cinematicCamera.shot(key,{x:Brawler.clamp(safe,0,Math.max(0,Brawler.LENGTH-renderer.rect.w))});}}
  s.playerFraming={x:p.x,left:p.x+lo-game.camera,right:p.x+hi-game.camera,running:p.anim==='run'};}}
  game.storyActors=game.storyActors.filter(a=>active.has(a.id)||game.stage===6&&['marty','duke','jay'].includes(a.kind));
  const boy=game.storyActors.find(a=>a.kind==='marty'),cartDuke=game.storyActors.find(a=>a.kind==='duke');

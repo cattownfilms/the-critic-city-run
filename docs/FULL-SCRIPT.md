@@ -498,7 +498,15 @@ Before the Violent Austrian Rabbi fight in Stage 5, Palace Cinema.
 
 Setting: Palace Cinema | Music: current stage
 
-### Beat 01 screen shadow
+### Beat 01 cinema marks
+
+boss-cinema-intro/cinema-marks | Automatic advance after 1.2s; earliest advance 1s.
+
+*Selected player: idle, moving in place over 1.1s.*
+
+No spoken dialogue.
+
+### Beat 02 screen shadow
 
 boss-cinema-intro/screen-shadow | Automatic advance after 0.45s; earliest advance 0.4s.
 
@@ -506,7 +514,7 @@ boss-cinema-intro/screen-shadow | Automatic advance after 0.45s; earliest advanc
 
 No spoken dialogue.
 
-### Beat 02 screen emergence
+### Beat 03 screen emergence
 
 boss-cinema-intro/screen-emergence | Automatic advance after 2.25s; earliest advance 2.15s.
 
@@ -514,9 +522,9 @@ boss-cinema-intro/screen-emergence | Automatic advance after 2.25s; earliest adv
 
 No spoken dialogue.
 
-### Beat 03
+### Beat 04
 
-boss-cinema-intro/beat-03 | Player advances; earliest advance 0.22s.
+boss-cinema-intro/beat-04 | Player advances; earliest advance 0.22s.
 
 *Selected player: idle; Violent Austrian Rabbi: guard reset.*
 
@@ -526,9 +534,9 @@ Welcome to your Bar Mitsfa. It's time to become a man. A dead man.
 
 Portrait: pizzeria | Expression: neutral
 
-### Beat 04
+### Beat 05
 
-boss-cinema-intro/beat-04 | Player advances; earliest advance 0.22s.
+boss-cinema-intro/beat-05 | Player advances; earliest advance 0.22s.
 
 *Selected player: idle; Violent Austrian Rabbi: idle.*
 
@@ -1180,4 +1188,4 @@ Story lines and staging are authored in data/cutscenes.js. Stage and boss trigge
 
 Use the scene and beat identifiers when returning revisions. Replace the spoken line under the appropriate route; shared lines affect both characters. The seven approved opening lines are preserved exactly.
 
-Source fingerprint: 51a46d2b289f9c8a
+Source fingerprint: 28a5d1ed8b427616

@@ -1,7 +1,7 @@
 const assert=require('node:assert/strict'),B=require('../engine'),C=require('../data/cutscenes'),M=require('../assets/sprites.json');
 for(const width of [760,1199]){
  const g=new B.Game();g.start();g.stage=4;g.viewWidth=width;g.camera=0;g.p.x=241;g.spawnFight(0);g.p.x=0;g.step(1/60);
- assert(g.p.x>=240);assert(g.camera>0&&g.camera<20);assert.equal(g.cameraTrace.min,205);
+ assert(g.p.x>=240);assert(g.camera>0&&g.camera<25);assert.equal(g.cameraTrace.target,g.encounterCamera().x);
  const camera=g.camera;g.disableCircuit(0);assert.equal(g.camera,camera);
  console.log('PASS immediate player lock and continuous camera activation/release',width);
 }

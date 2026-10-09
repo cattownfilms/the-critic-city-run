@@ -17,6 +17,10 @@ on:
         type: boolean
         default: false
         description: Only six-item micro-patch checks
+      patch5867:
+        type: boolean
+        default: false
+        description: Only four-item booth and final arena checks
       patch5857:
         type: boolean
         default: false
@@ -195,20 +199,20 @@ jobs:
           package-manager-cache: false
       - run: python -m pip install -r requirements-test.txt
       - name: Focused source checks
-        if: ${{ !inputs.cinematic && !inputs.patch5857 && !inputs.micro }}
+        if: ${{ !inputs.cinematic && !inputs.patch5857 && !inputs.micro && !inputs.patch5867 }}
         run: |
           node tests/audio-lifecycle.test.js
           node tests/v11-engine.test.js
           node tests/v11-playtest-engine.test.js
       - name: Audio and affected scene browser checks
-        if: ${{ !inputs.cinematic && !inputs.patch5857 && !inputs.micro }}
+        if: ${{ !inputs.cinematic && !inputs.patch5857 && !inputs.micro && !inputs.patch5867 }}
         env:
           SITE_URL: ${{ inputs.site_url }}
         run: |
           python tests/v9-audio-browser.test.py --engine chromium --url "$SITE_URL"
           python tests/v11-playtest-browser.test.py --url "$SITE_URL"
       - name: Cinematic camera and ending checks
-        if: ${{ inputs.cinematic && !inputs.patch5857 && !inputs.micro }}
+        if: ${{ inputs.cinematic && !inputs.patch5857 && !inputs.micro && !inputs.patch5867 }}
         env:
           SITE_URL: ${{ inputs.site_url }}
         run: |
@@ -247,6 +251,13 @@ jobs:
             python tools/build_standalone.py
             python tests/5857-browser.test.py --ending-only --url "file://$PWD/The-Critic-Coming-Attractions-v11.html"
           fi
+      - name: Four-item 5867 checks
+        if: ${{ inputs.patch5867 }}
+        env:
+          SITE_URL: ${{ inputs.site_url }}
+        run: |
+          node tests/5867.test.js
+          python tests/5867-browser.test.py --url "$SITE_URL"
       - uses: actions/upload-artifact@v7
         if: always()
         with:

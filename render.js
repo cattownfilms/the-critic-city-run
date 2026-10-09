@@ -203,7 +203,7 @@ class Renderer{
    // A broad central aisle stays empty. Rows below the lane frame the auditorium
    // without covering ankles, movement space, pickups or telegraphs.
    rect(c,0,492,w,48,'#101729');for(let sx=-((cam*.85)%63);sx<w+63;sx+=63){rect(c,sx+5,506,49,34,'#422737');rect(c,sx+9,502,41,7,'#745062');line(c,sx+11,507,sx+46,507,'#966777',2);rect(c,sx+1,524,7,16,'#292134');rect(c,sx+53,524,7,16,'#292134');}
-   c.save();c.globalAlpha=.09;c.fillStyle='#aacaf7';c.beginPath();c.moveTo(w*.66,125);c.lineTo(0,260);c.lineTo(0,312);c.closePath();c.fill();c.restore();
+   this.projectionBeams(c,g,time);
    this.projectionWindows(c,g,time);
   }else if(stage===6){
    for(let x=110;x<LENGTH;x+=390){const xx=x-cam;if(xx<-130||xx>w+130)continue;line(c,xx,491,xx+65,491,'#71aeac',2);line(c,xx,495,xx+65,495,'#172b38',2);}
@@ -244,6 +244,12 @@ class Renderer{
   // A choreographed glance, glance, blink and locked look. No random flashing.
   const blink=t>=.20&&t<.26,look=t<.10?-2:t<.20?2:playerX<x?-2:2;
   for(const ex of [x-13,x+13]){rect(c,ex-7,top+45,14,blink?2:7,'#e9e6ef');if(!blink){rect(c,ex-2+look,top+46,4,6,'#8aaff2');rect(c,ex-1+look,top+47,2,4,'#15254c');}}
+ }
+ projectionBeams(c,g,time){
+  this.lastProjectionBeams=[];const a=g.projection;if(!a?.active||a.disabled)return;
+  const booth=a.booths[a.window];if(!booth||!a.circuits[booth.circuitId]?.active)return;
+  const beam={from:{x:booth.x,y:(a.windowY||92)+20},to:{x:booth.x-360,y:286}};this.lastProjectionBeams.push(beam);
+  c.save();c.globalAlpha=settings.reducedMotion?.09:.08+.01*Math.sin(time*1.8+booth.id);c.fillStyle='#aacaf7';c.beginPath();c.moveTo(beam.from.x-g.camera,beam.from.y);c.lineTo(beam.to.x-g.camera,260);c.lineTo(beam.to.x-g.camera,312);c.closePath();c.fill();c.restore();
  }
  projectionWindows(c,g,time){
   const a=g.projection;if(!a)return;const xs=a.windowXs?.length?a.windowXs:CINEMA_BOOTHS,top=(a.windowY||92)-72,colors=['#ffc36b','#73e3e4','#c2a0ff'];
