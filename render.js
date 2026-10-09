@@ -243,7 +243,7 @@ class Renderer{
  boothEyes(c,x,top,t,playerX){
   // A choreographed glance, glance, blink and locked look. No random flashing.
   const blink=t>=.20&&t<.26,look=t<.10?-2:t<.20?2:playerX<x?-2:2;
-  for(const ex of [x-13,x+13]){rect(c,ex-7,top+45,14,blink?2:7,'#e9e6ef');if(!blink){rect(c,ex-2+look,top+46,4,6,'#8aaff2');rect(c,ex-1+look,top+47,2,4,'#15254c');}}
+  for(const ex of [x-13,x+13]){rect(c,ex-7,top+34,14,blink?2:7,'#e9e6ef');if(!blink){rect(c,ex-2+look,top+35,4,6,'#8aaff2');rect(c,ex-1+look,top+36,2,4,'#15254c');}}
  }
  projectionBeams(c,g,time){
   this.lastProjectionBeams=[];const a=g.projection;if(!a?.active||a.disabled)return;
@@ -342,7 +342,15 @@ class Renderer{
  draw(g,dt){this.time+=dt;this.signalFlashT=Math.max(0,this.signalFlashT-dt);this.signalOffT=Math.max(0,this.signalOffT-dt);const c=this.ctx;const r=this.rect;if(this.area!==g.stage)this.makeCity(g.stage);c.setTransform(this.dpr,0,0,this.dpr,0,0);c.fillStyle='#080e1d';c.fillRect(0,0,innerWidth,innerHeight);c.save();c.translate(r.x,r.y);c.scale(r.scale,r.scale);c.beginPath();c.rect(0,0,r.w,540);c.clip();const shake=(settings.reducedMotion?0:g.shake);if(shake>0.15)c.translate(Math.sin(this.time*115)*shake,Math.cos(this.time*89)*shake*.35);this.scene(c,g,r.w,this.time);
   const receiverBackground=g.stage===6&&g.storyCage?.backdrop;
   if(receiverBackground)this.worldCage(c,g,false);
-  for(const a of g.storyActors||[])if(a.backdrop&&this.available(a.kind,a.anim)){const f=this.frame(a.kind,a.anim,a.animT,a.animDuration)?.f,offset=a.kind==='duke'&&a.anim==='v10-button'?(f.oy+f.h)*(a.renderScale||1):0;if(a.kind==='duke')this.shadow(c,a.kind,a.anim,a.x-g.camera,a.y,a.face,a.animT,a.animDuration,a.renderScale||1,0,.25);this.sprite(c,a.kind,a.anim,a.x-g.camera,a.y-offset,a.face,a.animT,a.animDuration,{scale:a.renderScale||1});}
+  this.backgroundActorPoses=[];
+  for(const a of g.storyActors||[])if(a.backdrop&&this.available(a.kind,a.anim)){
+   // Cage y is its deck. Duke stands on the wheel-contact floor, not on the deck.
+   // Button art already has a registered foot pivot; its stand must not shift him.
+   const floor=a.kind==='duke'&&receiverBackground?a.y+26*(g.storyCage.scale||1)*clamp((350-a.y)/45,0,1):a.y;
+   this.backgroundActorPoses.push({kind:a.kind,x:a.x,y:floor,animation:a.anim,scale:a.renderScale||1});
+   if(a.kind==='duke')this.shadow(c,a.kind,a.anim,a.x-g.camera,floor,a.face,a.animT,a.animDuration,a.renderScale||1,0,.25);
+   this.sprite(c,a.kind,a.anim,a.x-g.camera,floor,a.face,a.animT,a.animDuration,{scale:a.renderScale||1});
+  }
   if(receiverBackground)this.worldCage(c,g,true);
   const receiver=g.stage===6&&g.bossSpawned?g.enemies.find(e=>e.kind==='broadcast-rig'):null;
   if(receiver?.hp>0)this.receiver(c,g,receiver);

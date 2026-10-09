@@ -78,7 +78,7 @@ class AudioSystem{
   // media with load() during rapid scene transitions can deadlock WebKit.
   if(this.outgoing)this.outgoing.pause();
   this.outgoing=this.music;let next=this.musicNodes.get(key);
-  if(!next){next=new Audio(src(item.file));next.loop=true;next.preload='none';this.musicNodes.set(key,next);}
+  if(!next){next=new Audio(src(item.file));next.loop=item.loop!==false;next.preload='none';this.musicNodes.set(key,next);}
   else next.currentTime=0;
   this.music=next;this.music.volume=0;this.fade=0;this.trackKey=key;
  }
@@ -92,12 +92,12 @@ class AudioSystem{
    // A terminal media decode/source error cannot recover by replaying the same
    // element. Replace only that failed player on a fresh explicit gesture.
    if(node?.error&&[3,4].includes(node.error.code)){
-    const failed=node;failed.pause();node=new Audio(src(item.file));node.loop=true;node.preload='none';
+    const failed=node;failed.pause();node=new Audio(src(item.file));node.loop=item.loop!==false;node.preload='none';
     this.musicNodes.set(key,node);this.primed?.delete(failed);this.priming?.delete(failed);
     if(failed===this.music){this.music=node;node.volume=settings.music;}
     if(failed===this.outgoing)this.outgoing=null;
    }
-   if(!node){node=new Audio(src(item.file));node.loop=true;node.preload='auto';this.musicNodes.set(key,node);}
+   if(!node){node=new Audio(src(item.file));node.loop=item.loop!==false;node.preload='auto';this.musicNodes.set(key,node);}
    if(!node.getAttribute('src'))node.src=src(item.file);
    if(node===this.music)continue;
    if(this.primed?.has(node)||this.priming?.has(node))continue;
@@ -108,7 +108,8 @@ class AudioSystem{
   if(this.wantMusic&&this.music.paused)this.playMusic(this.trackKey);
  }
  async playMusic(key){
-  key=key||stageMusic();this.chooseTrack(key);this.wantMusic=true;const serial=++this.musicSerial,node=this.music;this.unlock();
+  if(game.mode==='complete'){this.pause();return;}
+  key=key||stageMusic();if(key===this.trackKey&&conf.music[key]?.loop===false&&this.music.ended)return;this.chooseTrack(key);this.wantMusic=true;const serial=++this.musicSerial,node=this.music;this.unlock();
   if(!this.wantMusic||serial!==this.musicSerial||this.muted||settings.music<=0)return;
   if(!node.getAttribute('src'))return;
   try{const pending=node.play();await pending;this.lastBlocked=null;if(!this.wantMusic||node!==this.music||this.muted)node.pause();}
@@ -139,7 +140,7 @@ class AudioSystem{
   if(this.outgoing){this.outgoing.volume=level*Math.cos(this.fade*Math.PI/2);if(this.fade>=1){this.outgoing.pause();this.outgoing=null;}}
   if(this.bus)this.bus.gain.value=this.muted?0:settings.sfx;
  }
- toggle(){if(this.lastBlocked&&(this.music.paused||this.music.readyState<2)&&!this.muted){this.gesture();this.playMusic(this.trackKey);toast('Retrying audio');return;}this.muted=!this.muted;if(this.muted){this.music.pause();if(this.outgoing)this.outgoing.pause();}else if(['play','stageclear','complete','title','cutscene'].includes(game.mode))this.playMusic(game.mode==='cutscene'?scenes?.scene?.music||stageMusic():['title','complete'].includes(game.mode)?'title':undefined);toast(this.muted?'Audio muted':'Audio on');}
+ toggle(){if(this.lastBlocked&&(this.music.paused||this.music.readyState<2)&&!this.muted){this.gesture();this.playMusic(this.trackKey);toast('Retrying audio');return;}this.muted=!this.muted;if(this.muted){this.music.pause();if(this.outgoing)this.outgoing.pause();}else if(['play','stageclear','complete','title','cutscene'].includes(game.mode))this.playMusic(game.mode==='cutscene'?scenes?.shot?.music||scenes?.scene?.music||stageMusic():['title','complete'].includes(game.mode)?'title':undefined);toast(this.muted?'Audio muted':'Audio on');}
 
 }
 const game=new Brawler.Game(),audio=new AudioSystem(),input=new Input();game.franklinUnlocked=profile.franklinUnlocked;let renderer,meta,ready=false,last=performance.now(),acc=0,fromGallery='title',galleryTime=0,galleryPlaying=true,completeTime=0,tipTime=0,clearTime=0,presentationPaused=false,openingArrival=null;
@@ -295,7 +296,7 @@ function directWorldCamera(s,dt){
   }).filter(Number.isFinite);
   let center=marks.length?(Math.min(...marks)+Math.max(...marks))/2:game.p.x+width*.07;
   if(s.scene.id==='boss-cinema-intro')center=s.scene.cinemaCamera+width/2;
-  if(s.scene.id==='boss-broadcast-intro')center=2450;
+  if(s.scene.finalCamera!==undefined)center=s.scene.finalCamera+width/2;
   const target=game.encounterCamera(width)?.x??Brawler.clamp(center-width/2,0,Math.max(0,Brawler.LENGTH-width));
   cinematicCamera.shot(key,{x:target,y:0,zoom:1},{reduced:settings.reducedMotion});
  }
@@ -314,6 +315,8 @@ function beginWorldScene(scene){
  if(!cinematicAnchor||cinematicAnchor.stage!==game.stage)cinematicAnchor={stage:game.stage,x:game.camera,scale:game.viewWidth/960};
  scene.worldOrigin=cinematicAnchor.x;scene.worldScale=cinematicAnchor.scale;
  scene.openingCamera=displayedCamera;
+ if(['boss-broadcast-intro','boss-broadcast-defeat','boss-duke-intro'].includes(scene.id))scene.finalCamera=Brawler.clamp(2850-game.viewWidth,0,Math.max(0,Brawler.LENGTH-game.viewWidth));
+ if(['boss-duke-defeat','ending'].includes(scene.id))scene.finalCamera=displayedCamera;
  if(scene.id==='boss-cinema-intro'){scene.cinemaCamera=Brawler.clamp(2450-game.viewWidth*.66,0,Math.max(0,Brawler.LENGTH-game.viewWidth));for(const shot of scene.shots)for(const a of shot.actors||[])if(a.id==='player'){a.worldX=scene.cinemaCamera+game.viewWidth*.23;a.face=1;}}
  if(scene.id==='stage-07-intro')game.backgroundTransport=false;
  if(scene.id==='boss-broadcast-intro')game.backgroundTransport=false;
@@ -390,6 +393,7 @@ function drawWorldScene(s){
    const held=['death','v10-defeat'].includes(body.anim);body.animT=held?10:s.time;body.animDuration=held?(who==='duke'?3:1.7):moving&&body.anim==='v10-run-in'?(m?.duration||1.5):0;
    if(isPlayer){body.vx=body.vy=0;body.action=null;}
   }
+  if(who==='hero'&&s.shot.speaker==='JAY'&&s.shot.jayPerformance){const name=s.shot.jayPerformance;s.speechDuration=Math.max(1.4,Math.min(4,(s.shot.dialogue||'').length/20));body.anim=name;body.animDuration=s.speechDuration;body.animT=Math.min(s.time,s.speechDuration);if(s.time>s.speechDuration&&name==='v10-point'){body.anim='grumpy-idle';body.animDuration=0;body.animT=0;}if(s.shot.id!=='skyline-realization')body.face=1;}
   s.actorStates.push({id:a.id,character:who,x:body.x,y:body.y,animation:body.anim,visible:true,resolvedFace:body.face,faceReason:a.motion?'motion':a.face?'explicit':a.lookAt?'lookAt':'world-continuity'});
  }
  if(s.reframePlayer){const p=game.p,b=renderer.animationBounds(game.playerKind,Brawler.playerAnimation(game.playerKind,p.anim),p.face),run=renderer.animationBounds(game.playerKind,Brawler.playerAnimation(game.playerKind,'run'),p.face);if(b&&run){const lo=Math.min(b.minX,run.minX)*1.05,hi=Math.max(b.maxX,run.maxX)*1.05,margin=48,look=(cinematicCamera?.active?Math.sign((cinematicCamera.target?.x||game.camera)-game.camera)*32:0),left=game.camera+margin-lo+look,right=game.camera+renderer.rect.w-margin-hi+look;
@@ -408,7 +412,7 @@ function drawWorldScene(s){
  else if(game.stage!==6)game.storyCage=null;
 }
 
-scenes=window.CriticScenePlayer?new CriticScenePlayer({beginWorldScene,finishWorldScene,drawWorldScene,resolve:src,character:()=>game.playerKind,renderer:()=>renderer,meta:()=>meta,settings:()=>settings,clearInput:()=>input.clear(),sound:name=>audio.sample(name,.45),music:key=>audio.playMusic(key),onOpen:()=>{assetScreen.hidden=true;game.mode='cutscene';input.clear();screen('cutscene');if(document.hidden)scenes.togglePause(true);},onPause:on=>{if(on)audio.pause();else audio.playMusic(scenes?.scene?.music||stageMusic());},onIdle:()=>{if(sceneQueue.length){pumpScenes();return;}if(scenePreparing)return;if(assetPending){showAssetLoading();return;}if(game.stage!==6){game.storyActors=[];game.storyCage=null;}if(game.stage===4&&!game.projection.active){game.projection.visible=false;game.projection.phase='waiting';game.projection.timer=0;}if(renderer.lastView?.stage===game.stage){game.camera=renderer.lastView.camera;game.cameraVelocity=renderer.lastView.velocity||0;}game.cameraHandoff=.25;cinematicAnchor=null;cinematicCamera=null;game.receiverDescent=null;game.mode=sceneReturnMode;if(game.mode==='replaydone'){finishStageReplay();return;}input.clear();screen(game.mode==='play'?null:game.mode);audio.playMusic(game.mode==='complete'?'title':stageMusic());}}):null;
+scenes=window.CriticScenePlayer?new CriticScenePlayer({beginWorldScene,finishWorldScene,drawWorldScene,resolve:src,character:()=>game.playerKind,renderer:()=>renderer,meta:()=>meta,settings:()=>settings,clearInput:()=>input.clear(),sound:name=>audio.sample(name,.45),music:key=>audio.playMusic(key),onOpen:()=>{assetScreen.hidden=true;game.mode='cutscene';input.clear();screen('cutscene');if(document.hidden)scenes.togglePause(true);},onPause:on=>{if(on)audio.pause();else audio.playMusic(scenes?.shot?.music||scenes?.scene?.music||stageMusic());},onIdle:()=>{if(sceneQueue.length){pumpScenes();return;}if(scenePreparing)return;if(assetPending){showAssetLoading();return;}if(game.stage!==6){game.storyActors=[];game.storyCage=null;}if(game.stage===4&&!game.projection.active){game.projection.visible=false;game.projection.phase='waiting';game.projection.timer=0;}if(renderer.lastView?.stage===game.stage){game.camera=renderer.lastView.camera;game.cameraVelocity=renderer.lastView.velocity||0;}game.cameraHandoff=.25;cinematicAnchor=null;cinematicCamera=null;game.receiverDescent=null;game.mode=sceneReturnMode;if(game.mode==='replaydone'){finishStageReplay();return;}input.clear();screen(game.mode==='play'?null:game.mode);if(game.mode==='complete')audio.pause();else audio.playMusic(stageMusic());}}):null;
 const controllerUI=CriticControllerUI({hub:pad,game,input,ready:()=>ready,pause,resume,title,start:()=>start(false),closeGallery,continueDistrict});
 function gestureAudio(){audio.gesture();if(ready&&game.mode==='title'&&!audio.wantMusic)audio.playMusic('title');if(audio.wantMusic&&audio.music.paused&&!audio.muted&&settings.music>0)audio.playMusic(audio.trackKey);}
 document.addEventListener('pointerdown',gestureAudio,{capture:true,passive:true});
