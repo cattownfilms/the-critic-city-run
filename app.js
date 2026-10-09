@@ -325,7 +325,7 @@ function finishWorldScene(scene,skipped){
  game.skyline=null;renderer.skylineSnapshot=null;game.reunionLayers=false;if(scene.id==='boss-spike-intro')game.finishSpikeTutorial();
  if(scene.id==='stage-07-intro')game.backgroundTransport=true;
  if(!scene.worldStage||!skipped)return;
- if(scene.id==='stage-07-intro'){const d=game.storyActors.find(a=>a.kind==='duke'),m=game.storyActors.find(a=>a.kind==='marty');for(const [b,x] of [[d,2610],[m,2740]])if(b){b.x=x;b.y=305;b.backdrop=true;b.renderScale=(b===d?1.18:1)*.63;b.anim=b===d?'idle':'v11-captive-idle';}if(m)game.storyCage={x:m.x,y:m.y,scale:.63,backdrop:true,open:false};game.backgroundTransport=false;}
+ if(scene.id==='stage-07-intro'){const d=game.storyActors.find(a=>a.kind==='duke'),m=game.storyActors.find(a=>a.kind==='marty');for(const [b,x] of [[d,2535],[m,2740]])if(b){b.x=x;b.y=305;b.backdrop=true;b.renderScale=(b===d?1.18:1)*.63;b.anim=b===d?'idle':'v11-captive-idle';}if(m)game.storyCage={x:m.x,y:m.y,scale:.63,backdrop:true,open:false};game.backgroundTransport=false;}
  const shot=scene.shots[scene.shots.length-1],map=x=>(scene.worldOrigin||0)+x*(scene.worldScale||1);
  if(scene.id.startsWith('stage-')){const a=shot.actors?.find(a=>a.id==='player');if(a){game.p.x=map(a.motion?.toX??a.x);game.p.face=a.face||1;game.p.anim='idle';game.p.animT=0;game.p.vx=game.p.vy=0;}}
  const boss=game.enemies.find(e=>e.boss&&e.entry);if(boss)for(let i=0;i<1000&&boss.entry;i++)game.updateEntry(boss,1/120);
@@ -344,7 +344,7 @@ function moveBackgroundCart(dt){
  const move=(body,key,to,speed)=>{const delta=to-body[key];body[key]+=Math.sign(delta)*Math.min(Math.abs(delta),speed*dt);return Math.abs(delta)>2;};
  const rolling=Math.abs(m.x-2740)>.001||Math.abs(m.y-305)>.001;
  if(rolling){move(d,'x',2610,260);move(d,'y',305,85);m.x=d.x+130;m.y=d.y;d.face=1;d.anim='v11-cart-push';}
- else {const walking=move(d,'x',2610,220);d.face=-1;d.anim=walking?'walk':'idle';if(!walking)game.backgroundTransport=false;}
+ else {const walking=move(d,'x',2535,220);d.face=-1;d.anim=walking?'walk':'idle';if(!walking)game.backgroundTransport=false;}
  for(const b of [d,m]){b.backdrop=true;b.renderScale=(b===d?1.18:1)*(.63+.37*Brawler.clamp((b.y-305)/102,0,1));b.animT+=dt;}
  m.anim='v11-captive-idle';game.storyCage={x:m.x,y:m.y,scale:m.renderScale,backdrop:true,open:false};game.cartDuke=rolling?d:null;
 }

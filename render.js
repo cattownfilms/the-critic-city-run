@@ -396,7 +396,7 @@ class Renderer{
   if(im?.naturalWidth){const height=w*9/16;c.drawImage(im,1920,1080,640,360,0,(h-height)/2,w,height);}
  }
  skyline(c,g,w){
-  const s=g.skyline,t=s.time,u=clamp(t/2,0,1),ease=u*u*(3-2*u),index=Math.min(111,Math.floor(Math.max(0,t-2.9)*24)),page=Math.floor(index/16)+1,im=s.images.get('story/skyline/collapse-'+String(page).padStart(2,'0')+'.webp');
+  const s=g.skyline,t=s.time,u=clamp(t/2,0,1),ease=u*u*(3-2*u),index=Math.min(111,Math.floor(Math.max(0,t-2.9)*24+1e-8)),page=Math.floor(index/16)+1,im=s.images.get('story/skyline/collapse-'+String(page).padStart(2,'0')+'.webp');
   if(!this.skylineSnapshot){const r=this.rect;this.skylineSnapshot=canvas(w,540);this.skylineSnapshot.getContext('2d').drawImage(this.c,r.x*this.dpr,r.y*this.dpr,w*r.scale*this.dpr,540*r.scale*this.dpr,0,0,w,540);}
   const first=s.images.get('story/skyline/collapse-01.webp');
   const frame=im?.naturalWidth?im:first;if(!frame?.naturalWidth)return; // Keep the last world image, never a black frame.
@@ -408,7 +408,7 @@ class Renderer{
   c.save();rect(c,0,0,w,540,'#111724');c.drawImage(frame,(fi%4)*640,Math.floor(fi/4)*360,640,360,dx,dy,dw,dh);
   // Approach is composited in source-image coordinates; contact coincides with
   // the existing frame-7 flash, before the unchanged collapse footage.
-  if(t>=2&&t<2.9+7/24&&!s.card){const travel=clamp((t-2)/(0.9+7/24),0,1),px=.86+(.235-.86)*travel,py=.49+(.68-.49)*travel;c.save();c.translate(dx+dw*px,dy+dh*py);c.scale(dw/640,dh/360);c.fillStyle='#c9d2d6';c.strokeStyle='#27384b';c.lineWidth=1.5;c.beginPath();c.moveTo(-22,0);c.lineTo(-6,-4);c.lineTo(5,-17);c.lineTo(11,-17);c.lineTo(5,-3);c.lineTo(22,-3);c.lineTo(29,-10);c.lineTo(32,-9);c.lineTo(28,3);c.lineTo(6,5);c.lineTo(14,15);c.lineTo(8,16);c.lineTo(-5,5);c.closePath();c.fill();c.stroke();for(let n=-4;n<20;n+=5)rect(c,n,-1,2,2,'#365168');c.restore();}
+  if(t>=2&&t<2.9+7/24&&!s.card){const travel=clamp((t-2)/(0.9+7/24),0,1),px=.86+(.325-.86)*travel,py=.49+(.68-.49)*travel;c.save();c.translate(dx+dw*px,dy+dh*py);c.scale(dw/640,dh/360);c.fillStyle='#c9d2d6';c.strokeStyle='#27384b';c.lineWidth=1.5;c.beginPath();c.moveTo(-22,0);c.lineTo(-6,-4);c.lineTo(5,-17);c.lineTo(11,-17);c.lineTo(5,-3);c.lineTo(22,-3);c.lineTo(29,-10);c.lineTo(32,-9);c.lineTo(28,3);c.lineTo(6,5);c.lineTo(14,15);c.lineTo(8,16);c.lineTo(-5,5);c.closePath();c.fill();c.stroke();for(let n=-4;n<20;n+=5)rect(c,n,-1,2,2,'#365168');c.restore();}
   g.skyline.aircraft={visible:t>=2&&t<2.9+7/24,impactTime:2.9+7/24};
   if(u<1){
    const sw=s.reduced?w:dw*.008,sh=sw*540/w,x=cx-sw/2,y=cy-sh/2;
