@@ -274,26 +274,54 @@ async function pumpScenes(){
  }catch(e){scenePreparing=false;updateDestinationButtons();sceneQueue.unshift(task);assetError=String(e);$('contentLoadStatus').textContent='Required story files could not load. Your checkpoint is safe.';$('contentLoadRetry').hidden=false;game.mode='loading';}
 }
 
+let cinematicCamera=null,cinematicAnchor=null;
+function directWorldCamera(s,dt){
+ const width=renderer.rect.w,shot=s.shot;
+ if(!cinematicCamera)cinematicCamera=new Brawler.CinematicCamera(game.camera);
+ const key=s.serial+':'+s.index+':'+width;
+ if(cinematicCamera.key!==key){
+  const marks=(shot.actors||[]).filter(a=>!a.hidden&&(!a.routes||a.routes.includes(game.playerKind))).map(a=>{
+   const body=a.id==='player'?game.p:game.storyActors.find(body=>body.id===a.id)||game.enemies.find(body=>body.kind===a.character);
+   return shot.dialogue&&!a.motion&&body?body.x:a.worldX??s.scene.worldOrigin+(a.motion?.toX??a.x)*s.scene.worldScale;
+  }).filter(Number.isFinite);
+  let center=marks.length?(Math.min(...marks)+Math.max(...marks))/2:game.p.x+width*.07;
+  if(shot.booth&&game.stage===4)center=(game.p.x+game.projection.booths[Math.max(0,game.activeGate)].x)/2;
+  if(s.scene.id==='boss-cinema-intro')center=(game.p.x+2450)/2;
+  if(s.scene.id==='boss-broadcast-intro')center=2450;
+  const left=game.stage===4&&game.projection.active&&game.activeGate>=0?Math.min(Math.max(0,Brawler.GATES[game.activeGate]-315),Math.max(0,Brawler.LENGTH-width)):0;
+  const right=game.stage===4&&game.projection.active?Math.min(Brawler.LENGTH-width,game.projection.booths[Math.max(0,game.activeGate)].x-150):Brawler.LENGTH-width;
+  cinematicCamera.shot(key,{x:Brawler.clamp(center-width/2,left,Math.max(left,right)),y:0,zoom:1},{reduced:settings.reducedMotion});
+ }
+ game.camera=cinematicCamera.update(dt).x;
+ s.cameraState={...cinematicCamera.pose,active:cinematicCamera.active,target:{...cinematicCamera.target}};
+}
 function beginWorldScene(scene){
  if(!scene.worldStage)return;
  game.storyActors=game.storyActors||[];game.sceneClock=0;
- game.viewWidth=renderer.resize().w;scene.worldOrigin=game.camera;scene.worldScale=game.viewWidth/960;
+ game.viewWidth=renderer.resize().w;
+ if(!cinematicAnchor||cinematicAnchor.stage!==game.stage)cinematicAnchor={stage:game.stage,x:game.camera,scale:game.viewWidth/960};
+ scene.worldOrigin=cinematicAnchor.x;scene.worldScale=cinematicAnchor.scale;
+ cinematicCamera=new Brawler.CinematicCamera(game.camera);game.skyline=null;
  if(scene.id.startsWith('stage-')){game.p.x=scene.worldOrigin-110;game.p.vx=game.p.vy=0;game.p.action=null;}
 }
 function finishWorldScene(scene,skipped){
- game.reunionLayers=false;if(scene.id==='boss-spike-intro')game.finishSpikeTutorial();
+ game.skyline=null;renderer.skylineSnapshot=null;game.reunionLayers=false;if(scene.id==='boss-spike-intro')game.finishSpikeTutorial();
  if(!scene.worldStage||!skipped)return;
  const shot=scene.shots[scene.shots.length-1],map=x=>(scene.worldOrigin||0)+x*(scene.worldScale||1);
  if(scene.id.startsWith('stage-')){const a=shot.actors?.find(a=>a.id==='player');if(a){game.p.x=map(a.motion?.toX??a.x);game.p.face=a.face||1;game.p.anim='idle';game.p.animT=0;game.p.vx=game.p.vy=0;}}
  const boss=game.enemies.find(e=>e.boss&&e.entry);if(boss)for(let i=0;i<1000&&boss.entry;i++)game.updateEntry(boss,1/120);
  if(scene.id==='boss-spike-intro'){const e=game.enemies.find(e=>e.kind==='spike');game.p.x=map(235);game.p.y=407;if(e){e.x=map(670);e.y=407;}game.finishSpikeTutorial();}
- if(['boss-broadcast-intro','boss-broadcast-defeat','boss-duke-intro'].includes(scene.id)){for(const a of shot.actors||[]){const body=a.id==='player'?game.p:game.storyActors.find(e=>e.id===a.id);if(body&&a.worldX!==undefined){body.x=a.worldX;body.y=a.worldY??407;body.backdrop=body.y<350;body.renderScale=body.backdrop?.63:1;}}const m=game.storyActors.find(a=>a.kind==='marty');if(m)game.storyCage={x:m.x,y:m.y,scale:m.renderScale,backdrop:m.backdrop,open:false};}
+ if(['boss-broadcast-intro','boss-broadcast-defeat','boss-duke-intro'].includes(scene.id)){for(const a of shot.actors||[]){const body=a.id==='player'?game.p:game.storyActors.find(e=>e.id===a.id);if(body&&a.worldX!==undefined){body.x=a.worldX;body.y=a.worldY??407;body.backdrop=body.y<350;body.renderScale=(body.kind==='duke'?1.18:1)*(body.backdrop?.63:1);}}const m=game.storyActors.find(a=>a.kind==='marty');if(m)game.storyCage={x:m.x,y:m.y,scale:m.renderScale,backdrop:m.backdrop,open:false};}
  // Skipping is an explicit transition to the authored terminal staging state.
  if(scene.id==='ending'){const father=game.playerKind==='hero'?game.p:game.storyActors.find(a=>a.id==='jay'),boy=game.storyActors.find(a=>a.kind==='marty');if(father&&boy){boy.x=father.x+70;boy.face=-1;boy.anim='idle';father.face=1;}}
 }
 function drawWorldScene(s){
- const dt=s.paused||s.loading?0:Math.max(0,Math.min(.05,s.totalTime-(game.sceneClock||0)));game.sceneClock=s.totalTime;s.actorStates=[];
+ const dt=s.paused||s.loading?0:Math.max(0,Math.min(.05,s.totalTime-(game.sceneClock||0)));game.sceneClock=s.totalTime;s.actorStates=[];directWorldCamera(s,dt);
  game.reunionLayers=!!s.shot.reunionLayers;
+ if(s.shot.skyline){game.skyline={time:s.time,images:s.imageCache,reduced:settings.reducedMotion};return;}
+ const receiver=game.enemies.find(e=>e.kind==='broadcast-rig');
+ if(s.scene.id==='boss-broadcast-intro'&&receiver){const u=Brawler.clamp(s.totalTime/2.5,0,1);receiver.z=185;game.receiverDescent={z:520-(520-185)*(u*u*(3-2*u)),progress:u};}
+ else game.receiverDescent=null;
  if(game.stage===4&&game.projection.shutdown){for(const e of game.enemies)if(e.projectionSupport&&e.hp<=0)e.timer+=dt;}
  if(s.shot.spikeTutorial){game.startSpikeTutorial();game.updateSpikeTutorial(dt);for(const e of game.drain())handle(e);s.tutorialComplete=!!game.spikeTutorial?.complete;s.actorStates=[game.p,game.spikeTutorial?.boss].filter(Boolean).map(a=>({id:a===game.p?'player':'spike',character:a===game.p?game.playerKind:a.kind,x:a.x,y:a.y,z:a.z||0,animation:a.anim,visible:true,resolvedFace:a.face}));return;}
  const origin=s.scene.worldOrigin||0,scale=s.scene.worldScale||1,map=x=>origin+x*scale;
@@ -319,7 +347,7 @@ function drawWorldScene(s){
     body.x+=Math.sign(dx)*Math.min(Math.abs(dx),340*dt);moving=Math.abs(target-body.x)>3&&u>0;if(moving)body.face=target<body.x?-1:1;
    }else if((body.hp>0||!isBoss)&&!(isPlayer&&(s.shot.dialogue||s.shot.routeDialogue))){const dx=target-body.x;moving=Math.abs(dx)>4;if(moving){body.x+=Math.sign(dx)*Math.min(Math.abs(dx),220*dt);body.face=dx<0?-1:1;}}
    const targetY=a.worldY??407,dy=targetY-body.y;if(Math.abs(dy)>2&&(!isBoss||body.hp>0)){body.y+=Math.sign(dy)*Math.min(Math.abs(dy),85*dt);moving=true;}
-   if(game.stage===6&&['duke','marty'].includes(who)){body.backdrop=targetY<350||body.y<350;body.renderScale=.63+.37*Brawler.clamp((body.y-305)/102,0,1);}
+   if(game.stage===6&&['duke','marty'].includes(who)){body.backdrop=targetY<350||body.y<350;body.renderScale=(who==='duke'?1.18:1)*(.63+.37*Brawler.clamp((body.y-305)/102,0,1));}
    if(moving)body.anim=s.shot.cartCoupled&&who==='duke'?'v11-cart-push':s.shot.cartCoupled&&who==='marty'?'v11-captive-idle':who==='spike'?'v10-walk':who==='marty'?'run':isPlayer&&s.shot.id==='pursuit-entry'?'v10-run-in':m?.duration<1.6?'run':'walk';
    else{body.anim=a.animation||'idle';if(m)body.anim=isPlayer?'v10-stop':s.shot.cartCoupled&&who==='duke'?'v11-cart-stop':s.shot.cartCoupled&&who==='marty'?'v11-captive-idle':'idle';if(a.face)body.face=a.face;else if(isPlayer)body.face=1;else if(['duke','spike','pizzeria-boss','marty'].includes(who))body.face=game.p.x<body.x?-1:1;}
    if(isBoss&&body.hp<=0)body.anim=who==='duke'?'v10-defeat':'death';
@@ -336,7 +364,7 @@ function drawWorldScene(s){
  else if(game.stage!==6)game.storyCage=null;
 }
 
-scenes=window.CriticScenePlayer?new CriticScenePlayer({beginWorldScene,finishWorldScene,drawWorldScene,resolve:src,character:()=>game.playerKind,renderer:()=>renderer,meta:()=>meta,settings:()=>settings,clearInput:()=>input.clear(),sound:name=>audio.sample(name,.45),music:key=>audio.playMusic(key),onOpen:()=>{assetScreen.hidden=true;game.mode='cutscene';input.clear();screen('cutscene');if(document.hidden)scenes.togglePause(true);},onPause:on=>{if(on)audio.pause();else audio.playMusic(scenes?.scene?.music||stageMusic());},onIdle:()=>{if(sceneQueue.length){pumpScenes();return;}if(scenePreparing)return;if(assetPending){showAssetLoading();return;}if(game.stage!==6){game.storyActors=[];game.storyCage=null;}if(game.stage===4&&!game.projection.active){game.projection.visible=false;game.projection.phase='waiting';game.projection.timer=0;}game.mode=sceneReturnMode;input.clear();screen(game.mode==='play'?null:game.mode);audio.playMusic(game.mode==='complete'?'title':stageMusic());}}):null;
+scenes=window.CriticScenePlayer?new CriticScenePlayer({beginWorldScene,finishWorldScene,drawWorldScene,resolve:src,character:()=>game.playerKind,renderer:()=>renderer,meta:()=>meta,settings:()=>settings,clearInput:()=>input.clear(),sound:name=>audio.sample(name,.45),music:key=>audio.playMusic(key),onOpen:()=>{assetScreen.hidden=true;game.mode='cutscene';input.clear();screen('cutscene');if(document.hidden)scenes.togglePause(true);},onPause:on=>{if(on)audio.pause();else audio.playMusic(scenes?.scene?.music||stageMusic());},onIdle:()=>{if(sceneQueue.length){pumpScenes();return;}if(scenePreparing)return;if(assetPending){showAssetLoading();return;}if(game.stage!==6){game.storyActors=[];game.storyCage=null;}if(game.stage===4&&!game.projection.active){game.projection.visible=false;game.projection.phase='waiting';game.projection.timer=0;}cinematicAnchor=null;cinematicCamera=null;game.receiverDescent=null;game.mode=sceneReturnMode;input.clear();screen(game.mode==='play'?null:game.mode);audio.playMusic(game.mode==='complete'?'title':stageMusic());}}):null;
 const controllerUI=CriticControllerUI({hub:pad,game,input,ready:()=>ready,pause,resume,title,start:()=>start(false),closeGallery,continueDistrict});
 function gestureAudio(){audio.gesture();if(ready&&game.mode==='title'&&!audio.wantMusic)audio.playMusic('title');if(audio.wantMusic&&audio.music.paused&&!audio.muted&&settings.music>0)audio.playMusic(audio.trackKey);}
 document.addEventListener('pointerdown',gestureAudio,{capture:true,passive:true});

@@ -1062,6 +1062,28 @@ Portrait: franklin | Expression: neutral
 
 Caption: MARTY IS SAFE. THE BROADCAST IS OFF. NEW YORK GETS ITS REALITY BACK.
 
+### Beat 06 skyline realization
+
+ending/skyline-realization | Player advances; earliest advance 1s.
+
+*Marty: idle.*
+
+*Jay route: Selected player: double take.*
+
+*Franklin route: Selected player: v10 victory; Jay: double take.*
+
+**JAY**
+
+Oh my God! What's that?!?
+
+Portrait: jay | Expression: shocked
+
+### Beat 07 skyline collapse
+
+ending/skyline-collapse | Automatic advance after 7.2s; earliest advance 7.2s.
+
+No spoken dialogue.
+
 ## Unlock and results text
 
 Franklin unlocks when Jay defeats him and leaves Stage 4 without dying during that attempt. Franklin’s own route uses Shermometer v3 in Stage 4. Existing profiles retain their unlock; results do not announce it as a new reward again.
@@ -1148,4 +1170,4 @@ Story lines and staging are authored in data/cutscenes.js. Stage and boss trigge
 
 Use the scene and beat identifiers when returning revisions. Replace the spoken line under the appropriate route; shared lines affect both characters. The seven approved opening lines are preserved exactly.
 
-Source fingerprint: 28574b563763f57d
+Source fingerprint: 3f7c5fd3c50fd65b

@@ -1,4 +1,8 @@
-# Annotated polish boundaries
+# Cinematic update boundaries
+
+The later supplied `28384691-7314-4ebe-9c69-058133be8d2f.mp4` resolves the earlier missing-ending-media blocker. Its collapse frames are integrated as predecoded WebP atlases. Focused browser results do not establish physical Android speaker output, hardware controller behavior or subjective motion comfort. See [camera documentation](CINEMATIC-CAMERA.md).
+
+# Historical annotated polish boundaries
 
 The requested final skyline/collapse sting is not integrated: `1000085583.mp4`, `1000085577.png` and `1000085579.png` are unavailable in accessible storage. Existing reunion/results remain functional. Physical Android SFX must still be heard on the phone. Focused Chromium checks do not establish Firefox/WebKit or hardware results for this patch. See [the ledger](V11-ANNOTATED-POLISH.md).
 

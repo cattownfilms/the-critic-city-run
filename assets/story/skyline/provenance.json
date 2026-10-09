@@ -1,0 +1,141 @@
+{
+  "sources": [
+    {
+      "name": "71e7f7f3-683c-481e-85e9-4f2fa2f14743.mp4",
+      "sha256": "c490ded6ef6864af2b5e719b9b1418ba8a25d5be15d0a9b7cdfc71786594b59e",
+      "bytes": 1821569,
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "width": 1280,
+            "height": 720,
+            "r_frame_rate": "24/1",
+            "nb_frames": "240"
+          },
+          {
+            "codec_name": "aac",
+            "r_frame_rate": "0/0",
+            "nb_frames": "470"
+          }
+        ],
+        "format": {
+          "duration": "10.005000"
+        }
+      }
+    },
+    {
+      "name": "videoframe_4555.png",
+      "sha256": "14b6012360d69acbd78a6e94fa4cc79e9acd813dc095110dad556e314f36f54d",
+      "bytes": 843343,
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "png",
+            "width": 1280,
+            "height": 720,
+            "r_frame_rate": "25/1"
+          }
+        ],
+        "format": {}
+      }
+    },
+    {
+      "name": "maxresdefault.png",
+      "sha256": "ed5c30738821dd62eb529edf57f73015d411f90c6e5111bdfbc14ed4ee415065",
+      "bytes": 516027,
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "png",
+            "width": 1280,
+            "height": 720,
+            "r_frame_rate": "25/1"
+          }
+        ],
+        "format": {}
+      }
+    },
+    {
+      "name": "28384691-7314-4ebe-9c69-058133be8d2f.mp4",
+      "sha256": "75ecb049f45cd27accced6e39aaf373ec7b4434f5be7c207112a3acd004d528a",
+      "bytes": 2421443,
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "width": 1280,
+            "height": 720,
+            "r_frame_rate": "24/1",
+            "nb_frames": "240"
+          },
+          {
+            "codec_name": "aac",
+            "r_frame_rate": "0/0",
+            "nb_frames": "470"
+          }
+        ],
+        "format": {
+          "duration": "10.005000"
+        }
+      }
+    },
+    {
+      "name": "maxresdefault (1).png",
+      "sha256": "525e2569d1ffb2ee4854a2e20210d1a35b0b70883f4f0730d7a2bcc08e202be8",
+      "bytes": 626780,
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "png",
+            "width": 1280,
+            "height": 720,
+            "r_frame_rate": "25/1"
+          }
+        ],
+        "format": {}
+      }
+    },
+    {
+      "name": "Skyline.png",
+      "sha256": "383dfa812eee47871819d2c4075e6ddcd6752820926f6a7b048d92ce283b7f05",
+      "bytes": 523612,
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "png",
+            "width": 1280,
+            "height": 720,
+            "r_frame_rate": "25/1"
+          }
+        ],
+        "format": {}
+      }
+    }
+  ],
+  "selectedSource": "28384691-7314-4ebe-9c69-058133be8d2f.mp4",
+  "sourceFrames": {
+    "first": 0,
+    "last": 111,
+    "inclusive": true,
+    "fps": 24
+  },
+  "derivation": "Fixed 640x360 Lanczos resize; chronological 4x4 frame tiles, WebP quality 88. Original MP4 and all original game art unchanged.",
+  "pages": 7,
+  "frames": 112,
+  "usage": "Post-reunion skyline pullback, both towers collapsing and smoke settling. Reconstruction after frame 111 excluded. Other clip title and Press Start excluded.",
+  "audio": "No new soundtrack; existing ending music remains.",
+  "review": "Both complete 240-frame clips inspected as chronological frame sheets; all four image references reviewed. Raw media remain outside repository."
+}

@@ -12,9 +12,13 @@ The release bundle includes the complete standalone `The-Critic-Coming-Attractio
 
 The title shell and options appear first. The game then bulk loads and decodes all runtime sprite atlases, portraits, scene and environment images, and downloads the five music recordings and thirteen sound cues. Start, Continue and every Animation Room entrance remain disabled until this preparation finishes. Progress reflects actual completed files and downloaded bytes, with Retry after a failed download. Later scenes use the prepared cache. This intentionally moves loading to startup and retains every unique animation.
 
+## V11 cinematic update
+
+Continuous shot framing now spans all seven stages. The Receiver descends into view, its final collapse/explosion renders in the foreground, and the preserved reunion leads into the supplied animated skyline collapse. See [camera decisions and verification](docs/CINEMATIC-CAMERA.md). Version 11.0.0 and save schema 5 remain unchanged.
+
 ## V11 annotated polish
 
-Audio recovery, spatial Palace booths, reel depth, Rabbi facing/entry, Spike release and Receiver/Duke staging have been repaired. See [the correction ledger](docs/V11-ANNOTATED-POLISH.md) for checks and boundaries. The requested new skyline ending remains blocked by missing source media; the approved reunion and results remain intact.
+Audio recovery, spatial Palace booths, reel depth, Rabbi facing/entry, Spike release and Receiver/Duke staging have been repaired. See [the correction ledger](docs/V11-ANNOTATED-POLISH.md) for that patch's checks and boundaries. The later supplied skyline source resolves its media blocker; the approved reunion and results remain intact.
 
 ## V11
 
