@@ -310,7 +310,7 @@
     "production/v8-direction-audit.md": "61bd5793ad74b58ab40810dd36c60e197c21e65b3eb63afe9c484611ebc7a457",
     "render.js": "4ffdf60eb87acec9579f34c2e29a3f8bb42be66a41ddc0834264899cf516bd5c",
     "requirements-test.txt": "9d594be178284814cd19ec6dd9536de0eca44ea6707a315bd689e07b414ed4ff",
-    "style.css": "1e7a791de4c224f305fdbf7750dbeaa123391b2ae0bfebb48bdd2f51cdfdc942",
+    "style.css": "fc50953afe69879a781b36fceb466a252e287025d7fdfa0b1785bca0c9065a6a",
     "tests/5857-browser.test.py": "a126fa0f47bac87f20693325ce5ecb75a7140957ecc1e7d94dad17d6066733a2",
     "tests/5857.test.js": "e3b9de221cd75b2c03cf015a3486fff06e3bd9fee01fb43e94205ee0e4ca6d55",
     "tests/audio-lifecycle.test.js": "83cfb8f9b7eaeef351d33fa413afeabd295bb1a45aadb26c187b95c6f5a75a31",
