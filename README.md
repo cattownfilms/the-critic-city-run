@@ -12,6 +12,10 @@ The release bundle includes the complete standalone `The-Critic-Coming-Attractio
 
 The title shell and options appear first. The game then bulk loads and decodes all runtime sprite atlases, portraits, scene and environment images, and downloads the five music recordings and thirteen sound cues. Start, Continue and every Animation Room entrance remain disabled until this preparation finishes. Progress reflects actual completed files and downloaded bytes, with Retry after a failed download. Later scenes use the prepared cache. This intentionally moves loading to startup and retains every unique animation.
 
+## Six-item micro-patch
+
+Receiver background/button staging, a skyline aircraft impact, the supplied Rabbi Hurt action, completed-stage replay, and cinematic player reframing are included. See [scope and focused checks](docs/SIX-ITEM-PATCH.md).
+
 ## 5857 targeted patch
 
 Booth camera ownership, Spike’s raised-can continuation, and the definitive post-collapse card with neutral run results are corrected. See [focused evidence and preserved behavior](docs/PATCH-5857.md).
