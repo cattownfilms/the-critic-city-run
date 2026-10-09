@@ -23,6 +23,14 @@ The five approved reunion beats remain first. Jay says `Oh my god, is that a pla
 The Projectionist reveal pans toward the active world-fixed booth while keeping the player in the composition, then holds through dialogue. Identical camera targets across shot changes no longer restart an active interpolation. Scene entry no longer clears the canvas by reassigning unchanged dimensions; this removes a concrete flash source at the Little Italy handoff. No palette or environment artwork changes are involved.
 
 
+## Refinement verification
+
+The [focused source run](https://github.com/cattownfilms/the-critic-city-run/actions/runs/37887819166) passed 69 scene-continuity checks, 39 refinement checks, 35 standalone ending checks and 16 native Chromium audio checks. These overlapping source/offline suites are reported separately. The refinement checks cover all seven stationary departures on both routes at 915×412 and 412×915, exact background cart marks without teleportation, a pixel-identical Little Italy scene handoff, the real Broadway queue/landing, both exact dialogue replacements and the window-origin pullback.
+
+Screenshots were inspected for the top-floor window, skyline, retained Receiver background composition and portrait Little Italy. Local checks passed: 7 camera, 7 affected encounters, 10 audio lifecycle, and the retained scene contracts. No new media were imported. Nine source modules and the unchanged seven skyline pages match the standalone HTML; the launcher payload matches that HTML byte-for-byte.
+
+Physical Android speaker output, touch/controller hardware and subjective motion comfort were not tested. Firefox and WebKit were not rerun for this focused presentation patch. Intentional district geography cuts, the studio-to-street transition, explicit Skip and checkpoint loads remain; stage openings intentionally hold the camera stationary.
+
 ## Previous release verification
 
 Local camera interpolation (4), audio lifecycle (10) and affected encounter checks (7) pass. The [final source run](https://github.com/cattownfilms/the-critic-city-run/actions/runs/37871929298) passes 69 Chromium scene checks, 35 standalone checks and 16 native browser audio checks with zero failures. These overlapping runs are reported separately. Runtime source SHA: `f3ae1133cb073d818a1e96e7fdb51ebf5b062011`.
