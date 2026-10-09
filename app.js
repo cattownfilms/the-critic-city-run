@@ -328,7 +328,7 @@ function moveBackgroundCart(dt){
  if(!game.backgroundTransport||game.stage!==6)return;
  const d=game.storyActors.find(a=>a.kind==='duke'),m=game.storyActors.find(a=>a.kind==='marty');if(!d||!m)return;
  const move=(body,key,to,speed)=>{const delta=to-body[key];body[key]+=Math.sign(delta)*Math.min(Math.abs(delta),speed*dt);return Math.abs(delta)>2;};
- const rolling=m.x<2740-2||Math.abs(m.y-305)>2;
+ const rolling=Math.abs(m.x-2740)>.001||Math.abs(m.y-305)>.001;
  if(rolling){move(d,'x',2610,260);move(d,'y',305,85);m.x=d.x+130;m.y=d.y;d.face=1;d.anim='v11-cart-push';}
  else {const walking=move(d,'x',2320,220);d.face=-1;d.anim=walking?'walk':'idle';if(!walking)game.backgroundTransport=false;}
  for(const b of [d,m]){b.backdrop=true;b.renderScale=(b===d?1.18:1)*(.63+.37*Brawler.clamp((b.y-305)/102,0,1));b.animT+=dt;}
