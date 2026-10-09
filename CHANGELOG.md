@@ -1,3 +1,10 @@
+# V11 5857 targeted patch
+
+- Ease booth camera bounds and preserve rendered pose/velocity at scene handoffs.
+- Continue Spike’s overhead pose into one physical can release without replaying pickup.
+- Hold the definitive tower-less ending card, then neutral run statistics; retain saves and completion rewards.
+- Focused evidence: `docs/PATCH-5857.md`.
+
 # V11 playtest cinematic refinement
 
 - Hold all seven opening cameras until Duke and the cart leave, then admit the selected player; preserve the Broadway landing.

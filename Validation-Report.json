@@ -1215,5 +1215,14 @@
     "preservation": "Assets, combat/encounter engine, campaign, machine/Duke defeat scenes and first five reunion beats match baseline",
     "publication": "Public Pages and hosted browser validation are recorded in the external receipt after merge",
     "physicalAndroid": "not performed"
+  },
+  "patch5857": {
+    "build": "v11-5857-20261009",
+    "baseline": "2d75df175b54bfe40f233b6dec0a1984dad6a18f",
+    "sourceRun": "https://github.com/cattownfilms/the-critic-city-run/actions/runs/37892600984",
+    "status": "focused-source-and-offline-passed",
+    "documentation": "docs/PATCH-5857.md",
+    "physicalAndroid": "not performed",
+    "publication": "Exact deployed commit and hosted checks recorded in external release receipt"
   }
 }

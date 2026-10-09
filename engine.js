@@ -62,7 +62,7 @@ class Game{
  storyCompleted(id){if(id)this.storyFlags[id]=true;}
  drain(){const a=this.events;this.events=[];return a;}
  makePlayer(){this.p={x:170,y:407,z:0,vx:0,vy:0,vz:0,face:1,hp:100,lives:3,meter:35,inv:0,action:null,anim:'idle',animT:0,animDuration:0,idleT:0,cosmetic:null,cosmeticT:0,combo:0,comboClock:0,chainIndex:0,attackBuffer:0,jumpBuffer:0,guard:false,guardAge:10,guardMeter:100,counter:0,run:false,airUsed:false,landTimer:0,deadT:0,lastHit:0,footT:0,exertion:0};}
- resetWorld(){this.storyActors=[];this.settlingBoss=null;this.spikeTutorial=null;this.storyCage=null;this.bossSpawned=false;this.bossDefeated=false;this.finalPhase='machine';this.machineDefeated=false;this.dukeDefeated=false;this.lastUnlockEarned=false;this.stageClearT=0;this.entranceId=0;this.enemies=[];this.corpses=[];this.effects=[];this.pickups=[];this.props=Campaign.propsFor(this.stage);this.projectiles=[];this.projectileId=0;this.broadcastSummons={active:false,timer:0,wave:0};this.projection={active:false,disabled:false,visible:false,phase:'waiting',window:-1,timer:0,windowXs:[...PROJECTION.windowXs],booths:PROJECTION.windowXs.map((x,id)=>({id,x,circuitId:id%3})),windowY:92,telegraph:null,circuits:PROJECTION.colors.map((color,id)=>({id,color,active:true}))};this.nextGate=0;this.activeGate=-1;this.cleared=0;this.camera=0;this.waveWait=0;this.shake=0;this.hitstop=0;this.stageBanner=3;this.banner='';this.bannerT=0;this.target=null;this.targetT=0;this.enemyId=0;this.attackTicketT=0;}
+ resetWorld(){this.storyActors=[];this.settlingBoss=null;this.spikeTutorial=null;this.storyCage=null;this.bossSpawned=false;this.bossDefeated=false;this.finalPhase='machine';this.machineDefeated=false;this.dukeDefeated=false;this.lastUnlockEarned=false;this.stageClearT=0;this.entranceId=0;this.enemies=[];this.corpses=[];this.effects=[];this.pickups=[];this.props=Campaign.propsFor(this.stage);this.projectiles=[];this.projectileId=0;this.broadcastSummons={active:false,timer:0,wave:0};this.projection={active:false,disabled:false,visible:false,phase:'waiting',window:-1,timer:0,windowXs:[...PROJECTION.windowXs],booths:PROJECTION.windowXs.map((x,id)=>({id,x,circuitId:id%3})),windowY:92,telegraph:null,circuits:PROJECTION.colors.map((color,id)=>({id,color,active:true}))};this.nextGate=0;this.activeGate=-1;this.cleared=0;this.camera=0;this.cameraVelocity=0;this.cameraHandoff=0;this.waveWait=0;this.shake=0;this.hitstop=0;this.stageBanner=3;this.banner='';this.bannerT=0;this.target=null;this.targetT=0;this.enemyId=0;this.attackTicketT=0;}
  updateProps(dt){for(const o of this.props)if(o.kind==='remote'&&o.hp>0){
   if(o.flight){const f=o.flight;f.age+=dt;const u=clamp(f.age/.85,0,1);o.x=lerp(f.x,f.tx,u);o.y=f.ty;o.z=(f.ty-f.y)*(1-u)+65*Math.sin(Math.PI*u);if(u===1){o.flight=null;o.vz=95;o.z=.1;this.emit('projectileImpact',{kind:'remote',x:o.x,y:o.y});}}
   else if(o.z>0){o.vz=(o.vz||0)-1000*dt;o.z=Math.max(0,o.z+o.vz*dt);if(o.z===0)this.emit('projectileImpact',{kind:'remote',x:o.x,y:o.y});}
@@ -137,13 +137,13 @@ class Game{
  visibleBooths(){const a=this.projection;return a.booths.filter(b=>b.id===this.activeGate&&a.circuits[b.circuitId].active&&b.x>=this.camera+70&&b.x<=this.camera+this.viewWidth-70);}
  startJump(){const p=this.p;if(p.z>0||p.hp<=0)return false;p.vz=585;p.z=.1;p.jumpBuffer=0;p.airUsed=false;p.landTimer=0;p.guard=false;this.emit('jump');return true;}
  updateJump(dt){const p=this.p;if(p.z>0||p.vz>0){p.vz-=1700*dt;p.z+=p.vz*dt;if(p.z<=0){p.z=p.vz=0;p.landTimer=.12;p.airUsed=false;if(p.action?.name==='air')p.action=null;this.emit('land');}}else p.landTimer=Math.max(0,p.landTimer-dt);}
- releaseTrashCan(e,m,options={}){const p=this.p,scale=e.renderScale||1;return this.launchProjectile('trash-can',e.x+e.face*Math.min(59.50699300699301*scale,Math.abs(p.x-e.x)*.5),e.y+(39-48.77622377622378)*scale,p.x,p.y,m.damage,m.radius,m.flight,null,{ownerKind:'spike',renderScale:scale,low:!!m.low,...options});}
+ releaseTrashCan(e,m,options={}){const p=this.p,scale=e.renderScale||1,offset=options.overhead?{x:118.488,y:-124}:{x:Math.min(59.50699300699301,Math.abs(p.x-e.x)*.5/scale),y:-48.77622377622378};return this.launchProjectile('trash-can',e.x+e.face*offset.x*scale,e.y+(39+offset.y)*scale,p.x,p.y,m.damage,m.radius,m.flight,null,{ownerKind:'spike',renderScale:scale,low:!!m.low,...options});}
  startSpikeTutorial(){if(this.spikeTutorial)return;const e=this.enemies.find(e=>e.kind==='spike'&&e.hp>0);if(!e)return;const m=BOSS_DEFINITIONS.spike.moves.find(m=>m.area==='trash-can');this.spikeTutorial={time:0,released:false,jumped:false,complete:false,boss:e,move:m};this.p.action=null;this.p.vx=this.p.vy=0;e.face=sign(this.p.x-e.x);this.p.face=-e.face;this.p.y=e.y;}
- updateSpikeTutorial(dt){const t=this.spikeTutorial;if(!t||t.complete)return;const e=t.boss,m=t.move;t.time+=dt;e.anim=t.time<m.wind?(m.windAnim||'idle'):m.anim;const age=Math.max(0,t.time-m.wind),contact=m.hits[0];e.animT=t.time<m.wind?t.time:clamp(age<=contact?m.sourceImpact*age/contact:m.sourceImpact+(1-m.sourceImpact)*(age-contact)/(m.duration-contact),0,1)*m.duration;e.animDuration=t.time<m.wind?m.wind:m.duration;
-  if(!t.released&&t.time>=m.wind+m.hits[0]){t.can=this.releaseTrashCan(e,m,{tutorial:true});t.released=true;}
+ updateSpikeTutorial(dt){const t=this.spikeTutorial;if(!t||t.complete)return;const e=t.boss,m=t.move;t.time+=dt;e.anim='overhead-release';e.animT=t.time;e.animDuration=1.25;
+  if(!t.released&&t.time>=.167){t.can=this.releaseTrashCan(e,m,{tutorial:true,overhead:true});t.released=true;}
   const q=t.can;if(q&&!t.jumped&&q.phase==='rolling'&&Math.abs(q.x-this.p.x)<155){this.startJump();t.jumped=true;}
   this.updateJump(dt);this.updateProjectiles(dt);this.chooseAnimation(dt,0);
-  if(t.time>m.wind+m.duration)e.anim='idle';
+  if(t.time>1.25)e.anim='idle';
   if(t.released&&q.done&&t.jumped&&this.p.z===0){t.complete=true;this.emit('spikeTutorialComplete',{character:this.playerKind});}
  }
  finishSpikeTutorial(){this.projectiles=this.projectiles.filter(q=>!q.tutorial);const t=this.spikeTutorial,e=t?.boss||this.enemies.find(e=>e.kind==='spike'&&e.hp>0);if(e){e.state='seek';e.timer=0;e.cooldown=1;e.anim='idle';e.animT=0;e.face=sign(this.p.x-e.x);this.p.face=-e.face;}this.spikeTutorial=null;const p=this.p;p.z=p.vz=p.vx=p.vy=p.attackBuffer=p.jumpBuffer=0;p.action=null;p.anim='idle';}
@@ -544,7 +544,13 @@ class Game{
   this.chooseAnimation(dt,machineExit&&p.run?1:mag);
   const cameraMin=this.stage===4&&this.projection.active&&this.activeGate>=0?Math.min(Math.max(0,GATES[this.activeGate]-315),Math.max(0,LENGTH-this.viewWidth)):0;
   const cameraMax=this.stage===4&&this.projection.active?Math.min(Math.max(0,LENGTH-this.viewWidth),this.projection.booths[this.activeGate].x-150):Math.max(0,LENGTH-this.viewWidth);
-  const aim=clamp(machineExit?(p.x+(this.enemies.find(e=>e.kind==='broadcast-rig')?.x||p.x))/2-this.viewWidth/2:p.x-this.viewWidth*.43+p.face*45,cameraMin,cameraMax);this.camera=clamp(lerp(this.camera,aim,1-Math.exp(-5*dt)),cameraMin,cameraMax);
+  const aim=clamp(machineExit?(p.x+(this.enemies.find(e=>e.kind==='broadcast-rig')?.x||p.x))/2-this.viewWidth/2:p.x-this.viewWidth*.43+p.face*45,cameraMin,cameraMax),before=this.camera;
+  const desired=(aim-before)*(1-Math.exp(-5*dt))/Math.max(dt,.000001);
+  if(this.cameraHandoff>0){this.cameraHandoff=Math.max(0,this.cameraHandoff-dt);this.cameraVelocity=lerp(this.cameraVelocity||0,desired,1-Math.exp(-18*dt));this.camera+=this.cameraVelocity*dt;}
+  else this.camera=lerp(before,aim,1-Math.exp(-5*dt));
+  // Arena limits constrain the target, not the already displayed camera pose.
+  this.camera=clamp(this.camera,0,Math.max(0,LENGTH-this.viewWidth));this.cameraVelocity=(this.camera-before)/Math.max(dt,.000001);
+  this.cameraTrace={owner:'gameplay',target:aim,min:cameraMin,max:cameraMax,delta:this.camera-before};
  }
  advanceStage(){
   if(this.mode!=='play'||this.settlingBoss)return;
@@ -558,7 +564,7 @@ class Game{
    this.story('stage4-clear');
   }
   if(this.stage===STAGES.length-1){
-   this.storyFlags.martyRescued=true;this.storyFlags.broadcastStopped=true;this.mode='complete';this.p.action=null;this.p.vx=this.p.vy=this.p.vz=this.p.z=0;this.p.attackBuffer=this.p.jumpBuffer=0;this.p.guard=false;this.p.anim='dance-enter';this.p.animT=0;this.score+=1000;this.emit('complete',{score:this.score,boss:'duke',ending:'ending',playerKind:this.playerKind});this.emit('save',{save:{...this.snapshot(),complete:true}});return;
+   this.storyFlags.martyRescued=true;this.storyFlags.broadcastStopped=true;this.mode='complete';this.p.action=null;this.p.vx=this.p.vy=this.p.vz=this.p.z=0;this.p.attackBuffer=this.p.jumpBuffer=0;this.p.guard=false;this.p.anim='idle';this.p.animT=0;this.score+=1000;this.emit('complete',{score:this.score,boss:'duke',ending:'ending',playerKind:this.playerKind});this.emit('save',{save:{...this.snapshot(),complete:true}});return;
   }
   this.mode='stageclear';this.stageClearT=0;this.p.action=null;this.p.vx=this.p.vy=this.p.vz=this.p.z=0;this.p.attackBuffer=this.p.jumpBuffer=0;this.p.guard=false;this.checkpointSave();this.emit('stageClear',{stage:this.stage,next:this.stage+1});
  }
@@ -572,16 +578,17 @@ class Game{
 }
 // Presentation-only director: retarget from the displayed pose, not the old target.
 class CinematicCamera {
- constructor(x=0,y=0,zoom=1){this.pose={x,y,zoom};this.active=false;this.key=null;}
+ constructor(x=0,y=0,zoom=1,velocity=0){this.pose={x,y,zoom};this.velocity=velocity;this.active=false;this.key=null;}
  shot(key,target,{duration,reduced=false,onComplete}={}){
   if(key===this.key)return;
   if(this.target&&['x','y','zoom'].every(k=>(target[k]??this.pose[k])===this.target[k])){this.key=key;return;}
   this.key=key;this.from={...this.pose};this.target={...this.pose,...target};
   const distance=Math.hypot(this.target.x-this.pose.x,this.target.y-this.pose.y);
   this.duration=reduced?.12:(duration??clamp(.35+distance/480,.35,1.65));
+  this.startVelocity=Math.sign(this.target.x-this.pose.x)===Math.sign(this.velocity)?Math.sign(this.velocity)*Math.min(Math.abs(this.velocity),3*Math.abs(this.target.x-this.pose.x)/this.duration):0;
   this.elapsed=0;this.active=true;this.onComplete=onComplete;
  }
- update(dt){if(!this.active)return this.pose;this.elapsed=Math.min(this.duration,this.elapsed+Math.max(0,dt));const u=this.elapsed/this.duration,t=u*u*(3-2*u);for(const k of ['x','y','zoom'])this.pose[k]=lerp(this.from[k],this.target[k],t);if(u===1){this.active=false;const done=this.onComplete;this.onComplete=null;done?.();}return this.pose;}
+ update(dt){if(!this.active)return this.pose;const before=this.pose.x;this.elapsed=Math.min(this.duration,this.elapsed+Math.max(0,dt));const u=this.elapsed/this.duration,t=u*u*(3-2*u);for(const k of ['x','y','zoom'])this.pose[k]=lerp(this.from[k],this.target[k],t);this.pose.x+=(u*u*u-2*u*u+u)*this.duration*this.startVelocity;if(dt>0)this.velocity=(this.pose.x-before)/dt;if(u===1){this.active=false;this.velocity=0;const done=this.onComplete;this.onComplete=null;done?.();}return this.pose;}
  cancel(){this.active=false;this.onComplete=null;this.key=null;}
 }
 const API={CinematicCamera,Game,STAGES,HITS,RUN_ATTACKS,CHAIN,GATES,LENGTH,YMIN,YMAX,clamp,lerp,EINFO,BOSS_MOVES,BOSS_DEFINITIONS,ITEMS,PROPS,PROJECTION,playerAnimation};if(typeof module!=='undefined')module.exports=API;else root.Brawler=API;

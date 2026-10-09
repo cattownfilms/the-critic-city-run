@@ -646,11 +646,19 @@ You’re not getting past me.
 
 Portrait: spike | Expression: neutral
 
-### Beat 03
+### Beat 03 tutorial marks
 
-boss-spike-intro/beat-03 | Player advances; earliest advance 0.22s.
+boss-spike-intro/tutorial-marks | Automatic advance after 1.8s; earliest advance 1.75s.
 
-*Selected player: idle; Spike: throw ready; the pizzeria door is open.*
+*Selected player: idle, moving in place over 1.7s; Spike: idle, moving in place over 1.7s.*
+
+No spoken dialogue.
+
+### Beat 04
+
+boss-spike-intro/beat-04 | Player advances; earliest advance 0.22s.
+
+*Selected player: idle; Spike: overhead ready; the pizzeria door is open.*
 
 **JAY / Jay route**
 
@@ -663,14 +671,6 @@ Portrait: jay | Expression: neutral
 Put the can down, Spike. Do the right thing.
 
 Portrait: franklin | Expression: neutral
-
-### Beat 04 tutorial marks
-
-boss-spike-intro/tutorial-marks | Automatic advance after 1.8s; earliest advance 1.75s.
-
-*Selected player: idle, moving in place over 1.7s; Spike: idle, moving in place over 1.7s.*
-
-No spoken dialogue.
 
 ### Beat 05 jump demonstration
 
@@ -956,9 +956,9 @@ Portrait: franklin | Expression: neutral
 
 Destination: MARTY / CAGE OPEN
 
-## THATS A WRAP
+## FINAL SCENE
 
-Scene ending | Onscreen title: THAT’S A WRAP
+Scene ending | Onscreen title: FINAL SCENE
 
 After Duke’s defeat settles. Marty is released before results.
 
@@ -1074,6 +1074,18 @@ ending/skyline-collapse | Automatic advance after 7.2s; earliest advance 7.2s.
 
 No spoken dialogue.
 
+### Beat 08 ending card
+
+ending/ending-card | Player advances; earliest advance 1s.
+
+No spoken dialogue.
+
+Caption: Jay and Marty Sherman perished on September 11, 2001.
+
+Never forget.
+
+THE END.
+
 ## BROADWAY
 
 Scene stage-01-intro | Onscreen title: BROADWAY
@@ -1104,23 +1116,15 @@ Unlock Franklin: defeat him and finish Stage 4 without dying.
 
 **Results heading**
 
-MARTY IS HOME
-
-**Results heading**
-
-FRANKLIN / THE FINAL CURTAIN
+CHARACTERS
 
 **Results message**
 
-Marty is safe and Duke’s broadcast is stopped. Franklin is available for another run.
+Jay and Franklin are available for replay.
 
 **Results message**
 
-Marty is safe and Duke’s broadcast is stopped. Clear Stage 4 without dying to unlock Franklin.
-
-**Results message**
-
-Franklin helped bring the broadcast to an end. Marty is safe.
+Clear Stage 4 without dying to unlock Franklin.
 
 **Boss and unlock status**
 
@@ -1176,4 +1180,4 @@ Story lines and staging are authored in data/cutscenes.js. Stage and boss trigge
 
 Use the scene and beat identifiers when returning revisions. Replace the spoken line under the appropriate route; shared lines affect both characters. The seven approved opening lines are preserved exactly.
 
-Source fingerprint: 08c500344182d28f
+Source fingerprint: 1a62a455379c133a

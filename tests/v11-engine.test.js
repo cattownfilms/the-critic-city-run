@@ -15,7 +15,7 @@ for(const stage of [4,5]){const g=arena(stage);g.projection.disabled=true;g.spaw
  for(let phase=0;phase<3;phase++){g.activeGate=phase;g.camera=[200,1065,1660][phase];g.configureProjection();let widths=[];for(let i=0;i<6000&&g.projection.phase!=='remote';i++){g.updateProjection(1/120);widths.push(...g.drain().filter(e=>e.type==='projectionVolley').map(e=>e.width));}assert.deepEqual(widths,[1+2*phase,1+2*phase,1+2*phase]);assert.equal(g.projection.window,phase);assert.equal(g.props.filter(o=>o.hp>0&&o.kind==='remote').length,1);g.disableCircuit(phase);if(phase<2){assert.equal(g.activeGate,-1);assert.equal(g.nextGate,phase+1);assert(!g.projection.active);}}
  console.log('PASS screen-area trigger and left/center/right 1/3/5 spread volleys');
 }
-assert(C.scenes.ending.shots.every(s=>s.reunionLayers));assert(C.scenes['boss-spike-intro'].shots.at(-1).spikeTutorial);
+assert(C.scenes.ending.shots.slice(0,5).every(s=>s.reunionLayers));assert(C.scenes['boss-spike-intro'].shots.at(-1).spikeTutorial);
 assert.equal(B.RUN_ATTACKS.franklin.dur,.56);assert.equal(B.RUN_ATTACKS.hero.dur,.43);assert.equal(B.RUN_ATTACKS.franklin.sourceImpact,11/26);
 const lines=Object.values(C.scenes).flatMap(s=>s.shots.map(q=>q.routeDialogue?.hero?.dialogue||q.dialogue||''));assert.equal(lines.filter(s=>s.includes('credits')).length,1);
 console.log('PASS retained cartwheel source contact, selective retiming, tutorial staging, reunion layer metadata and unique credits joke');

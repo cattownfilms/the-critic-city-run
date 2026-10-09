@@ -72,7 +72,7 @@ const scenes={
  'boss-spike-intro':{id:'boss-spike-intro',title:'SPIKE',environment:'pizzeria',shots:[
   {id:'door-opens',auto:1,minTime:.85,door:{opening:true},actors:[hero(235)],sound:'step2'},
   dialogue('SPIKE','You’re not getting past me.',{portrait:'spike',door:{open:true},actors:[hero(235),actor('spike','spike',670,318,{animation:'v10-walk',face:-1,scale:1.08,motion:move(840,670,1.1)})],minTime:1.1}),
-  route("Stick to social commentary, jerk.","Put the can down, Spike. Do the right thing.",{door:{open:true},actors:[hero(235),actor('spike','spike',670,318,{animation:'throw-ready',face:-1,scale:1.08})]})
+  route("Stick to social commentary, jerk.","Put the can down, Spike. Do the right thing.",{door:{open:true},actors:[hero(235),actor('spike','spike',670,318,{animation:'overhead-ready',face:-1,scale:1.08})]})
  ]},
  'boss-spike-defeat':{id:'boss-spike-defeat',title:'THE SERVICE ROUTE',environment:'pizzeria',shots:[
   route("Stay down, Spike. Like your diminishing box-office returns.","I'll take a pepperoni and 2 plains.",{actors:[hero(235),actor('spike','spike',670,318,{animation:'death',face:-1,scale:1.08})],destination:'BROADCAST TOWER'})
@@ -100,7 +100,7 @@ const scenes={
   dialogue('DUKE','Fine! Take him!',{portrait:'duke',expression:'defeated',actors:[hero(280),duke(570,{animation:'v10-defeat',face:-1}),boy(792)],cage:cage(792),auto:1.8,minTime:1.5}),
   route('That’s the first sensible thing you’ve said.',"Nilknarf!",{actors:[hero(280),duke(570,{animation:'v10-defeat',face:-1}),boy(792)],cage:cage(792,{open:true}),destination:'MARTY / CAGE OPEN'})
  ]},
- ending:{id:'ending',title:'THAT’S A WRAP',environment:'broadcast',music:'title',shots:[
+ ending:{id:'ending',title:'FINAL SCENE',environment:'broadcast',music:'title',shots:[
   {id:'marty-freed',auto:1.6,minTime:1.3,actors:[hero(280,{routes:['hero']}),hero(155,{routes:['franklin']}),boy(280,{animation:'run',y:318,motion:move(792,350,1.4,0,{fromY:311,toY:318})}),duke(660,{animation:'v10-defeat',face:-1}),actor('jay','hero',280,318,{routes:['franklin'],animation:'walk',motion:move(-30,280,1.3)})],cage:cage(792,{open:true})},
   dialogue('MARTY','Dad!',{portrait:'marty',expression:'happy',actors:[...endingParty(),boy(350,{animation:'idle',y:318})]}),
   route('Marty. Are you all right?','Safe now, Marty?',{actors:[...endingParty(),boy(350,{animation:'idle',y:318})]}),
@@ -109,7 +109,7 @@ const scenes={
  ]}
 };
 scenes['boss-duke-intro'].shots.unshift({id:'face-off-marks',auto:1.2,minTime:1.1,actors:[hero(280,{motion:move(280,280,1.1),face:1}),duke(550,{motion:move(515,550,1.1),face:-1}),boy(792)],cage:cage(792)});
-scenes['boss-spike-intro'].shots.push({id:'tutorial-marks',auto:1.8,minTime:1.75,actors:[hero(235,{motion:move(235,235,1.7),face:1}),actor('spike','spike',670,318,{motion:move(670,670,1.7),face:-1,scale:1.08})]});
+scenes['boss-spike-intro'].shots.splice(2,0,{id:'tutorial-marks',awaitMarks:true,awaitCamera:true,auto:1.8,minTime:1.75,actors:[hero(235,{motion:move(235,235,1.7),face:1}),actor('spike','spike',670,318,{motion:move(670,670,1.7),face:-1,scale:1.08})]});
 scenes['boss-spike-intro'].shots.push({id:'jump-demonstration',spikeTutorial:true,auto:30,minTime:30,tutorialHint:'ROLLS LOW — JUMP OVER IT',actors:[hero(235,{face:1}),actor('spike','spike',670,318,{face:-1,scale:1.08})]});
 for(const scene of Object.values(scenes))for(const shot of scene.shots){
  if(shot.cage&&!shot.cage.open){const d=shot.actors?.find(a=>a.character==='duke'),m=shot.actors?.find(a=>a.character==='marty');if(d&&m&&(d.motion&&m.motion||scene.id==='stage-07-intro')){shot.cartCoupled=true;d.animation=d.motion?'v11-cart-push':'v11-cart-stop';m.animation='v11-captive-idle';}}
@@ -162,6 +162,7 @@ scenes['stage-03-intro'].shots[2].routeDialogue.hero.expression='worried';
 const skylinePages=Array.from({length:7},(_,i)=>'story/skyline/collapse-'+String(i+1).padStart(2,'0')+'.webp');
 scenes.ending.shots.push(dialogue('JAY',"Oh my god, is that a plane?!? Hatchi Matchi!",{id:'skyline-realization',portrait:'jay',expression:'shocked',actors:[...endingParty().map(a=>a.id==='jay'||a.routes?.includes('hero')?{...a,animation:'double-take'}:a),boy(350,{animation:'idle',y:318})],reunionLayers:true,minTime:1}));
 scenes.ending.shots.push({id:'skyline-collapse',skyline:true,images:skylinePages,auto:7.2,minTime:7.2,actors:[]});
+scenes.ending.shots.push({id:'ending-card',endingCard:true,skyline:true,images:skylinePages,caption:'Jay and Marty Sherman perished on September 11, 2001.\n\nNever forget.\n\nTHE END.',minTime:1,actors:[]});
 
 // Still actors face their scene partner; moving actors derive travel direction.
 for(const scene of Object.values(scenes))for(const shot of scene.shots)for(const a of shot.actors||[]){
