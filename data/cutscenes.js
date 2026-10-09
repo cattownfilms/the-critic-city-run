@@ -146,7 +146,7 @@ scenes['boss-broadcast-intro'].shots.unshift({id:'control-marks',auto:2.5,minTim
 for(const id of ['boss-broadcast-intro','boss-broadcast-defeat','boss-duke-intro','boss-duke-defeat'])for(const shot of scenes[id].shots){
  for(const a of shot.actors||[]){
   if(a.character==='marty'){a.worldX=2740;a.worldY=305;a.animation='v11-captive-idle';}
-  if(a.character==='duke'&&id==='boss-broadcast-intro'){a.worldX=2320;a.worldY=305;delete a.motion;}
+  if(a.character==='duke'&&id==='boss-broadcast-intro'){a.worldX=2535;a.worldY=305;a.animation=shot.id==='control-marks'?'v10-button':'idle';delete a.motion;}
   if(a.character==='duke'&&id==='boss-broadcast-defeat'){a.worldX=2450;a.worldY=407;a.animation='v11-confrontation';delete a.motion;}
   if(a.character==='duke'&&id==='boss-duke-intro'){a.worldX=2450;a.worldY=407;delete a.motion;}
   if(a.id==='player'&&id==='boss-duke-intro'){a.worldX=2180;delete a.motion;}
@@ -161,7 +161,7 @@ scenes['stage-03-intro'].shots[2].routeDialogue.hero.expression='worried';
 // Preserve the five accepted reunion beats; append only the requested realization/reveal.
 const skylinePages=Array.from({length:7},(_,i)=>'story/skyline/collapse-'+String(i+1).padStart(2,'0')+'.webp');
 scenes.ending.shots.push(dialogue('JAY',"Oh my god, is that a plane?!? Hatchi Matchi!",{id:'skyline-realization',portrait:'jay',expression:'shocked',actors:[...endingParty().map(a=>a.id==='jay'||a.routes?.includes('hero')?{...a,animation:'double-take'}:a),boy(350,{animation:'idle',y:318})],reunionLayers:true,minTime:1}));
-scenes.ending.shots.push({id:'skyline-collapse',skyline:true,images:skylinePages,auto:7.2,minTime:7.2,actors:[]});
+scenes.ending.shots.push({id:'skyline-collapse',skyline:true,images:skylinePages,auto:8.1,minTime:8.1,actors:[]});
 scenes.ending.shots.push({id:'ending-card',endingCard:true,skyline:true,images:skylinePages,caption:'Jay and Marty Sherman perished on September 11, 2001.\n\nNever forget.\n\nTHE END.',minTime:1,actors:[]});
 
 // Still actors face their scene partner; moving actors derive travel direction.

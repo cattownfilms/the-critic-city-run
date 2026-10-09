@@ -1224,5 +1224,13 @@
     "documentation": "docs/PATCH-5857.md",
     "physicalAndroid": "not performed",
     "publication": "Exact deployed commit and hosted checks recorded in external release receipt"
+  },
+  "sixItemPatch": {
+    "build": "v11-six-20261009",
+    "sourceRun": "https://github.com/cattownfilms/the-critic-city-run/actions/runs/37900339547",
+    "scope": "six items only; focused Chromium and standalone ending",
+    "physicalAndroid": "not performed",
+    "documentation": "docs/SIX-ITEM-PATCH.md",
+    "publication": "Exact final source and public run identifiers in external release receipt"
   }
 }

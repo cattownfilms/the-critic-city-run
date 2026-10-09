@@ -1,3 +1,11 @@
+# V11 six-item micro-patch
+
+- Ground Duke beside the cage and reuse his button action for Receiver events.
+- Add aircraft contact at the existing skyline flash; preserve the definitive ending.
+- Import the supplied four-frame Rabbi Hurt.
+- Add completed-stage replay isolated from Continue, and bounded cinematic player running.
+- Details: `docs/SIX-ITEM-PATCH.md`.
+
 # V11 5857 targeted patch
 
 - Ease booth camera bounds and preserve rendered pose/velocity at scene handoffs.
