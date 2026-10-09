@@ -111,6 +111,9 @@ with source_site(args.url) as url, sync_playwright() as pw:
           for(let frame=0;frame<140;frame++){s.update(1/60);out.push(g.receiverDescent.z);}return out;}''')
         check('Receiver descends continuously from ceiling before combat',
               descent[0]>450 and descent[-1]<195 and all(a>=b for a,b in zip(descent,descent[1:])))
+        check('Duke background mark stays clear of descending Receiver',page.evaluate('''(()=>{const g=__brawler.game,
+          duke=g.storyActors.find(a=>a.kind==='duke'),core=g.enemies.find(a=>a.kind==='broadcast-rig');
+          return duke.backdrop&&Math.abs(duke.x-core.x)>=120&&!g.storyCage.open;})()'''))
         page.screenshot(path=str(photos/'cinematic-receiver-descent.png'))
         page.locator('#sceneSkip').tap()
         order=page.evaluate('''()=>{const g=__brawler.game,r=__brawler.renderer(),core=g.enemies[0],order=[];

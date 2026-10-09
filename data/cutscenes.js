@@ -131,7 +131,7 @@ scenes['boss-broadcast-intro'].shots.unshift({id:'control-marks',auto:2.5,minTim
 for(const id of ['boss-broadcast-intro','boss-broadcast-defeat','boss-duke-intro','boss-duke-defeat'])for(const shot of scenes[id].shots){
  for(const a of shot.actors||[]){
   if(a.character==='marty'){a.worldX=2740;a.worldY=305;a.animation='v11-captive-idle';}
-  if(a.character==='duke'&&id==='boss-broadcast-intro'){a.worldX=2520;a.worldY=305;delete a.motion;}
+  if(a.character==='duke'&&id==='boss-broadcast-intro'){a.worldX=2320;a.worldY=305;delete a.motion;}
   if(a.character==='duke'&&id==='boss-broadcast-defeat'){a.worldX=2450;a.worldY=407;a.animation='v11-confrontation';delete a.motion;}
   if(a.character==='duke'&&id==='boss-duke-intro'){a.worldX=2450;a.worldY=407;delete a.motion;}
   if(a.id==='player'&&id==='boss-duke-intro'){a.worldX=2180;delete a.motion;}

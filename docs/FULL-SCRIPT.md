@@ -1170,4 +1170,4 @@ Story lines and staging are authored in data/cutscenes.js. Stage and boss trigge
 
 Use the scene and beat identifiers when returning revisions. Replace the spoken line under the appropriate route; shared lines affect both characters. The seven approved opening lines are preserved exactly.
 
-Source fingerprint: 3f7c5fd3c50fd65b
+Source fingerprint: 24e40671ea867ba9
