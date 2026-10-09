@@ -284,7 +284,7 @@ async function pumpScenes(){
 
 let cinematicCamera=null,cinematicAnchor=null;
 function directWorldCamera(s,dt){
- const width=renderer.rect.w,shot=s.shot,renderDt=dt;
+ const width=renderer.rect.w,shot=s.shot,renderDt=dt;s.reframePlayer=s.followAuthoredPlayer=false;
  if(!cinematicCamera)cinematicCamera=new Brawler.CinematicCamera(game.camera);
  const key=s.serial+':'+s.index+':'+width;
  if(s.scene.stationaryOpening){game.camera=s.scene.openingCamera;s.cameraState={x:game.camera,y:0,zoom:1,active:false};return;}
@@ -396,7 +396,7 @@ function drawWorldScene(s){
  const arenaMin=game.stage===4&&game.projection.active&&game.activeGate>=0?Brawler.GATES[game.activeGate]-280:game.activeGate>=0?Math.max(35,Brawler.GATES[game.activeGate]-485):35,arenaMax=game.activeGate>=0?Math.min(Brawler.LENGTH-40,Brawler.GATES[game.activeGate]+495):Brawler.LENGTH-45,target=Brawler.clamp(p.x<left?left:p.x>right?right:p.x,arenaMin,arenaMax),dx=target-p.x;
  if(Math.abs(dx)>1){p.x+=Math.sign(dx)*Math.min(Math.abs(dx),340*dt);p.face=Math.sign(dx);p.anim='run';p.animT=(s.autoRunTime||0)+dt;s.autoRunTime=p.animT;p.animDuration=0;}else s.autoRunTime=0;
  // If an arena prevents following, retarget the existing director to retain the player.
- if(cinematicCamera?.active&&(target===arenaMin||target===arenaMax)){const safe=Brawler.clamp(cinematicCamera.target.x,p.x+hi+margin-renderer.rect.w,p.x+lo-margin);if(Math.abs(safe-cinematicCamera.target.x)>1)cinematicCamera.shot('bounded:'+cinematicCamera.key,{x:Brawler.clamp(safe,0,Math.max(0,Brawler.LENGTH-renderer.rect.w))});}
+ if(cinematicCamera?.active&&(target===arenaMin||target===arenaMax)){const safe=Brawler.clamp(cinematicCamera.target.x,p.x+hi+margin-renderer.rect.w,p.x+lo-margin);if(Math.abs(safe-cinematicCamera.target.x)>1){const key=cinematicCamera.key;cinematicCamera.key=null;cinematicCamera.shot(key,{x:Brawler.clamp(safe,0,Math.max(0,Brawler.LENGTH-renderer.rect.w))});}}
  s.playerFraming={x:p.x,left:p.x+lo-game.camera,right:p.x+hi-game.camera,running:p.anim==='run'};}}
  game.storyActors=game.storyActors.filter(a=>active.has(a.id)||game.stage===6&&['marty','duke','jay'].includes(a.kind));
  const boy=game.storyActors.find(a=>a.kind==='marty'),cartDuke=game.storyActors.find(a=>a.kind==='duke');
