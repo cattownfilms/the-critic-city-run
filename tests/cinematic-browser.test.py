@@ -168,6 +168,9 @@ with source_site(args.url) as url, sync_playwright() as pw:
             page.wait_for_timeout(250)
             check(route+' pause freezes collapse playback',frozen==page.evaluate('[__brawler.game.skyline.frame,__brawler.scenes().time]'))
             page.keyboard.press('KeyP')
+            page.wait_for_function('__brawler.scenes().shot.id==="ending-card"',timeout=15000)
+            page.wait_for_timeout(1100)
+            page.locator('#sceneAdvance').tap()
             page.wait_for_function('endingDone.length===1',timeout=15000)
             check(route+' watched ending finishes once and clears cinematic state',page.evaluate('''endingDone[0].reason==='watched'&&!__brawler.game.skyline&&!__brawler.renderer().skylineSnapshot&&!__brawler.game.reunionLayers'''))
             ending(page,route)
@@ -192,6 +195,8 @@ with source_site(args.url) as url, sync_playwright() as pw:
             wait_scene(page)
             page.evaluate('const s=__brawler.scenes();s.index=s.shots.length-1;s._shot()')
             if route=='hero':
+                page.wait_for_timeout(1100)
+                page.locator('#sceneAdvance').tap()
                 page.wait_for_function('__brawler.game.mode==="complete"',timeout=15000)
             else:
                 page.locator('#sceneSkip').tap()

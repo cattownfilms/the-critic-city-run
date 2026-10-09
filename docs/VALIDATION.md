@@ -1,3 +1,7 @@
+## 5857 targeted patch
+
+See [the patch evidence](PATCH-5857.md) for the limited camera, overhead throw and ending checks. Historical broad-suite results below are not claimed as rerun for this patch.
+
 # Cinematic refinement validation
 
 Current focused results: [source run](https://github.com/cattownfilms/the-critic-city-run/actions/runs/37887819166). Source scenes 69, refinement 39, offline endings 35, Chromium audio 16; zero failures. Local camera 7, affected encounter 7, audio lifecycle 10 and scene contracts passed. See [camera decisions](CINEMATIC-CAMERA.md). Public deployment verification is recorded separately in the external release receipt. Historical results below do not substitute for this run.

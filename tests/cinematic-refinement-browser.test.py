@@ -81,7 +81,7 @@ with source_site(args.url) as url,sync_playwright() as pw:
     page.evaluate('''()=>{const b=__brawler,g=b.game;g.stage=6;g.playerKind='hero';g.resetWorld();g.makePlayer();
       g.p.x=2220;g.camera=1650;b.renderer().draw(g,0);b.scenes().play(CriticCutscenes.scenes.ending,()=>{});}''')
     wait_scene(page)
-    page.evaluate('''()=>{const s=__brawler.scenes();for(let i=0;i<s.shots.length-2;i++){s.index=i;s._shot();for(let f=0;f<120;f++)s.update(1/60);}s.index=s.shots.length-2;s._shot();s.update(1.1);}''')
+    page.evaluate('''()=>{const s=__brawler.scenes();for(let i=0;i<s.shots.findIndex(x=>x.id==='skyline-realization');i++){s.index=i;s._shot();for(let f=0;f<120;f++)s.update(1/60);}s.index=s.shots.findIndex(x=>x.id==='skyline-realization');s._shot();s.update(1.1);}''')
     check('Exact Jay realization',page.locator('#sceneDialogue').inner_text()=='Oh my god, is that a plane?!? Hatchi Matchi!')
     page.locator('#sceneAdvance').tap()
     page.wait_for_function('__brawler.game.skyline?.time>.2')

@@ -225,9 +225,7 @@ jobs:
           node tests/v11-engine.test.js
           node tests/v11-playtest-engine.test.js
           node tests/5857.test.js
-          if [ "$SITE_URL" = local ]; then
-            python tests/5857-browser.test.py --baseline --url https://cattownfilms.github.io/the-critic-city-run/
-          fi
+          # Baseline motion evidence archived in run 37892600984 before publication.
           python tests/5857-browser.test.py --url "$SITE_URL"
           if [ "$SITE_URL" = local ]; then
             python tools/build_standalone.py
