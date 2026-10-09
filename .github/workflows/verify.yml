@@ -208,6 +208,10 @@ jobs:
           node tests/v11-playtest-engine.test.js
           python tests/v9-audio-browser.test.py --engine chromium --url "$SITE_URL"
           python tests/cinematic-browser.test.py --url "$SITE_URL"
+          if [ "$SITE_URL" = local ]; then
+            python tools/build_standalone.py
+            python tests/cinematic-browser.test.py --ending-only --url "file://$PWD/The-Critic-Coming-Attractions-v11.html"
+          fi
       - uses: actions/upload-artifact@v7
         if: always()
         with:

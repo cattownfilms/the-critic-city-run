@@ -8,10 +8,13 @@ from browser_support import source_site, launch_options, skip_story, wait_scene
 parser = argparse.ArgumentParser()
 parser.add_argument('--url', default='local')
 parser.add_argument('--engine', default='chromium', choices=['chromium', 'firefox', 'webkit'])
+parser.add_argument('--ending-only', action='store_true')
 args = parser.parse_args()
 results, errors = [], []
 photos = Path(__file__).parent / 'screenshots-playtest'
-photos.mkdir(exist_ok=True)
+if args.ending_only:
+    photos = photos/'offline'
+photos.mkdir(parents=True,exist_ok=True)
 
 def check(name, value, details=None):
     results.append(dict(name=name, passed=bool(value), details=details))
@@ -48,6 +51,8 @@ with source_site(args.url) as url, sync_playwright() as pw:
             (6, 'stage-07-intro'), (6, 'boss-broadcast-intro'),
             (6, 'boss-broadcast-defeat'), (6, 'boss-duke-intro'),
             (6, 'boss-duke-defeat')]
+        if args.ending_only:
+            stage_scenes = []
         for viewport in [{'width':915,'height':412}, {'width':412,'height':915}]:
             page.set_viewport_size(viewport)
             for stage, scene_id in stage_scenes:
@@ -56,8 +61,10 @@ with source_site(args.url) as url, sync_playwright() as pw:
                   g.p.x=id.startsWith('stage-')?170:2200;g.p.y=407;
                   g.camera=id.startsWith('stage-')?0:Math.max(0,Brawler.LENGTH-g.viewWidth);
                   if(id.startsWith('boss-')){g.activeGate=g.nextGate=2;
-                    if(stage===4){g.projection.circuits.forEach(c=>c.active=false);g.projection.disabled=true;}
-                    g.spawnBoss();g.drain();
+                    if(id.includes('projection')){g.projection.circuits.forEach((c,i)=>c.active=i===2);g.configureProjection();}
+                    else{if(stage===4){g.projection.circuits.forEach(c=>c.active=false);g.projection.disabled=true;}
+                      if(id.includes('duke'))g.finishDukeConfrontation(false);else g.spawnBoss();}
+                    g.drain();
                     if(id.endsWith('defeat')){g.enemies.forEach(e=>{e.hp=0;e.entry=null;});}
                   }
                   __brawler.scenes().play(CriticCutscenes.scenes[id],()=>{});
@@ -81,7 +88,8 @@ with source_site(args.url) as url, sync_playwright() as pw:
                 check(str(viewport['width'])+' '+scene_id+' continuous bounded shots',
                       continuity['snaps']==0 and continuity['maxStep']<25 and continuity['finite'],continuity)
                 page.screenshot(path=str(photos/f"camera-{viewport['width']}-{scene_id}.png"))
-                page.locator('#sceneSkip').tap()
+                if page.evaluate('__brawler.scenes().active'):
+                    page.locator('#sceneSkip').tap()
         page.set_viewport_size({'width':915,'height':412})
         page.evaluate('''()=>{const g=__brawler.game;g.stage=6;g.resetWorld();g.makePlayer();
           g.p.x=2250;g.camera=Math.max(0,Brawler.LENGTH-__brawler.renderer().rect.w);
@@ -183,6 +191,7 @@ with source_site(args.url) as url, sync_playwright() as pw:
         page.screenshot(path=str(photos/'cinematic-failure.png'))
     finally:
         report=dict(url=url,engine=args.engine,tests=results,passed=sum(r['passed'] for r in results),failed=sum(not r['passed'] for r in results))
-        Path(__file__).with_name(f'cinematic-{args.engine}-results.json').write_text(json.dumps(report,indent=2)+'\n')
+        suffix = '-offline' if args.ending_only else ''
+        Path(__file__).with_name(f'cinematic-{args.engine}{suffix}-results.json').write_text(json.dumps(report,indent=2)+'\n')
         browser.close()
 raise SystemExit(bool(report['failed']))
