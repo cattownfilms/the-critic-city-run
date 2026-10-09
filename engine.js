@@ -322,7 +322,7 @@ class Game{
   if(e.hp<=0){e.state='dead';e.anim=e.kind==='duke'?'v10-defeat':'death';e.animDuration=e.kind==='duke'?3:1.7;e.telegraph=null;if(e.kind==='duke'){this.dukeDefeatTime=(this.dukeDefeatTime||0)+dt;if(this.dukeDefeatTime>=3.5)this.story('boss-duke-defeat');}return;}
   if(e.state==='entry'&&e.entry){this.updateEntry(e,dt);return;}
   if(def.stationary){e.x=2450;e.y=409;e.kb=0;}else{this.updateKnockback(e,dt);e.x=clamp(e.x,1825,2750);e.y=e.y<YMIN+3?Math.min(YMIN+3,e.y+85*dt):clamp(e.y,YMIN+3,YMAX-3);}
-  if(e.state==='hurt'){e.anim=e.kind==='spike'?'v10-recoil':'hurt';e.animDuration=.48;e.telegraph=null;if(e.timer>(def.hurtRecovery||.48)){e.state='seek';e.timer=0;e.cooldown=0;}return;}
+  if(e.state==='hurt'){e.anim=e.kind==='spike'?'v10-recoil':'hurt';e.animDuration=e.kind==='pizzeria-boss'?.5:.48;e.telegraph=null;if(e.timer>(e.kind==='pizzeria-boss'?.5:(def.hurtRecovery||.48))){e.state='seek';e.timer=0;e.cooldown=0;}return;}
   if(p.hp<=0){e.anim='idle';return;}
   if(e.state==='windup'){
    e.anim=e.move.windAnim||'idle';e.animDuration=e.move.wind;
@@ -591,5 +591,6 @@ class CinematicCamera {
  update(dt){if(!this.active)return this.pose;const before=this.pose.x;this.elapsed=Math.min(this.duration,this.elapsed+Math.max(0,dt));const u=this.elapsed/this.duration,t=u*u*(3-2*u);for(const k of ['x','y','zoom'])this.pose[k]=lerp(this.from[k],this.target[k],t);this.pose.x+=(u*u*u-2*u*u+u)*this.duration*this.startVelocity;if(dt>0)this.velocity=(this.pose.x-before)/dt;if(u===1){this.active=false;this.velocity=0;const done=this.onComplete;this.onComplete=null;done?.();}return this.pose;}
  cancel(){this.active=false;this.onComplete=null;this.key=null;}
 }
-const API={CinematicCamera,Game,STAGES,HITS,RUN_ATTACKS,CHAIN,GATES,LENGTH,YMIN,YMAX,clamp,lerp,EINFO,BOSS_MOVES,BOSS_DEFINITIONS,ITEMS,PROPS,PROJECTION,playerAnimation};if(typeof module!=='undefined')module.exports=API;else root.Brawler=API;
+function completedStages(old,save){const out=new Set(Array.isArray(old)?old.filter(n=>Number.isInteger(n)&&n>=0&&n<7):[]);if(save&&[2,3,4,5].includes(save.version)){const count=save.complete?(save.version<4?4:7):Math.max(0,Math.min(6,Math.floor(+save.stage||0)));for(let n=0;n<count;n++)out.add(n);if(save.storyFlags?.['stage4-clear'])out.add(3);}return [...out].sort((a,b)=>a-b);}
+const API={completedStages,CinematicCamera,Game,STAGES,HITS,RUN_ATTACKS,CHAIN,GATES,LENGTH,YMIN,YMAX,clamp,lerp,EINFO,BOSS_MOVES,BOSS_DEFINITIONS,ITEMS,PROPS,PROJECTION,playerAnimation};if(typeof module!=='undefined')module.exports=API;else root.Brawler=API;
 })(typeof window!=='undefined'?window:globalThis);

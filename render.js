@@ -336,7 +336,7 @@ class Renderer{
  draw(g,dt){this.time+=dt;this.signalFlashT=Math.max(0,this.signalFlashT-dt);this.signalOffT=Math.max(0,this.signalOffT-dt);const c=this.ctx;const r=this.rect;if(this.area!==g.stage)this.makeCity(g.stage);c.setTransform(this.dpr,0,0,this.dpr,0,0);c.fillStyle='#080e1d';c.fillRect(0,0,innerWidth,innerHeight);c.save();c.translate(r.x,r.y);c.scale(r.scale,r.scale);c.beginPath();c.rect(0,0,r.w,540);c.clip();const shake=(settings.reducedMotion?0:g.shake);if(shake>0.15)c.translate(Math.sin(this.time*115)*shake,Math.cos(this.time*89)*shake*.35);this.scene(c,g,r.w,this.time);
   const receiverBackground=g.stage===6&&g.storyCage?.backdrop;
   if(receiverBackground)this.worldCage(c,g,false);
-  for(const a of g.storyActors||[])if(a.backdrop&&this.available(a.kind,a.anim))this.sprite(c,a.kind,a.anim,a.x-g.camera,a.y,a.face,a.animT,a.animDuration,{scale:a.renderScale||1});
+  for(const a of g.storyActors||[])if(a.backdrop&&this.available(a.kind,a.anim)){const f=this.frame(a.kind,a.anim,a.animT,a.animDuration)?.f,offset=a.kind==='duke'&&a.anim==='v10-button'?(f.oy+f.h)*(a.renderScale||1):0;if(a.kind==='duke')this.shadow(c,a.kind,a.anim,a.x-g.camera,a.y,a.face,a.animT,a.animDuration,a.renderScale||1,0,.25);this.sprite(c,a.kind,a.anim,a.x-g.camera,a.y-offset,a.face,a.animT,a.animDuration,{scale:a.renderScale||1});}
   if(receiverBackground)this.worldCage(c,g,true);
   const receiver=g.stage===6&&g.bossSpawned?g.enemies.find(e=>e.kind==='broadcast-rig'):null;
   if(receiver?.hp>0)this.receiver(c,g,receiver);
@@ -396,7 +396,7 @@ class Renderer{
   if(im?.naturalWidth){const height=w*9/16;c.drawImage(im,1920,1080,640,360,0,(h-height)/2,w,height);}
  }
  skyline(c,g,w){
-  const s=g.skyline,t=s.time,u=clamp(t/2,0,1),ease=u*u*(3-2*u),index=Math.min(111,Math.floor(Math.max(0,t-2)*24)),page=Math.floor(index/16)+1,im=s.images.get('story/skyline/collapse-'+String(page).padStart(2,'0')+'.webp');
+  const s=g.skyline,t=s.time,u=clamp(t/2,0,1),ease=u*u*(3-2*u),index=Math.min(111,Math.floor(Math.max(0,t-2.9)*24)),page=Math.floor(index/16)+1,im=s.images.get('story/skyline/collapse-'+String(page).padStart(2,'0')+'.webp');
   if(!this.skylineSnapshot){const r=this.rect;this.skylineSnapshot=canvas(w,540);this.skylineSnapshot.getContext('2d').drawImage(this.c,r.x*this.dpr,r.y*this.dpr,w*r.scale*this.dpr,540*r.scale*this.dpr,0,0,w,540);}
   const first=s.images.get('story/skyline/collapse-01.webp');
   const frame=im?.naturalWidth?im:first;if(!frame?.naturalWidth)return; // Keep the last world image, never a black frame.
@@ -406,6 +406,10 @@ class Renderer{
   const focusX=w*.221,focusY=270+w*9/16*(.40-.5),cx=w/2+(focusX-w/2)*ease,cy=270+(focusY-270)*ease;
   const dx=cx-dw*.221,dy=cy-dh*.40;
   c.save();rect(c,0,0,w,540,'#111724');c.drawImage(frame,(fi%4)*640,Math.floor(fi/4)*360,640,360,dx,dy,dw,dh);
+  // Approach is composited in source-image coordinates; contact coincides with
+  // the existing frame-7 flash, before the unchanged collapse footage.
+  if(t>=2&&t<2.9+7/24&&!s.card){const travel=clamp((t-2)/(0.9+7/24),0,1),px=.86+(.235-.86)*travel,py=.49+(.68-.49)*travel;c.save();c.translate(dx+dw*px,dy+dh*py);c.scale(dw/640,dh/360);c.fillStyle='#c9d2d6';c.strokeStyle='#27384b';c.lineWidth=1.5;c.beginPath();c.moveTo(-22,0);c.lineTo(-6,-4);c.lineTo(5,-17);c.lineTo(11,-17);c.lineTo(5,-3);c.lineTo(22,-3);c.lineTo(29,-10);c.lineTo(32,-9);c.lineTo(28,3);c.lineTo(6,5);c.lineTo(14,15);c.lineTo(8,16);c.lineTo(-5,5);c.closePath();c.fill();c.stroke();for(let n=-4;n<20;n+=5)rect(c,n,-1,2,2,'#365168');c.restore();}
+  g.skyline.aircraft={visible:t>=2&&t<2.9+7/24,impactTime:2.9+7/24};
   if(u<1){
    const sw=s.reduced?w:dw*.008,sh=sw*540/w,x=cx-sw/2,y=cy-sh/2;
    c.globalAlpha=s.reduced?1-ease:clamp((1-ease)*8,0,1);

@@ -774,7 +774,7 @@ Setting: Broadcast Tower | Music: current stage
 
 boss-broadcast-intro/control-marks | Automatic advance after 2.5s; earliest advance 2.4s.
 
-*Selected player: idle; Duke: idle; Marty: v11 captive idle; Marty is confined in the cage.*
+*Selected player: idle; Duke: v10 button; Marty: v11 captive idle; Marty is confined in the cage.*
 
 No spoken dialogue.
 
@@ -782,7 +782,7 @@ No spoken dialogue.
 
 boss-broadcast-intro/beat-02 | Player advances; earliest advance 0.22s.
 
-*Selected player: idle; Duke: attack; Marty: v11 captive idle; Marty is confined in the cage; broadcast monitors are powered; alarms pulse.*
+*Selected player: idle; Duke: idle; Marty: v11 captive idle; Marty is confined in the cage; broadcast monitors are powered; alarms pulse.*
 
 **DUKE / Jay route**
 
@@ -1070,7 +1070,7 @@ Portrait: jay | Expression: shocked
 
 ### Beat 07 skyline collapse
 
-ending/skyline-collapse | Automatic advance after 7.2s; earliest advance 7.2s.
+ending/skyline-collapse | Automatic advance after 8.1s; earliest advance 8.1s.
 
 No spoken dialogue.
 
@@ -1180,4 +1180,4 @@ Story lines and staging are authored in data/cutscenes.js. Stage and boss trigge
 
 Use the scene and beat identifiers when returning revisions. Replace the spoken line under the appropriate route; shared lines affect both characters. The seven approved opening lines are preserved exactly.
 
-Source fingerprint: 1a62a455379c133a
+Source fingerprint: 9606d60dc482db9d
