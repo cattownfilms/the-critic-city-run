@@ -4,7 +4,7 @@ function cinema(){const g=new B.Game();g.start();g.stage=4;g.events=[];g.enemies
 {
  const g=cinema();for(let phase=0;phase<3;phase++){
   g.p.x=[520,1380,2280][phase];g.camera=[200,1065,1900][phase];g.spawnFight(phase);assert.equal(g.projection.window,phase);assert.equal(g.projection.booths[phase].x,[640,1500,2450][phase]);
-  g.p.x=0;g.step(.01);assert(g.p.x>=[240,1100,2000][phase]);assert(g.camera>=[205,1065,1900][phase]);
+  g.p.x=0;const cameraBefore=g.camera;g.step(.01);assert(g.p.x>=[240,1100,2000][phase]);assert(Math.abs(g.camera-cameraBefore)<20,'new arena target must not clamp the displayed camera');
   g.p.x=9999;for(let i=0;i<240;i++)g.step(1/120,{mx:1});assert(g.projection.booths[phase].x-g.camera>=149.99,'active booth stays visible at forward boundary');
   const score=g.score,support=g.enemies.find(e=>e.projectionSupport);assert(support);
   g.disableCircuit(phase);assert.equal(g.score,score);assert.equal(g.disableCircuit(phase),false);
