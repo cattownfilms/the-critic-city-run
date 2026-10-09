@@ -354,7 +354,7 @@ function drawWorldScene(s){
  game.reunionLayers=!!s.shot.reunionLayers;
  if(s.shot.skyline){game.skyline={time:s.shot.endingCard?8.1:s.time,images:s.imageCache,reduced:settings.reducedMotion,card:!!s.shot.endingCard};return;}
  const receiver=game.enemies.find(e=>e.kind==='broadcast-rig');
- if(s.scene.id==='boss-broadcast-intro'&&receiver){const u=Brawler.clamp(s.totalTime/2.5,0,1);receiver.z=185;game.receiverDescent={z:520-(520-185)*(u*u*(3-2*u)),progress:u};}
+ if(s.scene.id==='boss-broadcast-intro'&&receiver){const u=Brawler.clamp((s.totalTime-.333)/(2.5-.333),0,1);receiver.z=185;game.receiverDescent={z:520-(520-185)*(u*u*(3-2*u)),progress:u};}
  else game.receiverDescent=null;
  if(game.stage===4&&game.projection.shutdown){for(const e of game.enemies)if(e.projectionSupport&&e.hp<=0)e.timer+=dt;}
  if(s.shot.spikeTutorial){game.startSpikeTutorial();game.updateSpikeTutorial(dt);for(const e of game.drain())handle(e);s.tutorialComplete=!!game.spikeTutorial?.complete;s.actorStates=[game.p,game.spikeTutorial?.boss].filter(Boolean).map(a=>({id:a===game.p?'player':'spike',character:a===game.p?game.playerKind:a.kind,x:a.x,y:a.y,z:a.z||0,animation:a.anim,visible:true,resolvedFace:a.face}));return;}
