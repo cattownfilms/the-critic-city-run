@@ -161,10 +161,10 @@ scenes['stage-02-intro'].shots[2].routeDialogue.hero.expression='smug';
 scenes['stage-03-intro'].shots[2].routeDialogue.hero.expression='worried';
 // Preserve the five accepted reunion beats; append only the requested realization/reveal.
 for(const id of ['boss-cinema-intro','boss-broadcast-intro','boss-broadcast-defeat','boss-duke-intro'])for(const shot of scenes[id].shots){
- if(shot.routeDialogue?.hero){shot.routeDialogue.hero.expression=id==='boss-duke-intro'?'angry':'smug';shot.jayPerformance='v10-point';}
+ if(shot.routeDialogue?.hero){shot.routeDialogue.hero.expression='disgust';shot.jayPerformance='v10-point';}
 }
 const skylinePages=Array.from({length:7},(_,i)=>'story/skyline/collapse-'+String(i+1).padStart(2,'0')+'.webp');
-scenes.ending.shots.push(dialogue('JAY',"Oh my god, is that a plane?!? Hatchi Matchi!",{id:'skyline-realization',jayPerformance:'double-take',portrait:'jay',expression:'shocked',actors:[...endingParty().map(a=>a.id==='jay'||a.routes?.includes('hero')?{...a,animation:'double-take'}:a),boy(350,{animation:'idle',y:318})],reunionLayers:true,minTime:1}));
+scenes.ending.shots.push(dialogue('JAY',"Oh my god, is that a plane?!? Hatchi Matchi!",{id:'skyline-realization',jayPerformance:'double-take',portrait:'jay',expression:'shock',actors:[...endingParty().map(a=>a.id==='jay'||a.routes?.includes('hero')?{...a,animation:'double-take'}:a),boy(350,{animation:'idle',y:318})],reunionLayers:true,minTime:1}));
 scenes.ending.shots.push({id:'skyline-collapse',skyline:true,images:skylinePages,auto:8.1,minTime:8.1,actors:[]});
 scenes.ending.shots.push({id:'ending-card',music:'ending',endingCard:true,skyline:true,images:skylinePages,caption:'Jay and Marty Sherman perished on September 11, 2001.\n\nNever forget.\n\nTHE END.',minTime:1,actors:[]});
 
