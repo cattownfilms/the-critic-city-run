@@ -90,7 +90,7 @@ class Game{
     if(this.finalPhase==='duke')this.nextGate=2;else if(this.finalPhase==='resolved')this.nextGate=3;
    }
    this.cleared=this.nextGate;this.p.x=this.nextGate?GATES[this.nextGate-1]+440:170;this.p.x=Math.min(this.p.x,LENGTH-140);this.camera=clamp(this.p.x-this.viewWidth*.36,0,LENGTH-this.viewWidth);
-   if(this.finalPhase==='duke'){this.activeGate=2;this.p.x=2170;this.finishDukeConfrontation(false);this.camera=clamp(this.p.x-this.viewWidth*.36,0,LENGTH-this.viewWidth);}
+   if(this.finalPhase==='duke'){this.activeGate=2;this.p.x=2170;this.finishDukeConfrontation(false);this.camera=this.encounterCamera()?.x??clamp(this.p.x-this.viewWidth*.36,0,LENGTH-this.viewWidth);this.p.x=clamp(this.p.x,this.arenaBounds().left,this.arenaBounds().right);}
   }
   this.checkpoint=this.snapshot();this.emit('start');this.emit('music');this.cosmetic('vest-adjust',.65);
  }
@@ -117,11 +117,24 @@ class Game{
   if(kind==='broadcast-rig'){this.broadcastSummons={active:true,timer:0,wave:0,phase:'shielded',waveStarted:false};e.entry=null;e.state='seek';e.hidden=false;e.targetable=false;e.x=2450;e.y=380;}
   this.story(spec.intro);return true;
  }
+ // Fixed encounter compositions are shared by gameplay and cinematic ownership.
+ encounterCamera(width=this.viewWidth){
+  const end=Math.max(0,LENGTH-width);
+  if(this.stage===4&&this.projection.active&&this.activeGate>=0)return {kind:'booth',x:clamp(this.projection.booths[this.activeGate].x-width/2,0,end)};
+  if(this.stage===6&&this.machineDefeated&&!this.dukeDefeated&&this.enemies.some(e=>e.kind==='duke'&&e.hp>0))return {kind:'duke',x:clamp((this.storyCage?.x||2740)+110-width,0,end)};
+  return null;
+ }
+ arenaBounds(){
+  let left=this.stage===4&&this.projection.active&&this.activeGate>=0?GATES[this.activeGate]-280:this.activeGate>=0?Math.max(35,GATES[this.activeGate]-485):35,right=this.activeGate>=0?Math.min(LENGTH-40,GATES[this.activeGate]+495):LENGTH-45;
+  const lock=this.encounterCamera();if(lock){left=Math.max(left,lock.x+100);right=Math.min(right,lock.x+this.viewWidth-100);}
+  return {left,right};
+ }
  finishDukeConfrontation(announce=true){
   if(this.stage!==STAGES.length-1||!this.machineDefeated||this.dukeDefeated||this.enemies.some(e=>e.hp>0&&e.kind!=='broadcast-rig'))return false;
   const spec=STAGES[this.stage].finalBoss,kind=spec.kind,k=EINFO[kind];this.finalPhase='duke';this.mode='play';this.activeGate=this.nextGate=2;this.bossSpawned=true;this.bossDefeated=false;this.waveWait=0;this.projectiles=[];
   const e={id:++this.enemyId,kind,name:k.name,boss:true,elite:false,x:2630,y:324,z:0,face:-1,hp:spec.hp,maxHp:spec.hp,speed:k.speed,renderScale:k.renderScale||1,state:'entry',timer:0,cooldown:.65,anim:'walk',animT:0,animDuration:0,hit:false,kb:0,side:1,variant:0,flashes:0,moveIndex:0,move:null,hitIndex:0,telegraph:null};
   if(this.dukeStaged){e.x=this.dukeStaged.x;e.y=this.dukeStaged.y;e.face=this.dukeStaged.face;e.entry=null;e.state='seek';e.hidden=false;e.targetable=true;this.dukeStaged=null;}else this.setupEntry(e,0,1,true);this.enemies=[e];this.target=e;this.targetT=3;this.p.action=null;this.p.attackBuffer=this.p.jumpBuffer=0;this.p.guard=false;this.p.vx=this.p.vy=0;
+  if(!this.storyActors.some(a=>a.kind==='marty')){this.storyActors.push({id:'marty',kind:'marty',x:2740,y:305,face:-1,anim:'v11-captive-idle',animT:0,renderScale:.63,backdrop:true});this.storyCage={x:2740,y:305,scale:.63,backdrop:true,open:false};}
   if(announce)this.story(spec.intro);else this.storyFlags[spec.intro]=true;
   this.emit('finalPhase',{phase:'duke'});this.checkpointSave();return true;
  }
@@ -525,30 +538,29 @@ class Game{
   this.updateJump(dt);
   const machineExit=this.stage===6&&this.machineDefeated&&!this.dukeDefeated&&!this.enemies.some(e=>e.hp>0)&&this.broadcastSummons.exitX!==undefined;
   if(machineExit){const dx=this.broadcastSummons.exitX-p.x;p.x+=Math.sign(dx)*Math.min(Math.abs(dx),260*dt);p.y+=Math.sign(407-p.y)*Math.min(Math.abs(407-p.y),85*dt);p.run=Math.abs(dx)>3;p.face=p.run?-1:1;p.inv=Math.max(p.inv,.2);}
-  const lo=this.stage===4&&this.projection.active&&this.activeGate>=0?GATES[this.activeGate]-280:this.activeGate>=0?Math.max(35,GATES[this.activeGate]-485):35,hi=this.activeGate>=0?Math.min(LENGTH-40,GATES[this.activeGate]+495):LENGTH-45;
-  p.x=clamp(p.x,lo,hi);p.y=clamp(p.y,YMIN,YMAX);
+  const bounds=this.arenaBounds();p.x=clamp(p.x,bounds.left,bounds.right);p.y=clamp(p.y,YMIN,YMAX);
   if(mag>.2&&p.z===0&&!p.action){p.footT+=dt*speed/170;if(p.footT>.31){p.footT=0;this.emit('footstep');}}
   if(!p.action&&p.z===0&&p.idleT>3.2&&!p.cosmetic&&this.nearby(400).length===0){
    let an=IDLES[Math.floor(this.rng()*IDLES.length)];if(p.hp<25)an=this.rng()<.5?'panic-settle':'sigh';else if(this.stage===1)an=['disgust-grimace','nose-pinch','wave-off','shiver'][Math.floor(this.rng()*4)];this.cosmetic(an,1.25);p.idleT=0;
   }
   if(this.stage===6&&!this.bossSpawned&&this.storyCage){const target=clamp(p.x+430,0,2700),dx=target-this.storyCage.x,step=Math.sign(dx)*Math.min(Math.abs(dx),150*dt);if(dx>0){this.storyCage.x+=step;for(const a of this.storyActors){if(a.kind==='marty'||a.kind==='duke'){a.x+=step;a.anim=a.kind==='duke'?'walk':'scared-idle';a.animT=(a.animT||0)+dt;}}}}
-  this.updateProps(dt);this.updateEnemies(dt);if(this.settlingBoss){this.settlingBoss.time+=dt;if(this.settlingBoss.time>=2.05){const scene=this.settlingBoss.scene;this.settlingBoss=null;this.story(scene);return;}}this.updateBroadcastSummons(dt);this.updateProjection(dt);this.updateProjectiles(dt);
+  this.updateProps(dt);this.updateEnemies(dt);if(this.encounterCamera()?.kind==='duke'){const b=this.arenaBounds();for(const e of this.enemies)if(e.kind==='duke')e.x=clamp(e.x,b.left,b.right);}if(this.settlingBoss){this.settlingBoss.time+=dt;if(this.settlingBoss.time>=2.05){const scene=this.settlingBoss.scene;this.settlingBoss=null;this.story(scene);return;}}this.updateBroadcastSummons(dt);this.updateProjection(dt);this.updateProjectiles(dt);
   for(const c of this.pickups){c.age+=dt;if(!c.got&&Math.abs(c.x-p.x)<42&&Math.abs(c.y-p.y)<30&&p.z<16){const item=ITEMS[c.kind]||ITEMS.coffee;c.got=true;p.hp=Math.min(100,p.hp+item.health);p.meter=Math.min(100,p.meter+item.meter);this.score+=item.score;this.emit('pickup',{x:c.x,y:c.y,kind:c.kind,heal:item.health});}}
   this.pickups=this.pickups.filter(c=>!c.got);
   if(this.machineDefeated&&!this.dukeDefeated&&this.resolveBroadcast())return;
   if(this.activeGate>=0&&!this.settlingBoss&&this.enemies.every(e=>e.hp<=0)&&!(this.stage===4&&this.projection.active)&&!(this.stage===6&&(this.machineDefeated&&!this.dukeDefeated||this.dukeDefeated&&(this.dukeDefeatTime||0)<3.5))){
    this.waveWait+=dt;if(this.waveWait>.75&&STAGES[this.stage].boss&&this.activeGate===2&&!this.bossSpawned){this.spawnBoss();}else if(this.waveWait>.75&&!(STAGES[this.stage].projection&&this.activeGate===2&&(!this.projection.disabled||!this.bossDefeated))){this.cleared=this.activeGate+1;this.nextGate=this.cleared;this.activeGate=-1;this.waveWait=0;this.projection.active=this.projection.visible=false;this.projection.telegraph=null;this.projectiles=[];this.banner='BLOCK CLEAR';this.bannerT=1.8;p.hp=Math.min(100,p.hp+10);this.cosmetic(this.cleared===3?'wave-off':'vest-adjust',.9);this.checkpointSave();this.emit('clear',{last:this.cleared===3});}
   }else this.waveWait=0;
-  if(this.activeGate<0&&this.nextGate<3&&p.x>GATES[this.nextGate]-280)this.spawnFight(this.nextGate);
+  if(this.activeGate<0&&this.nextGate<3){const trigger=this.stage===4&&!this.projection.disabled?Math.max(GATES[this.nextGate]-280,clamp(this.projection.booths[this.nextGate].x-this.viewWidth/2,0,Math.max(0,LENGTH-this.viewWidth))+100):GATES[this.nextGate]-280;if(p.x>trigger)this.spawnFight(this.nextGate);}
   if(this.activeGate<0&&this.nextGate===3&&(p.x>LENGTH-150||STAGES[this.stage].boss&&this.bossDefeated)){this.advanceStage();}
   this.chooseAnimation(dt,machineExit&&p.run?1:mag);
-  const cameraMin=this.stage===4&&this.projection.active&&this.activeGate>=0?Math.min(Math.max(0,GATES[this.activeGate]-315),Math.max(0,LENGTH-this.viewWidth)):0;
-  const cameraMax=this.stage===4&&this.projection.active?Math.min(Math.max(0,LENGTH-this.viewWidth),this.projection.booths[this.activeGate].x-150):Math.max(0,LENGTH-this.viewWidth);
-  const aim=clamp(machineExit?(p.x+(this.enemies.find(e=>e.kind==='broadcast-rig')?.x||p.x))/2-this.viewWidth/2:p.x-this.viewWidth*.43+p.face*45,cameraMin,cameraMax),before=this.camera;
+  const lock=this.encounterCamera(),cameraMin=0,cameraMax=Math.max(0,LENGTH-this.viewWidth);
+  const aim=lock?.x??clamp(machineExit?(p.x+(this.enemies.find(e=>e.kind==='broadcast-rig')?.x||p.x))/2-this.viewWidth/2:p.x-this.viewWidth*.43+p.face*45,cameraMin,cameraMax),before=this.camera;
   const desired=(aim-before)*(1-Math.exp(-5*dt))/Math.max(dt,.000001);
   if(this.cameraHandoff>0){this.cameraHandoff=Math.max(0,this.cameraHandoff-dt);this.cameraVelocity=lerp(this.cameraVelocity||0,desired,1-Math.exp(-18*dt));this.camera+=this.cameraVelocity*dt;}
   else this.camera=lerp(before,aim,1-Math.exp(-5*dt));
   // Arena limits constrain the target, not the already displayed camera pose.
+  if(lock&&Math.abs(this.camera-aim)<.01)this.camera=aim;
   this.camera=clamp(this.camera,0,Math.max(0,LENGTH-this.viewWidth));this.cameraVelocity=(this.camera-before)/Math.max(dt,.000001);
   this.cameraTrace={owner:'gameplay',target:aim,min:cameraMin,max:cameraMax,delta:this.camera-before};
  }

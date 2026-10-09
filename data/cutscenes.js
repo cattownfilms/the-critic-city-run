@@ -61,6 +61,7 @@ const scenes={
  ]},
  'stage-06-intro':chase('stage-06-intro','LITTLE ITALY','pizzeria','BROADCAST TOWER',"I'm going to fight my boss. Do I dare live out the American dream?","Everbody seen the leprechaun say, “Yeah!”"),
  'boss-cinema-intro':{id:'boss-cinema-intro',title:'THE MAIN ATTRACTION',environment:'cinema',shots:[
+  {id:'cinema-marks',auto:1.2,minTime:1,awaitMarks:true,awaitCamera:true,actors:[hero(235,{face:1,motion:move(235,235,1.1)})]},
   {id:'screen-shadow',auto:.45,minTime:.4,actors:[hero(235)],screenForeshadow:true,sound:'swish'},
   {id:'screen-emergence',auto:2.25,minTime:2.15,actors:[hero(235),actor('headliner','pizzeria-boss',635,318,{animation:'guard-reset',face:-1,scale:1.52,emerging:true})],screenForeshadow:false,flash:.12,sound:'slam'},
   dialogue('VIOLENT AUSTRIAN RABBI',"Welcome to your Bar Mitsfa. It's time to become a man. A dead man.",{portrait:'pizzeria',actors:[hero(235),actor('headliner','pizzeria-boss',635,318,{animation:'guard-reset',face:-1,scale:1.52})]}),

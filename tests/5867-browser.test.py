@@ -1,0 +1,31 @@
+"""Short isolated camera/staging fixtures; no campaign replay or personal saves."""
+import argparse,json
+from pathlib import Path
+from playwright.sync_api import sync_playwright
+from browser_support import source_site,launch_options,wait_scene,skip_story
+p=argparse.ArgumentParser();p.add_argument('--url',default='local');a=p.parse_args();out=Path(__file__).parent/'screenshots-playtest/5867';out.mkdir(parents=True,exist_ok=True);results=[];errors=[]
+def check(n,v,d=None):
+ results.append(dict(name=n,passed=bool(v),details=d));print('PASS' if v else 'FAIL',n,d or '',flush=True)
+with source_site(a.url) as url,sync_playwright() as pw:
+ browser=pw.chromium.launch(**launch_options('chromium'));ctx=browser.new_context(viewport={'width':412,'height':915},has_touch=True,record_video_dir=str(out));page=ctx.new_page();page.on('pageerror',lambda e:errors.append(str(e)))
+ try:
+  page.goto(url);page.wait_for_function('__brawler.ready()',timeout=120000);page.locator('#startButton').tap();wait_scene(page);skip_story(page)
+  for layout in ['portrait','landscape']:
+   page.set_viewport_size({'width':412,'height':915} if layout=='portrait' else {'width':915,'height':412})
+   for booth in range(3):
+    page.evaluate("""id=>{const b=__brawler,g=b.game,r=b.renderer();g.stage=4;g.resetWorld();g.makePlayer();g.viewWidth=r.resize().w;g.activeGate=id;g.p.x=Brawler.GATES[id];g.p.inv=999;g.configureProjection();g.drain();g.mode='pause';g.camera=Math.max(0,g.encounterCamera().x-160);r.draw(g,0);b.scenes().play(CriticCutscenes.scenes['boss-projection-intro'],()=>{});} """,booth);wait_scene(page)
+    trace=page.evaluate("""async()=>{const b=__brawler,g=b.game,s=b.scenes(),log=[];for(let n=0;n<240;n++){await new Promise(requestAnimationFrame);log.push({camera:g.camera,target:s.cameraState?.target?.x,active:s.cameraState?.active,x:g.p.x});}return log;}""")
+    (out/f'{layout}-booth-{booth}-pan.json').write_text(json.dumps(trace));target=page.evaluate('__brawler.game.encounterCamera().x');check(f'{layout} booth {booth} cinematic fixed target and settles',all(t['target'] is None or abs(t['target']-target)<.01 for t in trace) and abs(trace[-1]['camera']-target)<.01 and not trace[-1]['active'],trace[-1]);check(f'{layout} booth {booth} continuous pan',max(abs(trace[i]['camera']-trace[i-1]['camera']) for i in range(1,len(trace)))<25)
+    page.locator('#sceneSkip').tap();page.wait_for_timeout(80)
+    state=page.evaluate("""()=>{const b=__brawler,g=b.game,r=b.renderer();g.mode='play';g.enemies=[];g.p.inv=999;const log=[];for(let n=0;n<240;n++){g.step(1/60,{mx:n<120?-1:1,my:0});g.drain();r.draw(g,1/60);log.push({camera:g.camera,x:g.p.x,beam:r.lastProjectionBeams});}g.mode='pause';return {log,target:g.encounterCamera().x,width:g.viewWidth,booth:g.projection.booths[g.activeGate].x,bounds:g.arenaBounds()};}""")
+    check(f'{layout} booth {booth} combat camera does not follow player',all(abs(t['camera']-state['target'])<.01 for t in state['log']) and state['log'][0]['x']!=state['log'][-1]['x']);check(f'{layout} booth {booth} beam world-fixed',all(t['beam'] and t['beam'][0]['from']['x']==state['booth'] and t['beam'][0]['to']['x']==state['booth']-360 for t in state['log']));page.screenshot(path=str(out/f'{layout}-booth-{booth}.png'))
+    check(f'{layout} booth {booth} shutdown releases without snap and beam off',page.evaluate("const b=__brawler,g=b.game,c=g.camera;g.disableCircuit(g.activeGate);b.renderer().draw(g,0);g.camera===c&&!g.encounterCamera()&&b.renderer().lastProjectionBeams.length===0"))
+   for route in ['hero','franklin']:
+    page.evaluate("""route=>{const b=__brawler,g=b.game,r=b.renderer();g.stage=4;g.resetWorld();g.playerKind=route;g.makePlayer();g.viewWidth=r.resize().w;g.activeGate=2;g.projection.disabled=true;g.p.x=2500;g.camera=Math.max(0,Brawler.LENGTH-g.viewWidth);g.spawnBoss();g.drain();g.mode='pause';r.draw(g,0);b.scenes().play(CriticCutscenes.scenes['boss-cinema-intro'],()=>{});} """,route);wait_scene(page)
+    trace=page.evaluate("""async()=>{const b=__brawler,g=b.game,s=b.scenes(),log=[];for(let n=0;n<500;n++){await new Promise(requestAnimationFrame);const boss=g.enemies.find(e=>e.kind==='pizzeria-boss');log.push({shot:s.shot.id,camera:g.camera,x:g.p.x,y:g.p.y,face:g.p.face,anim:g.p.anim,bossHidden:boss.hidden,bossX:boss.x,active:s.cameraState?.active,width:g.viewWidth});if(s.shot.dialogue&&n>30)break;}return log;}""");(out/f'{layout}-{route}-rabbi.json').write_text(json.dumps(trace));emerge=[t for t in trace if t['shot']=='screen-emergence'];last=trace[-1];check(f'{layout} {route} walks left before single emergence',bool(emerge) and any(t['anim']=='run' and t['face']==-1 for t in trace) and all(t['bossHidden'] for t in trace if t['shot']=='cinema-marks') and all((t['x']-t['camera'])/t['width']<.35 and t['face']==1 for t in emerge),last);check(f'{layout} {route} grounded camera handoff',all(t['y']==407 for t in trace) and max(abs(trace[i]['camera']-trace[i-1]['camera']) for i in range(1,len(trace)))<25);page.screenshot(path=str(out/f'{layout}-{route}-rabbi.png'));page.locator('#sceneSkip').tap()
+   state=page.evaluate("""()=>{const b=__brawler,g=b.game,r=b.renderer();g.stage=6;g.resetWorld();g.makePlayer();g.viewWidth=r.resize().w;g.machineDefeated=true;g.enemies=[];g.finishDukeConfrontation(false);g.drain();g.camera=g.encounterCamera().x;g.p.x=2400;g.p.inv=999;const e=g.enemies[0];e.entry=null;e.hidden=false;e.targetable=true;e.state='seek';e.x=2500;e.y=407;g.mode='play';const log=[];for(let n=0;n<240;n++){g.step(1/60,{mx:n<120?-1:1,my:0});g.drain();r.draw(g,1/60);log.push({camera:g.camera,x:g.p.x,duke:e.x,marty:g.storyCage.x-g.camera});}g.mode='pause';return {log,width:g.viewWidth,bounds:g.arenaBounds()};}""");check(f'{layout} Duke arena keeps cage visible and blocks left retreat',all(t['marty']>0 and t['marty']<state['width']-70 and t['x']>=state['bounds']['left'] and t['duke']>=state['bounds']['left'] for t in state['log']));page.screenshot(path=str(out/f'{layout}-duke-arena.png'))
+  check('No uncaught browser errors',not errors,errors)
+ except Exception as e:
+  check('Fixtures completed',False,str(e));page.screenshot(path=str(out/'failure.png'))
+ finally:ctx.close();browser.close()
+Path(__file__).with_name('5867-results.json').write_text(json.dumps(results,indent=2));raise SystemExit(0 if all(r['passed'] for r in results) else 1)
