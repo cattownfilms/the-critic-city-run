@@ -118,3 +118,6 @@ The broad behavioral suite used `app.js` hash prefix `ab13f22` and `render.js` p
 **Pending for v8.** Local success does not establish that GitHub Pages serves these bytes. Reviewed merge, Pages deployment, actual HTTPS JavaScript/assets/music/story checks and public-browser route verification are recorded after publication. The existing address remains https://cattownfilms.github.io/the-critic-city-run/.
 
 Physical Android, physical Termux installations, Logitech controllers, iPhone and desktop Safari remain untested. Playwright WebKit is compatibility coverage rather than certification of Apple hardware. See [COMPATIBILITY.md](COMPATIBILITY.md), [V8-REFINEMENT-CHECKLIST.md](V8-REFINEMENT-CHECKLIST.md) and [KNOWN-LIMITATIONS.md](KNOWN-LIMITATIONS.md).
+# Cinematic V11 update
+
+Source `f3ae1133cb073d818a1e96e7fdb51ebf5b062011` passes the [focused source run](https://github.com/cattownfilms/the-critic-city-run/actions/runs/37871929298): 69 Chromium scene checks, 35 standalone checks and 16 native audio checks; zero failures. Local interpolation, affected encounter and audio lifecycle checks pass. See [camera decisions, preserved cuts and boundaries](CINEMATIC-CAMERA.md). Subsequent release bookkeeping changes only documentation and inventory hashes. The deployed commit and public verification are recorded after merge in the external receipt.

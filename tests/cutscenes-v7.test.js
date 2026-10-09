@@ -16,7 +16,7 @@ for(const kind of ['hero','franklin']){
  if(kind==='franklin')assert.ok(opening.shots[0].actors.some(a=>a.character==='franklin'&&a.routes.includes(kind)));
  for(const [id,scene] of Object.entries(C.scenes)){
   if(id==='opening'||id==='ending')continue;
-  for(const shot of C.resolveScene(scene,kind).shots){if(!shot.routeDialogue)continue;assert.equal(shot.speaker,kind==='franklin'?'FRANKLIN':'JAY');assert.equal(shot.portrait,kind==='franklin'?'franklin':'jay');if(kind==='franklin')assert.ok(!/my son|my boy|Marty!/i.test(shot.dialogue));}
+  for(const shot of C.resolveScene(scene,kind).shots){if(!shot.routeDialogue)continue;if(shot.speaker==='DUKE'){assert.equal(id,'boss-broadcast-intro');assert.equal(shot.portrait,'duke');assert.ok(shot.dialogue.includes(kind==='franklin'?'Franklin':'Jay'));continue;}assert.equal(shot.speaker,kind==='franklin'?'FRANKLIN':'JAY');assert.equal(shot.portrait,kind==='franklin'?'franklin':'jay');if(kind==='franklin')assert.ok(!/my son|my boy|Marty!/i.test(shot.dialogue));}
  }
  for(let stage=2;stage<=7;stage++){const intro=C.scenes['stage-0'+stage+'-intro'];assert.ok(intro);assert.ok(intro.shots.some(s=>s.cage&&s.actors.some(a=>a.character==='duke'&&a.motion)&&s.actors.some(a=>a.character==='marty')));}
  const ending=C.resolveScene(C.scenes.ending,kind);const reunion=ending.shots.find(s=>s.speaker==='MARTY').actors.filter(a=>!a.routes||a.routes.includes(kind));const father=reunion.find(a=>a.character==='hero'||kind==='hero'&&a.character==='selected');assert.equal(father.x,280);if(kind==='franklin')assert.equal(reunion.find(a=>a.character==='selected').x,155);

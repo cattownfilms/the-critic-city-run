@@ -1,3 +1,10 @@
+# V11 cinematic update
+
+- Ease cinematic reframing across the seven stages while retaining world coordinates and gameplay follow.
+- Stage Receiver descent and foreground destruction; correct Duke's cinematic scale.
+- Preserve the reunion, then append Jay's realization and the supplied animated skyline ending, including pause, Skip and offline playback.
+- Retain version 11.0.0, save schema 5, audio recordings, controls and encounter rules. See `docs/CINEMATIC-CAMERA.md`.
+
 # V11 annotated polish (2026-10-08)
 
 - Recover SFX decoding and resume with concise diagnostics; preserve all recordings.

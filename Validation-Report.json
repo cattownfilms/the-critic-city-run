@@ -1,5 +1,18 @@
 {
   "schemaVersion": 2,
+  "cinematicUpdate": {
+    "build": "v11-cinematic-20261009",
+    "baseline": "0574767fe4c771d994acd8bb4ceddbc3d9061bf7",
+    "localCameraTests": "4 passed",
+    "localAudioLifecycle": "10 passed",
+    "localAffectedEncounters": "7 passed",
+    "testedSourceCommit": "f3ae1133cb073d818a1e96e7fdb51ebf5b062011",
+    "browserValidation": {"chromiumScenes": 69, "chromiumOffline": 35, "chromiumAudio": 16, "failed": 0},
+    "sourceRun": "https://github.com/cattownfilms/the-critic-city-run/actions/runs/37871929298",
+    "publication": "Source gate passed; deployment and public HTTP/browser results recorded in external release receipt after merge",
+    "physicalAndroid": "not performed",
+    "documentation": "docs/CINEMATIC-CAMERA.md"
+  },
   "title": "THE CRITIC: COMING ATTRACTIONS",
   "version": "11.0.0",
   "baselineCommit": "8757424f41b7f7cc9a3eebaa927298473988d56b",

@@ -544,7 +544,7 @@ class Game{
   this.chooseAnimation(dt,machineExit&&p.run?1:mag);
   const cameraMin=this.stage===4&&this.projection.active&&this.activeGate>=0?Math.min(Math.max(0,GATES[this.activeGate]-315),Math.max(0,LENGTH-this.viewWidth)):0;
   const cameraMax=this.stage===4&&this.projection.active?Math.min(Math.max(0,LENGTH-this.viewWidth),this.projection.booths[this.activeGate].x-150):Math.max(0,LENGTH-this.viewWidth);
-  const aim=clamp(machineExit?1900:p.x-this.viewWidth*.43+p.face*45,cameraMin,cameraMax);this.camera=clamp(lerp(this.camera,aim,1-Math.exp(-5*dt)),cameraMin,cameraMax);
+  const aim=clamp(machineExit?(p.x+(this.enemies.find(e=>e.kind==='broadcast-rig')?.x||p.x))/2-this.viewWidth/2:p.x-this.viewWidth*.43+p.face*45,cameraMin,cameraMax);this.camera=clamp(lerp(this.camera,aim,1-Math.exp(-5*dt)),cameraMin,cameraMax);
  }
  advanceStage(){
   if(this.mode!=='play'||this.settlingBoss)return;
@@ -570,5 +570,18 @@ class Game{
  }
  retry(resetLives=true){const lives=resetLives?3:this.p.lives,save={...this.checkpoint,lives},stats=this.stats;this.start(save);this.stats=stats;this.p.lives=lives;this.p.inv=2;this.stageBanner=1;this.emit('retry');}
 }
-const API={Game,STAGES,HITS,RUN_ATTACKS,CHAIN,GATES,LENGTH,YMIN,YMAX,clamp,lerp,EINFO,BOSS_MOVES,BOSS_DEFINITIONS,ITEMS,PROPS,PROJECTION,playerAnimation};if(typeof module!=='undefined')module.exports=API;else root.Brawler=API;
+// Presentation-only director: retarget from the displayed pose, not the old target.
+class CinematicCamera {
+ constructor(x=0,y=0,zoom=1){this.pose={x,y,zoom};this.active=false;this.key=null;}
+ shot(key,target,{duration,reduced=false,onComplete}={}){
+  if(key===this.key)return;
+  this.key=key;this.from={...this.pose};this.target={...this.pose,...target};
+  const distance=Math.hypot(this.target.x-this.pose.x,this.target.y-this.pose.y);
+  this.duration=reduced?.12:(duration??clamp(.35+distance/480,.35,1.65));
+  this.elapsed=0;this.active=true;this.onComplete=onComplete;
+ }
+ update(dt){if(!this.active)return this.pose;this.elapsed=Math.min(this.duration,this.elapsed+Math.max(0,dt));const u=this.elapsed/this.duration,t=u*u*(3-2*u);for(const k of ['x','y','zoom'])this.pose[k]=lerp(this.from[k],this.target[k],t);if(u===1){this.active=false;const done=this.onComplete;this.onComplete=null;done?.();}return this.pose;}
+ cancel(){this.active=false;this.onComplete=null;this.key=null;}
+}
+const API={CinematicCamera,Game,STAGES,HITS,RUN_ATTACKS,CHAIN,GATES,LENGTH,YMIN,YMAX,clamp,lerp,EINFO,BOSS_MOVES,BOSS_DEFINITIONS,ITEMS,PROPS,PROJECTION,playerAnimation};if(typeof module!=='undefined')module.exports=API;else root.Brawler=API;
 })(typeof window!=='undefined'?window:globalThis);
