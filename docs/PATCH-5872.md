@@ -25,4 +25,4 @@ The installed ffprobe had an x265 ABI mismatch. Compatible ffmpeg/DVD/bluray pac
 
 `node tests/5872.test.js`, `node tests/5867.test.js`, `node tests/v11-playtest-engine.test.js`; Chromium direct-scene fixtures `tests/5867-browser.test.py` and `tests/5872-browser.test.py`. Normal standalone/Termux builders. Motion traces/screenshots and music playback state are archived with the focused Actions run. Physical Android audio/display observations remain user-side. No full campaign or all-browser matrix run.
 
-Build identifier: `v11-5872-20261009`; game version 11.0.0, save schema 5.
+Build identifier: `v11-5872-20261009-r2`; game version 11.0.0, save schema 5.
