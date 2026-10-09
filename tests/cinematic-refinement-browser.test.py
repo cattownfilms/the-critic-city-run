@@ -50,12 +50,20 @@ with source_site(args.url) as url,sync_playwright() as pw:
                       and not data['earlyPlayer'],data)
                 if stage in [0,5,6] and route=='hero':
                     page.screenshot(path=str(photos/f"opening-{viewport['width']}-{stage+1}.png"))
+                if stage==6:
+                    staging=page.evaluate('''()=>{const s=__brawler.scenes(),g=__brawler.game;let maxDelta=0;
+                      for(let i=0;i<480;i++){const d=g.storyActors.find(a=>a.kind==='duke'),x=d.x,y=d.y;s.update(1/60);maxDelta=Math.max(maxDelta,Math.hypot(d.x-x,d.y-y));}
+                      const d=g.storyActors.find(a=>a.kind==='duke'),m=g.storyActors.find(a=>a.kind==='marty');
+                      return {maxDelta,duke:d.x,marty:m.x,depth:[d.y,m.y],background:d.backdrop&&m.backdrop&&g.storyCage.backdrop,unique:g.storyActors.filter(a=>a.kind==='duke').length===1};}''')
+                    check(f"{viewport['width']} {route}: cart reaches retained background marks without teleport",
+                          staging['maxDelta']<5 and staging['duke']==2320 and staging['marty']==2740
+                          and staging['depth']==[305,305] and staging['background'] and staging['unique'],staging)
                 if page.evaluate('__brawler.scenes().active'):
                     page.locator('#sceneSkip').tap()
     page.set_viewport_size({'width':915,'height':412})
     # A scene start must not clear the already drawn Little Italy canvas.
     retained=page.evaluate('''()=>{const b=__brawler,g=b.game,r=b.renderer();g.stage=5;g.resetWorld();g.makePlayer();g.camera=900;
-      g.mode='cutscene';r.draw(g,0);const before=r.c.toDataURL();
+      g.mode='cutscene';r.resize();r.draw(g,0);const before=r.c.toDataURL();
       b.scenes().play(CriticCutscenes.scenes['boss-spike-intro'],()=>{});
       return before===r.c.toDataURL();}''')
     check('Little Italy scene handoff retains every canvas pixel',retained)

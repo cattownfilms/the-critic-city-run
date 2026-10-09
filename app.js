@@ -288,7 +288,7 @@ function directWorldCamera(s,dt){
    return shot.dialogue&&!a.motion&&body?body.x:a.worldX??s.scene.worldOrigin+(a.motion?.toX??a.x)*s.scene.worldScale;
   }).filter(Number.isFinite);
   let center=marks.length?(Math.min(...marks)+Math.max(...marks))/2:game.p.x+width*.07;
-  if(s.scene.id==='boss-projection-intro'&&game.stage===4){const booth=game.projection.booths[Math.max(0,game.activeGate)];center=booth.x-width*.18;}
+  if(s.scene.id==='boss-projection-intro'&&game.stage===4){const booth=game.projection.booths[Math.max(0,game.activeGate)];center=Math.min(booth.x+width*.18,game.p.x+width/2-80);}
   if(s.scene.id==='boss-cinema-intro')center=(game.p.x+2450)/2;
   if(s.scene.id==='boss-broadcast-intro')center=2450;
   const left=game.stage===4&&game.projection.active&&game.activeGate>=0?Math.min(Math.max(0,Brawler.GATES[game.activeGate]-315),Math.max(0,Brawler.LENGTH-width)):0;

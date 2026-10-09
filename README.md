@@ -14,7 +14,7 @@ The title shell and options appear first. The game then bulk loads and decodes a
 
 ## V11 cinematic update
 
-Continuous shot framing now spans all seven stages. The Receiver descends into view, its final collapse/explosion renders in the foreground, and the preserved reunion leads into the supplied animated skyline collapse. See [camera decisions and verification](docs/CINEMATIC-CAMERA.md). Version 11.0.0 and save schema 5 remain unchanged.
+Stationary cart exits now precede player entry in all seven stages; continuous shot framing handles later cinematic movement. The final pullback starts inside a recognizable tower window. The Receiver descends into view, its final collapse/explosion renders in the foreground, and the preserved reunion leads into the supplied animated skyline collapse. See [camera decisions and verification](docs/CINEMATIC-CAMERA.md). Version 11.0.0 and save schema 5 remain unchanged.
 
 ## V11 annotated polish
 
