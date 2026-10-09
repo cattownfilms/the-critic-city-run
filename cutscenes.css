@@ -23,3 +23,7 @@
 #cutscene.visual-only{grid-template-rows:minmax(0,1fr)}
 #cutscene .scene-copy[hidden],#cutscene .scene-portrait-frame[hidden]{display:none}
 #cutscene .scene-copy:has(.scene-portrait-frame[hidden]){grid-template-columns:0 minmax(0,1fr);column-gap:0}
+#cutscene.ending-card .scene-chapter,#cutscene.ending-card #sceneSpeaker,#cutscene.ending-card #scenePosition{display:none}
+#cutscene.ending-card .scene-copy{top:8%;bottom:auto;left:50%;transform:translateX(-50%);width:min(680px,94vw);height:auto;display:flex;flex-direction:column;gap:10px;padding:12px 18px;background:#08101cc9;border:0;box-shadow:none;text-align:center}
+#cutscene.ending-card #sceneDialogue{white-space:pre-line;font-size:clamp(14px,2vw,18px);line-height:1.4;overflow:visible;align-self:center}
+#cutscene.ending-card .scene-bottomline{justify-content:center;overflow:visible}

@@ -387,8 +387,14 @@ class Renderer{
   if(g.mode!=='cutscene'&&g.stageBanner>0&&g.p.z===0&&!g.p.action){const q=Math.min(1,g.stageBanner);c.save();c.globalAlpha=q;const x=r.w/2;rect(c,x-185,142,370,56,'#12172be6');text(c,STAGES[g.stage].sub,x,163,10,'#99b4c8','center',600);text(c,STAGES[g.stage].name.toUpperCase(),x,185,21,'#fff1d8','center',900);c.restore();}
   if(g.skyline)this.skyline(c,g,r.w);
   else this.skylineSnapshot=null;
-  this.lastView={stage:g.stage,camera:g.camera};
+  this.lastView={stage:g.stage,camera:g.camera,velocity:g.cameraVelocity||0,owner:g.cameraTrace?.owner};
   c.restore();}
+ endingBackdrop(node,images){
+  const w=node.clientWidth,h=node.clientHeight,dpr=Math.min(devicePixelRatio||1,2);
+  if(node.width!==Math.round(w*dpr)||node.height!==Math.round(h*dpr)){node.width=Math.round(w*dpr);node.height=Math.round(h*dpr);}
+  const c=node.getContext('2d'),im=images.get('story/skyline/collapse-07.webp');c.setTransform(dpr,0,0,dpr,0,0);rect(c,0,0,w,h,'#111724');
+  if(im?.naturalWidth){const height=w*9/16;c.drawImage(im,1920,1080,640,360,0,(h-height)/2,w,height);}
+ }
  skyline(c,g,w){
   const s=g.skyline,t=s.time,u=clamp(t/2,0,1),ease=u*u*(3-2*u),index=Math.min(111,Math.floor(Math.max(0,t-2)*24)),page=Math.floor(index/16)+1,im=s.images.get('story/skyline/collapse-'+String(page).padStart(2,'0')+'.webp');
   if(!this.skylineSnapshot){const r=this.rect;this.skylineSnapshot=canvas(w,540);this.skylineSnapshot.getContext('2d').drawImage(this.c,r.x*this.dpr,r.y*this.dpr,w*r.scale*this.dpr,540*r.scale*this.dpr,0,0,w,540);}
