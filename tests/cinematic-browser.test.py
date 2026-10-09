@@ -26,6 +26,7 @@ def ending(page, route):
       g.storyCage={x:2740,y:305,scale:.63,backdrop:true,open:false};
       g.storyActors=[{id:'marty',kind:'marty',x:2740,y:305,backdrop:true,face:-1,
         anim:'v11-captive-idle',animT:0,renderScale:.63}];window.endingDone=[];
+      __brawler.renderer().draw(g,0);
       __brawler.scenes().play(CriticCutscenes.scenes.ending,r=>endingDone.push(r));}''', route)
     wait_scene(page)
 
@@ -67,7 +68,7 @@ with source_site(args.url) as url, sync_playwright() as pw:
                     g.drain();
                     if(id.endsWith('defeat')){g.enemies.forEach(e=>{e.hp=0;e.entry=null;});}
                   }
-                  __brawler.scenes().play(CriticCutscenes.scenes[id],()=>{});
+                  __brawler.renderer().draw(g,0);__brawler.scenes().play(CriticCutscenes.scenes[id],()=>{});
                 }''', [stage, scene_id])
                 wait_scene(page)
                 continuity=page.evaluate('''()=>{const s=__brawler.scenes(),g=__brawler.game;
@@ -91,9 +92,19 @@ with source_site(args.url) as url, sync_playwright() as pw:
                 if page.evaluate('__brawler.scenes().active'):
                     page.locator('#sceneSkip').tap()
         page.set_viewport_size({'width':915,'height':412})
+        page.evaluate('''()=>{const g=__brawler.game;g.stage=4;g.resetWorld();g.makePlayer();g.p.x=240;
+          g.activeGate=g.nextGate=0;g.configureProjection();g.drain();g.camera=0;__brawler.renderer().draw(g,0);
+          g.camera=205;__brawler.scenes().play(CriticCutscenes.scenes['boss-projection-intro'],()=>{});
+          window.cameraBeforeLockPan=g.camera;}''')
+        wait_scene(page)
+        check('Arena-entry pan begins from displayed view, not the new logical clamp',page.evaluate('cameraBeforeLockPan===0'))
+        page.wait_for_timeout(1700)
+        check('Arena-entry pan settles at the existing locked boundary',page.evaluate('__brawler.game.camera>=205&&__brawler.game.p.x>=240'))
+        page.locator('#sceneSkip').tap()
         page.evaluate('''()=>{const g=__brawler.game;g.stage=6;g.resetWorld();g.makePlayer();
           g.p.x=2250;g.camera=Math.max(0,Brawler.LENGTH-__brawler.renderer().rect.w);
           g.activeGate=g.nextGate=2;g.spawnBoss();g.drain();
+          __brawler.renderer().draw(g,0);
           __brawler.scenes().play(CriticCutscenes.scenes['boss-broadcast-intro'],()=>{});}''')
         wait_scene(page)
         descent=page.evaluate('''()=>{const s=__brawler.scenes(),g=__brawler.game,out=[];

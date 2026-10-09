@@ -387,6 +387,7 @@ class Renderer{
   if(g.mode!=='cutscene'&&g.stageBanner>0&&g.p.z===0&&!g.p.action){const q=Math.min(1,g.stageBanner);c.save();c.globalAlpha=q;const x=r.w/2;rect(c,x-185,142,370,56,'#12172be6');text(c,STAGES[g.stage].sub,x,163,10,'#99b4c8','center',600);text(c,STAGES[g.stage].name.toUpperCase(),x,185,21,'#fff1d8','center',900);c.restore();}
   if(g.skyline)this.skyline(c,g,r.w);
   else this.skylineSnapshot=null;
+  this.lastView={stage:g.stage,camera:g.camera};
   c.restore();}
  skyline(c,g,w){
   const s=g.skyline,t=s.time,u=clamp(t/2,0,1),ease=u*u*(3-2*u),index=Math.min(111,Math.floor(Math.max(0,t-2)*24)),page=Math.floor(index/16)+1,im=s.images.get('story/skyline/collapse-'+String(page).padStart(2,'0')+'.webp');

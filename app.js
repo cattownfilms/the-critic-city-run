@@ -299,9 +299,10 @@ function beginWorldScene(scene){
  if(!scene.worldStage)return;
  game.storyActors=game.storyActors||[];game.sceneClock=0;
  game.viewWidth=renderer.resize().w;
+ const displayedCamera=cinematicAnchor?.stage===game.stage&&cinematicCamera?cinematicCamera.pose.x:renderer.lastView?.stage===game.stage?renderer.lastView.camera:game.camera;
  if(!cinematicAnchor||cinematicAnchor.stage!==game.stage)cinematicAnchor={stage:game.stage,x:game.camera,scale:game.viewWidth/960};
  scene.worldOrigin=cinematicAnchor.x;scene.worldScale=cinematicAnchor.scale;
- cinematicCamera=new Brawler.CinematicCamera(game.camera);game.skyline=null;
+ cinematicCamera=new Brawler.CinematicCamera(displayedCamera);game.skyline=null;
  if(scene.id.startsWith('stage-')){game.p.x=scene.worldOrigin-110;game.p.vx=game.p.vy=0;game.p.action=null;}
 }
 function finishWorldScene(scene,skipped){
