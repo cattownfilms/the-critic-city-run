@@ -110,8 +110,10 @@ with source_site(args.url) as url, sync_playwright() as pw:
         check('Readiness requires every file and decoded atlas, including optional banks',
               state['ready'] and state['completedFiles'] == state['totalFiles'] and
               state['decodedAtlasPages'] == state['totalAtlasPages'] and not state['failures'], state)
-        check('All five music files and thirteen effects are cached before gameplay',
-              state['cachedMusicFiles'] == 5 and state['cachedAudioFiles'] == 13)
+        music_files = page.evaluate('Array.from(new Set(Object.values(BRAWLER_CONFIG.music).map(cue=>cue.file)))')
+        check('All six configured music recordings and thirteen effects are cached before gameplay',
+              len(music_files) == 6 and state['cachedMusicFiles'] == len(music_files) and state['cachedAudioFiles'] == 13,
+              {'configuredRecordings': music_files, 'cachedMusicFiles': state['cachedMusicFiles'], 'cachedAudioFiles': state['cachedAudioFiles']})
         wait(page, 'window.__decodeCount===13||__brawler.audio.errors.length>0')
         decoded = page.evaluate('({calls:window.__decodeCount,buffers:Object.keys(__brawler.audio.buffers).length,state:__brawler.audio.ctx?.state,errors:__brawler.audio.errors})')
         if args.engine == 'firefox' and decoded['state'] == 'suspended':

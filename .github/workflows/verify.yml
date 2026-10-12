@@ -13,6 +13,10 @@ on:
         type: boolean
         default: false
         description: Isolated controller matrix and production comparison
+      loadingFixture:
+        type: boolean
+        default: false
+        description: Only affected v8 loading checks (one run per browser)
       audioFixture:
         type: boolean
         default: false
@@ -52,7 +56,7 @@ concurrency:
   cancel-in-progress: true
 jobs:
   core:
-    if: ${{ !inputs.focused && !inputs.audioFixture && !inputs.controllerFixture }}
+    if: ${{ !inputs.focused && !inputs.audioFixture && !inputs.controllerFixture && !inputs.loadingFixture }}
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
@@ -97,7 +101,7 @@ jobs:
           name: core-results
           path: tests/*-results.json
   browsers:
-    if: ${{ !inputs.focused && !inputs.audioFixture && !inputs.controllerFixture }}
+    if: ${{ !inputs.focused && !inputs.audioFixture && !inputs.controllerFixture && !inputs.loadingFixture }}
     runs-on: ubuntu-latest
     timeout-minutes: 15
     # Match requirements-test.txt without installing a changing host media stack.
@@ -202,7 +206,7 @@ jobs:
             tests/screenshots-v11/
 
   playtest:
-    if: ${{ inputs.focused && !inputs.audioFixture && !inputs.controllerFixture }}
+    if: ${{ inputs.focused && !inputs.audioFixture && !inputs.controllerFixture && !inputs.loadingFixture }}
     runs-on: ubuntu-latest
     timeout-minutes: 10
     container:
@@ -312,7 +316,7 @@ jobs:
             tests/screenshots-v11/
 
   audio-fixture:
-    if: ${{ inputs.audioFixture }}
+    if: ${{ inputs.audioFixture || inputs.loadingFixture }}
     runs-on: ubuntu-latest
     timeout-minutes: 10
     container:
@@ -351,6 +355,7 @@ jobs:
           pactl set-default-sink critic_ci
           pactl info
       - name: Compare unchanged production audio using the same fixture
+        if: ${{ !inputs.loadingFixture }}
         run: |
           git worktree add --detach /tmp/critic-audio-production 4ca587776cd953716ae03dbacae5f9f40a7792aa
           cp tests/v9-audio-browser.test.py /tmp/critic-audio-production/tests/v9-audio-browser.test.py
@@ -358,12 +363,18 @@ jobs:
           python tests/v9-audio-browser.test.py --engine ${{ matrix.browser }} --url local
           cp tests/v9-audio-${{ matrix.browser }}-results.json "$GITHUB_WORKSPACE/tests/production-audio-${{ matrix.browser }}-results.json"
       - name: Candidate native audio lifecycle
+        if: ${{ !inputs.loadingFixture }}
         run: python tests/v9-audio-browser.test.py --engine ${{ matrix.browser }} --url local
+      - name: Affected loading checks only
+        if: ${{ inputs.loadingFixture }}
+        run: timeout 5m python tests/v8-loading-facing-browser.test.py --engine ${{ matrix.browser }} --url local
       - uses: actions/upload-artifact@v7
         if: always()
         with:
           name: isolated-audio-${{ matrix.browser }}
-          path: tests/*audio*results.json
+          path: |
+            tests/*audio*results.json
+            tests/v8-loading-facing-*-results.json
   controller-fixture:
     if: ${{ inputs.controllerFixture }}
     runs-on: ubuntu-latest
