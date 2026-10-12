@@ -325,6 +325,27 @@ jobs:
           fetch-depth: 0
       - run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
       - run: python -m pip install -r requirements-test.txt
+      - name: Match temporary runner home ownership to the container user
+        run: chown "$(id -u):$(id -g)" "$HOME"
+      - name: Provide a real virtual audio sink for native media in the headless runner
+        if: matrix.browser == 'firefox' || matrix.browser == 'webkit'
+        run: |
+          if ! command -v pulseaudio >/dev/null; then
+            python - <<'PYAPT'
+          from pathlib import Path
+          import re
+          for path in Path('/etc/apt/sources.list.d').glob('*.sources'):
+              text = path.read_text().replace('http://archive.ubuntu.com/', 'https://archive.ubuntu.com/').replace('http://security.ubuntu.com/', 'https://security.ubuntu.com/')
+              text = re.sub(r'^Components:.*$', 'Components: main universe', text, flags=re.M)
+              path.write_text(text)
+          PYAPT
+            timeout 240 apt-get update -o Acquire::Retries=2 -o Acquire::https::Timeout=25
+            timeout 180 apt-get install -y --no-install-recommends pulseaudio pulseaudio-utils
+          fi
+          pulseaudio --daemonize=yes --exit-idle-time=-1 --log-target=file:/tmp/critic-pulse.log
+          pactl load-module module-null-sink sink_name=critic_ci
+          pactl set-default-sink critic_ci
+          pactl info
       - name: Compare unchanged production audio using the same fixture
         run: |
           git worktree add --detach /tmp/critic-audio-production 4ca587776cd953716ae03dbacae5f9f40a7792aa
