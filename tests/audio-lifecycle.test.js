@@ -19,9 +19,10 @@ function fixture(windowOverride={}) {
   }
   const music = Object.fromEntries(['title', 'broadway', 'subway', 'cinema', 'final'].map(k => [k, { file: k + '.mp3' }]));
   const settings = { music: .5, sfx: .7 };
-  const ctx = { setTimeout, clearTimeout, Audio, settings, conf: { music }, cachedURLs: new Map(Object.values(music).map(x => [x.file, 'blob:' + x.file])), src: n => 'blob:' + n, window: windowOverride, stageMusic: () => 'broadway', toast() {}, performance: { now: () => 1000 } };
+  const game = { mode: 'play' };
+  const ctx = { game, setTimeout, clearTimeout, Audio, settings, conf: { music }, cachedURLs: new Map(Object.values(music).map(x => [x.file, 'blob:' + x.file])), src: n => 'blob:' + n, window: windowOverride, stageMusic: () => 'broadway', toast() {}, performance: { now: () => 1000 } };
   const System = vm.runInNewContext(code + '\nAudioSystem', ctx);
-  return { audio: new System(), nodes, settings, keys: Object.keys(music) };
+  return { audio: new System(), game, nodes, settings, keys: Object.keys(music) };
 }
 async function check(name, fn) {
   try { await fn(); results.push({ name, passed: true }); console.log('PASS', name); }

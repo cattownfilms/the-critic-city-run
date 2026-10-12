@@ -110,7 +110,7 @@
       c.armed=false;c.releaseUntil=this.lastPoll+250;c.lastBinding=null;
       this.captureMessage='Release controls, then '+this.instruction();
     }
-    instruction(){const k=ACTIONS[this.capture?.step||0];return ['left','right','up','down'].includes(k)?'move the LEFT STICK '+k.toUpperCase():'press the button for '+({attack:'HIT',jump:'JUMP',guard:'GUARD',special:'REVIEW',pause:'PAUSE / START',confirm:'MENU CONFIRM',back:'MENU BACK'}[k]);}
+    instruction(){const k=ACTIONS[this.capture?.step||0];return ['left','right','up','down'].includes(k)?'move the LEFT STICK '+k.toUpperCase():'press the button for '+({attack:'HIT',jump:'JUMP',guard:'GUARD',special:'SPECIAL',pause:'PAUSE / START',confirm:'MENU CONFIRM',back:'MENU BACK'}[k]);}
     cancelMapping(){this.capture=null;this.captureMessage='';}
     readCapture(p,now){
       const c=this.capture;if(!c||!c.neutral)return;

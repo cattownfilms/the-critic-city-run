@@ -59,6 +59,7 @@ jobs:
         run: python -m pip install 'Pillow>=11.0'
       - name: Engine, controller, publication-safety and asset-route tests
         run: |
+          node tests/pass1.test.js
           node tests/engine.test.js
           node tests/franklin.test.js
           node tests/v4-engine.test.js
@@ -138,6 +139,7 @@ jobs:
           server=$!
           trap 'kill "$server" 2>/dev/null || true' EXIT
           python -c "import time,urllib.request; time.sleep(1); urllib.request.urlopen('http://127.0.0.1:8788/').read(100)"
+          if [ "${{ matrix.browser }}" = chromium ]; then python tests/pass1-browser.test.py; fi
           python tests/v9-presentation-browser.test.py --engine ${{ matrix.browser }} --url local
           python tests/v10-presentation-browser.test.py --engine ${{ matrix.browser }} --url local
           python tests/v11-presentation-browser.test.py --engine ${{ matrix.browser }} --url local
@@ -174,6 +176,7 @@ jobs:
         with:
           name: browser-${{ matrix.browser }}-results
           path: |
+            tests/pass1-browser-results.json
             tests/gamepad-*-results.json
             tests/campaign-*-results.json
             tests/v7-*-results.json

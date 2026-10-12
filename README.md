@@ -38,13 +38,13 @@ Raptors flank and charge; Fred K teleports with readable tells. Projectionist bo
 
 ## Controls
 
-| Input | Movement | HIT | JUMP | GUARD | REVIEW | Pause |
+| Input | Movement | HIT | JUMP | GUARD | SPECIAL | Pause |
 |---|---|---|---|---|---|---|
-| Touch | Radial analog pad | HIT | JUMP | GUARD | REVIEW | Pause icon |
+| Touch | Radial analog pad | HIT | JUMP | GUARD | SPECIAL | Pause icon |
 | Keyboard | WASD / arrows | J / X | Space / Z | K / C | L / V | Esc / P |
 | Standard browser gamepad | Left stick / D-pad | West / X | South / A | East / B or LB | North / Y | Start |
 
-Small stick deflection walks; full deflection runs. Standing HIT chains jab, cross, front kick, palm. JUMP + HIT kicks in the air; RUN + HIT Belly Bashes as Jay or cartwheels as Franklin. Hold GUARD for frontal block, time GUARD to parry, MOVE + GUARD slips, then HIT counters. Full REVIEW meter fires the established finisher.
+Small stick deflection walks; full deflection runs. Standing HIT chains jab, cross, front kick, palm. JUMP + HIT kicks in the air; RUN + HIT Belly Bashes as Jay or cartwheels as Franklin. Hold GUARD for frontal block, time GUARD to parry, MOVE + GUARD slips, then HIT counters. Full SPECIAL meter fires the established finisher.
 
 Accordion Bear, Green Hippo and the Violent Austrian Rabbi overpower either player's running attack: one backward knockdown and brief protected recovery. The original Belly Bash/cartwheel remains strong against ordinary enemies. Heavy character scale is consistent across each complete animation bank.
 

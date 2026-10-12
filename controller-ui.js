@@ -23,7 +23,7 @@ window.CriticControllerUI=function(o){
   const mapping=JSON.stringify(hub.mapping);
   if(mapping!==mapKey){mapKey=mapping;const target=$('controllerMapping');target.replaceChildren();
    if(hub.mapping){for(const key of ['attack','jump','guard','special','pause','confirm','back']){
-    const row=document.createElement('div'),b=document.createElement('b'),span=document.createElement('span');b.textContent={attack:'HIT',jump:'JUMP',guard:'GUARD',special:'REVIEW',pause:'PAUSE',confirm:'MENU CONFIRM',back:'MENU BACK'}[key];span.textContent=CriticGamepad.format(hub.mapping[key]);row.append(b,span);target.appendChild(row);
+    const row=document.createElement('div'),b=document.createElement('b'),span=document.createElement('span');b.textContent={attack:'HIT',jump:'JUMP',guard:'GUARD',special:'SPECIAL',pause:'PAUSE',confirm:'MENU CONFIRM',back:'MENU BACK'}[key];span.textContent=CriticGamepad.format(hub.mapping[key]);row.append(b,span);target.appendChild(row);
    }}
   }
   $('controllerMap').disabled=!hub.enabled||!hub.active||!!hub.capture;
