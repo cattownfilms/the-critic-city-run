@@ -33,7 +33,15 @@ with source_site(args.url) as url,sync_playwright() as pw:
   page.locator('#soundBtn').tap();check('Mute stops music',page.evaluate('__brawler.audio.muted&&__brawler.audio.music.paused'))
   page.locator('#soundBtn').tap();wait(page,'!__brawler.audio.music.paused');check('Unmute recovers playback',not state(page)['musicPaused'])
   page.locator('#pauseBtn').tap();check('Pause stops music',state(page)['musicPaused']);page.locator('#resumeButton').tap();wait(page,'!__brawler.audio.music.paused');check('Resume plays again',not state(page)['musicPaused'])
-  transitions=page.evaluate('''async()=>{const a=__brawler.audio;for(let i=0;i<16;i++){await a.playMusic(['subway','rooftop','cinema','broadcast'][i%4]);await new Promise(r=>setTimeout(r,25));}return {track:a.trackKey,paused:a.music.paused,nodes:a.musicNodes.size};}''');check('Rapid stage/cutscene tracks finish without native deadlock',transitions['track']=='broadcast' and not transitions['paused'] and transitions['nodes']<=8,transitions)
+  transitions=page.evaluate('''async()=>{const a=__brawler.audio,keys=Object.keys(BRAWLER_CONFIG.music),order=[...keys.filter(k=>k!=='broadcast'),'broadcast'],cycles=[],samples=[];let identities;
+   for(let cycle=0;cycle<4;cycle++){
+    for(const key of order){await a.playMusic(key);await new Promise(r=>setTimeout(r,25));samples.push({requested:key,track:a.trackKey,paused:a.music.paused,nodes:a.musicNodes.size,keys:[...a.musicNodes.keys()]});}
+    if(!identities)identities=new Map(a.musicNodes);
+    cycles.push({size:a.musicNodes.size,reused:[...identities].every(([key,node])=>a.musicNodes.get(key)===node)});
+   }
+   return {track:a.trackKey,paused:a.music.paused,nodes:a.musicNodes.size,configured:keys,cycles,samples,endingLoop:a.musicNodes.get('ending').loop};}''')
+  check('Rapid stage/cutscene tracks finish without native deadlock',transitions['track']=='broadcast' and not transitions['paused'] and all(s['track']==s['requested'] and not s['paused'] for s in transitions['samples']),transitions)
+  check('Music cache stabilizes at configured cue count and reuses players',all(s['nodes']<=len(transitions['configured']) and set(s['keys'])<=set(transitions['configured']) for s in transitions['samples']) and all(c['size']==len(transitions['configured']) and c['reused'] for c in transitions['cycles']) and not transitions['endingLoop'],{'configured':transitions['configured'],'cycles':transitions['cycles'],'endingLoop':transitions['endingLoop']})
   t=state(page)['time'];page.wait_for_timeout(300);check('Changed stage music advances',state(page)['time']>t)
   page.reload();wait(page,'__brawler.ready()');page.locator('#continueButton').tap();skip_story(page);wait(page,"__brawler.audio.ctx?.state==='running'&&!__brawler.audio.music.paused");check('Reload and Continue recover from another trusted gesture',state(page)['context']=='running',state(page))
   fresh=browser.new_context(viewport={'width':915,'height':412},has_touch=True);start_page=fresh.new_page();start_page.goto(url);wait(start_page,'__brawler.ready()');start_page.locator('#startButton').tap();wait(start_page,"__brawler.audio.ctx?.state==='running'&&__brawler.audio.music.currentTime>.15");check('Press Start as the first gesture unlocks music and SFX together',state(start_page)['context']=='running' and not state(start_page)['musicPaused'],state(start_page));fresh.close()

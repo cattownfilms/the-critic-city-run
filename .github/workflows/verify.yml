@@ -9,6 +9,10 @@ on:
         type: boolean
         default: false
         description: Run only annotated-playtest checks
+      audioFixture:
+        type: boolean
+        default: false
+        description: Isolated native audio matrix against candidate and production
       v11Fixture:
         type: boolean
         default: false
@@ -44,7 +48,7 @@ concurrency:
   cancel-in-progress: true
 jobs:
   core:
-    if: ${{ !inputs.focused }}
+    if: ${{ !inputs.focused && !inputs.audioFixture }}
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
@@ -89,7 +93,7 @@ jobs:
           name: core-results
           path: tests/*-results.json
   browsers:
-    if: ${{ !inputs.focused }}
+    if: ${{ !inputs.focused && !inputs.audioFixture }}
     runs-on: ubuntu-latest
     timeout-minutes: 15
     # Match requirements-test.txt without installing a changing host media stack.
@@ -194,7 +198,7 @@ jobs:
             tests/screenshots-v11/
 
   playtest:
-    if: ${{ inputs.focused }}
+    if: ${{ inputs.focused && !inputs.audioFixture }}
     runs-on: ubuntu-latest
     timeout-minutes: 10
     container:
@@ -302,3 +306,36 @@ jobs:
             tests/screenshots-playtest/
             tests/screenshots-v10/
             tests/screenshots-v11/
+
+  audio-fixture:
+    if: ${{ inputs.audioFixture }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    container:
+      image: mcr.microsoft.com/playwright/python:v1.58.0-noble@sha256:678457c4c323b981d8b4befc57b95366bb1bb6aa30057b1269f6b171e8d9975a
+      options: --ipc=host
+    strategy:
+      fail-fast: false
+      matrix:
+        browser: [chromium, firefox, webkit]
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+      - run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
+      - run: python -m pip install -r requirements-test.txt
+      - name: Compare unchanged production audio using the same fixture
+        run: |
+          git worktree add --detach /tmp/critic-audio-production 4ca587776cd953716ae03dbacae5f9f40a7792aa
+          cp tests/v9-audio-browser.test.py /tmp/critic-audio-production/tests/v9-audio-browser.test.py
+          cd /tmp/critic-audio-production
+          python tests/v9-audio-browser.test.py --engine ${{ matrix.browser }} --url local
+          cp tests/v9-audio-${{ matrix.browser }}-results.json "$GITHUB_WORKSPACE/tests/production-audio-${{ matrix.browser }}-results.json"
+      - name: Candidate native audio lifecycle
+        run: python tests/v9-audio-browser.test.py --engine ${{ matrix.browser }} --url local
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: isolated-audio-${{ matrix.browser }}
+          path: tests/*audio*results.json
