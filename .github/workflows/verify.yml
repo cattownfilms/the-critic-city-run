@@ -270,6 +270,8 @@ jobs:
         env:
           SITE_URL: ${{ inputs.site_url }}
         run: |
+          python tests/production-assets.test.py
+          python tests/v10-presentation-browser.test.py --engine chromium --url "$SITE_URL"
           node tests/5872.test.js
           node tests/5867.test.js
           node tests/v11-playtest-engine.test.js

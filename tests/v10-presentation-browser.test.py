@@ -4,7 +4,7 @@ Fixtures are isolated from personal saves; campaign-browser remains the normal-i
 from pathlib import Path
 import argparse,json
 from playwright.sync_api import sync_playwright
-from browser_support import source_site,launch_options,skip_story
+from browser_support import source_site,launch_options,skip_story,wait_scene
 p=argparse.ArgumentParser();p.add_argument('--engine',default='chromium');p.add_argument('--url',default='local');a=p.parse_args();results=[];errors=[]
 def check(name,value,details=None):
  results.append(dict(name=name,passed=bool(value),details=details));print('PASS' if value else 'FAIL',name,details or '',flush=True)
@@ -28,7 +28,8 @@ with source_site(a.url) as url,sync_playwright() as pw:
      for(const route of ['hero','franklin'])for(const scene of Object.values(CriticCutscenes.scenes))for(const shot of CriticCutscenes.resolveScene(scene,route).shots){
       if(shot.gameplayEntry||!(shot.dialogue||shot.caption||shot.objective))continue;
       s.shots=[shot];s.index=0;s._shot();const d=document.querySelector('#sceneDialogue'),p=document.querySelector('.scene-copy'),button=document.querySelector('#sceneAdvance');
-      document.querySelector('.scene-portrait-frame').hidden=false;
+      // Ordinary dialogue exercises the portrait worst case. The memorial has no portrait.
+      if(!shot.endingCard)document.querySelector('.scene-portrait-frame').hidden=false;
       const box=p.getBoundingClientRect(),action=button.getBoundingClientRect();tested++;
       if(!s.active||s.el.hidden||box.width===0||box.height===0||d.scrollHeight>d.clientHeight+1||d.scrollWidth>d.clientWidth+1||box.bottom>innerHeight+1||action.bottom>innerHeight+1||action.top<box.top)errors.push({id:scene.id,text:d.textContent,world,textHeight:d.scrollHeight,available:d.clientHeight,boxBottom:box.bottom,buttonBottom:action.bottom});
      }}return {tested,errors};}""")
@@ -71,6 +72,20 @@ with source_site(a.url) as url,sync_playwright() as pw:
    page.screenshot(path=str(photos/f'{a.engine}-{route}-rescue.png'));skip_story(page)
   value=page.evaluate("""()=>{const m=__brawler.meta(),wanted={hero:['v10-fall','v10-recover','v10-reunion'],franklin:['v10-fall','v10-recover','v10-victory'],duke:['v10-button','v10-shoulder','v10-backhand','v10-one-two','v10-flurry','v10-defeat'],spike:['v10-walk','v10-can-windup','v10-can-release']};return Object.entries(wanted).flatMap(([bank,names])=>names.filter(n=>!m.characters[bank][n]?.frames.length).map(n=>bank+'/'+n));}""")
   check('Reviewed supplemental runtime actions resolve in their canonical banks',not value,value)
+  # Exercise the real completion entry, not a memorial forced into ordinary
+  # dialogue's portrait geometry. Both routes share Jay/Marty's final card.
+  for route in ['hero','franklin']:
+   for width,height in [(915,412),(360,800),(1280,720),(640,360)]:
+    page.set_viewport_size(dict(width=width,height=height))
+    page.evaluate("""route=>{const b=__brawler,g=b.game;g.franklinUnlocked=true;g.start(null,route);g.stage=6;g.mode='play';g.dukeDefeated=g.machineDefeated=true;b.handleEvent({type:'complete',ending:'ending'});}""",route)
+    wait_scene(page)
+    page.evaluate("const s=__brawler.scenes();s.index=s.shots.length-1;s._shot()")
+    page.wait_for_timeout(100)
+    card=page.evaluate("""()=>{const el=document.querySelector('#cutscene'),d=document.querySelector('#sceneDialogue'),button=document.querySelector('#sceneAdvance'),box=document.querySelector('.scene-copy');const inside=e=>{const r=e.getBoundingClientRect();return r.width>0&&r.height>0&&r.left>=0&&r.top>=0&&r.right<=innerWidth+1&&r.bottom<=innerHeight+1;};const r=button.getBoundingClientRect(),hit=document.elementFromPoint(r.x+r.width/2,r.y+r.height/2);return {text:d.textContent,card:inside(box),textFits:d.scrollHeight<=d.clientHeight+1&&d.scrollWidth<=d.clientWidth+1,lines:[...d.querySelectorAll('.memorial-line')].every(inside),button:inside(button)&&r.height>=40&&!button.disabled&&button.contains(hit),portraitHidden:document.querySelector('.scene-portrait-frame').hidden,font:parseFloat(getComputedStyle(d).fontSize),endingCard:el.classList.contains('ending-card'),buttonText:button.textContent};}""")
+    check(f'{route}: dedicated memorial and touch action fit {width}×{height}',card['text']=='Jay and Marty Sherman perished on September 11, 2001.\n\nNever forget.\n\nTHE END.' and all(card[k] for k in ['card','textFits','lines','button','portraitHidden','endingCard']) and card['font']>=17 and card['buttonText']=='CONTINUE TO RESULTS',card)
+    page.screenshot(path=str(photos/f'{a.engine}-{route}-memorial-{width}x{height}.png'))
+    page.locator('#sceneAdvance').tap()
+    check(f'{route}: memorial action reaches neutral results {width}×{height}',page.locator('#complete').is_visible())
   check('No uncaught v10 presentation errors',not errors,errors)
  except Exception as e:check('V10 browser fixtures completed',False,str(e))
  finally:

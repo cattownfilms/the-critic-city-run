@@ -54,3 +54,13 @@ The site suite also reproduced an obsolete five-MP3 count on production, which a
 The full local Core sequence reaches `tests/production-assets.test.py`, which fails identically on unchanged production: missing `loading.actions[*].hurt`, a frame with x=0 violating the atlas-padding assertion, and `source-map.currentFrameReferences` 3781 versus 3807 runtime frames. No approved asset, dependency manifest, or source map was altered to bypass these checks. These are additional qualification blockers, not regressions introduced by this recovery.
 
 Other local Core commands passed, including all engine suites, publication-safety mocks, actual subpath HTTP/site checks, v10/v11 asset checks, script export and inventory. Focused 5857, 5867, 5872, six-item replay/save and v11 playtest-engine checks passed. The exact candidate's GitHub matrix and focused 5872 browser results, packaging upgrade results, and final disposition are recorded in the external recovery receipt; never infer a full pass from this list. Production remains unchanged. Pass 2 must wait for a verified green qualification checkpoint.
+
+## Final qualification correction
+
+The three missing loading action mappings are derived from the preserved runtime frames: Rabbi Hurt [125], Spike overhead-ready [78], overhead-release [78,79]. Their 4+7+15 references explain the stale 3781 count; current accounting is 3807. Historical provenance entries and hashes remain untouched, with a separate accounting addition listing these actions.
+
+The reviewed Hurt file is a dedicated 832x208 row of four 208x208 cells. Only its first pose reaches the top image edge. The validation now pins that import's SHA-256 and exact cell geometry and requires transparent shared side boundaries; ordinary pages retain the original external two-pixel padding rule. No sprite pixels, frame timing, registration, or gameplay were modified.
+
+The old v10 browser fixture forced a visible portrait into the portrait-free memorial. It now preserves that authored absence and adds real completion-entry checks at 915x412,360x800,1280x720,640x360 on both routes: exact text, line/card bounds, readable font, accessible >=40px action, and neutral results. Screenshots are retained per route and viewport. No ending CSS, text, skyline, piano or choreography changed. The focused 5872 workflow runs these affected validations before the retained checks; full qualification remains a separate exact-commit matrix.
+
+Final exact-SHA results are recorded in `~/.local/share/cattown/critic-release/pass1-final/receipt.json`. Do not treat this correction description as a green qualification result; consult that receipt and the GitHub runs before starting Pass 2.

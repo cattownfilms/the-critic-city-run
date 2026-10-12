@@ -167,13 +167,31 @@ class ProductionAssets(unittest.TestCase):
                     image = self.images[frame['p']]
                     x, y, width, height = (frame[key] for key in ('x', 'y', 'w', 'h'))
                     self.assertGreater(frame['ms'], 0)
-                    self.assertGreaterEqual(x, 2)
-                    self.assertGreaterEqual(y, 2)
-                    self.assertLessEqual(x + width + 2, image.width)
-                    self.assertLessEqual(y + height + 2, image.height)
-                    alpha = image.getchannel('A')
-                    for crop in ((x - 2, y, x, y + height), (x, y - 2, x + width, y), (x + width, y, x + width + 2, y + height), (x, y + height, x + width, y + height + 2)):
-                        self.assertEqual(alpha.crop(crop).getextrema(), (0, 0), (kind, name, crop))
+                    if kind == 'pizzeria-boss' and name == 'hurt':
+                        # The reviewed Sprite Forge import is a dedicated row of
+                        # four full cells, not a tightly packed dependency atlas.
+                        # Its original first pose reaches the image's top edge;
+                        # pin the source import and require isolation at every
+                        # shared horizontal cell edge rather than invent padding.
+                        page = self.meta['pages'][frame['p']]
+                        imported = json.loads((ROOT / 'production/rabbi-hurt.json').read_text())
+                        self.assertEqual(page['file'], imported['runtime'])
+                        self.assertEqual(hashlib.sha256((ROOT / 'assets' / page['file']).read_bytes()).hexdigest(), imported['runtimeSHA256'])
+                        self.assertEqual(image.size, (832, 208))
+                        self.assertEqual(len(action['frames']), 4)
+                        self.assertEqual((x, y, width, height), (action['frames'].index(frame) * 208, 0, 208, 208))
+                        cell = image.getchannel('A').crop((x, y, x + width, y + height))
+                        for edge in ((0, 0, 2, 208), (206, 0, 208, 208), (0, 206, 208, 208)):
+                            self.assertEqual(cell.crop(edge).getextrema(), (0, 0))
+                        self.assertIsNotNone(cell.getbbox())
+                    else:
+                        self.assertGreaterEqual(x, 2)
+                        self.assertGreaterEqual(y, 2)
+                        self.assertLessEqual(x + width + 2, image.width)
+                        self.assertLessEqual(y + height + 2, image.height)
+                        alpha = image.getchannel('A')
+                        for crop in ((x - 2, y, x, y + height), (x, y - 2, x + width, y), (x + width, y, x + width + 2, y + height), (x, y + height, x + width, y + height + 2)):
+                            self.assertEqual(alpha.crop(crop).getextrema(), (0, 0), (kind, name, crop))
                     checked += 1
         self.assertGreater(checked, 300)
 
@@ -355,6 +373,16 @@ class ProductionAssets(unittest.TestCase):
             self.assertEqual(len(source_map['v7FrameDerivatives']), 38)
             self.assertEqual(source_map['currentRuntimePages'], self.meta['pages'])
             self.assertEqual(source_map['currentFrameReferences'], sum(len(action['frames']) for bank in self.meta['characters'].values() for action in bank.values()))
+            accounting = source_map['currentRuntimeAccounting']
+            self.assertEqual(accounting['previousFrameReferences'], 3781)
+            additions = accounting['addedActionReferences']
+            self.assertEqual({(a['bank'], a['action']) for a in additions}, {('pizzeria-boss','hurt'),('spike','overhead-ready'),('spike','overhead-release')})
+            for entry in additions:
+                frames = self.meta['characters'][entry['bank']][entry['action']]['frames']
+                self.assertEqual(entry['frameReferences'], len(frames))
+                self.assertEqual(entry['pages'], sorted({f['p'] for f in frames}))
+            self.assertEqual(sum(a['frameReferences'] for a in additions), 26)
+            self.assertEqual(accounting['previousFrameReferences'] + sum(a['frameReferences'] for a in additions), source_map['currentFrameReferences'])
         finally:
             for image in images.values():
                 image.close()
