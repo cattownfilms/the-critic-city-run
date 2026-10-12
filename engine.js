@@ -127,6 +127,18 @@ class Game{
   if(this.stage===6&&this.machineDefeated&&!this.dukeDefeated&&this.enemies.some(e=>e.kind==='duke'&&e.hp>0))return {kind:'duke',x:clamp((this.storyCage?.x||2740)+110-width,0,end)};
   return null;
  }
+ // Receiver framing is a target only; it must never become an arena lock.
+ receiverCamera(width=this.viewWidth){
+  if(this.mode!=='play'||this.stage!==6||!this.broadcastSummons.active||this.machineDefeated)return null;
+  const core=this.enemies.find(e=>e.kind==='broadcast-rig'&&e.hp>0);if(!core)return null;
+  // The live receiver is 163px wide including its shield. Reserve 160px per
+  // side for the exposed-core instruction and the existing interpolation lag.
+  const margin=160,playerMargin=90,end=Math.max(0,LENGTH-width);
+  const playerMin=clamp(this.p.x-width+playerMargin,0,end),playerMax=clamp(this.p.x-playerMargin,0,end);
+  const left=Math.max(playerMin,core.x+margin-width),right=Math.min(playerMax,core.x-margin);
+  const centered=core.x-width/2;
+  return left<=right?clamp(centered,left,right):clamp(centered,playerMin,playerMax);
+ }
  arenaBounds(){
   let left=this.stage===4&&this.projection.active&&this.activeGate>=0?GATES[this.activeGate]-280:this.activeGate>=0?Math.max(35,GATES[this.activeGate]-485):35,right=this.activeGate>=0?Math.min(LENGTH-40,GATES[this.activeGate]+495):LENGTH-45;
   const lock=this.encounterCamera();if(lock){left=Math.max(left,lock.x+100);right=Math.min(right,lock.x+this.viewWidth-100);}
@@ -559,7 +571,7 @@ class Game{
   this.chooseAnimation(dt,machineExit&&p.run?1:mag);
   const lock=this.encounterCamera(),cameraMin=0,cameraMax=Math.max(0,LENGTH-this.viewWidth);
   const palaceTravel=this.stage===4&&!this.projection.disabled&&!this.projection.active&&this.projection.travelCamera!==undefined;
-  const aim=lock?.x??clamp(palaceTravel?Math.max(this.projection.travelCamera,p.x-this.viewWidth*.43+45):machineExit?Math.min(2850-this.viewWidth,p.x-160):this.stage===6&&this.bossSpawned&&!this.machineDefeated?clamp(this.camera,p.x-this.viewWidth+100,p.x-100):p.x-this.viewWidth*.43+p.face*45,cameraMin,cameraMax),before=this.camera;
+  const aim=lock?.x??clamp(palaceTravel?Math.max(this.projection.travelCamera,p.x-this.viewWidth*.43+45):machineExit?Math.min(2850-this.viewWidth,p.x-160):this.receiverCamera()??(this.stage===6&&this.bossSpawned&&!this.machineDefeated?clamp(this.camera,p.x-this.viewWidth+100,p.x-100):p.x-this.viewWidth*.43+p.face*45),cameraMin,cameraMax),before=this.camera;
   const desired=(aim-before)*(1-Math.exp(-5*dt))/Math.max(dt,.000001);
   if(this.stage===4&&(lock||palaceTravel)){
    // Booth travel retains a fixed target without an abrupt velocity jump on capture.

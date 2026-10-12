@@ -290,7 +290,7 @@ class Renderer{
    else{text(c,g.machineDefeated?'SIGNAL OFF':'STANDBY',x,188,13,'#9bb2c4','center',900);}
    line(c,x-56,239,x+56,239,on?'#96f1d4':'#445465',3);
   }
-  if(g.broadcastSummons?.active){const count=g.enemies.filter(e=>e.broadcastSummon&&e.hp>0&&!e.hidden).length,x=this.rect.w/2;rect(c,x-155,59,310,24,'#13243be8');text(c,`BROADCAST WAVE ${g.broadcastSummons.wave||0}  /  ${count} ON AIR`,x,76,12,'#bcebd7','center',800);}
+  if(g.broadcastSummons?.active){const count=g.enemies.filter(e=>e.broadcastSummon&&e.hp>0&&!e.hidden).length,x=this.rect.w/2;rect(c,x-155,59,310,24,'#13243be8');const core=g.mode==='play'&&!g.machineDefeated?g.enemies.find(e=>e.kind==='broadcast-rig'&&e.hp>0):null,off=core&&(core.x-g.camera<82||core.x-g.camera>this.rect.w-82),direction=core&&core.x-g.camera<this.rect.w/2?'←':'→';text(c,off?`${direction} ${g.broadcastSummons.phase==='vulnerable'?'HIT THE EXPOSED CORE':'RECEIVER'} ${direction}`:`BROADCAST WAVE ${g.broadcastSummons.wave||0}  /  ${count} ON AIR`,x,76,12,'#bcebd7','center',800);}
   if(this.signalFlashT>0){c.save();c.globalAlpha=this.signalFlashT/.48*.52;rect(c,0,0,this.rect.w,324,'#e6fff3');c.restore();}
  }
  projectionWarnings(c,g){if(g.stage!==4)return;const a=g.projection,reels=(g.projectiles||[]).filter(o=>o.kind==='reel');
