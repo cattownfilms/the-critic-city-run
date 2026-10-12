@@ -177,6 +177,8 @@ for(const scene of Object.values(scenes))for(const shot of scene.shots)for(const
  else if(a.id==='marty')a.lookAt=ids.includes('jay')?'jay':'player';
  else if(a.id==='headliner'||a.id==='spike')a.lookAt='player';
 }
+// Studio-only presentation: scale about the existing foot pivot in every opening beat.
+for(const shot of scenes.opening.shots)if(shot.actors)shot.actors=shot.actors.map(a=>a.character==='duke'?{...a,scale:1.35}:a);
 // Every playable reaction resolves the chosen route; Jay remains Marty’s father in shared story beats.
 function resolveShot(shot,routeKind='hero'){const chosen=shot.routeDialogue?.[routeKind==='franklin'?'franklin':'hero'];return chosen?{...shot,...chosen}:shot;}
 function resolveScene(scene,routeKind='hero'){return {...scene,shots:scene.shots.filter(s=>!s.routes||s.routes.includes(routeKind)).map(s=>resolveShot(s,routeKind))};}

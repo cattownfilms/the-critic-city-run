@@ -31,9 +31,19 @@ All other waves, HP/damage tables, pickups, concurrency, recovery, telegraphs, b
 
 Native Chromium at 915x412 and 360x800: Stage Select summary is 44px tall but lacks the app’s controller focus styling. With browser focus correctly emulated, baseline uses a thin native 1px auto outline; candidate uses the existing teal 3px solid outline. Apply the same keyboard focus treatment to summary/select/input. Initial unfocused headless probes reported no outline; those probes are not valid evidence of an absent native focus ring. No navigation or saved progression changes.
 
-## Reference limitation
+## Duke opening correction — reference resolved
 
-1000085912.jpg not found in project/reference folders or accessible ~/storage/downloads, /storage/emulated/0/Download and /sdcard/Download (aliases of shared storage). Filename search also checked ~/Pictures. No screenshot was supplied inline to this execution. Candidate same-floor shot: boss-duke-intro, Jay response / Duke idle; actual reviewed shot cannot be identified confidently. Duke scale and staging are therefore preserved pending reference identification, including Receiver background/button and final combat. No claimed before/after Duke correction.
+Actual reference: `/data/data/com.termux/files/home/storage/downloads/The-Critic-Duke-Opening-Reference.jpg`.
+SHA-256: `438319b2f58e95ebcb55a08e2ebf70d46bbf7e5aaaf6b7995923525b46c84c77`.
+The supplied follow-up identifies opening / duke-approach, not the final confrontation. Inspection confirms Duke previously appeared roughly seated-Jay height because all opening actors used presentation scale 1.
+
+Only Duke actors in `scenes.opening` now use scale 1.35 (previously 1). Ten appearances cover walking, idle/dialogue, both button presses and exit. Scale is applied around the existing renderer foot pivot. No x/y, animation registration, camera, motion, timing, dialogue or props changed. Actor copies keep the scope confined to the opening. Later Receiver/button/final-boss scenes are unchanged.
+
+Focused validation on the follow-up:
+- `node tests/pass2-opening.test.js` passed: all ten opening appearances at 1.35, y=318; full scene-definition comparison against 2ec3260 matches exactly after normalizing only those ten scales.
+- Native Chromium captures before/after at 915x412 and 360x800, covering duke-approach at 0.7s, motivation at 0.7s and activation at 0.35s. Actual rendered screenshots reviewed: Duke taller than seated Jay, stable feet, no visible head/limb clipping or unintended actor overlap. All three performances share the scale.
+- Screenshot directory: `~/.local/share/cattown/critic-release/pass2/`; names `duke-opening-{before,after}-{duke-approach,motivation,activation}-{915x412,360x800}.png`. Matching JSON records contain scale/position/animation state. Local `opening.cjs` captures fixed authored times without a pause overlay.
+- Standalone and Termux builds succeeded; updated scene/config embedded verbatim; launcher payload byte parity and port 8788 passed. Launcher not installed or executed. No campaign/matrix rerun.
 
 ## One static contract audit
 
@@ -52,10 +62,10 @@ Reviewed active historical assertions for music counts, stage definitions, dialo
 
 ## Preview and rollback
 
-Build ID: `v11-pass2-20261012`; version remains 11.0.0. Artifacts: `release/pass2/The-Critic-Pass2.html` and `release/pass2/The-Critic-Pass2-Play.sh`; hashes in `release/pass2/artifact-hashes.json`. No production publication, installation, branch merge or save clearing.
+Build ID: `v11-pass2-20261012-opening`; version remains 11.0.0. Artifacts: `release/pass2/The-Critic-Pass2.html` and `release/pass2/The-Critic-Pass2-Play.sh`; hashes in `release/pass2/artifact-hashes.json`. No production publication, installation, branch merge or save clearing.
 
-HTML SHA-256: `be80254f3441f42b72549f23eb384f4ee23d94ae8bee5aee89d2b792621d3d81`.
-Launcher SHA-256: `826646d4a3d342ec30ef8d115d3f8eb03d3789ab36a42db0aa2d3054951caacb`.
+HTML SHA-256: `ee250d7c655222731976f7a167fda4d47bafa3e286dfdadbc9e7fe81e8733563`.
+Launcher SHA-256: `29493c0994d43edab05cff158a5617838216d40ffa5165eeba0233b43f7dce41`.
 
 The launcher uses the established installed path and origin if manually executed. It has not been run here. Review the standalone in a separate browser profile first if preserving the currently installed build is essential. Original Pass 1 source remains on reliability-pass1; roll back by switching branches with a clean worktree, without reset or storage changes.
 
@@ -65,6 +75,6 @@ The launcher uses the established installed path and origin if manually executed
 - Check unchanged introductory difficulty, stage-4 unlock challenge, booth breaks, Spike jump timing, Receiver exposures and Duke punish windows.
 - In portrait and landscape, use a physical controller to focus/open/close Stage Select, then touch controls; confirm the teal ring and readable menu.
 - Resume the ordinary campaign after a stage replay; verify its checkpoint remains intact.
-- Identify the Duke reference shot from the unchanged candidate screenshots or provide the real local reference filename. Duke scale remains unresolved, not silently guessed.
+- Compare the opening walk, dialogue and button press against the resolved Duke reference; confirm scale feels imposing without changing the studio composition.
 
-Physical Android input feel, speakers, controller hardware and human balance remain unverified. No performance improvement is claimed. Full release qualification is deferred until user acceptance, as requested. This is a partial playtest candidate: the screenshot-dependent Duke correction is blocked on reference identification.
+Physical Android input feel, speakers, controller hardware and human balance remain unverified. No performance improvement is claimed. Full release qualification is deferred until user acceptance, as requested. READY FOR USER PLAYTEST. The opening reference is resolved and the scoped Duke correction is complete.
