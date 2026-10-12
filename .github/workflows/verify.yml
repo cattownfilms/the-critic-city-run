@@ -9,6 +9,10 @@ on:
         type: boolean
         default: false
         description: Run only annotated-playtest checks
+      controllerFixture:
+        type: boolean
+        default: false
+        description: Isolated controller matrix and production comparison
       audioFixture:
         type: boolean
         default: false
@@ -48,7 +52,7 @@ concurrency:
   cancel-in-progress: true
 jobs:
   core:
-    if: ${{ !inputs.focused && !inputs.audioFixture }}
+    if: ${{ !inputs.focused && !inputs.audioFixture && !inputs.controllerFixture }}
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
@@ -93,7 +97,7 @@ jobs:
           name: core-results
           path: tests/*-results.json
   browsers:
-    if: ${{ !inputs.focused && !inputs.audioFixture }}
+    if: ${{ !inputs.focused && !inputs.audioFixture && !inputs.controllerFixture }}
     runs-on: ubuntu-latest
     timeout-minutes: 15
     # Match requirements-test.txt without installing a changing host media stack.
@@ -198,7 +202,7 @@ jobs:
             tests/screenshots-v11/
 
   playtest:
-    if: ${{ inputs.focused && !inputs.audioFixture }}
+    if: ${{ inputs.focused && !inputs.audioFixture && !inputs.controllerFixture }}
     runs-on: ubuntu-latest
     timeout-minutes: 10
     container:
@@ -360,3 +364,56 @@ jobs:
         with:
           name: isolated-audio-${{ matrix.browser }}
           path: tests/*audio*results.json
+  controller-fixture:
+    if: ${{ inputs.controllerFixture }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    container:
+      image: mcr.microsoft.com/playwright/python:v1.58.0-noble@sha256:678457c4c323b981d8b4befc57b95366bb1bb6aa30057b1269f6b171e8d9975a
+      options: --ipc=host
+    strategy:
+      fail-fast: false
+      matrix:
+        browser: [chromium, firefox, webkit]
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+      - run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
+      - run: python -m pip install -r requirements-test.txt
+      - name: Match temporary runner home ownership to the container user
+        run: chown "$(id -u):$(id -g)" "$HOME"
+      - name: Provide a real virtual audio sink for native media in the headless runner
+        if: matrix.browser == 'firefox' || matrix.browser == 'webkit'
+        run: |
+          if ! command -v pulseaudio >/dev/null; then
+            python - <<'PYAPT'
+          from pathlib import Path
+          import re
+          for path in Path('/etc/apt/sources.list.d').glob('*.sources'):
+              text = path.read_text().replace('http://archive.ubuntu.com/', 'https://archive.ubuntu.com/').replace('http://security.ubuntu.com/', 'https://security.ubuntu.com/')
+              text = re.sub(r'^Components:.*$', 'Components: main universe', text, flags=re.M)
+              path.write_text(text)
+          PYAPT
+            timeout 240 apt-get update -o Acquire::Retries=2 -o Acquire::https::Timeout=25
+            timeout 180 apt-get install -y --no-install-recommends pulseaudio pulseaudio-utils
+          fi
+          pulseaudio --daemonize=yes --exit-idle-time=-1 --log-target=file:/tmp/critic-pulse.log
+          pactl load-module module-null-sink sink_name=critic_ci
+          pactl set-default-sink critic_ci
+          pactl info
+      - name: Compare unchanged production controller behavior using the same fixture
+        continue-on-error: true
+        run: |
+          git worktree add --detach /tmp/critic-controller-production 4ca587776cd953716ae03dbacae5f9f40a7792aa
+          cp tests/gamepad-browser.test.py /tmp/critic-controller-production/tests/gamepad-browser.test.py
+          cd /tmp/critic-controller-production
+          python tests/gamepad-browser.test.py --engine ${{ matrix.browser }} --url local --output "$GITHUB_WORKSPACE/tests/production-gamepad-${{ matrix.browser }}-results.json"
+      - name: Candidate controller integration
+        run: python tests/gamepad-browser.test.py --engine ${{ matrix.browser }} --url local
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: isolated-controller-${{ matrix.browser }}
+          path: tests/*gamepad*results.json
