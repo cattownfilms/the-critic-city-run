@@ -32,14 +32,25 @@ Build with `python tools/build_standalone.py --output release/pass1/The-Critic-P
 
 Rollback: production is unchanged. Keep this branch/artifacts for review; switch to main only with a clean or preserved working tree. No reset, force-push or storage clear is needed. Physical Android speaker output, multitouch, background/process death, hardware controller disconnect/remapping and subjective motion remain user checks.
 
-## Gate outcome: BLOCKED
+## Verification unblock
 
-The local Core sequence stopped at `tests/v8-engine.test.js` with four failures:
-- Guard/parry after reflected reels: `q.contacted` was false.
-- Facing away from reflected reels: expected HP 91, observed 100.
-- Spike release position: observed sourceY 396.4416783216783, expected 354.3216783216783.
-- Spike 1.08-scale source-can registration assertion failed.
+Both the original candidate `9c791c8c099fb05dca7d1e95932f384805e625db` and an isolated unchanged production worktree at `4ca587776cd953716ae03dbacae5f9f40a7792aa` reproduce the same four v8 assertions. These are obsolete test fixtures, not Pass 1 gameplay regressions:
 
-That suite, engine.js, campaign data and sprite assets are unchanged from the reviewed baseline. These inherited disagreements require diagnosis against the accepted playtest behavior; this pass does not change combat or weaken the assertions. Core did not finish. Chromium/Firefox/WebKit and the remote focused 5872 browser workflow were not dispatched after this required gate failure. No full-matrix pass is claimed. Local focused 5872, 5867, v11 playtest-engine, Special/resize/profile, audio lifecycle, engine, Franklin, v4, gamepad, campaign-engine and v7 checks passed. See external logs in `~/.local/share/cattown/critic-release/pass1/`.
+- Reflected frontal guard/parry: the fixture assigned bounce phase without completing flight, leaving y at booth depth. The floor-contact model correctly rejected contact.
+- Reflected rear guard: the same invalid depth prevented the intended damage event.
+- Spike warning/release test: expected the source-art center as the physics origin, omitting the renderer's 39 × renderScale vertical pivot correction.
+- Spike 1.08 registration test: the same omitted pivot made the measured source-art comparison incorrect.
 
-Pass 1 is NOT READY FOR PASS 2. Next action: diagnose the four unchanged v8 fixture/engine disagreements on this checkpoint, preserving the reviewed Spike release and reel mechanics, then run the full exact-commit matrix and focused 5872 gate. Do not publish or merge this candidate.
+The updated reel fixture flies to either arena edge and reflects through the actual engine before arranging player contact. It checks incoming direction, floor depth, frontal block and timed parry, failed rear protection, exactly one contact reaction, and no protected damage/knockdown. Spike tests compare rendered projectile origin against the existing measured source-art center. Gameplay, overhead throw, collision, timing, and assets are unchanged. The retained 5857 checks separately cover overhead release and both tutorial routes.
+
+Qualification runs are recorded outside the repository in `~/.local/share/cattown/critic-release/pass1-unblock/`, tied to the exact candidate SHA. Passing local tests alone does not qualify Pass 2: full Core, Chromium, Firefox, WebKit, focused 5872 and packaging results must all be verified. No production merge or deployment is authorized in this pass.
+
+The broader Core run also exposed a production-reproducible stale v11 assertion expecting the removed credits joke. The approved 5872 RSVP line is now checked exactly once, with no obsolete credits line; scene source is untouched.
+
+The site suite also reproduced an obsolete five-MP3 count on production, which already includes the approved ending piano. It now checks the exact six filenames, retaining the thirteen-WAV requirement and existing real-HTTP byte checks. No recording or audio configuration changed.
+
+## Gate outcome: BLOCKED pending asset validation and remote evidence
+
+The full local Core sequence reaches `tests/production-assets.test.py`, which fails identically on unchanged production: missing `loading.actions[*].hurt`, a frame with x=0 violating the atlas-padding assertion, and `source-map.currentFrameReferences` 3781 versus 3807 runtime frames. No approved asset, dependency manifest, or source map was altered to bypass these checks. These are additional qualification blockers, not regressions introduced by this recovery.
+
+Other local Core commands passed, including all engine suites, publication-safety mocks, actual subpath HTTP/site checks, v10/v11 asset checks, script export and inventory. Focused 5857, 5867, 5872, six-item replay/save and v11 playtest-engine checks passed. The exact candidate's GitHub matrix and focused 5872 browser results, packaging upgrade results, and final disposition are recorded in the external recovery receipt; never infer a full pass from this list. Production remains unchanged. Pass 2 must wait for a verified green qualification checkpoint.

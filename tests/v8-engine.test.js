@@ -1,6 +1,16 @@
 'use strict';
 const assert=require('assert'),fs=require('fs'),path=require('path'),B=require('../engine.js');const results=[];
 function test(name,fn){try{results.push({name,passed:true,details:fn()});console.log('PASS',name);}catch(e){results.push({name,passed:false,error:String(e.stack)});console.error('FAIL',name,e.message);}}
+// Exercise the actual render transform so a future pivot change cannot silently
+// make the source-to-projectile registration assertion self-consistent but wrong.
+function renderedCanOrigin(g,q){
+ const context={window:{},Brawler:B,settings:{reducedMotion:true}};
+ require('vm').runInNewContext(fs.readFileSync(path.join(__dirname,'../render.js'),'utf8'),context);
+ let origin;
+ const c={save(){},restore(){},translate(x,y){origin={x:x+g.camera,y};}};
+ context.window.CityRenderer.prototype.projectile.call({sprite(c,kind,anim,x,y,face,t,duration,options){assert.equal(kind,'trash-can');assert.equal(anim,'thrown');assert.equal(options.scale,q.renderScale);}},c,g,q);
+ return origin;
+}
 function tick(g,n,input={}){for(let i=0;i<n;i++)g.step(1/120,typeof input==='function'?input(i):input);}
 function arena(character='hero',stage=0){const g=new B.Game();g.franklinUnlocked=character==='franklin';g.start(null,character);g.stage=stage;g.nextGate=3;g.activeGate=-1;g.props=[];g.enemies=[];g.p.x=600;g.p.y=407;g.camera=0;g.events=[];return g;}
 function foe(g,kind='sherm-punch',x=g.p.x+70,y=g.p.y){const k=B.EINFO[kind],e={id:++g.enemyId,kind,name:k.name,elite:false,x,y,z:0,face:-1,hp:999,maxHp:999,speed:0,state:'seek',timer:0,cooldown:999,anim:'idle',animT:0,animDuration:0,kb:0,variant:0,flashes:0};g.enemies.push(e);return e;}
@@ -24,12 +34,45 @@ test('Circuit shutdown powers down its entire booth group and cancels only match
 test('Reels make three visible forward floor hops before expiring',()=>{const g=cinema();g.p.y=465;const q=g.launchProjectile('reel',2000,196,2200,380);g.updateProjectiles(.7);assert.equal(q.phase,'bounce');assert.equal(q.bounces,0);assert.equal(q.hopTo,2262);g.updateProjectiles(.15);assert(q.z>35);g.updateProjectiles(.15);assert.equal(q.bounces,1);assert.equal(q.x,2262);g.updateProjectiles(.3);assert.equal(q.bounces,2);assert.equal(q.x,2324);g.updateProjectiles(.3);assert.equal(q.bounces,3);assert.equal(q.x,2386);assert.equal(g.projectiles.length,0);assert.equal(g.drain().filter(e=>e.type==='projectileBounce').length,3);});
 test('Reel boundary reflections reverse travel without leaving the active combat arena',()=>{const g=cinema();g.p.y=465;const q=g.launchProjectile('reel',2400,196,2760,380);g.updateProjectiles(.7);assert.equal(q.face,-1);assert.equal(q.hopTo,2698);g.updateProjectiles(.9);assert(q.x>=1795&&q.x<=2775);assert.equal(g.projectiles.length,0);});
 test('An unblocked reel hits once, knocks down, then recovers without changing ground',()=>{const g=cinema(),y=g.p.y;const q=g.launchProjectile('reel',g.p.x-150,196,g.p.x,g.p.y);g.updateProjectiles(.7);assert.equal(g.p.hp,91);assert.equal(g.p.action.name,'knockdown');assert.equal(g.p.action.dur,.88);g.updateProjectiles(.15);g.p.x=q.x;g.updateProjectiles(.15);assert.equal(g.p.hp,91);assert.equal(g.drain().filter(e=>e.type==='playerKnockdown').length,1);tick(g,120);assert.equal(g.p.action,null);assert.equal(g.p.y,y);assert.equal(g.p.z,0);});
-test('Guard and parry use the incoming side after either bounce reflection',()=>{for(const face of [-1,1])for(const parry of [true,false]){const g=cinema();g.p.face=-face;g.p.guard=true;g.p.guardAge=parry?.05:.5;const q=g.launchProjectile('reel',g.p.x-face*200,196,g.p.x-face*30,g.p.y);q.phase='bounce';q.age=0;q.hopFrom=g.p.x-face*30;q.hopTo=g.p.x+face*32;q.face=face;q.z=0;g.updateProjectiles(.08);assert.equal(g.p.hp,100);assert.equal(g.p.action,null);assert(q.contacted);assert.equal(g.drain().filter(e=>e.type===(parry?'parry':'block')).length,1);}});
-test('A guard facing away from a reflected reel cannot protect the player',()=>{for(const face of [-1,1]){const g=cinema();g.p.face=face;g.p.guard=true;g.p.guardAge=.5;const q=g.launchProjectile('reel',g.p.x-face*200,196,g.p.x-face*30,g.p.y);q.phase='bounce';q.age=0;q.hopFrom=g.p.x-face*30;q.hopTo=g.p.x+face*32;q.face=face;g.updateProjectiles(.08);assert.equal(g.p.hp,91);assert.equal(g.p.action.name,'knockdown');}});
+// Complete real flight at either arena edge before testing the reflected hop.
+// Merely assigning phase='bounce' leaves the current depth model at booth depth.
+function reflectedReel(face){
+ const g=cinema(),landing=face===1?1800:2760;
+ g.p.x=2200;
+ const q=g.launchProjectile('reel',landing+face*150,196,landing,g.p.y);
+ assert.equal(q.face,-face);
+ g.updateProjectiles(q.duration);
+ assert.equal(q.phase,'bounce');assert.equal(q.y,g.p.y);assert(Math.abs(q.z)<1e-9);
+ assert.equal(q.face,face);assert.equal(q.contacted,false);
+ g.p.x=landing+face*30;g.drain();return {g,q};
+}
+test('Guard and parry use the incoming side after either bounce reflection',()=>{
+ for(const face of [-1,1])for(const parry of [true,false]){
+  const {g,q}=reflectedReel(face);
+  g.p.face=-face;g.p.guard=true;g.p.guardAge=parry?.05:.5;
+  g.updateProjectiles(.08);
+  assert.equal(g.p.hp,100);assert.equal(g.p.action,null);assert(q.contacted);
+  g.updateProjectiles(.08);
+  const events=g.drain();assert.equal(events.filter(e=>e.type===(parry?'parry':'block')).length,1);
+  assert.equal(events.filter(e=>e.type==='playerKnockdown').length,0);
+  assert.equal(g.p.hp,100);assert.equal(g.p.action,null);
+ }
+});
+test('A guard facing away from a reflected reel cannot protect the player',()=>{
+ for(const face of [-1,1]){
+  const {g,q}=reflectedReel(face);g.p.face=face;g.p.guard=true;g.p.guardAge=.5;
+  g.updateProjectiles(.08);assert(q.contacted);
+  assert.equal(g.p.hp,91);assert.equal(g.p.action.name,'knockdown');
+  g.updateProjectiles(.08);assert.equal(g.p.hp,91);
+  const events=g.drain();assert.equal(events.filter(e=>e.type==='playerKnockdown').length,1);
+  assert.equal(events.filter(e=>e.type==='block'||e.type==='parry').length,0);
+ }
+});
 test('Spike exits the pizzeria door and has two can attacks plus a close-range punch',()=>{const g=arena('hero',5);g.activeGate=2;g.p.x=2240;g.camera=1820;g.spawnBoss();const e=g.enemies[0];assert.equal(e.kind,'spike');assert.equal(e.entry.route,'door');g.updateEntry(e,.01);assert.equal(e.entry.phase,'door-open');assert(!e.targetable);const def=B.BOSS_DEFINITIONS.spike;assert.equal(def.moves.length,3);assert.equal(def.moves.filter(m=>m.area==='trash-can').length,2);assert(def.moves.some(m=>m.name==='BACK OFF'&&!m.area));});
-test('Spike locks a fair warning and retimes the can release to the imported handoff pose',()=>{for(const face of [-1,1]){const g=arena('hero',5);g.activeGate=2;g.p.x=2240;g.camera=1820;g.spawnBoss();const e=g.enemies[0];clearEntry(e);e.x=g.p.x-face*300;e.y=g.p.y;e.face=face;g.updateBoss(e,1/120);assert.equal(e.move.name,'CAN TOSS');const target={...e.telegraph},hp=g.p.hp;for(let i=0;i<107;i++)g.updateBoss(e,1/120);assert.equal(g.projectiles.length,0);assert.equal(g.p.hp,hp);g.updateBoss(e,.02);assert.equal(e.state,'attack');g.updateBoss(e,.32);assert.equal(g.projectiles.length,1);const q=g.projectiles[0];assert.equal(q.kind,'trash-can');assert.equal(q.targetX,target.x);assert.equal(q.sourceX,e.x+face*59.50699300699301*e.renderScale);assert.equal(q.sourceY,e.y-48.77622377622378*e.renderScale);assert.equal(e.anim,'v10-can-release');assert(e.animT/e.animDuration>0 && e.animT/e.animDuration<1);assert.equal(g.p.hp,hp);g.p.y+=45;g.updateProjectiles(q.duration);assert.equal(g.p.hp,hp);}});
+test('Spike locks a fair warning and retimes the can release to the imported handoff pose',()=>{for(const face of [-1,1]){const g=arena('hero',5);g.activeGate=2;g.p.x=2240;g.camera=1820;g.spawnBoss();const e=g.enemies[0];clearEntry(e);e.x=g.p.x-face*300;e.y=g.p.y;e.face=face;g.updateBoss(e,1/120);assert.equal(e.move.name,'CAN TOSS');const target={...e.telegraph},hp=g.p.hp;for(let i=0;i<107;i++)g.updateBoss(e,1/120);assert.equal(g.projectiles.length,0);assert.equal(g.p.hp,hp);g.updateBoss(e,.02);assert.equal(e.state,'attack');g.updateBoss(e,.32);assert.equal(g.projectiles.length,1);const q=g.projectiles[0];assert.equal(q.kind,'trash-can');assert.equal(q.targetX,target.x);assert.equal(q.sourceX,e.x+face*59.50699300699301*e.renderScale);assert.equal(q.sourceY-39*e.renderScale,e.y-48.77622377622378*e.renderScale);assert.equal(e.anim,'v10-can-release');assert(e.animT/e.animDuration>0 && e.animT/e.animDuration<1);assert.equal(g.p.hp,hp);g.p.y+=45;g.updateProjectiles(q.duration);assert.equal(g.p.hp,hp);}});
 test('Spike aims at release when the player crosses the original warning',()=>{const g=arena('hero',5);g.activeGate=2;g.p.x=2240;g.spawnBoss();const e=g.enemies[0];clearEntry(e);e.x=1940;e.y=g.p.y;g.updateBoss(e,1/120);assert.equal(e.face,1);assert.equal(e.telegraph.x,2240);g.p.x=1830;g.updateBoss(e,.91);assert.equal(e.face,1);g.updateBoss(e,.33);const q=g.projectiles[0];assert.equal(q.targetX,1830);assert.equal(q.sourceX,e.x+e.face*Math.min(59.50699300699301*e.renderScale,Math.abs(g.p.x-e.x)*.5));assert.equal(q.face,e.face);});
-test('Spike’s final 1.08 body scale carries the measured source-can handoff into world coordinates',()=>{const source=JSON.parse(fs.readFileSync(path.join(__dirname,'../production/v10-assets.json'))).projectileSourceCenterAtRelease;for(const face of [-1,1]){const g=arena('hero',5);g.activeGate=2;g.p.x=2240;g.spawnBoss();const e=g.enemies[0];clearEntry(e);e.x=g.p.x-face*300;e.y=g.p.y;g.updateBoss(e,1/120);g.updateBoss(e,.91);g.updateBoss(e,.33);const q=g.projectiles[0],worldX=e.x+face*source.faceRelativeX*e.renderScale,worldY=e.y-source.heightAboveGround*e.renderScale;assert.equal(e.renderScale,1.08);assert.equal(q.renderScale,e.renderScale);assert(Math.abs(q.sourceX-worldX)<.001);assert(Math.abs(q.sourceY-worldY)<.001);assert(Math.abs(Math.abs(q.sourceX-e.x)-64.26755244755245)<.001);assert(Math.abs(e.y-q.sourceY-52.678321678321684)<.001);}});
+// Compare the rendered can origin, not its physics pivot, to the source-art center.
+test('Spike’s final 1.08 body scale carries the measured source-can handoff into world coordinates',()=>{const source=JSON.parse(fs.readFileSync(path.join(__dirname,'../production/v10-assets.json'))).projectileSourceCenterAtRelease;for(const face of [-1,1]){const g=arena('hero',5);g.activeGate=2;g.p.x=2240;g.spawnBoss();const e=g.enemies[0];clearEntry(e);e.x=g.p.x-face*300;e.y=g.p.y;g.updateBoss(e,1/120);g.updateBoss(e,.91);g.updateBoss(e,.33);const q=g.projectiles[0],worldX=e.x+face*source.faceRelativeX*e.renderScale,worldY=e.y-source.heightAboveGround*e.renderScale;assert.equal(e.renderScale,1.08);assert.equal(q.renderScale,e.renderScale);const rendered=renderedCanOrigin(g,q);assert(Math.abs(rendered.x-worldX)<.001);assert(Math.abs(rendered.y-worldY)<.001);assert(Math.abs(Math.abs(q.sourceX-e.x)-64.26755244755245)<.001);assert(Math.abs(e.y-(q.sourceY-39*q.renderScale)-52.678321678321684)<.001);}});
 test('Transmitter starts a bounded screen-born wave, waits for real kills, then exposes core',()=>{const g=machine();g.updateBroadcastSummons(.01);assert.equal(g.enemies.filter(e=>e.broadcastSummon&&e.hp>0).length,2);assert(g.enemies.filter(e=>e.broadcastSummon).every(e=>e.entry.route==='broadcast'));require('./v9-fixtures').advanceDevice(g,()=>g.broadcastSummons.phase==='shielded');g.updateBroadcastSummons(99);assert.equal(g.broadcastSummons.wave,1);assert.equal(g.broadcastSummons.phase,'shielded');for(const e of g.enemies.filter(e=>e.broadcastSummon))g.registerHit(e,{damage:999,kb:0});require('./v9-fixtures').advanceDevice(g,()=>g.broadcastSummons.phase==='vulnerable');assert.equal(g.broadcastSummons.phase,'vulnerable');});
 test('Machine shutdown preserves every surviving summon without fake KO rewards',()=>{for(const route of ['hero','franklin']){const g=machine(route);g.updateBroadcastSummons(.01);const live=g.enemies.filter(e=>e.broadcastSummon),kos=g.stats.kos;g.stopBroadcastSummons();assert(live.every(e=>e.hp>0));assert.equal(g.stats.kos,kos);g.machineDefeated=true;assert(!g.resolveBroadcast());assert.equal(g.drain().filter(e=>e.type==='summonsDismissed').length,0);for(const e of live)g.registerHit(e,{damage:999,kb:0});g.enemies[0].hp=0;require('./v9-fixtures').advanceDevice(g,()=>g.broadcastSummons.defeatTime>=4);assert(g.resolveBroadcast());assert(g.finishDukeConfrontation());assert.equal(g.enemies[0].kind,'duke');}});
 test('Duke is faster and stronger while keeping seven readable physical attacks and recoveries',()=>{assert.equal(B.STAGES[6].finalBoss.hp,340);assert.equal(B.EINFO.duke.speed,145);const def=B.BOSS_DEFINITIONS.duke;assert.equal(def.hurtRecovery,.4);assert.deepStrictEqual(def.moves.slice(0,3).map(m=>m.wind),[.6,.7,.8]);assert.deepStrictEqual(def.moves.slice(0,3).map(m=>m.damage),[17,23,22]);assert.equal(def.moves[2].rush,245);assert.equal(def.moves.length,7);assert(def.moves.every(m=>(m.recovery||def.recovery)>=.7));assert(def.moves.every(m=>m.hits.every(t=>t<m.duration)));assert(def.moves.every(m=>!m.area));});

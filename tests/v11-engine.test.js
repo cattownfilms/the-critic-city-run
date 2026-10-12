@@ -17,5 +17,5 @@ for(const stage of [4,5]){const g=arena(stage);g.projection.disabled=true;g.spaw
 }
 assert(C.scenes.ending.shots.slice(0,5).every(s=>s.reunionLayers));assert(C.scenes['boss-spike-intro'].shots.at(-1).spikeTutorial);
 assert.equal(B.RUN_ATTACKS.franklin.dur,.56);assert.equal(B.RUN_ATTACKS.hero.dur,.43);assert.equal(B.RUN_ATTACKS.franklin.sourceImpact,11/26);
-const lines=Object.values(C.scenes).flatMap(s=>s.shots.map(q=>q.routeDialogue?.hero?.dialogue||q.dialogue||''));assert.equal(lines.filter(s=>s.includes('credits')).length,1);
-console.log('PASS retained cartwheel source contact, selective retiming, tutorial staging, reunion layer metadata and unique credits joke');
+const lines=Object.values(C.scenes).flatMap(s=>s.shots.map(q=>q.routeDialogue?.hero?.dialogue||q.dialogue||''));assert.equal(lines.filter(s=>s==='Is it too late to RSVP no?').length,1);assert.equal(lines.filter(s=>s.includes('credits')).length,0);
+console.log('PASS retained cartwheel source contact, selective retiming, tutorial staging, reunion layer metadata and unique approved RSVP joke');
