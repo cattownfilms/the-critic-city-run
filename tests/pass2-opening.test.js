@@ -16,7 +16,7 @@ for(const [i,shot] of current.opening.shots.entries()){
  }
  changed++;
 }
-assert.equal(dukes,10);assert.equal(changed,3);assert.deepEqual(current,baseline);
+assert.equal(dukes,10);assert.equal(changed,3);assert.deepEqual(current.opening,baseline.opening);
 // Exercise the real emission renderer across shot boundaries and the full exit.
 vm.runInContext(fs.readFileSync(require.resolve('../cutscenes.js'),'utf8'),context);
 const s=Object.create(context.CriticScenePlayer.prototype),draws=[];
@@ -34,4 +34,4 @@ for(const total of [3.32,4.1,5.1,6,6.9]){
  }
  assert(cast.every((v,i)=>!i||cast[i-1].y<=v.y),'floor depth order');
 }
-console.log('PASS opening only: seven grounded enemies, continuous scale/position across three shots, depth order and exit bounds; Duke 1.35; all other scene data unchanged');
+console.log('PASS opening only: seven grounded enemies, continuous scale/position across three shots, depth order and exit bounds; Duke 1.35; all other opening scene data unchanged');

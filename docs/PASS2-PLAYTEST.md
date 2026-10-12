@@ -62,10 +62,10 @@ Reviewed active historical assertions for music counts, stage definitions, dialo
 
 ## Preview and rollback
 
-Build ID: `v11-pass2-20261012-opening-enemies`; version remains 11.0.0. Artifacts: `release/pass2/The-Critic-Pass2.html` and `release/pass2/The-Critic-Pass2-Play.sh`; hashes in `release/pass2/artifact-hashes.json`. No production publication, installation, branch merge or save clearing.
+Build ID: `v11-pass2-20261012-duke-palace`; version remains 11.0.0. Artifacts: `release/pass2/The-Critic-Pass2.html` and `release/pass2/The-Critic-Pass2-Play.sh`; hashes in `release/pass2/artifact-hashes.json`. No production publication, installation, branch merge or save clearing.
 
-HTML SHA-256: `b96ca37dc5fcb272c6592ade3be4bc2017aff0db2bde8919cf093168b443deb6`.
-Launcher SHA-256: `22f8e4c8af439f9c2f6f3eb54e3c93447178bd96a0805ed8f2e20213053c5c74`.
+HTML SHA-256: `75c7e6331efbaf9652976708031e57e29e57583f31e52c1e70a535b478e1c0c5`.
+Launcher SHA-256: `8138cc2d0335f52d04707798324fd99fc13e1534a36fce01bd2621ecdaa27a60`.
 
 The launcher uses the established installed path and origin if manually executed. It has not been run here. Review the standalone in a separate browser profile first if preserving the currently installed build is essential. Original Pass 1 source remains on reliability-pass1; roll back by switching branches with a clean worktree, without reset or storage changes.
 
@@ -102,3 +102,39 @@ Validation: `node tests/pass2-opening.test.js` passed. It compares all scene def
 Before/after captures at 915x412 and 360x800 cover screen-emergence (4.09s), Hatchi Matchi (1s), and window-launch (.6s). Hatchi Matchi shows all seven identifiable figures with deliberate foreground/background overlap; Jay, Duke and Marty remain readable and the cage clear. Source animations and the existing floor shadows retain contact. These are fixed authored-time captures, not physical-device testing.
 
 Evidence: `~/.local/share/cattown/critic-release/pass2/enemy-opening-{before,after}-{screen-emergence,hatchi-matchi,window-launch}-{915x412,360x800}.png`. Corresponding `enemy-opening-{before,after}.json` records actor states and actual renderer animation bounds; `enemies.cjs` reproduces captures. Standalone and launcher rebuilt; embedded scene/config, payload byte parity and port 8788 checked. No full regression matrix or production deployment.
+
+## Duke and Palace Cinema micro-patch
+
+Base: local `a9b45d4`, branch `polish-pass2`. READY FOR USER PLAYTEST.
+
+### Duke and the first trashcan
+
+Reproduced in native Chromium: Duke's foreground story sprite was drawn after the trashcan at x=900/y=445 even though the cart travels behind it. Duke also used the cage deck y=407 as his foot position and scale 1 during ordinary stage transports.
+
+Seven stage-opening transports now explicitly author Duke at 1.35. The source bounds audit covers walk (187 high), idle (186), cart-push (172, intentionally bent over), cart-stop/release (185.602), button (197.853 including the prop), and confrontation (186). The same actor scale preserves body proportions through the push/stop; the shorter bent pose is not inflated independently. Studio opening and its approved enemy formation are byte-for-byte unchanged as resolved scene data. Receiver/background and confrontation retain their established 1.18 scale with the existing .63 depth factor; no boss scale or hitbox change.
+
+Only a coupled foreground story cart joins the normal prop depth sort. Cage, Marty, and Duke render as one group at wheel-floor depth (430.92 for the existing .92 cage), behind the trashcan at 445. Duke's draw pivot uses that wheel-floor position. Source hand contacts are transformed through Duke and cage scales, preserving the handle connection. Marty remains at the deck, 130 units ahead of Duke; camera, authored path, prop position/health, and gameplay collision are unchanged. Other story layers retain their previous ordering.
+
+### Palace Cinema only (internal stage 4)
+
+The three active booths retain their fixed encounter targets. Between booths, the previous booth view is the lower camera bound; player facing no longer flips the travel target. Palace-only velocity easing caps travel at 360 world units/sec and prevents overshoot when a new booth captures the camera. Theater District (internal stage 3) and its Franklin encounter are untouched.
+
+The third circuit immediately retains the current camera as a transient shutdown view; existing attack/projectile shutdown is preserved. The existing booth-shutdown shot now physically stages the player at the established 235/960 screen-left mark. It uses an existing grounded run, faces right when stopped, and waits for `awaitMarks` (including ground contact) and `awaitCamera` before the existing dialogue. If airborne, existing jump physics finishes the landing first. A player already at the mark stays still. The existing shutdown duration is retained and can extend for staging completion. No post-dialogue repositioning or new dialogue.
+
+Skip during staging completes the physical movement, then skips dialogue and restores play through the normal callback. Skip from pause resumes staging. Checkpoint fields/schema and Rabbi entrance definitions remain unchanged; camera bookkeeping is transient and is not serialized.
+
+### Focused verification
+
+- `node tests/pass2-duke-palace.test.js`: passed. Seven cart scales, opening equality, unchanged dialogue/Rabbi definitions, all three fixed booths and forward handoffs on both routes, attack shutdown, checkpoint/Retry recovery, and identical Theater District camera/player traces against the base.
+- `node tests/pass2-opening.test.js`: passed. Approved opening enemy sizes/continuity and Duke 1.35 preserved. Its historical full-scene comparison is now correctly limited to the opening, since this patch intentionally changes world-stage scenes.
+- `CRITIC_SCREENSHOTS=~/.local/share/cattown/critic-release/pass2 node tests/pass2-duke-palace-browser.cjs`: passed in native headless Chromium at 915x412 and 360x800. Sixteen staging cases cover both routes, watched completion, paused skip, already positioned, and airborne finishes. Actual story event dispatch, completion callback, saved disabled state and return to play are exercised. Every dialogue frame checked occurs after marks/camera/ground completion; movement is bounded by the existing 340 units/sec staging speed, with no teleport. Also checks actual cart/prop renderer order, wheel contact, coupling, retained prop, and three booth camera locks/travel.
+- Browser fixtures explicitly establish encounter state and advance the real scene/engine clocks. This is focused scene verification, not a full input-driven campaign or physical-device qualification. Initial fixture setup issues were corrected; final checks pass.
+- Standalone and launcher rebuilt; all six changed runtime scripts embed verbatim, launcher payload byte parity and port 8788 verified. Launcher not installed/executed; no production deployment, full regression matrix, asset generation, combat rebalance, or save-format change.
+
+Evidence directory: `~/.local/share/cattown/critic-release/pass2/`.
+
+- `duke-palace-before-cart-{915x412,360x800}.png` and `duke-palace-after-cart-{915x412,360x800}.png`: first-can crossing. At the unchanged portrait opening camera, the can/crossing is beyond the right edge; `duke-palace-after-cart-entry-360x800.png` shows the visible portrait transport and coupling.
+- `duke-palace-{before,after}-palace-{hero,franklin}-{915x412,360x800}.png`: defeat composition.
+- `duke-palace-focused-results.json`: browser assertions, frame traces and source bounds; `duke-palace-before.json`: baseline trace.
+
+The landscape dialogue panel still covers the lower part of the world view, as before; its layout was not changed. Both mobile layouts were visually reviewed. Physical controller/input feel remains for user playtest.

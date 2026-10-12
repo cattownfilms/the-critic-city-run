@@ -120,6 +120,7 @@ class Game{
  // Fixed encounter compositions are shared by gameplay and cinematic ownership.
  encounterCamera(width=this.viewWidth){
   const end=Math.max(0,LENGTH-width);
+  if(this.stage===4&&this.projection.shutdownCamera!==undefined&&!this.bossSpawned)return {kind:'booth-shutdown',x:this.projection.shutdownCamera};
   if(this.stage===4&&this.projection.active&&this.activeGate>=0)return {kind:'booth',x:clamp(this.projection.booths[this.activeGate].x-width/2,0,end)};
   if(this.stage===6&&this.machineDefeated&&!this.dukeDefeated&&this.enemies.some(e=>e.kind==='duke'&&e.hp>0))return {kind:'duke',x:clamp((this.storyCage?.x||2740)+110-width,0,end)};
   return null;
@@ -218,7 +219,7 @@ class Game{
   const c=this.projection.circuits[id];if(!c?.active)return false;c.active=false;for(const o of this.props)if((o.kind==='remote'||o.kind==='circuit')&&o.circuitId===id)o.hp=0;this.projectiles=this.projectiles.filter(q=>q.kind!=='reel'||q.circuitId!==id);const a=this.projection;a.shots=0;a.phase='waiting';a.timer=0;a.visible=false;const remaining=a.circuits.filter(x=>x.active).length;
   if(a.booths[a.window]?.circuitId===id){a.visible=false;a.telegraph=null;a.phase='waiting';a.timer=Math.max(0,PROJECTION.cooldown-.6);}
   this.emit('circuitDisabled',{circuitId:id,color:c.color,remaining});this.banner=`PROJECTION CIRCUITS: ${3-remaining} / 3`;this.bannerT=2;
-  if(!remaining)this.disableProjection();else{a.active=false;a.visible=false;this.nextGate=this.cleared=Math.max(this.nextGate,id+1);this.activeGate=-1;this.waveWait=0;}this.checkpointSave();return true;
+  if(!remaining)this.disableProjection();else{a.travelCamera=this.encounterCamera()?.x??this.camera;a.active=false;a.visible=false;this.nextGate=this.cleared=Math.max(this.nextGate,id+1);this.activeGate=-1;this.waveWait=0;}this.checkpointSave();return true;
  }
  updateBroadcastSummons(dt){
   const a=this.broadcastSummons;if(!a.active||this.machineDefeated||this.mode!=='play'||this.p.hp<=0)return;
@@ -262,7 +263,7 @@ class Game{
   if(Math.abs(e.kb)>1){e.x+=e.kb*dt;e.kb*=Math.exp(-8*dt);}
  }
  disableProjection(){
-  if(this.projection.disabled)return false;this.projection.disabled=true;this.projection.circuits.forEach(c=>c.active=false);this.projection.active=this.projection.visible=false;this.projection.telegraph=null;this.projectiles=this.projectiles.filter(q=>q.kind!=='reel');for(const e of this.enemies){if(e.projectionSupport&&e.hp>0){e.hp=0;e.state='dead';e.anim='death';e.timer=e.animT=0;e.animDuration=1.7;e.entry=null;e.hidden=false;e.targetable=false;e.kb=0;}}this.projection.shutdown=true;this.emit('slam',{x:this.p.x,y:this.p.y});this.banner='PROJECTION BOOTH DISABLED';this.bannerT=2.3;this.emit('projectionDisabled');this.story('boss-projection-defeat');return true;
+  if(this.projection.disabled)return false;if(this.stage===4)this.projection.shutdownCamera=this.camera;this.projection.disabled=true;this.projection.circuits.forEach(c=>c.active=false);this.projection.active=this.projection.visible=false;this.projection.telegraph=null;this.projectiles=this.projectiles.filter(q=>q.kind!=='reel');for(const e of this.enemies){if(e.projectionSupport&&e.hp>0){e.hp=0;e.state='dead';e.anim='death';e.timer=e.animT=0;e.animDuration=1.7;e.entry=null;e.hidden=false;e.targetable=false;e.kb=0;}}this.projection.shutdown=true;this.emit('slam',{x:this.p.x,y:this.p.y});this.banner='PROJECTION BOOTH DISABLED';this.bannerT=2.3;this.emit('projectionDisabled');this.story('boss-projection-defeat');return true;
  }
  setupEntry(e,index,side,boss=false){
   const sewer=!boss&&e.kind.startsWith('sherm-')&&((index+this.stage+this.activeGate)%2===0)&&![2,4,6].includes(this.stage);
@@ -555,9 +556,14 @@ class Game{
   if(this.activeGate<0&&this.nextGate===3&&(p.x>LENGTH-150||STAGES[this.stage].boss&&this.bossDefeated)){this.advanceStage();}
   this.chooseAnimation(dt,machineExit&&p.run?1:mag);
   const lock=this.encounterCamera(),cameraMin=0,cameraMax=Math.max(0,LENGTH-this.viewWidth);
-  const aim=lock?.x??clamp(machineExit?Math.min(2850-this.viewWidth,p.x-160):this.stage===6&&this.bossSpawned&&!this.machineDefeated?clamp(this.camera,p.x-this.viewWidth+100,p.x-100):p.x-this.viewWidth*.43+p.face*45,cameraMin,cameraMax),before=this.camera;
+  const palaceTravel=this.stage===4&&!this.projection.disabled&&!this.projection.active&&this.projection.travelCamera!==undefined;
+  const aim=lock?.x??clamp(palaceTravel?Math.max(this.projection.travelCamera,p.x-this.viewWidth*.43+45):machineExit?Math.min(2850-this.viewWidth,p.x-160):this.stage===6&&this.bossSpawned&&!this.machineDefeated?clamp(this.camera,p.x-this.viewWidth+100,p.x-100):p.x-this.viewWidth*.43+p.face*45,cameraMin,cameraMax),before=this.camera;
   const desired=(aim-before)*(1-Math.exp(-5*dt))/Math.max(dt,.000001);
-  if(this.cameraHandoff>0){this.cameraHandoff=Math.max(0,this.cameraHandoff-dt);this.cameraVelocity=lerp(this.cameraVelocity||0,desired,1-Math.exp(-18*dt));this.camera+=this.cameraVelocity*dt;}
+  if(this.stage===4&&(lock||palaceTravel)){
+   // Booth travel retains a fixed target without an abrupt velocity jump on capture.
+   const distance=aim-before,velocity=lerp(this.cameraVelocity||0,clamp(distance*5,-360,360),1-Math.exp(-10*dt));
+   this.camera=before+clamp(velocity*dt,Math.min(0,distance),Math.max(0,distance));this.cameraHandoff=0;
+  }else if(this.cameraHandoff>0){this.cameraHandoff=Math.max(0,this.cameraHandoff-dt);this.cameraVelocity=lerp(this.cameraVelocity||0,desired,1-Math.exp(-18*dt));this.camera+=this.cameraVelocity*dt;}
   else this.camera=lerp(before,aim,1-Math.exp(-5*dt));
   // Arena limits constrain the target, not the already displayed camera pose.
   if(lock&&Math.abs(this.camera-aim)<.01)this.camera=aim;
