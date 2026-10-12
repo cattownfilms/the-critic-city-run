@@ -344,7 +344,7 @@
     "tests/upgrade-launcher.test.py": "3ec9223a7b4bb9dd1642b6a1c8f45e84d54afb189ec29e197a55a118b573c8ee",
     "tests/v10-assets.test.py": "ee4455b2eac2258cd63f3246e07ac95ca69aae62d9c67852e01c2320cb64dad4",
     "tests/v10-engine.test.js": "584a8444df299a632697d4d78e9d0a97aa3e98a9414e6d1413963e5c8f8e60f5",
-    "tests/v10-presentation-browser.test.py": "8bca0de41f07086f4a5fae18fac9c7fb38d54590dbd92acad3e6e264eb96bc34",
+    "tests/v10-presentation-browser.test.py": "114991465b939c2249aadf6f4f11538e7034636b13c7a4e3a1837de85a89f041",
     "tests/v11-assets.test.py": "db264407181ac7500eb6afeb63821b808d0db4f948d8df855e776aa84e4a20a3",
     "tests/v11-engine.test.js": "bea91495f018d8d953bd06e0fc02e469e5796e8786ea40e8be86ced62637d3c6",
     "tests/v11-playtest-browser.test.py": "24b786f041d3a8be01b2bca0706aee905975794ef682068203388aa6bfc6e19e",
