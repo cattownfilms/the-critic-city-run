@@ -14,8 +14,8 @@ with source_site(a.url) as url,sync_playwright() as pw:
   check('Public/source runtime is v11 and schema 5',page.evaluate("BRAWLER_CONFIG.version==='11.0.0'&&__brawler.game.snapshot().version===5"))
   def state():
    return page.evaluate("""()=>{const b=__brawler,s=b.scenes(),g=b.game,t=g.spikeTutorial;return {shot:s.shot?.id||s.shot?.speaker,index:s.index,time:s.time,mode:g.mode,camera:s.cameraState,marksComplete:s.marksComplete,tutorial:t?{time:t.time,released:t.released,jumped:t.jumped,complete:t.complete,can:t.can?{id:t.can.id,phase:t.can.phase,x:t.can.x,z:t.can.z}:null}:null};}""")
-  def begin(route):
-   page.set_viewport_size({'width':915,'height':412} if route=='hero' else {'width':360,'height':800})
+  def begin(route,viewport=(915,412)):
+   page.set_viewport_size({'width':viewport[0],'height':viewport[1]})
    page.evaluate("""route=>{const b=__brawler,g=b.game;g.franklinUnlocked=true;g.start(null,route);g.stage=5;g.resetWorld();g.makePlayer();g.p.x=2200;g.p.y=407;g.camera=1820;g.activeGate=g.nextGate=2;g.spawnBoss();g.drain();const e=g.enemies[0];e.entry=null;e.hidden=false;e.x=2600;e.y=407;g.mode='play';window.v11Trace={shots:[],frames:[],releases:[],events:[]};b.handleEvent({type:'story',id:'boss-spike-intro'});}""",route)
    wait_scene(page)
   # Observers delegate every call unchanged. Record simulation frames so a short
@@ -23,7 +23,7 @@ with source_site(a.url) as url,sync_playwright() as pw:
   page.evaluate("""()=>{const b=__brawler,g=b.game,s=b.scenes();window.v11Trace={shots:[],frames:[],releases:[],events:[]};
    const shot=s._shot;s._shot=function(...args){const previous={id:this.shot?.id||this.shot?.speaker,marks:this.marksComplete,cameraActive:!!this.cameraState?.active,time:this.time};const value=shot.apply(this,args);v11Trace.shots.push({previous,id:this.shot?.id||this.shot?.speaker});return value;};
    const release=g.releaseTrashCan;g.releaseTrashCan=function(...args){const q=release.apply(this,args);if(args[2]?.tutorial)v11Trace.releases.push({id:q.id,overhead:args[2].overhead,time:this.spikeTutorial.time,x:q.sourceX,y:q.sourceY});return q;};
-   const update=g.updateSpikeTutorial;g.updateSpikeTutorial=function(...args){const value=update.apply(this,args),t=this.spikeTutorial,q=t?.can;if(t&&v11Trace.frames.length<2400)v11Trace.frames.push({time:t.time,hp:this.p.hp,z:this.p.z,player:this.playerKind,jumped:t.jumped,complete:t.complete,phase:q?.phase||null,done:!!q?.done,dx:q?Math.abs(q.x-this.p.x):null,activeCans:this.projectiles.filter(p=>p.tutorial).length,hidden:document.querySelector('.scene-copy').hidden});return value;};
+   const update=g.updateSpikeTutorial;g.updateSpikeTutorial=function(...args){const value=update.apply(this,args),t=this.spikeTutorial,q=t?.can;if(t&&v11Trace.frames.length<2400)v11Trace.frames.push({time:t.time,hp:this.p.hp,z:this.p.z,x:this.p.x,y:this.p.y,canX:q?.x,canY:q?.y,canZ:q?.z,signedDistance:q?q.x-this.p.x:null,camera:this.camera,worldScale:s.scene.worldScale,shot:s.shot.id,player:this.playerKind,jumped:t.jumped,complete:t.complete,phase:q?.phase||null,done:!!q?.done,dx:q?Math.abs(q.x-this.p.x):null,activeCans:this.projectiles.filter(p=>p.tutorial).length,hidden:document.querySelector('.scene-copy').hidden});return value;};
    const emit=g.emit;g.emit=function(type,...args){if(type==='spikeTutorialComplete')v11Trace.events.push(type);return emit.call(this,type,...args);};
   }""")
   if a.reproduce_legacy:
@@ -36,29 +36,32 @@ with source_site(a.url) as url,sync_playwright() as pw:
    (photos/f'{a.engine}-legacy-timeout.json').write_text(json.dumps(diagnostic,indent=2))
    check('Legacy fixture waits on manual overhead dialogue, not a stalled staging shot',timed_out and diagnostic['shot']=='JAY' and diagnostic['tutorial'] is None and any(t['previous']['id']=='tutorial-marks' and t['previous']['marks'] and not t['previous']['cameraActive'] for t in diagnostic['trace']['shots']),diagnostic)
    page.screenshot(path=str(photos/f'{a.engine}-legacy-timeout.png'));skip_story(page)
-  def overhead(route):
-   begin(route)
+  def overhead(route,viewport):
+   begin(route,viewport)
    page.wait_for_function("__brawler.scenes().shot.speaker==='SPIKE'&&__brawler.scenes().time>=__brawler.scenes().shot.minTime")
    page.locator('#sceneAdvance').tap()
    page.wait_for_function("__brawler.scenes().shot.actors?.some(a=>a.animation==='overhead-ready')&&__brawler.scenes().time>=__brawler.scenes().shot.minTime",timeout=15000)
    trace=page.evaluate('v11Trace')
    check(route+' staging advances only after marks and camera settle',any(t['previous']['id']=='tutorial-marks' and t['previous']['marks'] and not t['previous']['cameraActive'] and t['previous']['time']>=1.8 for t in trace['shots']),trace['shots'])
    check(route+' overhead dialogue waits for real Continue without premature release',state()['tutorial'] is None and not trace['releases'])
-  for route in ['hero','franklin']:
-   overhead(route)
+  for route,viewport in [(r,v) for r in ['hero','franklin'] for v in [(915,412),(360,800)]]:
+   case=f'{route}-{viewport[0]}x{viewport[1]}'
+   overhead(route,viewport)
    page.locator('#sceneAdvance').tap()
    page.wait_for_function('v11Trace.frames.some(f=>f.phase==="rolling")',timeout=15000)
-   page.screenshot(path=str(photos/f'{a.engine}-{route}-tutorial-roll.png'))
+   page.screenshot(path=str(photos/f'{a.engine}-{case}-tutorial-roll.png'))
    page.wait_for_function('v11Trace.frames.some(f=>f.z>65)',timeout=5000)
-   page.screenshot(path=str(photos/f'{a.engine}-{route}-tutorial-jump.png'))
+   page.screenshot(path=str(photos/f'{a.engine}-{case}-tutorial-jump.png'))
    page.wait_for_function('!__brawler.scenes().active&&__brawler.game.mode==="play"',timeout=15000)
-   trace=page.evaluate('v11Trace');(photos/f'{a.engine}-{route}-tutorial-trace.json').write_text(json.dumps(trace,indent=2))
+   trace=page.evaluate('v11Trace');(photos/f'{a.engine}-{case}-tutorial-trace.json').write_text(json.dumps(trace,indent=2))
    check(route+' one overhead release at the authored event',len(trace['releases'])==1 and trace['releases'][0]['overhead'] and .167<=trace['releases'][0]['time']<.25,trace['releases'])
-   check(route+' real flight, roll, selected-player jump and airborne underpass',any(f['phase']=='flight' for f in trace['frames']) and any(f['phase']=='rolling' for f in trace['frames']) and any(f['jumped'] and f['z']>58 and f['dx'] is not None and f['dx']<38 for f in trace['frames']) and all(f['player']==route for f in trace['frames']))
+   frames=trace['frames'];crossings=[f for prev,f in zip(frames,frames[1:]) if f['phase']=='rolling' and prev['signedDistance'] is not None and prev['signedDistance']>0>=f['signedDistance']]
+   rolling=next((f for f in frames if f['phase']=='rolling'),None)
+   check(case+' real flight, roll, selected-player jump and airborne underpass',any(f['phase']=='flight' for f in frames) and rolling is not None and len(crossings)==1 and crossings[0]['z']>58 and all(f['z']>58 for f in frames if f['phase']=='rolling' and f['dx']<38) and all(f['player']==route for f in frames),{'rollingStart':rolling,'crossings':crossings})
    check(route+' no tutorial damage, duplicate can or obscured combat floor',all(f['hp']==100 and f['activeCans']<=1 and f['hidden'] for f in trace['frames']))
    check(route+' tutorial completes once and returns grounded to combat',trace['events']==['spikeTutorialComplete'] and page.evaluate("__brawler.game.spikeTutorial===null&&__brawler.game.p.hp===100&&__brawler.game.p.z===0&&!__brawler.game.projectiles.some(q=>q.tutorial)"))
    for when in ['before-release','rolling']:
-    overhead(route)
+    overhead(route,viewport)
     if when=='rolling':
      page.locator('#sceneAdvance').tap();page.wait_for_function('v11Trace.frames.some(f=>f.phase==="rolling")',timeout=15000)
     count=page.evaluate('v11Trace.releases.length');page.locator('#sceneSkip').tap();page.wait_for_function('!__brawler.scenes().active&&__brawler.game.mode==="play"')

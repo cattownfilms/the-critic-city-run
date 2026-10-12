@@ -318,6 +318,13 @@ function beginWorldScene(scene){
  if(['boss-broadcast-intro','boss-broadcast-defeat','boss-duke-intro'].includes(scene.id))scene.finalCamera=Brawler.clamp(2850-game.viewWidth,0,Math.max(0,Brawler.LENGTH-game.viewWidth));
  if(['boss-duke-defeat','ending'].includes(scene.id))scene.finalCamera=displayedCamera;
  if(scene.id==='boss-cinema-intro'){scene.cinemaCamera=Brawler.clamp(2450-game.viewWidth*.66,0,Math.max(0,Brawler.LENGTH-game.viewWidth));for(const shot of scene.shots)for(const a of shot.actors||[])if(a.id==='player'){a.worldX=scene.cinemaCamera+game.viewWidth*.23;a.face=1;}}
+ // The overhead prop offset and 100-unit flight are world-space distances.
+ // Keep enough rolling approach for the real jump even when portrait marks shrink.
+ if(scene.id==='boss-spike-intro'){
+  const gap=Math.max(480,435*scene.worldScale),bounds=game.arenaBounds();
+  const center=Brawler.clamp(scene.worldOrigin+452.5*scene.worldScale,bounds.left+gap/2,bounds.right-gap/2);
+  let staged=false;for(const shot of scene.shots){if(shot.id==='tutorial-marks')staged=true;if(staged)for(const a of shot.actors||[])if(a.id==='player'||a.character==='spike')a.worldX=center+(a.id==='player'?-gap/2:gap/2);}
+ }
  if(scene.id==='stage-07-intro')game.backgroundTransport=false;
  if(scene.id==='boss-broadcast-intro')game.backgroundTransport=false;
  cinematicCamera=new Brawler.CinematicCamera(displayedCamera,0,1,lastRendered?.velocity||0);game.skyline=null;
@@ -332,7 +339,7 @@ function finishWorldScene(scene,skipped){
  if(scene.id.startsWith('stage-')){const a=shot.actors?.find(a=>a.id==='player');if(a){game.p.x=map(a.motion?.toX??a.x);game.p.face=a.face||1;game.p.anim='idle';game.p.animT=0;game.p.vx=game.p.vy=0;}}
  const boss=game.enemies.find(e=>e.boss&&e.entry);if(boss)for(let i=0;i<1000&&boss.entry;i++)game.updateEntry(boss,1/120);
  if(scene.id==='boss-cinema-intro'){game.p.x=shot.actors.find(a=>a.id==='player').worldX;game.p.y=407;game.p.face=1;}
- if(scene.id==='boss-spike-intro'){const e=game.enemies.find(e=>e.kind==='spike');game.p.x=map(235);game.p.y=407;if(e){e.x=map(670);e.y=407;}game.finishSpikeTutorial();}
+ if(scene.id==='boss-spike-intro'){const e=game.enemies.find(e=>e.kind==='spike');game.p.x=shot.actors.find(a=>a.id==='player').worldX??map(235);game.p.y=407;if(e){e.x=shot.actors.find(a=>a.character==='spike').worldX??map(670);e.y=407;}game.finishSpikeTutorial();}
  if(['boss-broadcast-intro','boss-broadcast-defeat','boss-duke-intro'].includes(scene.id)){for(const a of shot.actors||[]){const body=a.id==='player'?game.p:game.storyActors.find(e=>e.id===a.id);if(body&&a.worldX!==undefined){body.x=a.worldX;body.y=a.worldY??407;body.backdrop=body.y<350;body.renderScale=(body.kind==='duke'?1.18:1)*(body.backdrop?.63:1);}}const m=game.storyActors.find(a=>a.kind==='marty');if(m)game.storyCage={x:m.x,y:m.y,scale:m.renderScale,backdrop:m.backdrop,open:false};}
  // Skipping is an explicit transition to the authored terminal staging state.
  if(scene.id==='ending'){const father=game.playerKind==='hero'?game.p:game.storyActors.find(a=>a.id==='jay'),boy=game.storyActors.find(a=>a.kind==='marty');if(father&&boy){boy.x=father.x+70;boy.face=-1;boy.anim='idle';father.face=1;}}
