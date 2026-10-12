@@ -66,8 +66,12 @@ def route_run(page,kind):
     trace('route initialization begin',{'kind':kind})
     page.evaluate('''kind=>{window.__campaignQA={ticks:0,retries:0,stages:[],bosses:[],scenes:[],defeats:[],projectionDisabled:false,earlyRescue:false,dukeBeforeMachine:false,machineWaves:0,maxLiveSummons:0,summonsAfterMachine:false,kind};}''',kind)
     trace('route initialization end',{'kind':kind})
-    started=time.monotonic();loading_waits=[];previous=None
-    for batch in range(220):
+    started=time.monotonic();loading_waits=[];previous=None;last_progress=started;signature=None;batch=0
+    # Combat runs on accelerated simulation time; authored scenes retain wall time.
+    # Bound both clocks and detect meaningful progress, never spend a loop-count
+    # budget repeatedly asking an in-progress staging shot to skip.
+    while time.monotonic()-started<180:
+        batch+=1
         batch_started=time.monotonic()
         trace('route batch begin',{'kind':kind,'batch':batch,'priorStage':previous.get('stage') if previous else None,'priorTicks':previous.get('ticks',0) if previous else 0})
         value=page.evaluate('''()=>{
@@ -94,9 +98,14 @@ def route_run(page,kind):
             }else input.mx=1;
             g.step(1/120,input);qa.ticks++;events();
           }
-          return {...qa,mode:g.mode,stage:g.stage,seconds:g.t,kos:g.stats.kos,hits:g.stats.hits,flags:{...g.storyFlags},selected:g.playerKind,finalPhase:g.finalPhase,machineDefeated:g.machineDefeated,dukeDefeated:g.dukeDefeated};
+          const s=__brawler.scenes();return {...qa,diagnostic:{scene:s.active?s.scene.id:null,shot:s.active?s.index:null,sceneLoading:s.loading,marks:s.marksComplete,cameraSettling:s.cameraState?.active,gate:g.activeGate,nextGate:g.nextGate,player:{x:g.p.x,y:g.p.y,hp:g.p.hp,action:g.p.action?.name},enemies:g.enemies.filter(e=>e.hp>0).map(e=>({id:e.id,kind:e.kind,hp:e.hp,state:e.state})),circuits:g.projection.circuits.map(c=>c.active)},mode:g.mode,stage:g.stage,seconds:g.t,kos:g.stats.kos,hits:g.stats.hits,flags:{...g.storyFlags},selected:g.playerKind,finalPhase:g.finalPhase,machineDefeated:g.machineDefeated,dukeDefeated:g.dukeDefeated};
         }''')
         trace('route batch end',{'kind':kind,'batch':batch,'wallSeconds':round(time.monotonic()-batch_started,3),'stage':value['stage'],'mode':value['mode'],'ticks':value['ticks'],'deltaTicks':value['ticks']-(previous['ticks'] if previous else 0),'kos':value['kos'],'deltaKOs':value['kos']-(previous['kos'] if previous else 0),'simulationSeconds':value['seconds'],'stageChanged':previous is None or previous['stage']!=value['stage'],'scenes':value['scenes'][-2:]})
+        diagnostic=value['diagnostic']
+        marker=json.dumps([value['stage'],value['mode'],value['kos'],value['hits'],value['retries'],value['machineWaves'],value['flags'],diagnostic['scene'],diagnostic['shot'],diagnostic['gate'],diagnostic['nextGate'],diagnostic['circuits'],[round(diagnostic['player'][axis]/20) for axis in ['x','y']],[(e['id'],e['hp']) for e in diagnostic['enemies']]],sort_keys=True)
+        if marker!=signature:signature=marker;last_progress=time.monotonic()
+        if time.monotonic()-last_progress>20 or value['ticks']>120*1800 or value['retries']>20:
+            raise AssertionError('Campaign stalled or exceeded bounded simulation: '+json.dumps(value))
         previous=value
         if value['mode']=='complete':
             value['wallSeconds']=round(time.monotonic()-started,2);value['loadingWaits']=loading_waits
@@ -112,9 +121,9 @@ def route_run(page,kind):
             loading_waits.append({**diagnostic,**outcome,'waitSeconds':round(time.monotonic()-loading_started,2)})
             print('LOADING PROGRESSION',json.dumps(loading_waits[-1]),flush=True)
             if outcome['retryVisible']:raise AssertionError('Actual required dependency failed: '+outcome['status'])
+        elif value['mode'] in ['cutscene','confrontation']:page.wait_for_timeout(50)
         else:page.wait_for_timeout(5)
-    value['wallSeconds']=round(time.monotonic()-started,2);value['loadingWaits']=loading_waits
-    return value
+    raise AssertionError('Campaign exceeded 180-second wall deadline: '+json.dumps(previous))
 
 with source_site(args.url) as url, sync_playwright() as pw:
     try:browser=getattr(pw,args.engine).launch(**launch_options(args.engine))

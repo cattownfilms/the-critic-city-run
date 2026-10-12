@@ -21,6 +21,10 @@ on:
         type: boolean
         default: false
         description: Isolated native audio matrix against candidate and production
+      gateCorrections:
+        type: boolean
+        default: false
+        description: Only campaign, opening and ending-audio release corrections
       finalVisual:
         type: boolean
         default: false
@@ -115,7 +119,7 @@ jobs:
           name: core-results
           path: tests/*-results.json
   browsers:
-    if: ${{ !inputs.focused && !inputs.audioFixture && !inputs.controllerFixture && !inputs.loadingFixture }}
+    if: ${{ !inputs.focused && !inputs.audioFixture && !inputs.controllerFixture && !inputs.loadingFixture || inputs.gateCorrections }}
     runs-on: ubuntu-latest
     timeout-minutes: 15
     # Match requirements-test.txt without installing a changing host media stack.
@@ -163,7 +167,19 @@ jobs:
           pactl info
       - name: Build standalone parity edition
         run: python tools/build_standalone.py
+      - name: Targeted release-gate corrections
+        if: ${{ inputs.gateCorrections }}
+        run: |
+          python tools/export_script.py --check
+          python tests/campaign-browser.test.py --engine ${{ matrix.browser }}
+          python tests/final-visual-browser.test.py --engine ${{ matrix.browser }}
+          python tests/v7-scenes-browser.test.py --engine ${{ matrix.browser }}
+          python tests/v8-opening-entry-browser.test.py --engine ${{ matrix.browser }}
+          if [ "${{ matrix.browser }}" = chromium ]; then
+            python tests/campaign-browser.test.py --engine chromium --url standalone --output tests/campaign-chromium-offline-results.json
+          fi
       - name: Test actual multi-file site in browser engine
+        if: ${{ !inputs.gateCorrections }}
         run: |
           python -m http.server 8788 --bind 127.0.0.1 > /tmp/critic-http.log 2>&1 &
           server=$!
@@ -192,7 +208,7 @@ jobs:
           python tests/v7-scenes-browser.test.py --engine ${{ matrix.browser }}
           python tests/v8-opening-entry-browser.test.py --engine ${{ matrix.browser }}
       - name: Validate the standalone campaign and native audio
-        if: matrix.browser == 'chromium'
+        if: matrix.browser == 'chromium' && !inputs.gateCorrections
         run: |
           python tests/campaign-browser.test.py --engine chromium --url standalone --output tests/campaign-chromium-offline-results.json
           mv tests/v9-audio-chromium-results.json tests/v9-audio-chromium-source-results.json
@@ -223,7 +239,7 @@ jobs:
             tests/screenshots-v11/
 
   playtest:
-    if: ${{ inputs.focused && !inputs.audioFixture && !inputs.controllerFixture && !inputs.loadingFixture }}
+    if: ${{ inputs.focused && !inputs.gateCorrections && !inputs.audioFixture && !inputs.controllerFixture && !inputs.loadingFixture }}
     runs-on: ubuntu-latest
     timeout-minutes: 10
     container:

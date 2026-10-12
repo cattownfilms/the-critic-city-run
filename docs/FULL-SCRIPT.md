@@ -464,7 +464,7 @@ Setting: Palace Cinema | Music: current stage
 
 boss-projection-defeat/booth-shutdown | Automatic advance after 2s; earliest advance 1.9s.
 
-*Selected player: idle; the projection booths go dark; sound cue: slam.*
+*Selected player: idle, moving in place over 0.9s; the projection booths go dark; sound cue: slam.*
 
 No spoken dialogue.
 
@@ -1188,4 +1188,4 @@ Story lines and staging are authored in data/cutscenes.js. Stage and boss trigge
 
 Use the scene and beat identifiers when returning revisions. Replace the spoken line under the appropriate route; shared lines affect both characters. The seven approved opening lines are preserved exactly.
 
-Source fingerprint: 8d7d2630b02e328d
+Source fingerprint: 7ac2407842938b3f

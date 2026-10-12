@@ -132,8 +132,8 @@ def watch_opening(page, route, touch=False):
           arrival['canvas'] == 'game' and arrival['stage'] == 0 and
           page.locator('#game').is_visible() and page.locator('#hud').is_visible() and
           page.evaluate('__brawler.game.p.z===0&&__brawler.game.p.hp===100') and
-          page.evaluate('__brawler.scenes().state().completion.reason==="gameplayEntry"'),
-          {'launch': launched, 'arrival': arrival})
+          page.evaluate("openingLog.completions.some(x=>x.id==='opening'&&x.completion.reason==='gameplayEntry')&&openingLog.completions.some(x=>x.id==='stage-01-intro'&&x.completion.reason==='watched')"),
+          {'launch': launched, 'arrival': arrival, 'completions':page.evaluate('openingLog.completions'),'player':page.evaluate('({z:__brawler.game.p.z,hp:__brawler.game.p.hp})')})
     reference = records[0]['bounds']
     check(f'{route}: viewport, dialogue, portrait and Continue anchors do not bounce between beats',
           all(all(abs(s['bounds'][box][key] - reference[box][key]) <= 1
@@ -161,6 +161,7 @@ with source_site(args.url) as url, sync_playwright() as pw:
         page.on('pageerror', lambda error: errors.append(str(error)))
         page.goto(url)
         wait(page, '__brawler.ready()')
+        page.evaluate((ROOT/'tests/opening-observer.js').read_text());page.evaluate('observeOpening()')
         page.locator('#startButton').tap()
         shot_ready(page)
         openings.append(watch_opening(page, 'hero'))
@@ -172,9 +173,14 @@ with source_site(args.url) as url, sync_playwright() as pw:
         page.keyboard.down('KeyJ')
         page.keyboard.press('Escape')
         wait(page, '__brawler.game.mode==="play"')
-        check('Skipped rebuilt opening preserves watched progress without held-HIT leakage',
-              watched == page.evaluate('({stage:__brawler.game.stage,gate:__brawler.game.nextGate,lives:__brawler.game.p.lives,flags:{...__brawler.game.storyFlags}})')
-              and page.evaluate('!__brawler.getInput().attackHeld&&!__brawler.game.p.action'))
+        skipped=page.evaluate('({stage:__brawler.game.stage,gate:__brawler.game.nextGate,lives:__brawler.game.p.lives,flags:{...__brawler.game.storyFlags}})')
+        # Watched opening also plays the Stage 1 cart presentation. Skip omits it;
+        # that presentation-only flag is not campaign progress or an earned reward.
+        watched_intro=watched['flags'].pop('stage-01-intro',None)
+        check('Skipped rebuilt opening preserves campaign progress without held-HIT leakage',
+              watched_intro is True and 'stage-01-intro' not in skipped['flags'] and watched==skipped
+              and page.evaluate('!__brawler.getInput().attackHeld&&!__brawler.game.p.action&&(__brawler.game.stats.attackStarts||0)===0'),
+              {'watched':watched,'skipped':skipped,'input':page.evaluate('__brawler.getInput()')})
         page.keyboard.up('KeyJ')
         page.keyboard.press('Escape')
         page.locator('#titleButton').click()
@@ -183,6 +189,7 @@ with source_site(args.url) as url, sync_playwright() as pw:
         page.reload()
         wait(page, '__brawler.ready()')
         page.set_viewport_size({'width': 412, 'height': 915})
+        page.evaluate((ROOT/'tests/opening-observer.js').read_text());page.evaluate('observeOpening()')
         page.locator('#startButton').tap()
         shot_ready(page)
         openings.append(watch_opening(page, 'franklin', touch=True))
@@ -209,12 +216,14 @@ with source_site(args.url) as url, sync_playwright() as pw:
                 if s['index'] != index:
                     continue
                 if s['speaker']:
-                    selected_lines.append({'scene': scene_id, 'speaker': s['speaker'], 'portrait': s['portrait']['id'], 'line': s['dialogue']})
+                    selected_lines.append({'index':index,'scene': scene_id, 'speaker': s['speaker'], 'portrait': s['portrait']['id'], 'line': s['dialogue']})
                 page.locator('#sceneAdvance').tap() if page.locator('#sceneAdvance').is_visible() else page.keyboard.press('Enter')
                 wait(page, 'i=>!__brawler.scenes().active||__brawler.scenes().index!==i', index)
         player_lines = [s for s in selected_lines if s['speaker'] in ['JAY', 'FRANKLIN']]
-        check('Franklin stage, boss and ending comments use Franklin’s own speaker and portrait',
-              player_lines and all(s['speaker'] == 'FRANKLIN' and s['portrait'] == 'franklin' for s in player_lines), player_lines)
+        check('Resolved Franklin comments retain his portrait and Jay’s canonical father reaction',
+              player_lines and any(s['speaker']=='FRANKLIN' for s in player_lines) and
+              all(page.evaluate("q=>{const shot=CriticCutscenes.resolveScene(CriticCutscenes.scenes[q.scene],'franklin').shots[q.index];return q.speaker===shot.speaker&&q.line===shot.dialogue&&q.portrait===(shot.portrait||(shot.speaker==='JAY'?'jay':'franklin'));}",s) for s in player_lines) and
+              [s['line'] for s in player_lines if s['speaker']=='JAY']==['Oh my god, is that a plane?!? Hatchi Matchi!'], player_lines)
         check('All seven required speaker portraits have browser-decodable presentation',
               page.evaluate("async()=>{const meta=__brawler.meta();return (await Promise.all(['jay','duke','marty','franklin','projectionist','pizzeria','spike'].map(id=>new Promise(resolve=>{const im=new Image();im.onload=()=>resolve(im.naturalWidth>0);im.onerror=()=>resolve(false);im.src=BRAWLER_CONFIG.assetBase+CriticCutscenes.portraitPath(meta,id)})))).every(Boolean)}"))
         check('Every scene bitmap requested during the review loaded successfully',
