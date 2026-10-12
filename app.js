@@ -251,6 +251,7 @@ function loop(now){let dt=Math.min(.07,(now-last)/1000||.016);last=now;if(!docum
  renderer.draw(game,['pause','cutscene','loading','confrontation'].includes(game.mode)?0:dt);if(game.mode==='gallery'&&galleryReady)drawGallery(dt);hud();requestAnimationFrame(loop);
 }
 function prepareResults(){
+ CriticScenePlayer.memorialText($('resultsMemorial'),CriticCutscenes.scenes.ending.shots.find(s=>s.endingCard).caption);
  const replay=game.playerKind==='franklin';
  $('rewardHeading').textContent='CHARACTERS';
  $('rewardText').textContent=profile.franklinUnlocked?'Jay and Franklin are available for replay.':'Clear Stage 4 without dying to unlock Franklin.';
@@ -341,7 +342,7 @@ function finishWorldScene(scene,skipped){
  const boss=game.enemies.find(e=>e.boss&&e.entry);if(boss)for(let i=0;i<1000&&boss.entry;i++)game.updateEntry(boss,1/120);
  if(scene.id==='boss-cinema-intro'){game.p.x=shot.actors.find(a=>a.id==='player').worldX;game.p.y=407;game.p.face=1;}
  if(scene.id==='boss-spike-intro'){const e=game.enemies.find(e=>e.kind==='spike');game.p.x=shot.actors.find(a=>a.id==='player').worldX??map(235);game.p.y=407;if(e){e.x=shot.actors.find(a=>a.character==='spike').worldX??map(670);e.y=407;}game.finishSpikeTutorial();}
- if(['boss-broadcast-intro','boss-broadcast-defeat','boss-duke-intro'].includes(scene.id)){for(const a of shot.actors||[]){const body=a.id==='player'?game.p:game.storyActors.find(e=>e.id===a.id);if(body&&a.worldX!==undefined){body.x=a.worldX;body.y=a.worldY??407;body.backdrop=body.y<350;body.renderScale=(body.kind==='duke'?1.18:1)*(body.backdrop?.63:1);}}const m=game.storyActors.find(a=>a.kind==='marty');if(m)game.storyCage={x:m.x,y:m.y,scale:m.renderScale,backdrop:m.backdrop,open:false};}
+ if(['boss-broadcast-intro','boss-broadcast-defeat','boss-duke-intro'].includes(scene.id)){for(const a of shot.actors||[]){const body=a.id==='player'?game.p:game.storyActors.find(e=>e.id===a.id);if(body&&a.worldX!==undefined){body.x=a.worldX;body.y=a.worldY??407;body.backdrop=body.y<350;body.renderScale=(body.kind==='duke'?(body.backdrop?1.18:Brawler.DUKE_FOREGROUND_SCALE):1)*(body.backdrop?.63:1);}}const m=game.storyActors.find(a=>a.kind==='marty');if(m)game.storyCage={x:m.x,y:m.y,scale:m.renderScale,backdrop:m.backdrop,open:false};}
  // Skipping is an explicit transition to the authored terminal staging state.
  if(scene.id==='ending'){const father=game.playerKind==='hero'?game.p:game.storyActors.find(a=>a.id==='jay'),boy=game.storyActors.find(a=>a.kind==='marty');if(father&&boy){boy.x=father.x+70;boy.face=-1;boy.anim='idle';father.face=1;}}
 }
@@ -394,7 +395,7 @@ function drawWorldScene(s){
     body.x+=Math.sign(dx)*Math.min(Math.abs(dx),340*dt);moving=Math.abs(target-body.x)>3&&u>0;if(moving)body.face=target<body.x?-1:1;
    }else if(!m&&(body.hp>0||!isBoss)&&!(isPlayer&&(s.reframePlayer||s.shot.dialogue||s.shot.routeDialogue))){const dx=target-body.x;moving=Math.abs(dx)>4;if(moving){body.x+=Math.sign(dx)*Math.min(Math.abs(dx),220*dt);body.face=dx<0?-1:1;}}
    const targetY=a.worldY??407,dy=targetY-body.y;if(Math.abs(dy)>2&&(!isBoss||body.hp>0)){body.y+=Math.sign(dy)*Math.min(Math.abs(dy),85*dt);moving=true;}
-   if(game.stage===6&&['duke','marty'].includes(who)){body.backdrop=targetY<350||body.y<350;body.renderScale=(who==='duke'?(s.shot.awaitExit?a.scale||1.35:1.18):1)*(.63+.37*Brawler.clamp((body.y-305)/102,0,1));}
+   if(game.stage===6&&['duke','marty'].includes(who)){const depth=Brawler.clamp((body.y-305)/102,0,1);body.backdrop=targetY<350||body.y<350;body.renderScale=who!=='duke'?.63+.37*depth:isBoss?Brawler.DUKE_FOREGROUND_SCALE:s.shot.awaitExit?(a.scale||1.35)*(.63+.37*depth):targetY>=350?Brawler.lerp(1.18*.63,Brawler.DUKE_FOREGROUND_SCALE,depth):1.18*(.63+.37*depth);}
    if(moving)body.anim=s.shot.cartCoupled&&who==='duke'?'v11-cart-push':s.shot.cartCoupled&&who==='marty'?'v11-captive-idle':who==='spike'?'v10-walk':who==='marty'?'run':isPlayer&&s.shot.id==='pursuit-entry'?'v10-run-in':m?.duration<1.6?'run':'walk';
    else{body.anim=a.animation||'idle';if(m)body.anim=isPlayer?'v10-stop':s.shot.cartCoupled&&who==='duke'?'v11-cart-stop':s.shot.cartCoupled&&who==='marty'?'v11-captive-idle':'idle';if(a.face)body.face=a.face;else if(isPlayer)body.face=1;else if(['duke','spike','pizzeria-boss','marty'].includes(who))body.face=game.p.x<body.x?-1:1;}
    if(isPlayer&&moving&&(s.shot.projectionStaging||s.followAuthoredPlayer&&cinematicCamera?.active))body.anim='run';

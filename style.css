@@ -20,3 +20,13 @@
 /* Compact replay control, scoped to the existing Intermission panel. */
 #pause details>summary{min-height:44px;display:list-item;align-content:center;cursor:pointer;padding:10px 0;box-sizing:border-box;touch-action:manipulation}
 #stageReplaySelect{min-height:44px;max-width:100%;width:100%}
+
+/* Shared full-image memorial; the atlas tile retains its complete 16:9 framing. */
+.memorial-image{position:relative;display:block;aspect-ratio:16/9;width:100%;overflow:hidden;background:#111724;isolation:isolate}
+.memorial-image canvas,#victoryCanvas{position:absolute;inset:0;width:100%;height:100%;display:block;border:0;border-radius:0}
+.memorial-image::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,#080e1855,#080e1870 45%,#080e1833);pointer-events:none}
+.memorial-copy,#complete #resultsMemorial,#cutscene.ending-card #sceneDialogue{position:absolute;inset:0;z-index:1;display:flex;flex-direction:column;justify-content:center;align-items:center;margin:0;padding:10px 16px;color:#fff6e8;text-align:center;font-family:Georgia,"Times New Roman",serif;font-weight:400;font-size:clamp(17px,2.3vw,24px);line-height:1.3;letter-spacing:.015em;text-shadow:0 2px 4px #000,0 0 12px #0009}
+.memorial-line{display:block;max-width:660px}.memorial-line+.memorial-line{margin-top:.65em}.memorial-line-1{font-style:italic;font-size:.9em}.memorial-line-2{font-size:1.15em;letter-spacing:.16em}
+#complete .resultPanel{display:flex;flex-direction:column;align-items:stretch;gap:20px;padding:14px;width:min(910px,96vw)!important}
+#complete .resultArt{position:relative;top:auto;flex:none;align-self:stretch}
+#complete .resultCopy{padding:0 10px 10px}

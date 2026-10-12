@@ -4,6 +4,8 @@ const clamp=(v,a,b)=>Math.max(a,Math.min(b,v)), lerp=(a,b,t)=>a+(b-a)*t, sign=v=
 const Campaign=typeof module!=='undefined'?require('./data/campaign.js'):root.CriticCampaign;
 if(!Campaign)throw new Error('Campaign definitions must load before the combat engine.');
 const {STAGES,EINFO,BOSS_DEFINITIONS,ITEMS,PROPS,PROJECTION}=Campaign;
+// Presentation only: final physical Duke shares the approved studio height.
+const DUKE_FOREGROUND_SCALE=1.35;
 const GATES=[520,1380,2280],LENGTH=2860,YMIN=350,YMAX=465;
 const HITS={
  jab:{anim:'jab',dur:.25,hit:.095,end:.20,damage:10,range:84,kb:18,sound:'hit',label:'JAB'},
@@ -133,7 +135,7 @@ class Game{
  finishDukeConfrontation(announce=true){
   if(this.stage!==STAGES.length-1||!this.machineDefeated||this.dukeDefeated||this.enemies.some(e=>e.hp>0&&e.kind!=='broadcast-rig'))return false;
   const spec=STAGES[this.stage].finalBoss,kind=spec.kind,k=EINFO[kind];this.finalPhase='duke';this.mode='play';this.activeGate=this.nextGate=2;this.bossSpawned=true;this.bossDefeated=false;this.waveWait=0;this.projectiles=[];
-  const e={id:++this.enemyId,kind,name:k.name,boss:true,elite:false,x:2630,y:324,z:0,face:-1,hp:spec.hp,maxHp:spec.hp,speed:k.speed,renderScale:k.renderScale||1,state:'entry',timer:0,cooldown:.65,anim:'walk',animT:0,animDuration:0,hit:false,kb:0,side:1,variant:0,flashes:0,moveIndex:0,move:null,hitIndex:0,telegraph:null};
+  const e={id:++this.enemyId,kind,name:k.name,boss:true,elite:false,x:2630,y:324,z:0,face:-1,hp:spec.hp,maxHp:spec.hp,speed:k.speed,renderScale:DUKE_FOREGROUND_SCALE,state:'entry',timer:0,cooldown:.65,anim:'walk',animT:0,animDuration:0,hit:false,kb:0,side:1,variant:0,flashes:0,moveIndex:0,move:null,hitIndex:0,telegraph:null};
   if(this.dukeStaged){e.x=this.dukeStaged.x;e.y=this.dukeStaged.y;e.face=this.dukeStaged.face;e.entry=null;e.state='seek';e.hidden=false;e.targetable=true;this.dukeStaged=null;}else this.setupEntry(e,0,1,true);this.enemies=[e];this.target=e;this.targetT=3;this.p.action=null;this.p.attackBuffer=this.p.jumpBuffer=0;this.p.guard=false;this.p.vx=this.p.vy=0;
   if(!this.storyActors.some(a=>a.kind==='marty')){this.storyActors.push({id:'marty',kind:'marty',x:2740,y:305,face:-1,anim:'v11-captive-idle',animT:0,renderScale:.63,backdrop:true});this.storyCage={x:2740,y:305,scale:.63,backdrop:true,open:false};}
   if(announce)this.story(spec.intro);else this.storyFlags[spec.intro]=true;
@@ -610,5 +612,5 @@ class CinematicCamera {
  cancel(){this.active=false;this.onComplete=null;this.key=null;}
 }
 function completedStages(old,save){const out=new Set(Array.isArray(old)?old.filter(n=>Number.isInteger(n)&&n>=0&&n<7):[]);if(save&&[2,3,4,5].includes(save.version)){const count=save.complete?(save.version<4?4:7):Math.max(0,Math.min(6,Math.floor(+save.stage||0)));for(let n=0;n<count;n++)out.add(n);if(save.storyFlags?.['stage4-clear'])out.add(3);}return [...out].sort((a,b)=>a-b);}
-const API={completedStages,CinematicCamera,Game,STAGES,HITS,RUN_ATTACKS,CHAIN,GATES,LENGTH,YMIN,YMAX,clamp,lerp,EINFO,BOSS_MOVES,BOSS_DEFINITIONS,ITEMS,PROPS,PROJECTION,playerAnimation};if(typeof module!=='undefined')module.exports=API;else root.Brawler=API;
+const API={DUKE_FOREGROUND_SCALE,completedStages,CinematicCamera,Game,STAGES,HITS,RUN_ATTACKS,CHAIN,GATES,LENGTH,YMIN,YMAX,clamp,lerp,EINFO,BOSS_MOVES,BOSS_DEFINITIONS,ITEMS,PROPS,PROJECTION,playerAnimation};if(typeof module!=='undefined')module.exports=API;else root.Brawler=API;
 })(typeof window!=='undefined'?window:globalThis);

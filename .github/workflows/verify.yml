@@ -21,6 +21,10 @@ on:
         type: boolean
         default: false
         description: Isolated native audio matrix against candidate and production
+      finalVisual:
+        type: boolean
+        default: false
+        description: Only final Duke and memorial focused checks
       v11Fixture:
         type: boolean
         default: false
@@ -75,6 +79,11 @@ jobs:
         run: python -m pip install 'Pillow>=11.0'
       - name: Engine, controller, publication-safety and asset-route tests
         run: |
+          node tests/pass2.test.js
+          node tests/pass2-duke-palace.test.js
+          node tests/pass2-opening.test.js
+          node tests/final-visual.test.js
+          node tests/5872.test.js
           node tests/pass1.test.js
           node tests/engine.test.js
           node tests/franklin.test.js
@@ -95,6 +104,11 @@ jobs:
           python tests/v11-assets.test.py
           python tools/export_script.py --check
           python -c "from tools.publish import inventory; print('Verified public files:', len(inventory()))"
+      - name: Standalone and update-safe launcher integrity
+        run: |
+          python tools/build_standalone.py
+          python tools/build_launcher.py The-Critic-Coming-Attractions-v11.html The-Critic-Coming-Attractions-v11-Play.sh
+          python tests/final-packaging.test.py
       - uses: actions/upload-artifact@v7
         if: always()
         with:
@@ -157,6 +171,7 @@ jobs:
           python -c "import time,urllib.request; time.sleep(1); urllib.request.urlopen('http://127.0.0.1:8788/').read(100)"
           if [ "${{ matrix.browser }}" = chromium ]; then python tests/pass1-browser.test.py; fi
           python tests/v9-presentation-browser.test.py --engine ${{ matrix.browser }} --url local
+          python tests/final-visual-browser.test.py --engine ${{ matrix.browser }} --url local
           python tests/v10-presentation-browser.test.py --engine ${{ matrix.browser }} --url local
           python tests/v11-presentation-browser.test.py --engine ${{ matrix.browser }} --url local
           GST_DEBUG=2 DEBUG=pw:browser python tests/v9-audio-browser.test.py --engine ${{ matrix.browser }} --url local
@@ -192,6 +207,8 @@ jobs:
         with:
           name: browser-${{ matrix.browser }}-results
           path: |
+            tests/final-visual-*-results.json
+            tests/screenshots-final-visual/
             tests/pass1-browser-results.json
             tests/gamepad-*-results.json
             tests/campaign-*-results.json
@@ -229,21 +246,26 @@ jobs:
         env:
           SITE_URL: ${{ inputs.site_url }}
         run: python tests/v11-presentation-browser.test.py --engine chromium --url "$SITE_URL" --reproduce-legacy
+      - name: Final Duke and memorial focused checks
+        if: ${{ inputs.finalVisual }}
+        run: |
+          node tests/final-visual.test.js
+          python tests/final-visual-browser.test.py --engine chromium --url local
       - name: Focused source checks
-        if: ${{ !inputs.cinematic && !inputs.patch5857 && !inputs.micro && !inputs.patch5867 && !inputs.patch5872 && !inputs.v11Fixture }}
+        if: ${{ !inputs.cinematic && !inputs.patch5857 && !inputs.micro && !inputs.patch5867 && !inputs.patch5872 && !inputs.v11Fixture && !inputs.finalVisual }}
         run: |
           node tests/audio-lifecycle.test.js
           node tests/v11-engine.test.js
           node tests/v11-playtest-engine.test.js
       - name: Audio and affected scene browser checks
-        if: ${{ !inputs.cinematic && !inputs.patch5857 && !inputs.micro && !inputs.patch5867 && !inputs.patch5872 && !inputs.v11Fixture }}
+        if: ${{ !inputs.cinematic && !inputs.patch5857 && !inputs.micro && !inputs.patch5867 && !inputs.patch5872 && !inputs.v11Fixture && !inputs.finalVisual }}
         env:
           SITE_URL: ${{ inputs.site_url }}
         run: |
           python tests/v9-audio-browser.test.py --engine chromium --url "$SITE_URL"
           python tests/v11-playtest-browser.test.py --url "$SITE_URL"
       - name: Cinematic camera and ending checks
-        if: ${{ inputs.cinematic && !inputs.patch5857 && !inputs.micro && !inputs.patch5867 && !inputs.patch5872 && !inputs.v11Fixture }}
+        if: ${{ inputs.cinematic && !inputs.patch5857 && !inputs.micro && !inputs.patch5867 && !inputs.patch5872 && !inputs.v11Fixture && !inputs.finalVisual }}
         env:
           SITE_URL: ${{ inputs.site_url }}
         run: |
@@ -311,6 +333,7 @@ jobs:
           name: focused-playtest
           path: |
             tests/*-results.json
+            tests/screenshots-final-visual/
             tests/screenshots-playtest/
             tests/screenshots-v10/
             tests/screenshots-v11/
