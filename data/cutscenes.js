@@ -14,7 +14,18 @@ const screens=[{x:451,y:62,w:82,h:63},{x:556,y:62,w:82,h:63},{x:661,y:62,w:82,h:
 const emissions=cast.map((character,i)=>({id:'attraction-'+i,character,screen:i,start:i*.37,duration:1.3,toX:[340,415,570,670,720,780,860][i],toY:318,scale:.86}));
 // The opening crowd has one continuous timeline and lands left of Marty’s cage.
 const openingScreens=screens.map((screen,i)=>i===6?{...screen,x:346,y:78}:screen);
-const openingFormation=[{x:400,y:338,scale:.83,approach:45},{x:464,y:306,scale:.75,approach:44},{x:540,y:344,scale:.78,approach:40},{x:604,y:306,scale:.74,approach:37},{x:661,y:343,scale:.70,approach:33},{x:578,y:350,scale:.75,approach:43},{x:700,y:303,scale:.67,approach:27}];
+// Source idle bounds: Shermometers 105x198, Fred 89x194, Raptor 135x186,
+// Bear 110x186, Hippo 151x187. Stagger the thin opponents; give the heavy
+// silhouettes their own floor space, including the open left studio wing.
+const openingFormation=[
+ {x:369,y:316,scale:1.02,approach:24},
+ {x:428,y:258,scale:1.00,approach:23},
+ {x:516,y:278,scale:1.04,approach:21},
+ {x:558,y:312,scale:1.03,approach:18},
+ {x:675,y:341,scale:1.18,approach:10},
+ {x:444,y:350,scale:1.24,approach:24},
+ {x:153,y:337,scale:1.20,approach:18}
+];
 const openingEmissions=cast.map((character,i)=>{const f=openingFormation[i];return {id:'attraction-'+i,character,screen:i,start:i*.37,duration:1.1,toX:f.x,toY:f.y,scale:f.scale,face:-1,animation:'walk',approach:{toX:f.x-f.approach,duration:1.45}};});
 const openingBase=[actor('jay','hero',260,318,{image:'cutscenes/jay-seated.webp',imageHeight:224,imagePivot:{x:128,y:208}}),duke(610),actor('ally','franklin',145,318,{routes:['franklin'],face:1,scale:.96})];
 const revealed=[actor('jay','hero',270,318,{animation:'hurt'}),duke(610),boy(822,{lookAt:'jay'}),actor('ally','franklin',145,318,{routes:['franklin'],face:1,scale:.96})];

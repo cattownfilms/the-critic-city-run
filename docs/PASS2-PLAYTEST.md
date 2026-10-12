@@ -62,10 +62,10 @@ Reviewed active historical assertions for music counts, stage definitions, dialo
 
 ## Preview and rollback
 
-Build ID: `v11-pass2-20261012-opening`; version remains 11.0.0. Artifacts: `release/pass2/The-Critic-Pass2.html` and `release/pass2/The-Critic-Pass2-Play.sh`; hashes in `release/pass2/artifact-hashes.json`. No production publication, installation, branch merge or save clearing.
+Build ID: `v11-pass2-20261012-opening-enemies`; version remains 11.0.0. Artifacts: `release/pass2/The-Critic-Pass2.html` and `release/pass2/The-Critic-Pass2-Play.sh`; hashes in `release/pass2/artifact-hashes.json`. No production publication, installation, branch merge or save clearing.
 
-HTML SHA-256: `ee250d7c655222731976f7a167fda4d47bafa3e286dfdadbc9e7fe81e8733563`.
-Launcher SHA-256: `29493c0994d43edab05cff158a5617838216d40ffa5165eeba0233b43f7dce41`.
+HTML SHA-256: `b96ca37dc5fcb272c6592ade3be4bc2017aff0db2bde8919cf093168b443deb6`.
+Launcher SHA-256: `22f8e4c8af439f9c2f6f3eb54e3c93447178bd96a0805ed8f2e20213053c5c74`.
 
 The launcher uses the established installed path and origin if manually executed. It has not been run here. Review the standalone in a separate browser profile first if preserving the currently installed build is essential. Original Pass 1 source remains on reliability-pass1; roll back by switching branches with a clean worktree, without reset or storage changes.
 
@@ -78,3 +78,27 @@ The launcher uses the established installed path and origin if manually executed
 - Compare the opening walk, dialogue and button press against the resolved Duke reference; confirm scale feels imposing without changing the studio composition.
 
 Physical Android input feel, speakers, controller hardware and human balance remain unverified. No performance improvement is claimed. Full release qualification is deferred until user acceptance, as requested. READY FOR USER PLAYTEST. The opening reference is resolved and the scoped Duke correction is complete.
+
+## Opening enemy micro-patch
+
+Base: `ad83824` on local `polish-pass2`; Duke remains 1.35. No reference JPEG was found in Downloads, so the exact opening shots were reproduced in native Chromium.
+
+Only openingFormation changes runtime presentation. Source idle animation bounds establish these sizes (width x height in scene pixels):
+
+| Enemy | Source bounds | Opening scale before → after | Presented height |
+|---|---|---|---|
+| Shermometer punch | 105 x 198 | .83 → 1.02 | 202 |
+| Shermometer shove | 105 x 198 | .75 → 1.00 | 198 |
+| Shermometer slam | 105 x 198 | .78 → 1.04 | 206 |
+| Fred K | 89 x 194 | .74 → 1.03 | 200 |
+| JP Raptor Esq | 135 x 186 | .70 → 1.18 | 219 |
+| Accordion Bear | 110 x 186 | .75 → 1.24 | 231 |
+| Green Hippo | 151 x 187 | .67 → 1.20 | 224 |
+
+The Shermometers occupy staggered floor depths, Bear leads the foreground, and Hippo occupies the left studio wing. Shortened approaches retain space for the enlarged figures. Existing foot pivots and uniform per-character aspect ratios remain intact. The same emission objects supply all three shots; screen-start scale .23, growth interpolation, effects, camera, timing, dialogue and exit actions are unchanged. No gameplay size, hitbox, animation library, difficulty or later scene changes.
+
+Validation: `node tests/pass2-opening.test.js` passed. It compares all scene definitions with the base after normalizing only the seven opening sizes/marks, verifies all ten Duke appearances, exercises the real emission renderer at both shot boundaries and through the exit, and checks grounded anchors, stable scale, depth order and left/bottom bounds.
+
+Before/after captures at 915x412 and 360x800 cover screen-emergence (4.09s), Hatchi Matchi (1s), and window-launch (.6s). Hatchi Matchi shows all seven identifiable figures with deliberate foreground/background overlap; Jay, Duke and Marty remain readable and the cage clear. Source animations and the existing floor shadows retain contact. These are fixed authored-time captures, not physical-device testing.
+
+Evidence: `~/.local/share/cattown/critic-release/pass2/enemy-opening-{before,after}-{screen-emergence,hatchi-matchi,window-launch}-{915x412,360x800}.png`. Corresponding `enemy-opening-{before,after}.json` records actor states and actual renderer animation bounds; `enemies.cjs` reproduces captures. Standalone and launcher rebuilt; embedded scene/config, payload byte parity and port 8788 checked. No full regression matrix or production deployment.
