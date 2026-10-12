@@ -34,9 +34,15 @@ window.CriticControllerUI=function(o){
   $('controllerEnabled').checked=hub.enabled;
  }
  function currentScreen(){return [...document.querySelectorAll('.screen')].find(e=>!e.hidden);}
- function controls(screen){return [...screen.querySelectorAll('button,select,input,a[href]')].filter(e=>!e.disabled&&!e.hidden&&e.getClientRects().length&&getComputedStyle(e).visibility!=='hidden');}
+ function controls(screen){return [...screen.querySelectorAll('button,select,input,a[href],summary')].filter(e=>{
+  if(e.disabled||e.closest('[hidden]')||!e.getClientRects().length||getComputedStyle(e).visibility==='hidden')return false;
+  // Closed details descendants can retain layout boxes but cannot receive focus.
+  for(let parent=e.parentElement;parent&&parent!==screen;parent=parent.parentElement)if(parent.tagName==='DETAILS'&&!parent.open&&!parent.querySelector(':scope > summary')?.contains(e))return false;
+  return true;
+ });}
  function focus(el){if(!el)return;document.body.classList.add('controller-nav');try{el.focus({preventScroll:true});el.scrollIntoView({block:'nearest',inline:'nearest'});}catch(_){el.focus();}}
  function actionBack(screen){
+  const details=document.activeElement.closest('details[open]');if(details&&screen.contains(details)){details.open=false;focus(details.querySelector(':scope > summary'));return;}
   if(screen.id==='gallery')o.closeGallery();else if(screen.id==='pause'){if(o.game.mode==='pause')o.resume();else o.title();}
  }
  function tick(now){
@@ -56,7 +62,7 @@ window.CriticControllerUI=function(o){
    if(focused&&(dir==='left'||dir==='right')&&(focused.tagName==='SELECT'||focused.type==='range')){
     const delta=dir==='right'?1:-1;
     if(focused.tagName==='SELECT'){
-     const options=[...focused.options].filter(x=>!x.disabled),i=options.indexOf(focused.selectedOptions[0]);focused.value=options[(i+delta+options.length)%options.length].value;focused.dispatchEvent(new Event('change',{bubbles:true}));
+     const options=[...focused.options].filter(x=>!x.disabled),i=options.indexOf(focused.selectedOptions[0]);if(!options.length)return;focused.value=options[(i+delta+options.length)%options.length].value;focused.dispatchEvent(new Event('change',{bubbles:true}));
     }else{const step=+focused.step||1;focused.value=Math.max(+focused.min||0,Math.min(+focused.max||100,+focused.value+delta*step*5));focused.dispatchEvent(new Event('input',{bubbles:true}));}
    }else{let i=focused?els.indexOf(focused):-1;const d=dir==='up'||dir==='left'?-1:1;i=i<0?(d>0?0:els.length-1):(i+d+els.length)%els.length;focused=els[i];focus(focused);}
   }
@@ -67,7 +73,7 @@ window.CriticControllerUI=function(o){
   }
   if(s.pressed.confirm){
    if(!focused){focused=screen.querySelector('button.primary:not([disabled]):not([hidden])')||els[0];focus(focused);}
-   if(focused.tagName==='SELECT'){const options=[...focused.options].filter(x=>!x.disabled);focused.value=options[(options.indexOf(focused.selectedOptions[0])+1)%options.length].value;focused.dispatchEvent(new Event('change',{bubbles:true}));}
+   if(focused.tagName==='SELECT'){const options=[...focused.options].filter(x=>!x.disabled);if(!options.length)return;focused.value=options[(options.indexOf(focused.selectedOptions[0])+1)%options.length].value;focused.dispatchEvent(new Event('change',{bubbles:true}));}
    else if(focused.type==='checkbox'){focused.checked=!focused.checked;focused.dispatchEvent(new Event('change',{bubbles:true}));focused.dispatchEvent(new Event('input',{bubbles:true}));}
    else if(focused.type!=='range')focused.click();
   }

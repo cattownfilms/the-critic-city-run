@@ -107,8 +107,34 @@ with source_site(args.url) as site_url, sync_playwright() as pw:
  # Native menu navigation and confirm/back sharing.
  tap(9);p.locator('#resumeButton').focus()
  p.evaluate("""()=>{window.navTrace={frames:[],focus:[]};document.addEventListener('focusin',e=>navTrace.focus.push({time:performance.now(),id:e.target.id,tag:e.target.tagName}));const h=__brawler.controller,poll=h.poll;h.poll=function(...args){const v=poll.apply(this,args);if(navTrace.frames.length<180)navTrace.frames.push({time:args[0],blocked:this.blocked,mx:this.state.mx,my:this.state.my,axes:[...__pads[0].axes],focus:document.activeElement.id,screen:[...document.querySelectorAll('.screen')].find(e=>!e.hidden)?.id});return v;};}""")
- p.evaluate('__pads[0].axes[1]=1');p.wait_for_timeout(70);p.evaluate('__pads[0].axes[1]=0');p.wait_for_timeout(60)
- check('Stick navigates focus through the current menu',p.evaluate('document.activeElement.id!=="resumeButton"&&document.activeElement.closest("#pause")!==null'),p.evaluate("({mapping:__brawler.controller.mapping,trace:navTrace,controls:[...document.querySelectorAll('#pause button,#pause select,#pause input,#pause summary')].map(e=>({id:e.id,tag:e.tagName,disabled:e.disabled,hidden:e.hidden,rects:e.getClientRects().length,details:e.closest('details')?.open}))})"))
+ def direction(action,expected):
+  wait_observed('!__brawler.controller.blocked&&__brawler.controller.state.mx===0&&__brawler.controller.state.my===0')
+  binding=p.evaluate('(k)=>__brawler.controller.mapping[k][0]',action)
+  assert binding['type']=='axis'
+  p.evaluate('b=>__pads[0].axes[b.index]=b.sign',binding)
+  try:wait_observed(expected,timeout=2)
+  finally:p.evaluate('b=>__pads[0].axes[b.index]=0',binding)
+  wait_observed('__brawler.controller.state.mx===0&&__brawler.controller.state.my===0')
+ direction('down',"document.activeElement.matches('#pause summary')")
+ check('Stick navigates focus through the current menu',p.evaluate("document.activeElement.matches('#pause summary')"),p.evaluate("({mapping:__brawler.controller.mapping,trace:navTrace})"))
+ tap(6)
+ check('Controller confirm opens Stage Select',p.evaluate("document.querySelector('#pause details').open"))
+ direction('down','document.activeElement.id==="stageReplaySelect"')
+ # Fresh-profile replay has no unlocked options. Navigation must be safe and
+ # must never activate its disabled replay button or unlock a stage.
+ tap(6)
+ check('Empty Stage Select is safe and preserves locked stages',p.evaluate("[...document.querySelector('#stageReplaySelect').options].every(o=>o.disabled)&&document.querySelector('#stageReplayStart').disabled&&__brawler.game.mode==='pause'"))
+ direction('down','document.activeElement.id==="musicVolume"')
+ check('Controller skips disabled replay button',p.evaluate('document.activeElement.id==="musicVolume"'))
+ direction('up','document.activeElement.id==="stageReplaySelect"')
+ tap(7)
+ check('Controller Back closes Stage Select and restores summary focus',p.evaluate("!document.querySelector('#pause details').open&&document.activeElement.matches('#pause summary')&&__brawler.game.mode==='pause'"))
+ direction('down','document.activeElement.id==="musicVolume"')
+ check('Collapsed Stage Select descendants are skipped',p.evaluate('document.activeElement.id==="musicVolume"'))
+ direction('up',"document.activeElement.matches('#pause summary')")
+ p.keyboard.press('Enter');check('Keyboard opens Stage Select after controller use',p.evaluate("document.querySelector('#pause details').open"))
+ p.locator('#pause summary').tap();check('Touch closes Stage Select after keyboard use',p.evaluate("!document.querySelector('#pause details').open"))
+ check('Pause navigation does not leak gameplay actions',p.evaluate("__brawler.game.mode==='pause'&&!__brawler.getInput().attackHeld&&__brawler.getInput().mx===0"))
  tap(7);p.keyboard.down('ArrowRight');p.wait_for_function('__brawler.getInput().mx===1',timeout=10000,polling=50);check('Custom Menu Back resumes gameplay and returns keyboard focus',p.evaluate('__brawler.game.mode==="play"&&document.activeElement.closest("#pause")===null&&__brawler.getInput().mx===1'));p.keyboard.up('ArrowRight')
  # Portrait controller UI remains scrollable and inside the panel.
  p.locator('#pauseBtn').click();p.set_viewport_size({'width':412,'height':915});p.locator('#controllerSettings').scroll_into_view_if_needed();p.wait_for_timeout(180)

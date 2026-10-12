@@ -407,7 +407,7 @@ jobs:
         continue-on-error: true
         run: |
           git worktree add --detach /tmp/critic-controller-production 4ca587776cd953716ae03dbacae5f9f40a7792aa
-          cp tests/gamepad-browser.test.py /tmp/critic-controller-production/tests/gamepad-browser.test.py
+          git show 8455c5e:tests/gamepad-browser.test.py > /tmp/critic-controller-production/tests/gamepad-browser.test.py
           cd /tmp/critic-controller-production
           python tests/gamepad-browser.test.py --engine ${{ matrix.browser }} --url local --output "$GITHUB_WORKSPACE/tests/production-gamepad-${{ matrix.browser }}-results.json"
       - name: Candidate controller integration
