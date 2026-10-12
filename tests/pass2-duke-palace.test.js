@@ -3,7 +3,9 @@ const assert=require('node:assert/strict'),cp=require('node:child_process'),vm=r
 const B=require('../engine'),D=require('../data/cutscenes');
 function old(file){const c={module:{exports:{}},require:createRequire(require.resolve('../engine'))};vm.createContext(c);vm.runInContext(cp.execFileSync('git',['show','a9b45d4:'+file],{encoding:'utf8'}),c);return c.module.exports;}
 const before=old('data/cutscenes.js'),Old=old('engine.js'),json=x=>JSON.parse(JSON.stringify(x));
-assert.deepEqual(json(D.scenes.opening),json(before.scenes.opening));
+const opening=json(D.scenes.opening),oldOpening=json(before.scenes.opening);
+for(const [i,shot] of opening.shots.entries())for(const [j,e] of (shot.emissions||[]).entries()){const old=oldOpening.shots[i].emissions[j];e.toX=old.toX;e.toY=old.toY;e.approach.toX=old.approach.toX;}
+assert.deepEqual(opening,oldOpening); // The separate opening test checks mob blocking.
 for(let n=1;n<=7;n++)assert.equal(D.scenes[`stage-0${n}-intro`].shots[0].actors.find(a=>a.character==='duke').scale,1.35);
 for(const id of ['boss-cinema-intro','stage4-clear','stage-04-intro']){const a=json(D.scenes[id]),b=json(before.scenes[id]);if(id==='stage-04-intro')a.shots[0].actors.find(a=>a.character==='duke').scale=1;assert.deepEqual(a,b);}
 const shot=D.scenes['boss-projection-defeat'].shots[0];assert(shot.awaitMarks&&shot.awaitCamera&&shot.projectionStaging);assert.deepEqual(json(D.scenes['boss-projection-defeat'].shots[1]),json(before.scenes['boss-projection-defeat'].shots[1]));

@@ -62,10 +62,10 @@ Reviewed active historical assertions for music counts, stage definitions, dialo
 
 ## Preview and rollback
 
-Build ID: `v11-pass2-20261012-duke-palace`; version remains 11.0.0. Artifacts: `release/pass2/The-Critic-Pass2.html` and `release/pass2/The-Critic-Pass2-Play.sh`; hashes in `release/pass2/artifact-hashes.json`. No production publication, installation, branch merge or save clearing.
+Build ID: `v11-pass2-20261012-continuity`; version remains 11.0.0. Artifacts: `release/pass2/The-Critic-Pass2.html` and `release/pass2/The-Critic-Pass2-Play.sh`; hashes in `release/pass2/artifact-hashes.json`. No production publication, installation, branch merge or save clearing.
 
-HTML SHA-256: `75c7e6331efbaf9652976708031e57e29e57583f31e52c1e70a535b478e1c0c5`.
-Launcher SHA-256: `8138cc2d0335f52d04707798324fd99fc13e1534a36fce01bd2621ecdaa27a60`.
+HTML SHA-256: `0484f9988cee8fe2e366dfdc9babae4ab5e89fcf1b5cafca5618d2771320f92c`.
+Launcher SHA-256: `a22651fdd73e334e0bae094f37602a1b3ebc557d1de186bc304da42f61054698`.
 
 The launcher uses the established installed path and origin if manually executed. It has not been run here. Review the standalone in a separate browser profile first if preserving the currently installed build is essential. Original Pass 1 source remains on reliability-pass1; roll back by switching branches with a clean worktree, without reset or storage changes.
 
@@ -138,3 +138,37 @@ Evidence directory: `~/.local/share/cattown/critic-release/pass2/`.
 - `duke-palace-focused-results.json`: browser assertions, frame traces and source bounds; `duke-palace-before.json`: baseline trace.
 
 The landscape dialogue panel still covers the lower part of the world view, as before; its layout was not changed. Both mobile layouts were visually reviewed. Physical controller/input feel remains for user playtest.
+
+## Four-item cinematic continuity follow-up
+
+Base: latest local `24a6d1ca7e3d6bac6e786d510d9a272d4bdc7c8b` on `polish-pass2`.
+
+| Item | Status and root cause |
+|---|---|
+| Duke proportions | Complete, retained from the base. Ordinary transports previously used scale 1 and the cage-deck foot coordinate. Explicit stage-opening 1.35 and wheel-floor registration remain; studio 1.35, Receiver perspective and final-boss proportions are unchanged. The source push is naturally hunched (172 high versus 186 idle/185.602 stop/release); inflating that pose separately would distort the body. Walk, idle, push, stop, release, button, confrontation and lead-jab source bounds reviewed. |
+| First trashcan | Complete, retained from the base. Story actors previously drew over every prop. The coupled cart now sorts at its actual wheel-floor depth, behind the y=445 trashcan. The previous browser reproduction visibly placed Duke over its lid; current short recordings retain the depth fix, stationary camera, prop, foot plane and coupling. |
+| Palace Cinema | Complete, retained from the base. A released face-dependent camera target and the missing pre-dialogue staging gate caused reversals/reframing and movement during dialogue. The Palace-only booth targets, velocity easing, transient shutdown view, physical screen-left staging and marks/ground/camera gate remain. Both routes, skip, checkpoint/retry and Theater preservation continue to pass the affected focused contract test. |
+| Studio mob | Corrected here. Hippo's x=153 landing/x=135 approach mark placed him beyond Jay; the other short approaches left a dispersed crowd. All seven now land to Jay's right and close ranks in staggered floor lanes, with the lead Shermometer nearest Jay and both heavy enemies reinforcing the front. |
+
+Runtime changes in this follow-up are limited to `openingFormation` positions/depths/approach distances and the preview build identifier. `openingEmissions` still supplies the same TV indices, start times, growth, duration, walk animations, left facing and continuous shared timeline. Its approved scales remain 1.02 / 1.00 / 1.04 / 1.03 / 1.18 / 1.24 / 1.20. Settled pivot marks are 345 / 395 / 485 / 550 / 665 / 425 / 535. Landing span closes from 335 to 320 scene units; the former settled span of 530 is now 320. Bear/Hippo overlap deliberately at separate depths without hiding the rear heads/tubes. Fred, Raptor, Duke, Marty and the cage remain readable. Window-launch choreography and its existing crowd advances are unchanged.
+
+### Bounded verification and motion evidence
+
+- `node tests/pass2-opening.test.js`: passed. Full scene-definition comparison with the base normalizes only opening marks, locking scales, origins, dialogue, timing, actions and all other scenes. A 120 Hz sweep covers emergence, approach and window-launch: grounded actors stay right of Jay, preserve facing/scale/floor contact, never reverse, and retain left/right ordering in neighbouring floor lanes. Both shot boundaries are continuous and the formation tightens.
+- `node tests/pass2-duke-palace.test.js`: passed. Rerun because its shared cutscene-definition dependency and opening comparison changed. It retains the seven transport scale checks, Palace's three locks/handoffs, both-route shutdown/checkpoint/retry checks, unchanged Rabbi dialogue/entrance, and exact Theater District camera/player comparison. Opening comparison now permits marks only; approved sizes remain locked.
+- Native Chromium opening motion: 72 rendered frames over 7.2 seconds at each requested viewport, before and after. All 353 grounded enemy samples per after-recording remain to Jay's right and face him; all seven are present during Hatchi Matchi. Reviewed sequential phase frames through emergence, landing, closing ranks, reaction and launch, including the portrait composition.
+- Fresh direct-scene short recordings of the retained cart and both Palace defeat routes at both sizes supplement the prior passing browser evidence. The 16-case browser regression suite was not repeated: its runtime paths and data are unchanged. Its watched/paused-skip/already-positioned/airborne completion results remain in `duke-palace-focused-results.json` in the parent evidence directory.
+- Byte comparison confirms `app.js`, `engine.js`, `render.js`, `cutscenes.js`, `assets/sprites.json` and `data/campaign.js` unchanged from the base. No new animation registration was necessary. Combat, difficulty, Special terminology, saves, hitboxes and global camera behavior remain untouched.
+- Existing standalone/Termux preview rebuilt; formation/build embeds, launcher byte parity and port 8788 verified. No full matrix, main merge, production deployment, installation or asset regeneration.
+
+Evidence directory: `~/.local/share/cattown/critic-release/pass2/continuity/`.
+
+- `mob-{before,after}-{915x412,360x800}.gif`: complete short opening recordings at 10 fps, with matching numbered PNG frame directories and `mob-{before,after}-trace.json`.
+- `mob-{before,after}-{915x412,360x800}-{screen-emergence,hatchi-matchi,window-launch}.png`: matched scene screenshots.
+- `before-motion-sheet.jpg`, `after-motion-sheet.jpg`: chronological landscape review sheets.
+- `retained-{cart,palace-hero,palace-franklin}-{915x412,360x800}.gif`: fresh current-head recordings of items 1–3; corresponding PNG frames and `retained-current-trace.json` accompany them.
+- Earlier defect reproductions remain in the parent directory: `duke-palace-before-cart-915x412.png`, `duke-palace-before-palace-{hero,franklin}-{915x412,360x800}.png` and `duke-palace-before.json`.
+
+Reproduce opening recordings with `PHASE=after CRITIC_SCREENSHOTS=<evidence-directory> node tests/pass2-opening-motion.cjs` from the repository root. This uses existing source-scene fixtures and delegated renderer updates, with a 1.2-second manual reaction hold. GIF encoding uses Pillow because the local ffmpeg executable has an incompatible x265 dependency; no game assets or system packages were changed.
+
+READY FOR USER PLAYTEST. These are fixed-clock browser scene checks and recordings, not a new full-campaign or physical-controller qualification.
