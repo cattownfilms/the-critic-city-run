@@ -1,3 +1,4 @@
+// Duke source-HD pixelScale adapter (pixelScale: 2 is SOURCE density, not display enlargement).
 /* The Critic: Coming Attractions. Layered environments and source-atlas playback. */
 (function(root){'use strict';
 const {clamp,STAGES,LENGTH,YMIN,YMAX}=Brawler;
@@ -146,15 +147,15 @@ class Renderer{
   let chosen=this.frame(who,name,t,duration,opts.loop);if(!chosen)return;let im=this.images[this.sprites.matteOverrides?.[chosen.f.p]??chosen.f.p];
   if(!im){this.onMissingAnimation?.(who,name);const idle=this.frame(who,'idle',t,0,true);if(!idle||!this.images[this.sprites.matteOverrides?.[idle.f.p]??idle.f.p])return;chosen=idle;im=this.images[this.sprites.matteOverrides?.[idle.f.p]??idle.f.p];}
   const {a,f,progress}=chosen;
-  const sc=opts.scale||1,u=clamp((progress-.35)/.40,0,1),support=a.groundedDefeat?-(f.contactY||0)*u*u*(3-2*u):0;
+  const sc=(opts.scale||1)/(a.pixelScale||1),u=clamp((progress-.35)/.40,0,1),support=a.groundedDefeat?-(f.contactY||0)*u*u*(3-2*u):0;
   c.save();c.translate(x,y);c.scale(face*this.nativeFacing(who,name,f,a)*sc,sc);if(opts.alpha!==undefined)c.globalAlpha=opts.alpha;
   c.drawImage(im,f.x,f.y,f.w,f.h,f.ox,f.oy+support,f.w,f.h);c.restore();return chosen;
  }
  shadow(c,who,name,x,y,face,t,duration,sc=1,z=0,alpha=.35){
-  const ch=this.frame(who,name,t,duration);if(!ch)return;const {a,f,progress}=ch,prone=!!a.groundedDefeat;
-  const blend=prone?clamp(progress*1.8,0,1):0,wide=Math.max(25,Math.min(145,f.w*.46));
+  const ch=this.frame(who,name,t,duration);if(!ch)return;const {a,f,progress}=ch,prone=!!a.groundedDefeat,pixelScale=a.pixelScale||1,drawScale=sc/pixelScale;
+  const blend=prone?clamp(progress*1.8,0,1):0,wide=Math.max(25*pixelScale,Math.min(145*pixelScale,f.w*.46));
   const native=this.nativeFacing(who,name,f,a);
-  const cx=x+(prone?(f.ox+f.w/2)*face*native*sc*blend:0),rx=(32+(wide-32)*blend)*sc*Math.max(.5,1-z/260);
+  const cx=x+(prone?(f.ox+f.w/2)*face*native*drawScale*blend:0),rx=(32*pixelScale+(wide-32*pixelScale)*blend)*drawScale*Math.max(.5,1-z/260);
   c.save();c.globalAlpha=alpha;c.fillStyle='#050c15';c.beginPath();c.ellipse(cx,y+2,rx,prone?5:7*sc,0,0,Math.PI*2);c.fill();c.restore();
  }
  showcase(node,g,t){
